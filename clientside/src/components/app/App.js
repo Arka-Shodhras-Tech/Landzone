@@ -22,7 +22,7 @@ function App() {
       <Route exact path='/userupdate' element={<Userupdate/>}/>
       <Route exact path='/adminupdate' element={<Adminupdate/>}/>
       <Route exact path='/adminpage' element={<Adminpage/>}/>
-      {/* <Route exact path='/dashboard' element={<Dashboard/>}/> */}
+      <Route exact path='/dashboard' element={<Dashboard/>}/>
     </Routes>
     </BrowserRouter>
     </>

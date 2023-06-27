@@ -91,10 +91,17 @@ footer
 }
 aside
 {
-    margin-top: 7.4vh;
+    margin-top: 7vh;
     width: 15%;
-    background-color: rgb(204, 232, 223);
     height: 87.6vh;
+}
+.dropbar
+{
+    background-color: rgb(204, 232, 223);
+    position: absolute;
+    top: 7.35%;
+    height: 87.6vh;
+    width: 15%;
 }
 .asidebtn
 {
@@ -116,8 +123,10 @@ aside
 }
 section
 {
+    text-align: center;
+    margin-top: 7.4vh;
     width: 85%;
-    height: 95vh;
+    height: 87.6vh;
 }
 .dash
 {
@@ -139,4 +148,11 @@ section
 {
     background-color: brown;
     color:aliceblue;
+}
+.drop
+{
+    margin:0vh 0vh 0vh 2vh;
+    padding: 1% 1%;
+    height: 3.5vh;
+    transition: 0.3s;
 }

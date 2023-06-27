@@ -1,6 +1,7 @@
-import { formToJSON } from "axios";
 import React from "react";
 import { useState } from "react";
+import { Footer, Navbar } from "../../navfoot/navbar";
+import { Comp } from "../../company/company";
 export const Dashboard=()=>
 {
     const [uc,suc]=useState(0);
@@ -13,46 +14,57 @@ export const Dashboard=()=>
     const [pt,spt]=useState(0);
     return(
         <>
-        <div className="dash">
-        <table className="dashtable">
-            <tr>
-                <th>Dashboard content</th>
-                <th>Total count</th>
-            </tr>
-            <tr>
-                <td>Total User's Count</td>
-                <td>{uc}</td>
-            </tr>
-            <tr>
-                <td>Total Project Count</td>
-                <td>{pc}</td>
-            </tr>
-            <tr>
-                <td>Total USD in bank</td>
-                <td>{uib}</td>
-            </tr>
-            <tr>
-                <td>Total eUSD in bank</td>
-                <td>{eib}</td>
-            </tr>
-            <tr>
-                <td>Total ReMoneta Units</td>
-                <td>{ru}</td>
-            </tr>
-            <tr>
-                <td>Real Estate Total Value</td>
-                <td>{tv}</td>
-            </tr>
-            <tr>
-                <td>Recent Transactions (upto 10)</td>
-                <td>{ts}</td>
-            </tr>
-            <tr>
-                <td>Approval Pending Transactions(upto 10)</td>
-                <td>{pt}</td>
-            </tr>
-        </table>
+        <Navbar/>
+        <div className="home">
+            <div className="adpage">
+                <Comp/>
+                <section>
+                    <div>
+                            <div className="dash">
+                                <table className="dashtable">
+                                    <tr>
+                                        <th>Dashboard content</th>
+                                        <th>Total count</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Total User's Count</td>
+                                        <td>{uc}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total Project Count</td>
+                                        <td>{pc}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total USD in bank</td>
+                                        <td>{uib}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total eUSD in bank</td>
+                                        <td>{eib}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total ReMoneta Units</td>
+                                        <td>{ru}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Real Estate Total Value</td>
+                                        <td>{tv}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Recent Transactions (upto 10)</td>
+                                        <td>{ts}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Approval Pending Transactions(upto 10)</td>
+                                        <td>{pt}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                </section>
+            </div>
         </div>
+        <Footer/>
         </>
     )
 }
