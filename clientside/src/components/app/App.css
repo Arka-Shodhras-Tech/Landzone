@@ -86,7 +86,7 @@ footer
 .adpage
 {
     width: 100%;
-    height: 95vh;
+    height: 87.6vh;
     display: flex;
 }
 aside
@@ -108,7 +108,6 @@ aside
     text-decoration: none;
     padding: 3% 1%;
     background-color: aliceblue;
-    
     justify-content:center;
     display:flex;
     border-radius: 35%;
@@ -123,14 +122,13 @@ aside
 }
 section
 {
-    text-align: center;
     margin-top: 7.4vh;
     width: 85%;
     height: 87.6vh;
 }
 .dash
 {
-    margin: 16vh 0vh 0vh 25%;
+    margin: 9vh 0vh 0vh 25%;
 }
 .dashtable
 {
@@ -155,4 +153,48 @@ section
     padding: 1% 1%;
     height: 3.5vh;
     transition: 0.3s;
+}
+/* usermanage */
+.usrmng
+{
+    background-color: rgb(247, 239, 228);
+    height:80vh;
+    width: 100%;
+    padding: 10vh 0vh 0vh 5vh;
+}
+.usrmngitem
+{
+    padding: 1% 1%;
+    text-decoration: none;
+    color: rgb(74, 73, 73);
+    background-color: aliceblue;
+    display:flex;
+    margin-top: 10vh;
+    width: 25vh;
+    transition: 0.3s;
+}
+.usrmngitem:hover
+{
+    background-color: beige;
+    color: blueviolet;
+}
+.editdis
+{
+    top:20%;
+    left: 60%;
+    position:absolute;
+    width: 30%;
+    height: 60%;
+    background-color:aliceblue;
+}
+.disenadis
+{
+    top:60%;
+    left: 40%;
+    position:absolute;
+    width: 30%;
+    height: 10%;
+    background-color:aliceblue;
+    display: flex;
+    justify-content:space-between;
 }

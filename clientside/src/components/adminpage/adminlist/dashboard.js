@@ -6,12 +6,20 @@ export const Dashboard=()=>
 {
     const [uc,suc]=useState(0);
     const [pc,spc]=useState(0);
-    const [uib,ssib]=useState(0);
+    const [uib,suib]=useState(0);
     const [eib,seib]=useState(0);
     const [ru,sru]=useState(0);
     const [tv,stv]=useState(0);
     const [ts,sts]=useState(0);
     const [pt,spt]=useState(0);
+    // suc(0)
+    // spc(0)
+    // suib(0)
+    // seib(0)
+    // sru(0)
+    // stv(0)
+    // sts(0)
+    // spt(0)
     return(
         <>
         <Navbar/>
