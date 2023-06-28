@@ -178,7 +178,7 @@ export const Usermanage=()=>
                                         <>
                                         <td><b>{val1.name}</b></td>
                                         <td><b>{val1.gmail}</b></td>
-                                        </>:{id="disply"}
+                                        </>:1
                                     }
                                  </tr>
                              ))
