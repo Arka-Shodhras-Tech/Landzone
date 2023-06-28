@@ -127,7 +127,7 @@ export const Adminregister=()=>
     const Show=async()=>{
         if(emailtest.test(gmail))
         {
-            const responce1=await axios.get("http://localhost:8000/check/"+gmail)
+            const responce1=await axios.get("http://localhost:8000/admincheck/"+gmail)
             if(responce1.data)
             {
                 serr("Mail already Exist")
@@ -138,7 +138,7 @@ export const Adminregister=()=>
                {
                 if(password === cpassword)
                 {
-                    const responce=await axios.post("http://localhost:8000/register/"+name+"/"+gmail+"/"+password+"/"+cpassword)
+                    const responce=await axios.post("http://localhost:8000/adminregister/"+name+"/"+gmail+"/"+password+"/"+cpassword)
                     if(responce.data)   
                     {
                         nav("/adminlogin")

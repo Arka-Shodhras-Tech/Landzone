@@ -13,14 +13,12 @@ export const Adminlogin=()=>
     const Show=async()=>{
         if(emailtest.test(gmail))
         {
-            const responce=await axios.get("http://localhost:8000/login/"+gmail+"/"+password);
+            const responce=await axios.get("http://localhost:8000/adminlogin/"+gmail+"/"+password);
             if(responce.data)
         {
             localStorage.name=responce.data.name;
             localStorage.gmail=responce.data.gmail;
-            window.location.href(nav("/adminpage"))
-            window.location.reload("/adminpage")
-            
+            nav('/adminpage');
         }
         else{
             serror("password or mail incorrect")
@@ -94,9 +92,7 @@ export const Userlogin=()=>
         {
             localStorage.name=responce.data.name;
             localStorage.gmail=responce.data.gmail;
-            window.location.href(nav("/gamep"))
-            window.location.reload("/gamep")
-            
+            (nav("/gamep"))
         }
         else{
             serror("password or mail incorrect")

@@ -154,7 +154,7 @@ section
     height: 3.5vh;
     transition: 0.3s;
 }
-/* usermanage */
+/* user management */
 .usrmng
 {
     background-color: rgb(247, 239, 228);
@@ -178,18 +178,36 @@ section
     background-color: beige;
     color: blueviolet;
 }
+/* approve user from list and edit user */
 .editdis
 {
-    top:20%;
-    left: 60%;
+    top:15%;
+    left: 40%;
     position:absolute;
-    width: 30%;
+    width: 50%;
     height: 60%;
     background-color:aliceblue;
 }
+.aufltable
+{
+    width: 100%;
+    min-height: 100%;
+    border: 2px solid tomato;
+    border-collapse: collapse ;
+}
+.aufltable th
+{
+    border:solid 2px blue;
+}
+.aufltable td
+{
+    text-align: center;
+    border: 1px solid black;
+}
+/* disable enable user */
 .disenadis
 {
-    top:60%;
+    top:50%;
     left: 40%;
     position:absolute;
     width: 30%;
@@ -197,4 +215,16 @@ section
     background-color:aliceblue;
     display: flex;
     justify-content:space-between;
+}
+.disenadisbtn
+{
+    text-decoration: none;
+    padding: 0.1%;
+    color:green;
+}
+.disenareason
+{
+    position: absolute;
+    top:76%;
+    left: 40%;
 }
