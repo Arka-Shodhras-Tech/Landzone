@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Footer, Navbar } from "../../navfoot/navbar";
 import { Comp } from "../../company/company";
+import { Link } from "react-router-dom";
 export const Dashboard=()=>
 {
     const [uc,suc]=useState(0);
@@ -27,8 +28,14 @@ export const Dashboard=()=>
             <div className="adpage">
                 <Comp/>
                 <section>
-                    <div>
-                            <div className="dash">
+                    <div className="dash">
+                        <Link className="dashitem">Create Currency (Land/eUSD Units)</Link>
+                        <Link className="dashitem">view Pending Purchases</Link>
+                        <Link className="dashitem">Approve Pending Purchases</Link>
+                        <Link className="dashitem">Enter Value of eUSD in Bank</Link>
+                        <Link className="dashitem">Show Value of eUSD in Bank</Link>
+                    </div>
+                            <div>
                                 <table className="dashtable">
                                     <tr>
                                         <th>Dashboard content</th>
@@ -51,11 +58,11 @@ export const Dashboard=()=>
                                         <td>{eib}</td>
                                     </tr>
                                     <tr>
-                                        <td>Total ReMoneta Units</td>
+                                        <td>Total Land Units</td>
                                         <td>{ru}</td>
                                     </tr>
                                     <tr>
-                                        <td>Real Estate Total Value</td>
+                                        <td>Land Total Value</td>
                                         <td>{tv}</td>
                                     </tr>
                                     <tr>
@@ -68,7 +75,6 @@ export const Dashboard=()=>
                                     </tr>
                                 </table>
                             </div>
-                        </div>
                 </section>
             </div>
         </div>

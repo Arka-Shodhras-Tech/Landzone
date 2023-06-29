@@ -64,6 +64,7 @@ footer
     color: slateblue;
     font-size:60px;
 }
+
 /* login and register pages css */
 .tabledata
 {
@@ -82,6 +83,7 @@ footer
   color:black;
   font-size: large;
 }
+
 /* ------------------ */
 .adpage
 {
@@ -120,20 +122,38 @@ aside
     background-color: blanchedalmond;
     color:blueviolet;
 }
+
+/* section tag elements */
 section
 {
     margin-top: 7.4vh;
     width: 85%;
-    height: 87.6vh;
+    height:87.6vh;
+    overflow-y: scroll;
+}
+
+/*Drop down button */
+.drop
+{
+    margin:0vh 0vh 0vh 2vh;
+    padding: 1% 1%;
+    height: 3.5vh;
+    transition: 0.3s;
 }
 .dash
 {
-    margin: 9vh 0vh 0vh 25%;
+    background-color:antiquewhite;
+    padding: 1vh 0vh 5.9vh 5vh ;
 }
+
+/* Dash board */
 .dashtable
 {
+    top: 18%;
+    left: 53%;
     height: 70vh;
-    width: 50%;
+    width: 30%;
+    position:absolute;
 }
 .dashtable tr
 {
@@ -147,21 +167,23 @@ section
     background-color: brown;
     color:aliceblue;
 }
-.drop
+.dashitem
 {
-    margin:0vh 0vh 0vh 2vh;
     padding: 1% 1%;
-    height: 3.5vh;
-    transition: 0.3s;
+    text-decoration: none;
+    color:aliceblue;
+    background-color:rgb(69, 68, 68);
+    display:flex;
+    margin-top: 10vh;
+    width: 34vh;
+    transition: 0.5s;
 }
-/* user management */
-.usrmng
+.dashitem:hover
 {
-    background-color: rgb(247, 239, 228);
-    height:80vh;
-    width: 100%;
-    padding: 10vh 0vh 0vh 5vh;
+    background-color:cadetblue;
 }
+
+/* user management */
 .usrmngitem
 {
     padding: 1% 1%;
@@ -178,6 +200,7 @@ section
     background-color: beige;
     color: blueviolet;
 }
+
 /* approve user from list and edit user */
 .editdis
 {
@@ -204,6 +227,7 @@ section
     text-align: center;
     border: 1px solid black;
 }
+
 /* disable enable user */
 .disenadis
 {
@@ -227,4 +251,26 @@ section
     position: absolute;
     top:76%;
     left: 40%;
+}
+
+/* Land management items */
+.land
+{
+    background-color:antiquewhite;
+    padding: 4vh 0vh 19vh 5vh ;
+}
+.landitem
+{
+    padding: 1% 1%;
+    text-decoration: none;
+    color:aliceblue;
+    background-color:cornflowerblue;
+    display:flex;
+    margin-top: 10vh;
+    width: 34vh;
+    transition: 0.5s;
+}
+.landitem:hover
+{
+    background-color: darkgoldenrod;
 }

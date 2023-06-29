@@ -8,13 +8,14 @@ export const Usermanage=()=>
     const [dat,sdat]=useState([]);
     const [crt,scrt]=useState('');
     // const nav=useNavigate();
-    const Aprove=async()=>
+
+    // Transfer currency to user function
+    const Transfer=async()=>
     {
-        document.getElementById('approvedisplay').style.display="block";
-        document.getElementById('disenadisplay').style.display="none";
-        document.getElementById('editdisplay').style.display="none";
-        document.getElementById('reasondisplay').style.display='none'
+
     }
+
+    // View and edit user function
     const Edit=async()=>
     {
         document.getElementById('approvedisplay').style.display="none";
@@ -22,17 +23,27 @@ export const Usermanage=()=>
         document.getElementById('disenadisplay').style.display="none";
         document.getElementById('reasondisplay').style.display='none'
     }
+
+    // Approve user from list
+    const Aprove=async()=>
+    {
+        document.getElementById('approvedisplay').style.display="block";
+        document.getElementById('disenadisplay').style.display="none";
+        document.getElementById('editdisplay').style.display="none";
+        document.getElementById('reasondisplay').style.display='none'
+    }
+
+    // Block users
+    const View=async()=>
+    {
+        document.getElementById('disenadisplay').style.display="none";
+        document.getElementById('personinfo').style.display='block';
+    }
     const Disena=async()=>
     {
         document.getElementById('approvedisplay').style.display="none";
         document.getElementById('disenadisplay').style.display="block";
         document.getElementById('editdisplay').style.display="none";
-    }
-    const View=async()=>
-    {
-        console.log(crt)
-        document.getElementById('disenadisplay').style.display="none";
-        document.getElementById('personinfo').style.display='block';
     }
 
     const Disable=async()=>
@@ -53,6 +64,12 @@ export const Usermanage=()=>
     // {
     //     document.getElementById('confirm').style.display='none';
     // }
+
+    // View transaction history
+    const Transaction=async()=>
+    {
+
+    }
     useEffect(()=>
 {
     axios.get("http://localhost:8000/aufl")
@@ -70,11 +87,13 @@ export const Usermanage=()=>
                 <section>
 
                     {/* user management list */}
-                   <div style={{display:'flex'}}>
-                   <div className="usrmng">
+                   <div>
+                   <div className="dash">
+                           <Link className="usrmngitem" onClick={Transfer}>Transfer Currency to User</Link>
                            <Link className="usrmngitem" onClick={Aprove}>Approve Users From List</Link> 
                            <Link className="usrmngitem" onClick={Edit}>Eidt User</Link>
                            <Link className="usrmngitem" onClick={Disena}>Disable/Enable Users</Link>
+                           <Link className="usrmngitem" onClick={Transaction}>view transaction history</Link>
                     </div>
 
 
@@ -169,30 +188,32 @@ export const Usermanage=()=>
 
                     {/* after view on enable disable user form... displays selected person data */}
                     <div className="editdis" style={{display:'none'}} id="personinfo">
-                        <table>
+                        <table style={{margin:'15% 0% 0% 35%',border:'1px soild black'}}>
                         {
                              dat.map((val1) => (
-                                 <tr>
-                                    {
-                                        val1.gmail===crt?
-                                        <>
-                                        <td><b>{val1.name}</b></td>
-                                        <td><b>{val1.gmail}</b></td>
-                                        </>:1
+                                <div>
+                                     {
+                                    val1.gmail===crt?
+                                       <>
+                                       <tr >
+                                       <td><b>{val1.name}</b></td>
+                                       </tr>
+                                       <tr>
+                                       <td><b>{val1.gmail}</b></td>
+                                       </tr>
+                                       </>
+                                        :<b></b>
                                     }
-                                 </tr>
+                                </div>
                              ))
                         }
+                        <div style={{marginTop:'10vh'}}></div>
                             <tr>
-                                <td><Link onClick={Disable}>Disable User</Link></td>
-                                <td><Link  onClick={Enable}>Enable User</Link></td>
+                                <td style={{width:'2%'}}><Link onClick={Disable} style={{textDecoration:'none',padding:'0.5%',backgroundColor:'red',color:'white'}}><b>Disable User</b></Link></td>
+                                <td ><Link  onClick={Enable} style={{textDecoration:'none',padding:'0.5%',backgroundColor:'green',color:'white'}}>Enable User</Link></td>
                             </tr>
                         </table>
                     </div>
-                    {/* <div className="disenadis" style={{display:'none'}} id="disenadisplay">
-                        <Link className="disenadisbtn" onClick={Disable}>Disable User</Link>
-                        <Link className="disenadisbtn" onClick={Enable}>Enable User</Link>
-                    </div> */}
 
 
 

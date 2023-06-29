@@ -8,7 +8,7 @@ import { Adminupdate, Userupdate } from '../forgot/forgot';
 import { Adminpage } from '../adminpage/adminpage';
 import { Dashboard } from '../adminpage/adminlist/dashboard';
 import { Usermanage } from '../adminpage/adminlist/usermanage';
-import { Projectmanage } from '../adminpage/adminlist/projectmanage';
+import { Landmanage } from '../adminpage/adminlist/landmanage';
 import { Adminusermanage } from '../adminpage/adminlist/adminusermanage';
 import { Unitmanage } from '../adminpage/adminlist/unitmanage';
 function App() {
@@ -28,7 +28,7 @@ function App() {
       <Route exact path='/adminpage' element={<Adminpage/>}/>
       <Route exact path='/dashboard' element={<Dashboard/>}/>
       <Route exact path='/usermanage' element={<Usermanage/>}/>
-      <Route exact path='/projectmanage' element={<Projectmanage/>}/>
+      <Route exact path='/landmanage' element={<Landmanage/>}/>
       <Route exact path='/adminusermanage' element={<Adminusermanage/>}/>
       <Route exact path='/unitmanage' element={<Unitmanage/>}/>
     </Routes>

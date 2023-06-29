@@ -29,7 +29,7 @@ export const Comp=()=>
                             <Link to='/dashboard' className="asidebtn" ><b>Dashboard</b></Link>
                             <Link to='/usermanage' className="asidebtn" ><b>User Management</b></Link>
                             <Link to='/adminusermanage' className="asidebtn" ><b>Admin User Management</b></Link>
-                            <Link to='/projectmanage' className="asidebtn" ><b>Project Management</b></Link>
+                            <Link to='/landmanage' className="asidebtn" ><b>Land Management</b></Link>
                             <Link to='/unitmanage' className="asidebtn" ><b>Unit Request Management</b></Link>
                     </div>
                 </aside>
