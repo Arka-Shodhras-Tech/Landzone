@@ -204,12 +204,13 @@ section
 /* approve user from list and edit user */
 .editdis
 {
-    top:15%;
+    top:12%;
     left: 40%;
     position:absolute;
     width: 50%;
-    height: 60%;
+    height: 80%;
     background-color:aliceblue;
+    overflow-y: scroll;
 }
 .aufltable
 {
@@ -273,4 +274,19 @@ section
 .landitem:hover
 {
     background-color: darkgoldenrod;
+}
+.landinput
+{
+    margin:5% 0% 0% 3%;
+    font-size:large;
+    border-radius: 5px;
+}
+.landinput:hover
+{
+    border-color: rgb(69, 69, 243);
+    background-color: rgb(190, 252, 252);
+}
+.landtable
+{
+    width: 100%;
 }
