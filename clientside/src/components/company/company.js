@@ -11,7 +11,7 @@ export const Comp=()=>
         document.getElementById('sidebar').style.display="block";
     }
     return(
-        <aside>
+               <>
                 <div className="drop">
                         <Link onClick={Open}>
                             <img src={"list.svg"} width={'35px'} alt="list"/>
@@ -32,6 +32,6 @@ export const Comp=()=>
                             <Link to='/landmanage' className="asidebtn" ><b>Land Management</b></Link>
                             <Link to='/unitmanage' className="asidebtn" ><b>Unit Request Management</b></Link>
                     </div>
-                </aside>
+               </>
     )
 }

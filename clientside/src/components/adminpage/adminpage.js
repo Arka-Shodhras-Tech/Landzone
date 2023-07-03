@@ -7,7 +7,9 @@ export const Adminpage=()=>
         <Navbar/>
         <div className="home">
             <div className="adpage">
+                <aside>
                 <Comp/>
+                </aside>
                 <section>
                     <div>
                         <h2>Company info</h2>

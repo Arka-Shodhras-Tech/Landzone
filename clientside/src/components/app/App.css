@@ -95,7 +95,8 @@ aside
 {
     margin-top: 7vh;
     width: 15%;
-    height: 87.6vh;
+    height: 88vh;
+    background-color: rgb(74, 207, 165);
 }
 .dropbar
 {
@@ -197,7 +198,7 @@ section
 }
 .usrmngitem:hover
 {
-    background-color: beige;
+    background-color:yellowgreen;
     color: blueviolet;
 }
 
@@ -289,4 +290,17 @@ section
 .landtable
 {
     width: 100%;
+}
+
+/* View pending purchases */
+.pendtable
+{
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+.pendtable tr
+{
+    background-color: aquamarine;
+    margin-top: 100px;
 }

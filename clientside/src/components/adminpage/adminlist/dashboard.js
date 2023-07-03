@@ -1,8 +1,8 @@
-import React from "react";
-import { useState } from "react";
-import { Footer, Navbar } from "../../navfoot/navbar";
-import { Comp } from "../../company/company";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Comp } from "../../company/company";
+import { Footer, Navbar } from "../../navfoot/navbar";
 export const Dashboard=()=>
 {
     const [uc,suc]=useState(0);
@@ -13,27 +13,74 @@ export const Dashboard=()=>
     const [tv,stv]=useState(0);
     const [ts,sts]=useState(0);
     const [pt,spt]=useState(0);
-    // suc(0)
-    // spc(0)
-    // suib(0)
-    // seib(0)
-    // sru(0)
-    // stv(0)
-    // sts(0)
-    // spt(0)
+    const [dat,sdat]=useState([]);
+    const [num,snum]=useState([]);
+
+    // Create currency
+    const CC=()=>
+    {
+        document.getElementById('cc').style.display='block';
+        document.getElementById('vpp').style.display='none';
+        document.getElementById('app').style.display='none';
+        document.getElementById('evb').style.display='none';
+        document.getElementById('svb').style.display='none';
+    }
+    const Vpp=()=>
+    {
+        document.getElementById('cc').style.display='none';
+        document.getElementById('vpp').style.display='block';
+        document.getElementById('app').style.display='none';
+        document.getElementById('evb').style.display='none';
+        document.getElementById('svb').style.display='none';
+    }
+    const App=()=>
+    {
+        document.getElementById('cc').style.display='none';
+        document.getElementById('vpp').style.display='none';
+        document.getElementById('app').style.display='block';
+        document.getElementById('evb').style.display='none';
+        document.getElementById('svb').style.display='none';
+    }
+    const Evb=()=>
+    {
+        document.getElementById('cc').style.display='none';
+        document.getElementById('vpp').style.display='none';
+        document.getElementById('app').style.display='none';
+        document.getElementById('evb').style.display='block';
+        document.getElementById('svb').style.display='none';
+    }
+    const Svb=()=>
+    {
+        document.getElementById('cc').style.display='none';
+        document.getElementById('vpp').style.display='none';
+        document.getElementById('app').style.display='none';
+        document.getElementById('evb').style.display='none';
+        document.getElementById('svb').style.display='block';
+    }
+    useEffect(()=>
+    {
+    axios.get("http://localhost:8000/aufl")
+    .then((result)=>
+    {
+        sdat(result.data)
+    })
+    },[])
     return(
         <>
         <Navbar/>
         <div className="home">
             <div className="adpage">
+                <aside>
                 <Comp/>
+                <Link to='/dashboard' className="asidebtn" style={{marginTop:'11.9vh',backgroundColor:"orange"}}><b>Dashboard</b></Link>
+                </aside>
                 <section>
                     <div className="dash">
-                        <Link className="dashitem">Create Currency (Land/eUSD Units)</Link>
-                        <Link className="dashitem">view Pending Purchases</Link>
-                        <Link className="dashitem">Approve Pending Purchases</Link>
-                        <Link className="dashitem">Enter Value of eUSD in Bank</Link>
-                        <Link className="dashitem">Show Value of eUSD in Bank</Link>
+                        <Link className="dashitem" onClick={CC}>Create Currency (Land/eUSD Units)</Link>
+                        <Link className="dashitem" onClick={Vpp}>view Pending Purchases</Link>
+                        <Link className="dashitem" onClick={App}>Approve Pending Purchases</Link>
+                        <Link className="dashitem" onClick={Evb}>Enter Value of eUSD in Bank</Link>
+                        <Link className="dashitem" onClick={Svb}>Show Value of eUSD in Bank</Link>
                     </div>
                             <div>
                                 <table className="dashtable">
@@ -74,6 +121,73 @@ export const Dashboard=()=>
                                         <td>{pt}</td>
                                     </tr>
                                 </table>
+                            </div>
+
+                            {/* Create currency */}
+                            <div className="editdis" style={{display:'none'}} id="cc">
+                                <h1>Currency details</h1>
+                            </div>
+
+                            {/* View pending purchases */}
+                            <div className="editdis" style={{display:'none'}} id="vpp">
+                                <table className="pendtable">
+                                   {
+                                    dat.map((val,index)=>
+                                    (
+                                       <>
+                                        <tr>
+                                            <td>{index+1}</td>
+                                            <td>
+                                                <img src="leaf.png" alt="leaf" width={'150px'}/>
+                                            </td>
+                                            <td>
+                                                {val.name}
+                                            </td>
+                                        </tr>
+                                        <br/>
+                                       </>
+                                    ))
+                                   }
+                                </table>
+                            </div>
+
+
+                             {/* Approve pending purchases */}
+                            <div className="editdis" style={{display:'none'}} id="app">
+                            <table className="pendtable">
+                                   {
+                                    dat.map((val,index)=>
+                                    (
+                                       <>
+                                        <tr>
+                                            <td>{index+1}</td>
+                                            <td>
+                                                <label for={index}><img src="leaf.png" alt="leaf" width={'150px'}/></label>
+                                            </td>
+                                            <td>
+                                                <label for={index}>{val.name}</label>
+                                            </td>
+                                            <td>
+                                                <input type="radio" name="same" id={index}/>
+                                            </td>
+                                        </tr>
+                                        <br/>
+                                       </>
+                                    ))
+                                   }
+                                </table>
+                                <button type="submit" style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Approve</button>
+                            </div>
+                            <div className="editdis" style={{display:'none'}} id="evb">
+                                <div style={{textAlign:'center',marginTop:'32%'}}>
+                                    <label for='eusd'><b>Please enter value of eUSD in bank::</b></label>
+                                    <input type="number" id="eusd" onChange={(e)=>snum(e.target.value)}></input>
+                                </div>
+                            </div>
+                            <div className="editdis" style={{display:'none'}} id="svb">
+                            <div style={{textAlign:'center',marginTop:'32%'}}>
+                                    <label for='eusd'><b>The value of eUSD in bank is::{num}</b></label>
+                                </div>
                             </div>
                 </section>
             </div>

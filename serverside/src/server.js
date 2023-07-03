@@ -65,16 +65,51 @@ app.get('/aufl',async(req,res)=>{
 })
 
 
+// Enter project data
+
+app.post('/enterdata/:proname/:prodesc/:provalue',async(req,res)=>
+{
+    const details=await db.collection('entereddata').insertOne({project_name:req.params.proname,project_desc:req.params.prodesc,project_value:req.params.provalue})
+    res.json(details);
+})
+app.get("/entercheckdata/:proname",async(req,res)=>
+{
+    const details=await db.collection('entereddata').findOne({project_name:req.params.proname})
+    res.json(details);
+})
+
+// change project data
+
+app.post('/updatedata/:proname/:prodesc/:provalue',async(req,res)=>
+{
+    const details=await db.collection('entereddata').findOneAndUpdate({project_name:req.params.proname},{$set:{project_desc:req.params.prodesc,project_value:req.params.provalue}})
+    res.json(details);
+})
+
+// Show entered data
+
+app.get('/showdata',async(req,res)=>
+{
+    const details=await db.collection('entereddata').find().toArray()
+    res.json(details);
+})
+
+// Edit user data
+app.post('/deledit/:_id',async(req,res)=>
+{
+    const details=await db.collection('admindata').deleteOne({_id:req.params._id})
+    res.json(details);
+})
 
 
 
 //delete data//
-app.get('/delcoding',async(req,res)=>{
-    const details=await db.collection('codingscore').deleteMany()
+app.get('/deladmdata',async(req,res)=>{
+    const details=await db.collection('admindata').deleteMany()
    res.json(details)
 })
-app.get('/delcurrent',async(req,res)=>{
-    const details=await db.collection('currentscore').deleteMany()
+app.get('/delentrdata',async(req,res)=>{
+    const details=await db.collection('entereddata').deleteMany()
    res.json(details)
 })
 app.get('/delsports',async(req,res)=>{

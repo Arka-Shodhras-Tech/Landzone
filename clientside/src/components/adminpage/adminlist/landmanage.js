@@ -1,9 +1,20 @@
-import React from "react";
-import { Footer, Navbar } from "../../navfoot/navbar";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Comp } from "../../company/company";
+import { Footer, Navbar } from "../../navfoot/navbar";
 export const Landmanage=()=>
 {
+    const [epn,sepn]=useState([]);
+    const [epd,sepd]=useState([]);
+    const [epv,sepv]=useState([]);
+    const [cpn,scpn]=useState([]);
+    const [cpd,scpd]=useState([]);
+    const [cpv,scpv]=useState([]);
+    const [sld,ssld]=useState([]);
+    const [err1,serr1]=useState([]);
+    const [err2,serr2]=useState([]);
+    const [pdsc,spdsc]=useState([]);
     const Elpd=async()=>
     {
         document.getElementById('eld').style.display="block";
@@ -32,12 +43,84 @@ export const Landmanage=()=>
         document.getElementById('cld').style.display="none";
         document.getElementById('sld').style.display="none";
     }
+
+    // Enter land project data
+    const Enterdata=async()=>
+    {
+        const responce1=await axios.get("http://localhost:8000/entercheckdata/"+epn)
+        {
+            if(responce1.data)
+            {
+                serr1("Project name Existed please enter different project name")
+            }
+            else
+            {
+               const responce2= await axios.post("http://localhost:8000/enterdata/"+epn+"/"+epd+"/"+epv)
+               {
+                responce2?serr1("Your project sucessfully saved"):serr1("Try agin")
+                window.location.reload(5)
+               }
+            }
+        }
+    }
+    
+
+    // Change land project data
+    const Updatedata=async()=>
+    {
+        const responce1=await axios.get("http://localhost:8000/entercheckdata/"+cpn)
+        {
+            if(responce1.data)
+            {
+                const responce2=await axios.post("http://localhost:8000/updatedata/"+cpn+"/"+cpd+"/"+cpv)
+                if(responce2.data)
+                {
+                    serr2("Project details updateded sucessfully")
+                    window.location.reload(3)
+                }
+                else
+                {
+                    serr2("Try again")
+                }
+            }
+            else
+            {
+                serr2('Project name not found')
+            }
+        }
+    }
+
+    //Search data in change land project
+    const Search=async()=>
+    {
+        const responce=await axios.get("http://localhost:8000/entercheckdata/"+cpn)
+        if(responce.data)
+        {
+            console.log(responce.data.project_desc)
+            spdsc(responce.data)
+            scpd(responce.data.project_desc);
+            scpv(responce.data.project_value)
+        }
+    }
+
+    // Show land project data
+    useEffect(()=>
+    {
+        axios.get("http://localhost:8000/showdata")
+        .then((result)=>
+        {
+            ssld(result.data);
+        })
+    },[])
     return(
         <>
         <Navbar/>
         <div className="home">
             <div className="adpage">
+                <aside>
                 <Comp/>
+                <Link to='/landmanage' className="asidebtn" style={{marginTop:'57.25vh',backgroundColor:'lightgreen'}}><b>Land Management</b></Link>
+                </aside>
                 <section>
                     <div>
                     <div className="land">
@@ -53,19 +136,22 @@ export const Landmanage=()=>
                         <div>
                         <table className="landtable">
                                 <tr>
-                                    <td><label className="landinput"><b>Project Name::</b></label></td>
-                                    <td><input type="text" className="landinput"></input></td>
+                                    <td><label className="landinput"><b>Land Project Name::</b></label></td>
+                                    <td><input type="text" className="landinput" onChange={(e)=>sepn(e.target.value)}></input></td>
                                 </tr>
                                 <tr>
-                                    <td><label className="landinput"><b>Project Description::</b></label></td>
-                                    <td><input type="paragraph" className="landinput" style={{width:'80%',height:'20vh'}} ></input></td>
+                                    <td><label className="landinput"><b>Land Project Description::</b></label></td>
+                                    <td><textarea type="paragraph" className="landinput" style={{width:'80%',height:'20vh'}} onChange={(e)=>sepd(e.target.value)}></textarea></td>
                                 </tr>
                                 <tr>
-                                    <td><label className="landinput"><b>Project Value::</b></label></td>
-                                    <td><input type='number' className="landinput"></input></td>
+                                    <td><label className="landinput"><b>Land Project Value::</b></label></td>
+                                    <td><input type='number' className="landinput" onChange={(e)=>sepv(e.target.value)}></input></td>
                                 </tr>
                                 <tr>
-                                    <td colSpan={2}><button type="submit" style={{ margin: "2% 0% 0% 43%", width: '20%', height: '4vh', backgroundColor: 'blue', color: 'white' }}> Submit</button></td>
+                                    <td colSpan={2} style={{ textAlign:'center', width: '20%', height: '4vh', color: 'red' }}><b>{err1}</b></td>
+                                </tr>
+                                <tr>
+                                    <td colSpan={2}><button type="submit" style={{ margin: "2% 0% 0% 43%", width: '20%', height: '4vh', backgroundColor: 'blue', color: 'white' }} onClick={Enterdata}> Submit</button></td>
                                 </tr>
                             </table>
                             </div>
@@ -76,20 +162,24 @@ export const Landmanage=()=>
                         <h1 style={{color:'red',textAlign:'center'}}>Edit Land Detilas</h1>
                         <div>
                             <table className="landtable">
-                                <tr>
-                                    <td><label className="landinput"><b>Project Name::</b></label></td>
-                                    <td><input type="text" className="landinput"></input></td>
+                            <tr>
+                                    <td><label className="landinput"><b>Land Project Name::</b></label></td>
+                                    <td><input type="text" className="landinput" placeholder="Enter project name" onChange={(e)=>scpn(e.target.value)}></input>
+                                    <Link style={{padding:'2px',borderRadius:'8px',backgroundColor:'green',textDecoration:'none',marginLeft:'1vh',color:'white'}} onClick={Search}>search</Link></td>
                                 </tr>
                                 <tr>
-                                    <td><label className="landinput"><b>Project Description::</b></label></td>
-                                    <td><input type="paragraph" className="landinput" style={{width:'80%',height:'20vh'}} ></input></td>
+                                    <td><label className="landinput"><b>Land Project Description::</b></label></td>
+                                    <td><textarea type="paragraph" className="landinput" defaultValue={pdsc.project_desc} style={{width:'80%',height:'20vh'}} onChange={(e)=>scpd(e.target.value)}></textarea></td>
                                 </tr>
                                 <tr>
-                                    <td><label className="landinput"><b>Project Value::</b></label></td>
-                                    <td><input type='number' className="landinput"></input></td>
+                                    <td><label className="landinput"><b>Land Project Value::</b></label></td>
+                                    <td><input type='number' className="landinput" defaultValue={pdsc.project_value}  onChange={(e)=>scpv(e.target.value)}></input></td>
                                 </tr>
                                 <tr>
-                                    <td colSpan={2}><button type="submit" style={{ margin: "2% 0% 0% 43%", width: '20%', height: '4vh', backgroundColor: 'blue', color: 'white' }}> Save</button></td>
+                                    <td colSpan={2} style={{ textAlign:'center', width: '20%', height: '4vh', color: 'red' }}><b>{err2}</b></td>
+                                </tr>
+                                <tr>
+                                    <td colSpan={2}><button type="submit" style={{ margin: "2% 0% 0% 43%", width: '20%', height: '4vh', backgroundColor: 'blue', color: 'white' }} onClick={Updatedata}> Save</button></td>
                                 </tr>
                             </table>
                             <br/><br/>
@@ -103,32 +193,45 @@ export const Landmanage=()=>
                         <h1 style={{color:'red',textAlign:'center'}}>Land Detilas</h1>
                         <div>
                            <table>
-                            <tr>
-                                <td><b>Project::</b></td>
-                                <td>project 1</td>
-                            </tr>
-                            <tr>
-                                <td><b>Project description::</b></td>
-                                <td>abcdefghijklmnopqrstuvwxyz</td>
-                            </tr>
-                            <tr>
-                                <td><b>Value::</b></td>
-                                <td>2000</td>
-                            </tr>
+                            {
+                                sld.map((val1,index)=>
+                                (
+                                    <>
+                                    <tr>
+                                    <td style={{color:'darkblue'}}><b>{index+1}::--</b></td>
+                                    <td><b>Land Project::</b></td>
+                                    <td>{val1.project_name}</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><b>Land Project description::</b></td>
+                                    <td>{val1.project_desc}</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><b>Land project Value::</b></td>
+                                    <td>{val1.project_value}</td>
+                                </tr>
+                                <br/><br/>
+                                </>
+                                ))
+                            }
                            </table>
                         </div>
                     </div>
+
+
                      {/* Show land vale */}
                      <div className="editdis" style={{display:'none'}} id="slv">
                         <h1 style={{color:'red',textAlign:'center'}}>Land Value</h1>
                         <div>
                             <table>
                                 <tr>
-                                    <td><b>Project name::</b></td>
+                                    <td><b>Land Project name::</b></td>
                                     <td>project</td>
                                 </tr>
                                 <tr>
-                                    <td><b>Total value::</b></td>
+                                    <td><b>Land Total value::</b></td>
                                     <td>2000</td>
                                 </tr>
                             </table>

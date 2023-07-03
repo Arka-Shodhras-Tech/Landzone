@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Footer, Navbar } from "../../navfoot/navbar";
-import { Comp } from "../../company/company";
-import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Comp } from "../../company/company";
+import { Footer, Navbar } from "../../navfoot/navbar";
 export const Usermanage=()=>
 {
     const [dat,sdat]=useState([]);
-    const [crt,scrt]=useState('');
+    const [crt,scrt]=useState([]);
+    const [edit,sedit]=useState([]);
+    const [err1,serr1]=useState([]);
     // const nav=useNavigate();
 
     // Transfer currency to user function
@@ -22,6 +24,30 @@ export const Usermanage=()=>
         document.getElementById('editdisplay').style.display="block";
         document.getElementById('disenadisplay').style.display="none";
         document.getElementById('reasondisplay').style.display='none'
+    }
+    const Edituser=async()=>
+    {
+        const responce1=await axios.get("http://localhost:8000/admincheck/"+edit)
+        {
+            if(responce1.data)
+            {
+                console.log(responce1.data)
+               const responce2= await axios.post("http://localhost:8000/deledit/"+responce1.data._id)
+               if(responce2.data)
+               {
+                console.log(responce2.data.gmail)
+                serr1("sucessfully deleted")
+               }
+               else
+               {
+                serr1("Try again")
+               }
+            }
+            else
+            {
+                serr1("User not found")
+            }
+        }
     }
 
     // Approve user from list
@@ -70,6 +96,8 @@ export const Usermanage=()=>
     {
 
     }
+
+    // Edit user update profile
     useEffect(()=>
 {
     axios.get("http://localhost:8000/aufl")
@@ -83,7 +111,10 @@ export const Usermanage=()=>
         <Navbar/>
         <div className="home">
             <div className="adpage">
+                <aside>
                 <Comp/>
+                <Link to='/usermanage' className="asidebtn" style={{marginTop:'27.1vh',backgroundColor:'white'}}><b>User Management</b></Link>
+                </aside>
                 <section>
 
                     {/* user management list */}
@@ -109,11 +140,11 @@ export const Usermanage=()=>
                                                 <th>Select</th>
                                             </tr>
                                             {
-                                                dat.map((teja, index) => (
+                                                dat.map((val1, index) => (
                                                     <tr>
                                                         <td><b>{index + 1}</b></td>
-                                                        <td><b>{teja.name}</b></td>
-                                                        <td><b>{teja.gmail}</b></td>
+                                                        <td><b>{val1.name}</b></td>
+                                                        <td><b>{val1.gmail}</b></td>
                                                         <td>
                                                             <input id={index} name="same" type="radio"></input>
                                                         </td>
@@ -138,18 +169,22 @@ export const Usermanage=()=>
                                                 <th>Modify</th>
                                             </tr>
                                             {
-                                                dat.map((teja, index) => (
+                                                dat.map((val2, index) => (
+                                                   <>
                                                     <tr>
                                                         <td><b>{index + 1}</b></td>
-                                                        <td><b>{teja.name}</b></td>
-                                                        <td><b>{teja.gmail}</b></td>
+                                                        <td><b>{val2.name}</b></td>
+                                                        <td><b>{val2.gmail}</b></td>
                                                         <td>
-                                                            <Link to='/updateprofile' style={{textDecoration:'none'}}>Edit</Link>
+                                                        <input id={index} name="same" type="radio" onChange={(e)=>sedit(val2.gmail)}></input>
                                                         </td>
                                                     </tr>
+                                                   </>
                                                 ))
                                             }
                                         </table>
+                                        <p style={{textAlign:'center'}}><b>{err1}</b></p>
+                                        <button type="submit" style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white' }} onClick={Edituser}>Edit</button>
                                     </div>
                         </div>
                     </div>
@@ -167,13 +202,13 @@ export const Usermanage=()=>
                                     <th>Select for en/dis</th>
                                 </tr>
                                 {
-                                    dat.map((val, index) => (
+                                    dat.map((val3, index) => (
                                         <tr>
                                             <td><b>{index + 1}</b></td>
-                                            <td><b>{val.name}</b></td>
-                                            <td><b>{val.gmail}</b></td>
+                                            <td><b>{val3.name}</b></td>
+                                            <td><b>{val3.gmail}</b></td>
                                             <td>
-                                                <input id={index} style={{width:'50px'}} name="same" type="radio" onChange={(e)=>scrt(val.gmail)}></input>
+                                                <input id={index} style={{width:'50px'}} name="same" type="radio" onChange={(e)=>scrt(val3.gmail)}></input>
                                             </td>
                                         </tr>
                                     ))
@@ -190,16 +225,16 @@ export const Usermanage=()=>
                     <div className="editdis" style={{display:'none'}} id="personinfo">
                         <table style={{margin:'15% 0% 0% 35%',border:'1px soild black'}}>
                         {
-                             dat.map((val1) => (
+                             dat.map((val4) => (
                                 <div>
                                      {
-                                    val1.gmail===crt?
+                                    val4.gmail===crt?
                                        <>
                                        <tr >
-                                       <td><b>{val1.name}</b></td>
+                                       <td><b>{val4.name}</b></td>
                                        </tr>
                                        <tr>
-                                       <td><b>{val1.gmail}</b></td>
+                                       <td><b>{val4.gmail}</b></td>
                                        </tr>
                                        </>
                                         :<b></b>
@@ -233,3 +268,16 @@ export const Usermanage=()=>
         </>
     )
 }
+
+
+
+
+// update profile in Edit user in user mangement
+// export const Editusers=()=>
+// {
+//     return(
+//         <>
+
+//         </>
+//     )
+// }
