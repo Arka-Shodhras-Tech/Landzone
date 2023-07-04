@@ -10,7 +10,7 @@ export const Adminlogin=()=>
     const [error,serror]=useState("");
     const emailtest = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
-    const Show=async()=>{
+    const Show=async(e)=>{
         if(emailtest.test(gmail))
         {
             const responce=await axios.get("http://localhost:8000/adminlogin/"+gmail+"/"+password);
@@ -39,7 +39,7 @@ export const Adminlogin=()=>
         <>
         <Navbar/>
         <div className="home">
-        <table className='tabledata'>
+       <table className='tabledata'>
             <tr>
             <td className="input">
                 <label for="gmail"><b>Gmail:: </b></label>

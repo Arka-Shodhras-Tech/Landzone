@@ -123,12 +123,12 @@ export const Dashboard=()=>
                                 </table>
                             </div>
 
-                            {/* Create currency */}
+{/* Create currency */}
                             <div className="editdis" style={{display:'none'}} id="cc">
                                 <h1>Currency details</h1>
                             </div>
 
-                            {/* View pending purchases */}
+{/* View pending purchases */}
                             <div className="editdis" style={{display:'none'}} id="vpp">
                                 <table className="pendtable">
                                    {
@@ -152,7 +152,7 @@ export const Dashboard=()=>
                             </div>
 
 
-                             {/* Approve pending purchases */}
+{/* Approve pending purchases */}
                             <div className="editdis" style={{display:'none'}} id="app">
                             <table className="pendtable">
                                    {
@@ -178,15 +178,20 @@ export const Dashboard=()=>
                                 </table>
                                 <button type="submit" style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Approve</button>
                             </div>
+
+{/* Enter value in eUSD */}
                             <div className="editdis" style={{display:'none'}} id="evb">
                                 <div style={{textAlign:'center',marginTop:'32%'}}>
-                                    <label for='eusd'><b>Please enter value of eUSD in bank::</b></label>
+                                    <label for='eusd'><b>Please enter value of eUSD in bank </b></label>
                                     <input type="number" id="eusd" onChange={(e)=>snum(e.target.value)}></input>
+                                    <button type="submit" style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Submit</button>
                                 </div>
                             </div>
+
+{/* Show value in eUSD */}
                             <div className="editdis" style={{display:'none'}} id="svb">
                             <div style={{textAlign:'center',marginTop:'32%'}}>
-                                    <label for='eusd'><b>The value of eUSD in bank is::{num}</b></label>
+                                    <label for='eusd'><b>The value of eUSD in bank is {num}</b></label>
                                 </div>
                             </div>
                 </section>

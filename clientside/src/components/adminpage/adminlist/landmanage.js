@@ -15,6 +15,7 @@ export const Landmanage=()=>
     const [err1,serr1]=useState([]);
     const [err2,serr2]=useState([]);
     const [pdsc,spdsc]=useState([]);
+    let x=0;
     const Elpd=async()=>
     {
         document.getElementById('eld').style.display="block";
@@ -130,21 +131,21 @@ export const Landmanage=()=>
                         <Link className="landitem" onClick={Sltv}>show Land total value</Link>
                     </div>
 
-                    {/* Enter land details */}
+{/* Enter land details */}
                     <div className="editdis" style={{ display: 'none' }} id='eld'>
                         <h1 style={{color:'red',textAlign:'center'}}>Enter Land Detilas</h1>
                         <div>
                         <table className="landtable">
                                 <tr>
-                                    <td><label className="landinput"><b>Land Project Name::</b></label></td>
+                                    <td><label className="landinput"><b>Land Project Name </b></label></td>
                                     <td><input type="text" className="landinput" onChange={(e)=>sepn(e.target.value)}></input></td>
                                 </tr>
                                 <tr>
-                                    <td><label className="landinput"><b>Land Project Description::</b></label></td>
+                                    <td><label className="landinput"><b>Land Project Description </b></label></td>
                                     <td><textarea type="paragraph" className="landinput" style={{width:'80%',height:'20vh'}} onChange={(e)=>sepd(e.target.value)}></textarea></td>
                                 </tr>
                                 <tr>
-                                    <td><label className="landinput"><b>Land Project Value::</b></label></td>
+                                    <td><label className="landinput"><b>Land Project Value </b></label></td>
                                     <td><input type='number' className="landinput" onChange={(e)=>sepv(e.target.value)}></input></td>
                                 </tr>
                                 <tr>
@@ -157,22 +158,22 @@ export const Landmanage=()=>
                             </div>
                     </div>
 
-                    {/* Change land details */}
+{/* Change land details */}
                      <div className="editdis" style={{display:'none'}} id="cld">
                         <h1 style={{color:'red',textAlign:'center'}}>Edit Land Detilas</h1>
                         <div>
                             <table className="landtable">
                             <tr>
-                                    <td><label className="landinput"><b>Land Project Name::</b></label></td>
+                                    <td><label className="landinput"><b>Land Project Name</b></label></td>
                                     <td><input type="text" className="landinput" placeholder="Enter project name" onChange={(e)=>scpn(e.target.value)}></input>
                                     <Link style={{padding:'2px',borderRadius:'8px',backgroundColor:'green',textDecoration:'none',marginLeft:'1vh',color:'white'}} onClick={Search}>search</Link></td>
                                 </tr>
                                 <tr>
-                                    <td><label className="landinput"><b>Land Project Description::</b></label></td>
+                                    <td><label className="landinput"><b>Land Project Description</b></label></td>
                                     <td><textarea type="paragraph" className="landinput" defaultValue={pdsc.project_desc} style={{width:'80%',height:'20vh'}} onChange={(e)=>scpd(e.target.value)}></textarea></td>
                                 </tr>
                                 <tr>
-                                    <td><label className="landinput"><b>Land Project Value::</b></label></td>
+                                    <td><label className="landinput"><b>Land Project Value</b></label></td>
                                     <td><input type='number' className="landinput" defaultValue={pdsc.project_value}  onChange={(e)=>scpv(e.target.value)}></input></td>
                                 </tr>
                                 <tr>
@@ -188,28 +189,28 @@ export const Landmanage=()=>
                         </div>
                     </div>
 
-                     {/* Show land details */}
+{/* Show land details */}
                      <div className="editdis" style={{display:'none'}} id="sld">
                         <h1 style={{color:'red',textAlign:'center'}}>Land Detilas</h1>
                         <div>
-                           <table>
+                           <table className="landtable">
                             {
                                 sld.map((val1,index)=>
                                 (
                                     <>
                                     <tr>
                                     <td style={{color:'darkblue'}}><b>{index+1}::--</b></td>
-                                    <td><b>Land Project::</b></td>
+                                    <td><b>Land Project</b></td>
                                     <td>{val1.project_name}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td><b>Land Project description::</b></td>
+                                    <td><b>Land Project description</b></td>
                                     <td>{val1.project_desc}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td><b>Land project Value::</b></td>
+                                    <td><b>Land project Value</b></td>
                                     <td>{val1.project_value}</td>
                                 </tr>
                                 <br/><br/>
@@ -221,18 +222,35 @@ export const Landmanage=()=>
                     </div>
 
 
-                     {/* Show land vale */}
+{/* Show land vale */}
                      <div className="editdis" style={{display:'none'}} id="slv">
                         <h1 style={{color:'red',textAlign:'center'}}>Land Value</h1>
                         <div>
-                            <table>
+                            <table className="landtable">
+                                {
+                                    sld.map((val2,index)=>
+                                    (
+                                        <>
+                                        <p style={{display:"none"}}>{x=x+(parseInt(val2.project_value))}</p>
+                                            <tr>
+                                                <td><b>{index+1}</b></td>
+                                                <td><b>Land Project name</b></td>
+                                                <td>{val2.project_name}</td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td><b>Land Total value</b></td>
+                                                <td>{val2.project_value}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colSpan={3} ><hr color="green"/></td>
+                                            </tr>
+                                             <br></br>
+                                         </>
+                                    ))
+                                }
                                 <tr>
-                                    <td><b>Land Project name::</b></td>
-                                    <td>project</td>
-                                </tr>
-                                <tr>
-                                    <td><b>Land Total value::</b></td>
-                                    <td>2000</td>
+                                    <td style={{fontSize:'30px', backgroundColor:"green",color:'white'}} colSpan={3}>The land total value of all projects is <b style={{color:"#330033"}}>{x}</b> in Ruppes</td>
                                 </tr>
                             </table>
                         </div>

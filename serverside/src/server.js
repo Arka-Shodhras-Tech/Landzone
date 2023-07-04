@@ -97,7 +97,7 @@ app.get('/showdata',async(req,res)=>
 // Edit user data
 app.post('/deledit/:_id',async(req,res)=>
 {
-    const details=await db.collection('admindata').deleteOne({_id:req.params._id})
+    const details=await db.collection('admindata').findOneAndDelete({_id:req.params._id})
     res.json(details);
 })
 

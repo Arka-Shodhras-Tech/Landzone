@@ -31,12 +31,11 @@ export const Usermanage=()=>
         {
             if(responce1.data)
             {
-                console.log(responce1.data)
+                alert("Are you update the Users.. clicked OK" )
                const responce2= await axios.post("http://localhost:8000/deledit/"+responce1.data._id)
                if(responce2.data)
                {
-                console.log(responce2.data.gmail)
-                serr1("sucessfully deleted")
+                serr1("user details have been successfully updated")
                }
                else
                {
@@ -117,18 +116,18 @@ export const Usermanage=()=>
                 </aside>
                 <section>
 
-                    {/* user management list */}
+{/* user management list */}
                    <div>
                    <div className="dash">
                            <Link className="usrmngitem" onClick={Transfer}>Transfer Currency to User</Link>
                            <Link className="usrmngitem" onClick={Aprove}>Approve Users From List</Link> 
-                           <Link className="usrmngitem" onClick={Edit}>Eidt User</Link>
+                           <Link className="usrmngitem" onClick={Edit}>Update User Details</Link>
                            <Link className="usrmngitem" onClick={Disena}>Disable/Enable Users</Link>
                            <Link className="usrmngitem" onClick={Transaction}>view transaction history</Link>
                     </div>
 
 
-                    {/* Approve users from list */}
+{/* Approve users from list */}
                     <div>
                                 <div className="editdis" style={{ display: 'none' }} id="approvedisplay">
                                     <div>
@@ -146,13 +145,13 @@ export const Usermanage=()=>
                                                         <td><b>{val1.name}</b></td>
                                                         <td><b>{val1.gmail}</b></td>
                                                         <td>
-                                                            <input id={index} name="same" type="radio"></input>
+                                                            <input id={index} name={val1.name} type="radio"></input>
                                                         </td>
                                                     </tr>
                                                 ))
                                             }
                                         </table>
-                                        <button type="submit" style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white' }}> Submit</button>
+                                        <button type="submit" style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white' }}>Approve</button>
                                     </div>
                     </div>
 
@@ -184,7 +183,7 @@ export const Usermanage=()=>
                                             }
                                         </table>
                                         <p style={{textAlign:'center'}}><b>{err1}</b></p>
-                                        <button type="submit" style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white' }} onClick={Edituser}>Edit</button>
+                                        <button type="submit" style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white' }} onClick={Edituser}>Update</button>
                                     </div>
                         </div>
                     </div>
