@@ -134,7 +134,6 @@ export const Landmanage=()=>
             <div className="adpage">
                 <aside>
                 <Comp/>
-                <Link to='/landmanage' className="asidebtn" style={{marginTop:'57.25vh',backgroundColor:'lightgreen'}}><b>Land Management</b></Link>
                 </aside>
                 <section>
                     <div>

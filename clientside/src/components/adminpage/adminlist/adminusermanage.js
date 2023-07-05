@@ -11,7 +11,6 @@ export const Adminusermanage=()=>
             <div className="adpage">
                 <aside>
                 <Comp/>
-                <Link to='/adminusermanage' className="asidebtn" style={{marginTop:'42.2vh',backgroundColor:'lightblue'}}><b>Admin User Management</b></Link>
                 </aside>
                 <section>
                     <div>

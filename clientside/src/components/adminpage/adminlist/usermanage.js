@@ -133,7 +133,6 @@ export const Usermanage=()=>
             <div className="adpage">
                 <aside>
                 <Comp/>
-                <Link to='/usermanage' className="asidebtn" style={{marginTop:'27.1vh',backgroundColor:'white'}}><b>User Management</b></Link>
                 </aside>
                 <section>
 

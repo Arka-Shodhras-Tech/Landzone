@@ -109,6 +109,7 @@ footer
 }
 
 /* ------------------ */
+/* adminpage */
 .adpage
 {
     width: 100%;
@@ -118,7 +119,7 @@ footer
 aside
 {
     margin-top: 7vh;
-    width: 15%;
+    width: 16%;
     height: 88vh;
     background-color: rgb(74, 207, 165);
 }
@@ -128,7 +129,7 @@ aside
     position: absolute;
     top: 7.35%;
     height: 87.6vh;
-    width: 15%;
+    width: 16%;
 }
 .asidebtn
 {
@@ -137,7 +138,7 @@ aside
     background-color: aliceblue;
     justify-content:center;
     display:flex;
-    border-radius: 35%;
+    border-radius: 50px;
     margin-top: 35%;
     color: rgb(58, 58, 58);
     transition: 0.3s;
@@ -146,6 +147,12 @@ aside
 {
     background-color: blanchedalmond;
     color:blueviolet;
+}
+.active
+{
+    background-color: blue;
+    color: whitesmoke;
+    border-right: 5px solid red;
 }
 
 /* section tag elements */
@@ -169,6 +176,7 @@ section
 {
     background-color:antiquewhite;
     padding: 1vh 0vh 5.9vh 5vh ;
+    height: 100%;
 }
 
 /* Dash board */

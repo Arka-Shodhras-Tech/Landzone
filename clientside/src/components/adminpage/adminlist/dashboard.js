@@ -72,7 +72,6 @@ export const Dashboard=()=>
             <div className="adpage">
                 <aside>
                 <Comp/>
-                <Link to='/dashboard' className="asidebtn" style={{marginTop:'11.9vh',backgroundColor:"orange"}}><b>Dashboard</b></Link>
                 </aside>
                 <section>
                     <div className="dash">
