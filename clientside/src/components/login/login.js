@@ -58,16 +58,16 @@ export const Adminlogin=()=>
             </tr>
             <td style={{color:'orangered'}} colSpan={2} align="center"><b>{error}</b></td>
             <tr>
-                <td style={{paddingTop:"4vh",paddingBottom:'5vh',textAlign:"center"}} colSpan={2}>
-                <button style={{background:"none",color:'Blue', border:'none'}} onClick={Show}><b>Login</b></button>
+                <td colSpan={2}>
+                <button onClick={Show}><b>Login</b></button>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <button  style={{background:'none',border:'none',marginBottom:'5vh',color:'blue'}} onClick={Regi}><b>New account</b></button>
+            <tr >
+                <td >
+                    <button style={{width:'20vh'}} onClick={Regi}><b>New account</b></button>
                 </td>
-                <td  align="right">
-                    <button style={{background:'none',border:'none',marginBottom:'5vh',color:"blueviolet"}} onClick={Upadate}><b>Forgot password</b></button>
+                <td>
+                    <button onClick={Upadate}><b>Forgot password</b></button>
                 </td>
             </tr>
         </table>        
@@ -132,19 +132,19 @@ export const Userlogin=()=>
             </tr>
             <td style={{color:'orangered'}} colSpan={2} align="center"><b>{error}</b></td>
             <tr>
-                <td style={{paddingTop:"4vh",paddingBottom:'5vh',textAlign:"center"}} colSpan={2}>
-                <button style={{background:"none",color:'blue', border:'none'}} onClick={Show}><b>Login</b></button>
+                <td colSpan={2}>
+                <button onClick={Show}><b>Login</b></button>
                 </td>
             </tr>
-            <tr>
+            <tr >
+                <td >
+                    <button style={{width:'20vh'}} onClick={Regi}><b>New account</b></button>
+                </td>
                 <td>
-                    <button  style={{background:'none',border:'none',marginBottom:'5vh',color:'blue'}} onClick={Regi}><b>New account</b></button>
-                </td>
-                <td  align="right">
-                    <button style={{background:'none',border:'none',marginBottom:'5vh',color:"blueviolet"}} onClick={Upadate}><b>Forgot password</b></button>
+                    <button onClick={Upadate}><b>Forgot password</b></button>
                 </td>
             </tr>
-        </table>        
+        </table>
         </div>
         </>
         )

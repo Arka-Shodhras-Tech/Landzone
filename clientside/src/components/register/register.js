@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 import { useNavigate } from "react-router-dom";
 import { Footer, Navbar } from "../navfoot/navbar";
 export const UserRegister=()=>{
@@ -8,6 +10,7 @@ export const UserRegister=()=>{
     const [gmail,sgmail]=useState("");
     const [password,spassword]=useState("");
     const [cpassword,scpassword]=useState("");
+    const [phonenumber,sphonenumber]=useState('');
     const [err,serr]=useState("");
     const emailtest = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const Show=async()=>{
@@ -24,7 +27,7 @@ export const UserRegister=()=>{
                {
                 if(password === cpassword)
                 {
-                    const responce=await axios.post("http://localhost:8000/register/"+name+"/"+gmail+"/"+password+"/"+cpassword)
+                    const responce=await axios.post("http://localhost:8000/register/"+name+"/"+gmail+"/"+password+"/"+cpassword+"/"+phonenumber)
                     if(responce.data)   
                     {
                         nav("/userlogin")
@@ -54,6 +57,10 @@ export const UserRegister=()=>{
     {
         nav("/userlogin")
     }
+    const Phone=(value)=>
+    {
+        sphonenumber(value)
+    }
     return(
         <>
         <Navbar/>
@@ -61,50 +68,58 @@ export const UserRegister=()=>{
         <table className='tabledata' style={{marginTop:'9%'}}>
             <tr>
                 <td className="input">
-                    <label for="name"><b>name:: </b></label>
+                    <label for="name"><b>Name </b></label>
                 </td>
                 <td className="input">
-                <input type='text' name='name' placeholder='Enter your full name' onChange={(e)=>sname(e.target.value.charAt(0).toLocaleUpperCase()+e.target.value.slice(1))}></input>
-                </td>
-            </tr>
-            <tr>
-                <td className="input">
-                <label for="name"><b>Gmail:: </b></label>
-                </td>
-                <td className="input">
-                <input type='mail' name='gmail' placeholder='Enter your mail' onChange={(e)=>sgmail(e.target.value)}></input>
+                <input type='text' name='name' id="name" autoComplete="none" placeholder='Enter your full name' onChange={(e)=>sname(e.target.value.charAt(0).toLocaleUpperCase()+e.target.value.slice(1))} required></input>
                 </td>
             </tr>
             <tr>
                 <td className="input">
-                <label for="name"><b>Password::</b></label>
+                <label for="gmail"><b>Gmail </b></label>
                 </td>
                 <td className="input">
-                <input type='password' name='password' placeholder='Enter your password' onChange={(e)=>spassword(e.target.value)}></input>
+                <input type='mail' name='gmail' id="gmail" required autoComplete="none" placeholder='Enter your mail' onChange={(e)=>sgmail(e.target.value)}></input>
                 </td>
             </tr>
             <tr>
                 <td className="input">
-                <label for="name"><b>confirm password::</b></label>
+                <label for="password"><b>Password</b></label>
                 </td>
                 <td className="input">
-                <input type='password' name='cpassword' placeholder='Enter your confirm password' onChange={(e)=>scpassword(e.target.value)}></input>
+                <input type='password' name='password' id="password" required placeholder='Enter your password' onChange={(e)=>spassword(e.target.value)}></input>
+                </td>
+            </tr>
+            <tr>
+                <td className="input">
+                <label for="cpassword"><b>Confirm Password</b></label>
+                </td>
+                <td className="input">
+                <input type='password' name='cpassword' id="cpassword" required placeholder='Enter your confirm password' onChange={(e)=>scpassword(e.target.value)}></input>
+                </td>
+            </tr>
+            <tr>
+                <td className="input">
+                    <label for='phonenumber'><b>Phone number</b></label>
+                </td>
+                <td className="input">
+                    <PhoneInput country="us" value={phonenumber} id="phonenumber" required onChange={Phone}/>
                 </td>
             </tr>
             <tr>
                 <td colSpan={2} style={{color:"red",paddingTop:'2vh'}} align="center"><b>{err}</b></td>
             </tr>
             <tr>
-                <td className="input"  colSpan={2}>
-                <button style={{backgroundColor:'greenyellow'}} onClick={Show}><b>Submit</b></button>
+                <td   colSpan={2}>
+                <button onClick={Show}><b>Submit</b></button>
                 </td>
             </tr>
             <tr>
-                <td className="input" style={{paddingBottom:'3vh'}}>
+                <td  style={{padding:'3vh 0vh 2vh 5vh'}}>
                     Already have account..?
                 </td>
                 <td>
-                    <button align="center" style={{border:'none',background:'none',color:'blue',paddingTop:'2.5vh'}} onClick={sign}><h3>Sign in</h3></button>
+                    <button  onClick={sign}><b>Sign in</b></button>
                 </td>
             </tr>
         </table>
@@ -114,7 +129,7 @@ export const UserRegister=()=>{
     )
 }
 
-
+// Admin register
 export const Adminregister=()=>
 {
     const nav=useNavigate();
@@ -123,6 +138,7 @@ export const Adminregister=()=>
     const [password,spassword]=useState("");
     const [cpassword,scpassword]=useState("");
     const [err,serr]=useState("");
+    const [phonenumber,sphonenumber]=useState("");
     const emailtest = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const Show=async()=>{
         if(emailtest.test(gmail))
@@ -138,7 +154,8 @@ export const Adminregister=()=>
                {
                 if(password === cpassword)
                 {
-                    const responce=await axios.post("http://localhost:8000/adminregister/"+name+"/"+gmail+"/"+password+"/"+cpassword)
+                    console.log(phonenumber)
+                    const responce=await axios.post("http://localhost:8000/adminregister/"+name+"/"+gmail+"/"+password+"/"+cpassword+"/"+phonenumber)
                     if(responce.data)   
                     {
                         nav("/adminlogin")
@@ -168,6 +185,10 @@ export const Adminregister=()=>
     {
         nav("/adminlogin")
     }
+    const Phone=(value)=>
+    {
+        sphonenumber(value)
+    }
     return(
         <>
         <Navbar/>
@@ -175,54 +196,62 @@ export const Adminregister=()=>
         <table className='tabledata' style={{marginTop:'9%'}}>
             <tr>
                 <td className="input">
-                    <label for="name"><b>name:: </b></label>
+                    <label for="name"><b>Name </b></label>
                 </td>
                 <td className="input">
-                <input type='text' name='name' placeholder='Enter your full name' onChange={(e)=>sname(e.target.value.charAt(0).toLocaleUpperCase()+e.target.value.slice(1))}></input>
-                </td>
-            </tr>
-            <tr>
-                <td className="input">
-                <label for="name"><b>Gmail:: </b></label>
-                </td>
-                <td className="input">
-                <input type='mail' name='gmail' placeholder='Enter your mail' onChange={(e)=>sgmail(e.target.value)}></input>
+                <input type='text' name='name' id="name" autoComplete="none" placeholder='Enter your full name' onChange={(e)=>sname(e.target.value.charAt(0).toLocaleUpperCase()+e.target.value.slice(1))}></input>
                 </td>
             </tr>
             <tr>
                 <td className="input">
-                <label for="name"><b>Password::</b></label>
+                <label for="gmail"><b>Gmail </b></label>
                 </td>
                 <td className="input">
-                <input type='password' name='password' placeholder='Enter your password' onChange={(e)=>spassword(e.target.value)}></input>
+                <input type='mail' name='gmail' id="gmail"  autoComplete="none" placeholder='Enter your mail' onChange={(e)=>sgmail(e.target.value)}></input>
                 </td>
             </tr>
             <tr>
                 <td className="input">
-                <label for="name"><b>confirm password::</b></label>
+                <label for="password"><b>Password</b></label>
                 </td>
                 <td className="input">
-                <input type='password' name='cpassword' placeholder='Enter your confirm password' onChange={(e)=>scpassword(e.target.value)}></input>
+                <input type='password' name='password' id="password" placeholder='Enter your password' onChange={(e)=>spassword(e.target.value)}></input>
+                </td>
+            </tr>
+            <tr>
+                <td className="input">
+                <label for="cpassword"><b>Confirm Password</b></label>
+                </td>
+                <td className="input">
+                <input type='password' name='cpassword' id="cpassword" placeholder='Enter your confirm password' onChange={(e)=>scpassword(e.target.value)}></input>
+                </td>
+            </tr>
+            <tr>
+                <td className="input">
+                    <label for='phonenumber'><b>Phone number</b></label>
+                </td>
+                <td className="input">
+                    <PhoneInput country="us" id="phonenumber" value={phonenumber} onChange={Phone}/>
                 </td>
             </tr>
             <tr>
                 <td colSpan={2} style={{color:"red",paddingTop:'2vh'}} align="center"><b>{err}</b></td>
             </tr>
             <tr>
-                <td className="input"  colSpan={2}>
-                <button style={{backgroundColor:'greenyellow'}} onClick={Show}><b>Submit</b></button>
+                <td   colSpan={2}>
+                <button onClick={Show}><b>Submit</b></button>
                 </td>
             </tr>
             <tr>
-                <td className="input" style={{paddingBottom:'3vh'}}>
+                <td  style={{padding:'3vh 0vh 3vh 3vh'}}>
                     Already have account..?
                 </td>
                 <td>
-                    <button align="center" style={{border:'none',background:'none',color:'blue',paddingTop:'2.5vh'}} onClick={sign}><h3>Sign in</h3></button>
+                    <button  onClick={sign}><b>Sign in</b></button>
                 </td>
             </tr>
         </table>
-        </div>   
+        </div>  
         <Footer/> 
         </>
     )

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Comp } from "../../company/company";
 import { Footer, Navbar } from "../../navfoot/navbar";
@@ -8,13 +8,18 @@ export const Landmanage=()=>
     const [epn,sepn]=useState([]);
     const [epd,sepd]=useState([]);
     const [epv,sepv]=useState([]);
+    const [epa,sepa]=useState([]);
+    const [etime,setime]=useState("");
     const [cpn,scpn]=useState([]);
     const [cpd,scpd]=useState([]);
     const [cpv,scpv]=useState([]);
+    const [cpa,scpa]=useState([]);
+    const [ctime,sctime]=useState("");
     const [sld,ssld]=useState([]);
     const [err1,serr1]=useState([]);
     const [err2,serr2]=useState([]);
     const [pdsc,spdsc]=useState([]);
+    const table=useRef();
     let x=0;
     const Elpd=async()=>
     {
@@ -56,7 +61,7 @@ export const Landmanage=()=>
             }
             else
             {
-               const responce2= await axios.post("http://localhost:8000/enterdata/"+epn+"/"+epd+"/"+epv)
+               const responce2= await axios.post("http://localhost:8000/enterdata/"+epn+"/"+epd+"/"+epv+"/"+epa+"/"+etime)
                {
                 responce2?serr1("Your project sucessfully saved"):serr1("Try agin")
                 window.location.reload(5)
@@ -69,15 +74,16 @@ export const Landmanage=()=>
     // Change land project data
     const Updatedata=async()=>
     {
+        
         const responce1=await axios.get("http://localhost:8000/entercheckdata/"+cpn)
         {
             if(responce1.data)
             {
-                const responce2=await axios.post("http://localhost:8000/updatedata/"+cpn+"/"+cpd+"/"+cpv)
+                const responce2=await axios.post("http://localhost:8000/updatedata/"+cpn+"/"+cpd+"/"+cpv+"/"+cpa+"/"+etime)
                 if(responce2.data)
                 {
                     serr2("Project details updateded sucessfully")
-                    window.location.reload(3)
+                     window.location.reload(3)
                 }
                 else
                 {
@@ -97,12 +103,20 @@ export const Landmanage=()=>
         const responce=await axios.get("http://localhost:8000/entercheckdata/"+cpn)
         if(responce.data)
         {
-            console.log(responce.data.project_desc)
             spdsc(responce.data)
             scpd(responce.data.project_desc);
             scpv(responce.data.project_value)
+            scpa(responce.data.project_address)
+            sctime(responce.data.project_takentime)
         }
     }
+
+    // date function
+    useEffect(() => {
+        const date = new Date();
+        const formattedDate = date.toDateString();
+        setime(formattedDate);
+      }, []);
 
     // Show land project data
     useEffect(()=>
@@ -149,6 +163,10 @@ export const Landmanage=()=>
                                     <td><input type='number' className="landinput" onChange={(e)=>sepv(e.target.value)}></input></td>
                                 </tr>
                                 <tr>
+                                    <td><label className="landinput"><b>Land Address</b></label></td>
+                                    <td><textarea type="paragraph" className="landinput" style={{width:'80%',height:'10vh'}} onChange={(e)=>sepa(e.target.value)}></textarea></td>
+                                </tr>
+                                <tr>
                                     <td colSpan={2} style={{ textAlign:'center', width: '20%', height: '4vh', color: 'red' }}><b>{err1}</b></td>
                                 </tr>
                                 <tr>
@@ -164,8 +182,8 @@ export const Landmanage=()=>
                         <div>
                             <table className="landtable">
                             <tr>
-                                    <td><label className="landinput"><b>Land Project Name</b></label></td>
-                                    <td><input type="text" className="landinput" placeholder="Enter project name" onChange={(e)=>scpn(e.target.value)}></input>
+                                    <td><label for='search' className="landinput"><b>Land Project Name</b></label></td>
+                                    <td><input id='search' type="text" className="landinput"  placeholder="Enter project name" onChange={(e)=>scpn(e.target.value)}></input>
                                     <Link style={{padding:'2px',borderRadius:'8px',backgroundColor:'green',textDecoration:'none',marginLeft:'1vh',color:'white'}} onClick={Search}>search</Link></td>
                                 </tr>
                                 <tr>
@@ -177,10 +195,18 @@ export const Landmanage=()=>
                                     <td><input type='number' className="landinput" defaultValue={pdsc.project_value}  onChange={(e)=>scpv(e.target.value)}></input></td>
                                 </tr>
                                 <tr>
+                                    <td><label className="landinput"><b>Land Address</b></label></td>
+                                    <td><textarea type="paragraph" className="landinput" defaultValue={pdsc.project_address} style={{width:'80%',height:'10vh'}} onChange={(e)=>scpa(e.target.value)}></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td><label className="landinput"><b>Land Create Time</b></label></td>
+                                    <td>{ctime}</td>
+                                </tr>
+                                <tr>
                                     <td colSpan={2} style={{ textAlign:'center', width: '20%', height: '4vh', color: 'red' }}><b>{err2}</b></td>
                                 </tr>
                                 <tr>
-                                    <td colSpan={2}><button type="submit" style={{ margin: "2% 0% 0% 43%", width: '20%', height: '4vh', backgroundColor: 'blue', color: 'white' }} onClick={Updatedata}> Save</button></td>
+                                    <td colSpan={2}><button type="submit" style={{ margin: "2% 0% 0% 43%", width: '20%', height: '4vh', backgroundColor: 'blue', color: 'white' }} onClick={Updatedata}>Update</button></td>
                                 </tr>
                             </table>
                             <br/><br/>
@@ -199,19 +225,34 @@ export const Landmanage=()=>
                                 (
                                     <>
                                     <tr>
-                                    <td style={{color:'darkblue'}}><b>{index+1}::--</b></td>
+                                    <td style={{color:'darkblue'}}><b>{index+1}</b></td>
                                     <td><b>Land Project</b></td>
                                     <td>{val1.project_name}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td><b>Land Project description</b></td>
+                                    <td ><b>Land Project description</b></td>
                                     <td>{val1.project_desc}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td><b>Land project Value</b></td>
                                     <td>{val1.project_value}</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><b>Land Project Address</b></td>
+                                    <td>{val1.project_address}</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><b>Land Project Create Time</b></td>
+                                    <td>{val1.project_takentime}</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td style={{width:'40%'}}><b>Land Project Change Time</b></td>
+                                    <td>{val1.project_changetime}</td>
                                 </tr>
                                 <br/><br/>
                                 </>

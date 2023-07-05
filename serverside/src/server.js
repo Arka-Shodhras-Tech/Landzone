@@ -9,9 +9,9 @@ app.get('/',(req,res)=>{
     res.send("server running")
 })
 //user data server//
-app.post('/register/:name/:gmail/:password/:cpassword',async(req,res)=>//register
+app.post('/register/:name/:gmail/:password/:cpassword/:phonenumber',async(req,res)=>//register
 {
-    const details=await db.collection('userdata').insertOne({name:req.params.name,gmail:req.params.gmail,password:req.params.password,cpassword:req.params.cpassword})
+    const details=await db.collection('userdata').insertOne({name:req.params.name,gmail:req.params.gmail,password:req.params.password,cpassword:req.params.cpassword,phone_number:req.params.phonenumber})
     res.json(details);
 })
 app.get('/check/:gmail',async(req,res)=>//mail check in register
@@ -51,9 +51,9 @@ app.get('/admincheck/:gmail',async(req,res)=>//mail check
     const details=await db.collection('admindata').findOne({gmail:req.params.gmail});
     res.json(details);
 })
-app.post('/adminregister/:name/:gmail/:password/:cpassword',async(req,res)=>//register
+app.post('/adminregister/:name/:gmail/:password/:cpassword/:phonenumber',async(req,res)=>//register
 {
-    const details=await db.collection('admindata').insertOne({name:req.params.name,gmail:req.params.gmail,password:req.params.password,cpassword:req.params.cpassword})
+    const details=await db.collection('admindata').insertOne({name:req.params.name,gmail:req.params.gmail,password:req.params.password,cpassword:req.params.cpassword,phone_number:req.params.phonenumber})
     res.json(details);
 })
 
@@ -67,9 +67,9 @@ app.get('/aufl',async(req,res)=>{
 
 // Enter project data
 
-app.post('/enterdata/:proname/:prodesc/:provalue',async(req,res)=>
+app.post('/enterdata/:proname/:prodesc/:provalue/:proadd/:protime',async(req,res)=>
 {
-    const details=await db.collection('entereddata').insertOne({project_name:req.params.proname,project_desc:req.params.prodesc,project_value:req.params.provalue})
+    const details=await db.collection('entereddata').insertOne({project_name:req.params.proname,project_desc:req.params.prodesc,project_value:req.params.provalue,project_address:req.params.proadd,project_takentime:req.params.protime})
     res.json(details);
 })
 app.get("/entercheckdata/:proname",async(req,res)=>
@@ -80,9 +80,9 @@ app.get("/entercheckdata/:proname",async(req,res)=>
 
 // change project data
 
-app.post('/updatedata/:proname/:prodesc/:provalue',async(req,res)=>
+app.post('/updatedata/:proname/:prodesc/:provalue/:proadd/:protime',async(req,res)=>
 {
-    const details=await db.collection('entereddata').findOneAndUpdate({project_name:req.params.proname},{$set:{project_desc:req.params.prodesc,project_value:req.params.provalue}})
+    const details=await db.collection('entereddata').findOneAndUpdate({project_name:req.params.proname},{$set:{project_desc:req.params.prodesc,project_value:req.params.provalue,project_address:req.params.proadd,project_changetime:req.params.protime}})
     res.json(details);
 })
 

@@ -14,17 +14,85 @@ export const Usermanage=()=>
     // Transfer currency to user function
     const Transfer=async()=>
     {
-
+        document.getElementById('transfer').style.display="block";
+        document.getElementById('approvedisplay').style.display="none";
+        document.getElementById('editdisplay').style.display="none";
+        document.getElementById('disenadisplay').style.display="none";
+        document.getElementById('transction').style.display="none";
+        document.getElementById('reasondisplay').style.display='none';
     }
 
-    // View and edit user function
+     // Approve user from list
+     const Aprove=async()=>
+     {
+         document.getElementById('transfer').style.display="none";
+         document.getElementById('approvedisplay').style.display="block";
+         document.getElementById('disenadisplay').style.display="none";
+         document.getElementById('editdisplay').style.display="none";
+         document.getElementById('transction').style.display="none";
+         document.getElementById('reasondisplay').style.display='none'
+     }
+
+    // Update user details
     const Edit=async()=>
     {
+        document.getElementById('transfer').style.display="none";
         document.getElementById('approvedisplay').style.display="none";
         document.getElementById('editdisplay').style.display="block";
         document.getElementById('disenadisplay').style.display="none";
+        document.getElementById('transction').style.display="none";
         document.getElementById('reasondisplay').style.display='none'
     }
+
+// Disable and Enable user
+    const Disena=async()=>
+    {
+        document.getElementById('transfer').style.display="none";
+        document.getElementById('approvedisplay').style.display="none";
+        document.getElementById('disenadisplay').style.display="block";
+        document.getElementById('transction').style.display="none";
+        document.getElementById('editdisplay').style.display="none";
+    }
+
+// View transaction history
+     const Transaction=async()=>
+     {
+         document.getElementById('transfer').style.display='none';
+         document.getElementById('approvedisplay').style.display="none";
+         document.getElementById('editdisplay').style.display="none";
+         document.getElementById('disenadisplay').style.display="none";
+         document.getElementById('transction').style.display='block';
+         document.getElementById('reasondisplay').style.display='none';
+     }
+
+// Block users
+    const View=async()=>
+    {
+        document.getElementById('disenadisplay').style.display="none";
+        document.getElementById('personinfo').style.display='block';
+    }
+
+    const Disable=async()=>
+    {
+        document.getElementById('reasondisplay').style.display='block'
+    }
+    const Enable=async()=>
+    {
+        document.getElementById('enable').style.display='none';
+        document.getElementById('confirm').style.display='block';
+        document.getElementById('reasondisplay').style.display='none';
+    }
+    const Disconfirm=async()=>
+    {
+        document.getElementById('reasondisplay').style.display='none'
+    }
+    // const Enconfirm=async()=>
+    // {
+    //     document.getElementById('confirm').style.display='none';
+    // }
+
+
+// Update user details
     const Edituser=async()=>
     {
         const responce1=await axios.get("http://localhost:8000/admincheck/"+edit)
@@ -49,53 +117,6 @@ export const Usermanage=()=>
         }
     }
 
-    // Approve user from list
-    const Aprove=async()=>
-    {
-        document.getElementById('approvedisplay').style.display="block";
-        document.getElementById('disenadisplay').style.display="none";
-        document.getElementById('editdisplay').style.display="none";
-        document.getElementById('reasondisplay').style.display='none'
-    }
-
-    // Block users
-    const View=async()=>
-    {
-        document.getElementById('disenadisplay').style.display="none";
-        document.getElementById('personinfo').style.display='block';
-    }
-    const Disena=async()=>
-    {
-        document.getElementById('approvedisplay').style.display="none";
-        document.getElementById('disenadisplay').style.display="block";
-        document.getElementById('editdisplay').style.display="none";
-    }
-
-    const Disable=async()=>
-    {
-        document.getElementById('reasondisplay').style.display='block'
-    }
-    const Enable=async()=>
-    {
-        document.getElementById('enable').style.display='none';
-        document.getElementById('confirm').style.display='block';
-        document.getElementById('reasondisplay').style.display='none';
-    }
-    const Disconfirm=async()=>
-    {
-        document.getElementById('reasondisplay').style.display='none'
-    }
-    // const Enconfirm=async()=>
-    // {
-    //     document.getElementById('confirm').style.display='none';
-    // }
-
-    // View transaction history
-    const Transaction=async()=>
-    {
-
-    }
-
     // Edit user update profile
     useEffect(()=>
 {
@@ -117,7 +138,6 @@ export const Usermanage=()=>
                 <section>
 
 {/* user management list */}
-                   <div>
                    <div className="dash">
                            <Link className="usrmngitem" onClick={Transfer}>Transfer Currency to User</Link>
                            <Link className="usrmngitem" onClick={Aprove}>Approve Users From List</Link> 
@@ -126,6 +146,35 @@ export const Usermanage=()=>
                            <Link className="usrmngitem" onClick={Transaction}>view transaction history</Link>
                     </div>
 
+{/* Transfer Currency to user */}
+                    <div>
+                        <div className="editdis" style={{display:'none'}} id="transfer">
+                            <table className="landtable" style={{paddingTop:'35%'}}>
+                                <tr>
+                                    <td>
+                                        <label for='gmail'><b>Enter User Email id</b></label>
+                                    </td>
+                                    <td>
+                                        <input type="gmail" id="gmail"></input>
+                                    </td>
+                                    <td>
+                                        <button>SUbmit</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for='amount'><b>Enter the amount to be transfer</b></label>
+                                    </td>
+                                    <td>
+                                        <input type="number" id="amount"></input>
+                                    </td>
+                                    <td>
+                                        <button>Submit</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
 
 {/* Approve users from list */}
                     <div>
@@ -134,16 +183,20 @@ export const Usermanage=()=>
                                         <table className="aufltable">
                                             <tr>
                                                 <th>S.No</th>
-                                                <th>Name</th>
+                                                <th for="name">Name</th>
                                                 <th>G-mail</th>
+                                                <th>Phone Number</th>
                                                 <th>Select</th>
                                             </tr>
                                             {
                                                 dat.map((val1, index) => (
                                                     <tr>
                                                         <td><b>{index + 1}</b></td>
-                                                        <td><b>{val1.name}</b></td>
+                                                        <td>
+                                                            <input style={{border:'none',height:'22px'}} type="text" id="name" defaultValue={val1.name}/>
+                                                        </td>
                                                         <td><b>{val1.gmail}</b></td>
+                                                        <td><b>{val1.phone_number}</b></td>
                                                         <td>
                                                             <input id={index} name={val1.name} type="radio"></input>
                                                         </td>
@@ -156,7 +209,7 @@ export const Usermanage=()=>
                     </div>
 
 
-                {/* Edit user */}
+{/* Edit user */}
                     <div className="editdis" style={{display:'none'}} id="editdisplay">
                         <div>
                         <div>
@@ -189,7 +242,7 @@ export const Usermanage=()=>
                     </div>
 
 
-                    {/* Enable and Disable user */}
+{/* Enable and Disable user */}
                     <div className="editdis" style={{display:'none'}} id="disenadisplay">
                         <div>
                         <div>
@@ -220,7 +273,7 @@ export const Usermanage=()=>
 
 
 
-                    {/* after view on enable disable user form... displays selected person data */}
+{/* after view on enable disable user form... displays selected person data */}
                     <div className="editdis" style={{display:'none'}} id="personinfo">
                         <table style={{margin:'15% 0% 0% 35%',border:'1px soild black'}}>
                         {
@@ -251,15 +304,36 @@ export const Usermanage=()=>
 
 
 
-                    {/* Reason and confirm detilas of disable enable users */}
+{/* Reason and confirm detilas of disable enable users */}
                     <div>
                     <div className="disenareason" style={{display:'none'}} id="reasondisplay">
                         <input type="text" placeholder="Reason..." style={{width:'80vh',height:'10vh',fontSize:'15px'}}></input>
                         <button type="submit" style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }} onClick={Disconfirm}>Confirm</button>
                        </div>
                     </div>
+
+{/* View transaction history */}
+                        <div className="editdis" style={{display:'none'}} id="transction">
+                        <table className="aufltable">
+                            <tr>
+                                <th>Bank Details</th>
+                                <th>Sender Name</th>
+                                <th>Sender Account Number</th>
+                                <th>Amount Transfer</th>
+                                <th>Payment Refer Number</th>
+                                <th>Transfer Date and Time</th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                        </div>
                     </div>
-                   </div>
                 </section>
             </div>
         </div>

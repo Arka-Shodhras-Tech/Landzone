@@ -2,7 +2,7 @@
 .home
 {
     height: 95vh;
-    width: 100%;
+   max-width: 100%;
 }
 nav
 {
@@ -68,20 +68,44 @@ footer
 /* login and register pages css */
 .tabledata
 {
-  padding: 1%;
-  width: 25%;
+  max-width: 35%;
   position:absolute;
-  margin: 27vh 40% 40vh 37.5%;
+  left: 35%;
+  margin: 15% 0% 0% 5vh;
   background-color: beige;
-  border-radius: 10%;
+  border-radius: 20px;
   opacity: 60%;
 }
 .input
 {
   padding-top: 5vh;
+  padding-right: 2vh;
   text-align: center;
   color:black;
   font-size: large;
+}
+.tabledata input
+{
+    padding: 5px 50px;
+}
+.tabledata label,button
+{
+    cursor: pointer;
+}
+.tabledata button
+{
+    margin:3vh 0vh 2vh 40%;
+    padding: 5px 20px;
+    background: none;
+    background-color: greenyellow;
+    border: none;
+    transition: 0.3s;
+    border-radius: 8px;
+}
+.tabledata button:hover
+{
+    background-color: blue;
+    color: white;
 }
 
 /* ------------------ */
