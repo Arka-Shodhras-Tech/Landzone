@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Comp } from "../../company/company";
 import { Footer, Navbar } from "../../navfoot/navbar";
+import moment from 'moment';
+import 'moment-timezone'
 export const Landmanage=()=>
 {
     const [epn,sepn]=useState([]);
@@ -111,12 +113,11 @@ export const Landmanage=()=>
         }
     }
 
-    // date function
+// date function
     useEffect(() => {
-        const date = new Date();
-        const formattedDate = date.toDateString();
-        setime(formattedDate);
-      }, []);
+        const etime = moment().format('YYYY-MM-DD HH:mm:ss Z');
+        setime(etime);
+    }, []);
 
     // Show land project data
     useEffect(()=>
@@ -132,9 +133,7 @@ export const Landmanage=()=>
         <Navbar/>
         <div className="home">
             <div className="adpage">
-                <aside>
                 <Comp/>
-                </aside>
                 <section>
                     <div>
                     <div className="land">
@@ -158,12 +157,16 @@ export const Landmanage=()=>
                                     <td><textarea type="paragraph" className="landinput" style={{width:'80%',height:'20vh'}} onChange={(e)=>sepd(e.target.value)}></textarea></td>
                                 </tr>
                                 <tr>
-                                    <td><label className="landinput"><b>Land Project Value </b></label></td>
+                                    <td><label className="landinput"><b>Enter Land value in USD </b></label></td>
                                     <td><input type='number' className="landinput" onChange={(e)=>sepv(e.target.value)}></input></td>
                                 </tr>
                                 <tr>
                                     <td><label className="landinput"><b>Land Address</b></label></td>
                                     <td><textarea type="paragraph" className="landinput" style={{width:'80%',height:'10vh'}} onChange={(e)=>sepa(e.target.value)}></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td><label className="landinput"><b>Date & Time</b></label></td>
+                                    <td>{etime}</td>
                                 </tr>
                                 <tr>
                                     <td colSpan={2} style={{ textAlign:'center', width: '20%', height: '4vh', color: 'red' }}><b>{err1}</b></td>
@@ -190,7 +193,7 @@ export const Landmanage=()=>
                                     <td><textarea type="paragraph" className="landinput" defaultValue={pdsc.project_desc} style={{width:'80%',height:'20vh'}} onChange={(e)=>scpd(e.target.value)}></textarea></td>
                                 </tr>
                                 <tr>
-                                    <td><label className="landinput"><b>Land Project Value</b></label></td>
+                                    <td><label className="landinput"><b>Enter Land value in USD</b></label></td>
                                     <td><input type='number' className="landinput" defaultValue={pdsc.project_value}  onChange={(e)=>scpv(e.target.value)}></input></td>
                                 </tr>
                                 <tr>
@@ -198,8 +201,12 @@ export const Landmanage=()=>
                                     <td><textarea type="paragraph" className="landinput" defaultValue={pdsc.project_address} style={{width:'80%',height:'10vh'}} onChange={(e)=>scpa(e.target.value)}></textarea></td>
                                 </tr>
                                 <tr>
-                                    <td><label className="landinput"><b>Land Create Time</b></label></td>
+                                    <td><label className="landinput"><b>Land Create Date</b></label></td>
                                     <td>{ctime}</td>
+                                </tr>
+                                <tr>
+                                    <td><label className="landinput"><b>Date & Time</b></label></td>
+                                    <td>{etime}</td>
                                 </tr>
                                 <tr>
                                     <td colSpan={2} style={{ textAlign:'center', width: '20%', height: '4vh', color: 'red' }}><b>{err2}</b></td>
@@ -245,12 +252,12 @@ export const Landmanage=()=>
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td><b>Land Project Create Time</b></td>
+                                    <td><b>Land Project Create Date & Time</b></td>
                                     <td>{val1.project_takentime}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td style={{width:'40%'}}><b>Land Project Change Time</b></td>
+                                    <td style={{width:'40%'}}><b>Land Project Change Date & Time</b></td>
                                     <td>{val1.project_changetime}</td>
                                 </tr>
                                 <br/><br/>
@@ -279,7 +286,7 @@ export const Landmanage=()=>
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td><b>Land Total value</b></td>
+                                                <td><b>Land value in USD</b></td>
                                                 <td>{val2.project_value}</td>
                                             </tr>
                                             <tr>
@@ -290,7 +297,7 @@ export const Landmanage=()=>
                                     ))
                                 }
                                 <tr>
-                                    <td style={{fontSize:'30px', backgroundColor:"green",color:'white'}} colSpan={3}>The land total value of all projects is <b style={{color:"#330033"}}>{x}</b> in Ruppes</td>
+                                    <td style={{fontSize:'28px', backgroundColor:"green",color:'white'}} colSpan={3}>The land total value of all projects is <b style={{color:"#330033"}}>{x}</b> USD</td>
                                 </tr>
                             </table>
                         </div>

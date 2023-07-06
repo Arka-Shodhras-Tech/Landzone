@@ -12,26 +12,26 @@ export const Comp=()=>
     // }
     return(
                <>
-                <div className="drop">
+                {/* <div className="drop">
                         <Link >
                             <img src={"list.svg"} width={'35px'} alt="list"/>
                         </Link>
-                </div>
-                    <div className="dropbar" >
-                        <div>
+                </div> */}
+                <aside>
+                <div>
                     <Link  className="drop">
                         <img src={"list.svg"} width={'35px'} alt="list" />
                     </Link>
-                    <Link to='/adminpage' className="drop" style={{marginLeft:'10vh'}}>
-                    <img src={'house.svg'} width={'33px'} alt="home"></img>
-                    </Link>
+                    <NavLink to='/adminpage' className="drop" activeClassName='active' style={{marginLeft:'10vh',padding:'3%',borderRadius:'30px'}}>
+                    <img src={'house.svg'} width={'33px'}  alt="home"></img>
+                    </NavLink>
                         </div>
                             <NavLink to='/dashboard' className="asidebtn"  activeClassName='active'><b>Dashboard</b></NavLink>
                             <NavLink to='/usermanage' className="asidebtn" activeClassName="active"><b>User Management</b></NavLink>
                             <NavLink to='/adminusermanage' className="asidebtn" activeClassName="active"><b>Admin User Management</b></NavLink>
                             <NavLink to='/landmanage' className="asidebtn" activeClassName="active"><b>Land Management</b></NavLink>
                             <NavLink to='/unitmanage' className="asidebtn" activeClassName="active"><b>Unit Request Management</b></NavLink>
-                    </div>
+                </aside>
                </>
     )
 }

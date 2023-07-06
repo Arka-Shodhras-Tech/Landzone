@@ -45,7 +45,7 @@ export const Adminlogin=()=>
                 <label for="gmail"><b>Gmail:: </b></label>
             </td>
                 <td className="input">
-                <input type='mail' name='gmail' placeholder='Enter your mail' onChange={(e)=>sgmail(e.target.value)}></input>
+                <input type='mail' name='gmail' autoComplete='none' placeholder='Enter your mail' onChange={(e)=>sgmail(e.target.value)}></input>
                 </td>
             </tr>
             <tr>

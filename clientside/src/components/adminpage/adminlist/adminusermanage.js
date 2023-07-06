@@ -9,9 +9,7 @@ export const Adminusermanage=()=>
         <Navbar/>
         <div className="home">
             <div className="adpage">
-                <aside>
                 <Comp/>
-                </aside>
                 <section>
                     <div>
                             

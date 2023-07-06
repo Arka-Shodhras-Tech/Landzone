@@ -57,6 +57,18 @@ export const Dashboard=()=>
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='block';
     }
+// Land display in create currency
+    const Landdis=()=>
+    {
+        document.getElementById('landis').style.display='block';
+        document.getElementById('usdis').style.display='none';
+    }
+// USD display in create currency
+    const Usddis=()=>
+    {
+        document.getElementById('usdis').style.display='block';
+        document.getElementById('landis').style.display='none';
+    }
     useEffect(()=>
     {
     axios.get("http://localhost:8000/aufl")
@@ -70,16 +82,14 @@ export const Dashboard=()=>
         <Navbar/>
         <div className="home">
             <div className="adpage">
-                <aside>
                 <Comp/>
-                </aside>
                 <section>
                     <div className="dash">
-                        <Link className="dashitem" onClick={CC}>Create Currency (Land/eUSD Units)</Link>
+                        <Link className="dashitem" onClick={CC}>Create Currency (Land/USD Units)</Link>
                         <Link className="dashitem" onClick={Vpp}>view Pending Purchases</Link>
                         <Link className="dashitem" onClick={App}>Approve Pending Purchases</Link>
-                        <Link className="dashitem" onClick={Evb}>Enter Value of eUSD in Bank</Link>
-                        <Link className="dashitem" onClick={Svb}>Show Value of eUSD in Bank</Link>
+                        <Link className="dashitem" onClick={Evb}>Enter Value of USD in Bank</Link>
+                        <Link className="dashitem" onClick={Svb}>Show Value of USD in Bank</Link>
                     </div>
                             <div>
                                 <table className="dashtable">
@@ -124,7 +134,19 @@ export const Dashboard=()=>
 
 {/* Create currency */}
                             <div className="editdis" style={{display:'none'}} id="cc">
-                                <h1>Currency details</h1>
+                               <div className="ccdisplay">
+                                <label for='land'><b>Choose Currency</b></label>
+                                {/* <select>
+                                    <p>Land</p>
+                                    <p>USD</p>
+                                </select> */}
+                                <input type="radio" id="land" onChange={Landdis}></input>
+                                <input type="number" style={{display:'none'}} id="landis"></input>
+                                <br/><br/>
+                                <label for='usd'><b>USD</b></label>
+                                <input type="radio" id="usd" onChange={Usddis}></input>
+                                <input type="number" style={{display:'none'}} id="usdis"></input>
+                               </div>
                             </div>
 
 {/* View pending purchases */}

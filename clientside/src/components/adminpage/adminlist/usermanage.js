@@ -91,7 +91,7 @@ export const Usermanage=()=>
     //     document.getElementById('confirm').style.display='none';
     // }
 
-
+  
 // Update user details
     const Edituser=async()=>
     {
@@ -116,24 +116,26 @@ export const Usermanage=()=>
             }
         }
     }
+// Deselect radio button
+    const Deselect=()=>
+    {
+        document.getElementById(1).checked="none";
+        document.getElementById(1).checked=false;
+    }
 
     // Edit user update profile
-    useEffect(()=>
-{
-    axios.get("http://localhost:8000/aufl")
-    .then((result)=>
-    {
-        sdat(result.data)
-    })
-},[])
+    useEffect(() => {
+        axios.get("http://localhost:8000/aufl")
+            .then((result) => {
+                sdat(result.data)
+            })
+    }, [])
     return(
         <>
         <Navbar/>
         <div className="home">
             <div className="adpage">
-                <aside>
                 <Comp/>
-                </aside>
                 <section>
 
 {/* user management list */}
@@ -191,13 +193,11 @@ export const Usermanage=()=>
                                                 dat.map((val1, index) => (
                                                     <tr>
                                                         <td><b>{index + 1}</b></td>
-                                                        <td>
-                                                            <input style={{border:'none',height:'22px'}} type="text" id="name" defaultValue={val1.name}/>
-                                                        </td>
+                                                        <td><b>{val1.name}</b></td>
                                                         <td><b>{val1.gmail}</b></td>
                                                         <td><b>{val1.phone_number}</b></td>
                                                         <td>
-                                                            <input id={index} name={val1.name} type="radio"></input>
+                                                            <input id={index} name={val1.name} type="checkbox"></input>
                                                         </td>
                                                     </tr>
                                                 ))
@@ -217,6 +217,7 @@ export const Usermanage=()=>
                                                 <th>S.No</th>
                                                 <th>Name</th>
                                                 <th>G-mail</th>
+                                                <th>Phone Number</th>
                                                 <th>Modify</th>
                                             </tr>
                                             {
@@ -224,10 +225,13 @@ export const Usermanage=()=>
                                                    <>
                                                     <tr>
                                                         <td><b>{index + 1}</b></td>
-                                                        <td><b>{val2.name}</b></td>
-                                                        <td><b>{val2.gmail}</b></td>
                                                         <td>
-                                                        <input id={index} name="same" type="radio" onChange={(e)=>sedit(val2.gmail)}></input>
+                                                            <input style={{border:'none',height:'22px'}} type="text" id="name" defaultValue={val2.name}/>
+                                                        </td>
+                                                        <td><b>{val2.gmail}</b></td>
+                                                        <td><b>{val2.phone_number}</b></td>
+                                                        <td>
+                                                        <input id={index} name="same" type="radio" onChange={(e)=>sedit(val2.gmail)} onClick={Deselect}></input>
                                                         </td>
                                                     </tr>
                                                    </>
@@ -250,6 +254,7 @@ export const Usermanage=()=>
                                     <th>S.No</th>
                                     <th>Name</th>
                                     <th>G-mail</th>
+                                    <th>Phone Number</th>
                                     <th>Select for en/dis</th>
                                 </tr>
                                 {
@@ -258,6 +263,7 @@ export const Usermanage=()=>
                                             <td><b>{index + 1}</b></td>
                                             <td><b>{val3.name}</b></td>
                                             <td><b>{val3.gmail}</b></td>
+                                            <td><b>{val3.phone_number}</b></td>
                                             <td>
                                                 <input id={index} style={{width:'50px'}} name="same" type="radio" onChange={(e)=>scrt(val3.gmail)}></input>
                                             </td>
