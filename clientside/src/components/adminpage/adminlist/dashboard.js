@@ -135,17 +135,14 @@ export const Dashboard=()=>
 {/* Create currency */}
                             <div className="editdis" style={{display:'none'}} id="cc">
                                <div className="ccdisplay">
-                                <label for='land'><b>Choose Currency</b></label>
-                                {/* <select>
-                                    <p>Land</p>
-                                    <p>USD</p>
-                                </select> */}
-                                <input type="radio" id="land" onChange={Landdis}></input>
-                                <input type="number" style={{display:'none'}} id="landis"></input>
-                                <br/><br/>
-                                <label for='usd'><b>USD</b></label>
-                                <input type="radio" id="usd" onChange={Usddis}></input>
-                                <input type="number" style={{display:'none'}} id="usdis"></input>
+                                <label for='land' name="currency"><b>Enter the number of Units: </b><input type="number" name="currency"></input>
+                                <select id="land" name="currency">
+                                    <option> Choose Currency</option>
+                                    <option value="Land">Land</option>
+                                    <option value="USD">USD</option>
+                                </select>
+                                </label>
+                                <button type="submit" style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Convert</button>
                                </div>
                             </div>
 

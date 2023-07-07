@@ -9,6 +9,7 @@ export const Usermanage=()=>
     const [crt,scrt]=useState([]);
     const [edit,sedit]=useState([]);
     const [err1,serr1]=useState([]);
+    const [approve,sapprove]=useState(null);
     // const nav=useNavigate();
 
     // Transfer currency to user function
@@ -90,6 +91,11 @@ export const Usermanage=()=>
     // {
     //     document.getElementById('confirm').style.display='none';
     // }
+
+    const Hidden=()=>
+    {
+
+    }
 
   
 // Update user details
@@ -197,7 +203,12 @@ export const Usermanage=()=>
                                                         <td><b>{val1.gmail}</b></td>
                                                         <td><b>{val1.phone_number}</b></td>
                                                         <td>
-                                                            <input id={index} name={val1.name} type="checkbox"></input>
+                                                            {
+                                                                approve===null?
+                                                                <Link  style={{textDecoration:'none',padding:'0.5%',borderRadius:'5px',backgroundColor:'green',color:'white'}}  >Approve</Link>:
+                                                                // <Link  style={{textDecoration:'none',padding:'0.5%',borderRadius:'5px',backgroundColor:'red',color:'white'}}>Disapprove</Link>
+                                                                <></>
+                                                            }
                                                         </td>
                                                     </tr>
                                                 ))
@@ -231,7 +242,7 @@ export const Usermanage=()=>
                                                         <td><b>{val2.gmail}</b></td>
                                                         <td><b>{val2.phone_number}</b></td>
                                                         <td>
-                                                        <input id={index} name="same" type="radio" onChange={(e)=>sedit(val2.gmail)} onClick={Deselect}></input>
+                                                        <input id={index} name="same" type="radio" onChange={(e)=>sedit(val2.gmail)}></input>
                                                         </td>
                                                     </tr>
                                                    </>
