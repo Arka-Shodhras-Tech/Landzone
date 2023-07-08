@@ -16,9 +16,9 @@ export const Adminlogin=()=>
             const responce=await axios.get("http://localhost:8000/adminlogin/"+gmail+"/"+password);
             if(responce.data)
         {
-            localStorage.name=responce.data.name;
-            localStorage.gmail=responce.data.gmail;
-            nav('/adminpage');
+                localStorage.name = responce.data.name;
+                localStorage.gmail = responce.data.gmail;
+                nav('/adminpage');
         }
         else{
             serror("password or mail incorrect")

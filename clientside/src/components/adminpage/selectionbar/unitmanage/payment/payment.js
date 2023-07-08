@@ -40,10 +40,10 @@ export const Payment=()=>
             </tr>
             <tr>
                 <td>
-                    <label for='sender_name'><b>Enter Sender Name</b></label>
+                    <label for='sender_name'><b>Enter Sender Email</b></label>
                 </td>
                 <td>
-                    <input id="sender_name" ref={form} type="text" placeholder="Enter sender name.." onChange={(e)=>ssendername(e.target.value)}></input>
+                    <input id="sender_name" ref={form} type="email" placeholder="Enter sender mail.." onChange={(e)=>ssendername(e.target.value)}></input>
                 </td>
             </tr>
             <tr>

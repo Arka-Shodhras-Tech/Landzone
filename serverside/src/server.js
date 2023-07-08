@@ -14,6 +14,11 @@ app.post('/register/:name/:gmail/:password/:cpassword/:phonenumber',async(req,re
     const details=await db.collection('userdata').insertOne({name:req.params.name,gmail:req.params.gmail,password:req.params.password,cpassword:req.params.cpassword,phone_number:req.params.phonenumber})
     res.json(details);
 })
+app.post('/userapprove/:name/:gmail/:phonenumber',async(req,res)=>//register
+{
+    const details=await db.collection('User_Approvelist').insertOne({name:req.params.name,gmail:req.params.gmail,phone_number:req.params.phonenumber})
+    res.json(details);
+})
 app.get('/check/:gmail',async(req,res)=>//mail check in register
 {
     const details=await db.collection('userdata').findOne({gmail:req.params.gmail});
@@ -48,7 +53,7 @@ app.get('/adminlogin/:mail/:password',async(req,res)=>//login
 })
 app.get('/admincheck/:gmail',async(req,res)=>//mail check
 {
-    const details=await db.collection('admindata').findOne({gmail:req.params.gmail});
+    const details=await db.collection('userdata').findOne({gmail:req.params.gmail});
     res.json(details);
 })
 app.post('/adminregister/:name/:gmail/:password/:cpassword/:phonenumber',async(req,res)=>//register
@@ -57,16 +62,23 @@ app.post('/adminregister/:name/:gmail/:password/:cpassword/:phonenumber',async(r
     res.json(details);
 })
 
-//approve user from list
+//Approve user from list
 app.get('/aufl',async(req,res)=>{
     const details=await db.collection('userdata').find().toArray()
     res.json(details);
 })
 
 // Approve list from approve
-app.post('/approvelist/:gmail',async(req,res)=>
+app.post('/approvelist/:name/:gmail/:phonenum',async(req,res)=>
 {
-    
+    const details=await db.collection('Approve_List').insertOne({Name:req.params.name,Gmail:req.params.gmail,Phone_Number:req.params.phonenum})
+    res.json(details);
+})
+// Approve list check email id
+app.get('/approvecheck/:gmail',async(req,res)=>
+{
+    const details=await db.collection('Approve_List').findOne({Gmail:req.params.gmail});
+    res.json(details);
 })
 
 

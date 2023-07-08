@@ -10,7 +10,7 @@ export const Usermanage=()=>
     const [edit,sedit]=useState([]);
     const [err1,serr1]=useState([]);
     const [pymt,spymt]=useState([]);
-    const [approve,sapprove]=useState([]);
+    const [approve,sapprove]=useState([null]);
     // const nav=useNavigate();
 
     // Transfer currency to user function
@@ -97,14 +97,23 @@ export const Usermanage=()=>
     {
 
     }
-
 // Approve users
-    const Approve=async()=>
+    const Approvee=async()=>
     {
         try
         {
-            const responce=await axios.post("http://localhost:8000/approvelist/"+approve)
-            responce?alert("Sucessfully Approved"):alert("Try again");
+            const responce=await axios.get("http://localhost:8000/approvecheck/"+approve.gmail)
+            if(responce.data)
+            {
+                alert("Already approve data");
+            }
+            else
+            {
+                const responce3=await axios.post("http://localhost:8000/approvelist/"+approve.name+"/"+approve.gmail+"/"+approve.phone_number)
+                {
+                    responce3?alert("Sucessfully Approved"):alert("Try again");
+                }
+            }
         }
         catch(err)
         {
@@ -122,7 +131,7 @@ export const Usermanage=()=>
                 alert("Are you update the Users.. clicked OK" )
                const responce2= await axios.post("http://localhost:8000/deledit/"+responce1.data.name)
               {
-                responce2?serr1("user details have been successfully updated"): serr1("Try again")
+                responce2?alert("user details have been successfully updated"): alert("Try again")
               }
                
             }
@@ -209,6 +218,7 @@ export const Usermanage=()=>
                                                 <th>G-mail</th>
                                                 <th>Phone Number</th>
                                                 <th>Select</th>
+                                                <th>Deselect</th>
                                             </tr>
                                             {
                                                 dat.map((val1, index) => (
@@ -218,13 +228,16 @@ export const Usermanage=()=>
                                                         <td><b>{val1.gmail}</b></td>
                                                         <td><b>{val1.phone_number}</b></td>
                                                         <td>
-                                                           <input type="radio" name={index} value={val1.gmail} onChange={(e)=>sapprove(e.target.value)}></input>
+                                                           <input type="radio" name={index}  onChange={(e)=>sapprove(val1)}></input>
+                                                        </td>
+                                                        <td>
+                                                            <input type="radio" name={index}/>
                                                         </td>
                                                     </tr>
                                                 ))
                                             }
                                         </table>
-                                        <button type="submit" style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white' }}>Approve</button>
+                                        <button type="submit" onClick={Approvee} style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white'}}>Approve</button >
                                     </div>
                     </div>
 
