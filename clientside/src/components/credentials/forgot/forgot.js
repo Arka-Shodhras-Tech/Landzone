@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Footer, Navbar } from "../navfoot/navbar";
+import { Footer, Navbar } from "../../navfoot/navbar";
 export const Adminupdate=()=>{
     const nav=useNavigate();
     const [gmail,sgmail]=useState("");

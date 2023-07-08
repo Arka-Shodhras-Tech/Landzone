@@ -102,6 +102,19 @@ app.post('/deledit/:_id',async(req,res)=>
 })
 
 
+// payment details entered
+app.post('/payment/:bankd/:sendname/:accnum/:amt/:refnum/:trnsdt',async(req,res)=>
+{
+    const details=await db.collection('payment').insertOne({Bank_details:req.params.bankd,Sender_name:req.params.sendname,Sender_Acc_Number:req.params.accnum,Amount_Transfered:req.params.amt,Payment_ref_number:req.params.refnum,Transaction_date:req.params.trnsdt})
+    res.json(details);
+})
+// payment details retrive
+app.get('/pymtretrive',async(req,res)=>
+{
+    const details=await db.collection('payment').find().toArray()
+    res.json(details);
+})
+
 
 //delete data//
 app.get('/deladmdata',async(req,res)=>{

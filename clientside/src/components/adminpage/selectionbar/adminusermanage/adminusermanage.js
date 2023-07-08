@@ -1,9 +1,7 @@
 import React from "react";
-import { Footer, Navbar } from "../../navfoot/navbar";
-import { Comp } from "../../company/company";
-import { Link } from "react-router-dom";
-import { Payment } from "../../payment/payment";
-export const Unitmanage=()=>
+import { Footer, Navbar } from "../../../home/nav&foot&contact&about/navbar";
+import { Comp } from "../../asidebar/asidebar";
+export const Adminusermanage=()=>
 {
     return(
         <>
@@ -13,7 +11,7 @@ export const Unitmanage=()=>
                 <Comp/>
                 <section>
                     <div>
-                            <Payment/>
+                            
                     </div>
                 </section>
             </div>

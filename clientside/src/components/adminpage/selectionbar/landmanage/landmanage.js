@@ -1,10 +1,10 @@
 import axios from "axios";
+import moment from 'moment';
+import 'moment-timezone';
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Comp } from "../../company/company";
-import { Footer, Navbar } from "../../navfoot/navbar";
-import moment from 'moment';
-import 'moment-timezone'
+import { Footer, Navbar } from "../../../navfoot/navbar";
+import { Comp } from "../../asidebar/asidebar";
 export const Landmanage=()=>
 {
     const [epn,sepn]=useState([]);
@@ -205,7 +205,7 @@ export const Landmanage=()=>
                                     <td>{ctime}</td>
                                 </tr>
                                 <tr>
-                                    <td><label className="landinput"><b>Date & Time</b></label></td>
+                                    <td><label className="landinput"><b>Update Date & Time</b></label></td>
                                     <td>{etime}</td>
                                 </tr>
                                 <tr>
@@ -257,7 +257,7 @@ export const Landmanage=()=>
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td style={{width:'40%'}}><b>Land Project Change Date & Time</b></td>
+                                    <td style={{width:'40%'}}><b>Land Project Updated Date & Time</b></td>
                                     <td>{val1.project_changetime}</td>
                                 </tr>
                                 <br/><br/>
@@ -297,7 +297,7 @@ export const Landmanage=()=>
                                     ))
                                 }
                                 <tr>
-                                    <td style={{fontSize:'28px', backgroundColor:"green",color:'white'}} colSpan={3}>The land total value of all projects is <b style={{color:"#330033"}}>{x}</b> USD</td>
+                                    <td style={{fontSize:'28px', backgroundColor:"lightgreen",color:'black'}} colSpan={3}>The Land total value of all projects is <b style={{color:"#330033"}}>{x}</b> USD</td>
                                 </tr>
                             </table>
                         </div>

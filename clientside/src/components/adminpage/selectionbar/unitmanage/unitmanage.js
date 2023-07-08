@@ -1,8 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Comp } from "../../company/company";
-import { Footer, Navbar } from "../../navfoot/navbar";
-export const Adminusermanage=()=>
+import { Footer, Navbar } from "../../../navfoot/navbar";
+import { Comp } from "../../asidebar/asidebar";
+import { Payment } from "./payment/payment";
+export const Unitmanage=()=>
 {
     return(
         <>
@@ -11,8 +11,8 @@ export const Adminusermanage=()=>
             <div className="adpage">
                 <Comp/>
                 <section>
-                    <div>
-                            
+                    <div className="editdis">
+                            <Payment/>
                     </div>
                 </section>
             </div>

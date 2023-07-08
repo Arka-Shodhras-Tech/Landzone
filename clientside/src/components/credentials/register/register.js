@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { useNavigate } from "react-router-dom";
-import { Footer, Navbar } from "../navfoot/navbar";
+import { Footer, Navbar } from "../../navfoot/navbar";
 export const UserRegister=()=>{
     const nav=useNavigate();
     const [name,sname]=useState("");

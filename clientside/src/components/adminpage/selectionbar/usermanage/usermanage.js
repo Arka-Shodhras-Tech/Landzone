@@ -1,14 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Comp } from "../../company/company";
-import { Footer, Navbar } from "../../navfoot/navbar";
+import { Footer, Navbar } from "../../../navfoot/navbar";
+import { Comp } from "../../asidebar/asidebar";
 export const Usermanage=()=>
 {
     const [dat,sdat]=useState([]);
     const [crt,scrt]=useState([]);
     const [edit,sedit]=useState([]);
     const [err1,serr1]=useState([]);
+    const [pymt,spymt]=useState([]);
     const [approve,sapprove]=useState(null);
     // const nav=useNavigate();
 
@@ -135,6 +136,11 @@ export const Usermanage=()=>
             .then((result) => {
                 sdat(result.data)
             })
+        axios.get("http://localhost:8000/pymtretrive")
+        .then((result1)=>
+        {
+            spymt(result1.data)
+        })
     }, [])
     return(
         <>
@@ -330,8 +336,9 @@ export const Usermanage=()=>
 
 {/* View transaction history */}
                         <div className="editdis" style={{display:'none'}} id="transction">
-                        <table className="aufltable">
+                        <table className="pymttable" style={{textAlign:'center',overflowY:'scroll'}}>
                             <tr>
+                                <th>S.NO</th>
                                 <th>Bank Details</th>
                                 <th>Sender Name</th>
                                 <th>Sender Account Number</th>
@@ -339,14 +346,19 @@ export const Usermanage=()=>
                                 <th>Payment Refer Number</th>
                                 <th>Transfer Date and Time</th>
                             </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                            {
+                                    pymt.map((val5, index) => (
+                                        <tr>
+                                            <td>{index + 1}</td>
+                                            <td>{val5.Bank_details}</td>
+                                            <td>{val5.Sender_name}</td>
+                                            <td>{val5.Sender_Acc_Number}</td>
+                                            <td>{val5.Amount_Transfered}</td>
+                                            <td>{val5.Payment_ref_number}</td>
+                                            <td>{val5.Transaction_date}</td>
+                                        </tr>
+                                    ))
+                                }
                         </table>
                         </div>
                     </div>

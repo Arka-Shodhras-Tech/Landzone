@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Comp } from "../../company/company";
-import { Footer, Navbar } from "../../navfoot/navbar";
+import { Footer, Navbar } from "../../../navfoot/navbar";
+import { Comp } from "../../asidebar/asidebar";
 export const Dashboard=()=>
 {
     const [uc,suc]=useState(0);
@@ -142,7 +142,7 @@ export const Dashboard=()=>
                                     <option value="USD">USD</option>
                                 </select>
                                 </label>
-                                <button type="submit" style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Convert</button>
+                                <button type="submit" style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Create</button>
                                </div>
                             </div>
 
