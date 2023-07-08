@@ -102,7 +102,7 @@ app.get('/showdata',async(req,res)=>
 // Edit user data
 app.post('/deledit/:id',async(req,res)=>
 {
-    const details=await db.collection('admindata').deleteOne({name:req.params.id})
+    const details=await db.collection('userdata').deleteOne({name:req.params.id})
     res.json(details);
 })
 
