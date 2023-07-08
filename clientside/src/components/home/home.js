@@ -1,5 +1,5 @@
 import React from "react";
-import {Navbar,Footer} from "../navfoot/navbar";
+import {Navbar,Footer} from "../home/nav&foot&contact&about/navbar";
 import { Link } from "react-router-dom";
 const Home=()=>
 {

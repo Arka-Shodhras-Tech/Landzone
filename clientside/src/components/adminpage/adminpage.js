@@ -1,5 +1,5 @@
-import { Footer, Navbar } from "../navfoot/navbar";
-import { Comp } from "../company/company";
+import { Footer, Navbar } from "../home/nav&foot&contact&about/navbar";
+import { Comp } from "../adminpage/asidebar/asidebar";
 export const Adminpage=()=>
 {
     return(

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Footer, Navbar } from "../../../navfoot/navbar";
+import { Footer, Navbar } from "../../../home/nav&foot&contact&about/navbar";
 import { Comp } from "../../asidebar/asidebar";
 export const Dashboard=()=>
 {
@@ -15,7 +15,8 @@ export const Dashboard=()=>
     const [pt,spt]=useState(0);
     const [dat,sdat]=useState([]);
     const [num,snum]=useState([]);
-
+    const [usd,susd]=useState([]);
+    const gmal=localStorage.gmail;
     // Create currency
     const CC=()=>
     {
@@ -68,6 +69,32 @@ export const Dashboard=()=>
     {
         document.getElementById('usdis').style.display='block';
         document.getElementById('landis').style.display='none';
+    }
+    
+    const Eusd=async()=>
+    {
+        try
+        {
+            const responce=await axios.post("http://localhost:8000/eviusd/"+num+"/"+gmal)
+            {
+                responce?alert(num+" LAND units created successfully"):alert("Enter again")
+            }
+        }
+        catch(err)
+        {
+            console.log("Server Bussy");
+        }
+        try
+        {
+            const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
+            {
+                responce1?susd(responce1.data.USD_Values):alert("User not found");
+            }
+        }
+        catch(err)
+        {
+            alert("Server Bussy")
+        }
     }
     useEffect(()=>
     {
@@ -156,7 +183,7 @@ export const Dashboard=()=>
                                         <tr>
                                             <td>{index+1}</td>
                                             <td>
-                                                <img src="leaf.png" alt="leaf" width={'150px'}/>
+                                                <p>Purchases {index+1}</p>
                                             </td>
                                             <td>
                                                 {val.name}
@@ -180,7 +207,7 @@ export const Dashboard=()=>
                                         <tr>
                                             <td>{index+1}</td>
                                             <td>
-                                                <label for={index}><img src="leaf.png" alt="leaf" width={'150px'}/></label>
+                                            <p>Purchases {index+1}</p>
                                             </td>
                                             <td>
                                                 <label for={index}>{val.name}</label>
@@ -202,14 +229,14 @@ export const Dashboard=()=>
                                 <div style={{textAlign:'center',marginTop:'32%'}}>
                                     <label for='eusd'><b>Please enter value of eUSD in bank </b></label>
                                     <input type="number" id="eusd" onChange={(e)=>snum(e.target.value)}></input>
-                                    <button type="submit" style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Submit</button>
+                                    <button type="submit" onClick={Eusd} style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Submit</button>
                                 </div>
                             </div>
 
 {/* Show value in eUSD */}
                             <div className="editdis" style={{display:'none'}} id="svb">
                             <div style={{textAlign:'center',marginTop:'32%'}}>
-                                    <label for='eusd'><b>The value of eUSD in bank is {num}</b></label>
+                                    <label for='eusd'><b>The value of eUSD in bank is {usd}</b></label>
                                 </div>
                             </div>
                 </section>

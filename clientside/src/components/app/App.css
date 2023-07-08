@@ -86,7 +86,8 @@ footer
 }
 .tabledata input
 {
-    padding: 5px 50px;
+    height: 3vh;
+    width: 33vh;
 }
 .tabledata label,button
 {
@@ -348,6 +349,7 @@ section
     height: 10vh;
     font-size: large;
     overflow-y: scroll;
+    border-right: 1px solid black;
 }
 .pymttable table th h2
 {

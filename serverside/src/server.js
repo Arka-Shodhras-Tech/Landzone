@@ -58,10 +58,15 @@ app.post('/adminregister/:name/:gmail/:password/:cpassword/:phonenumber',async(r
 })
 
 //approve user from list
-
 app.get('/aufl',async(req,res)=>{
-    const details=await db.collection('admindata').find().toArray()
+    const details=await db.collection('userdata').find().toArray()
     res.json(details);
+})
+
+// Approve list from approve
+app.post('/approvelist/:gmail',async(req,res)=>
+{
+    
 })
 
 
@@ -95,12 +100,25 @@ app.get('/showdata',async(req,res)=>
 })
 
 // Edit user data
-app.post('/deledit/:_id',async(req,res)=>
+app.post('/deledit/:id',async(req,res)=>
 {
-    const details=await db.collection('admindata').findOneAndDelete({_id:req.params._id})
+    const details=await db.collection('admindata').deleteOne({name:req.params.id})
     res.json(details);
 })
 
+// Enter value in usd in dashboard
+app.post('/eviusd/:num/:gmail',async(req,res)=>
+{
+    const details=await db.collection("Usd_values").insertOne({USD_Values:req.params.num,Gmail:req.params.gmail})
+    res.json(details);
+})
+
+// Show value in usd in dashboard
+app.get('/eviusdget/:gamil',async(req,res)=>
+{
+    const details=await db.collection('Usd_values').findOne({Gmail:req.params.gamil})
+    res.json(details);
+})
 
 // payment details entered
 app.post('/payment/:bankd/:sendname/:accnum/:amt/:refnum/:trnsdt',async(req,res)=>

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { useNavigate } from "react-router-dom";
-import { Footer, Navbar } from "../../navfoot/navbar";
+import { Footer, Navbar } from "../../home/nav&foot&contact&about/navbar";
 export const UserRegister=()=>{
     const nav=useNavigate();
     const [name,sname]=useState("");
@@ -27,15 +27,15 @@ export const UserRegister=()=>{
                {
                 if(password === cpassword)
                 {
+                   try
+                   {
                     const responce=await axios.post("http://localhost:8000/register/"+name+"/"+gmail+"/"+password+"/"+cpassword+"/"+phonenumber)
-                    if(responce.data)   
-                    {
-                        nav("/userlogin")
-                    }
-                    else
-                    {
-                    serr("Error")
-                    }
+                    responce.data? nav("/userlogin"):serr("Error")
+                   }
+                   catch(error)
+                   {
+                    alert("Required all fields or Server bussy");
+                   }
                 }
                 else
                 {
@@ -154,15 +154,14 @@ export const Adminregister=()=>
                {
                 if(password === cpassword)
                 {
-                    console.log(phonenumber)
-                    const responce=await axios.post("http://localhost:8000/adminregister/"+name+"/"+gmail+"/"+password+"/"+cpassword+"/"+phonenumber)
-                    if(responce.data)   
+                    try
                     {
-                        nav("/adminlogin")
+                     const responce=await axios.post("http://localhost:8000/adminregister/"+name+"/"+gmail+"/"+password+"/"+cpassword+"/"+phonenumber)
+                     responce.data? nav("/adminlogin"):serr("Error")
                     }
-                    else
+                    catch(error)
                     {
-                    serr("Error")
+                     alert("Required all fields or Server bussy");
                     }
                 }
                 else

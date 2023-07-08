@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Footer, Navbar } from "../../navfoot/navbar";
+import { Footer, Navbar } from "../../home/nav&foot&contact&about/navbar";
 export const Adminlogin=()=>
 {
     const nav=useNavigate();

@@ -1,5 +1,5 @@
 import React from "react";
-import { Footer, Navbar } from "../../../navfoot/navbar";
+import { Footer, Navbar } from "../../../home/nav&foot&contact&about/navbar";
 import { Comp } from "../../asidebar/asidebar";
 import { Payment } from "./payment/payment";
 export const Unitmanage=()=>

@@ -3,7 +3,7 @@ import moment from 'moment';
 import 'moment-timezone';
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Footer, Navbar } from "../../../navfoot/navbar";
+import { Footer, Navbar } from "../../../home/nav&foot&contact&about/navbar";
 import { Comp } from "../../asidebar/asidebar";
 export const Landmanage=()=>
 {

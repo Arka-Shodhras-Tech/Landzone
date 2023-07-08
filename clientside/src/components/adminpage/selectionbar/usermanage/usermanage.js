@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Footer, Navbar } from "../../../navfoot/navbar";
+import { Footer, Navbar } from "../../../home/nav&foot&contact&about/navbar";
 import { Comp } from "../../asidebar/asidebar";
 export const Usermanage=()=>
 {
@@ -10,7 +10,7 @@ export const Usermanage=()=>
     const [edit,sedit]=useState([]);
     const [err1,serr1]=useState([]);
     const [pymt,spymt]=useState([]);
-    const [approve,sapprove]=useState(null);
+    const [approve,sapprove]=useState([]);
     // const nav=useNavigate();
 
     // Transfer currency to user function
@@ -98,7 +98,20 @@ export const Usermanage=()=>
 
     }
 
-  
+// Approve users
+    const Approve=async()=>
+    {
+        try
+        {
+            const responce=await axios.post("http://localhost:8000/approvelist/"+approve)
+            responce?alert("Sucessfully Approved"):alert("Try again");
+        }
+        catch(err)
+        {
+            alert("Serrver Bussy");
+        }
+    }
+
 // Update user details
     const Edituser=async()=>
     {
@@ -107,15 +120,11 @@ export const Usermanage=()=>
             if(responce1.data)
             {
                 alert("Are you update the Users.. clicked OK" )
-               const responce2= await axios.post("http://localhost:8000/deledit/"+responce1.data._id)
-               if(responce2.data)
-               {
-                serr1("user details have been successfully updated")
-               }
-               else
-               {
-                serr1("Try again")
-               }
+               const responce2= await axios.post("http://localhost:8000/deledit/"+responce1.data.name)
+              {
+                responce2?serr1("user details have been successfully updated"): serr1("Try again")
+              }
+               
             }
             else
             {
@@ -209,12 +218,7 @@ export const Usermanage=()=>
                                                         <td><b>{val1.gmail}</b></td>
                                                         <td><b>{val1.phone_number}</b></td>
                                                         <td>
-                                                            {
-                                                                approve===null?
-                                                                <Link  style={{textDecoration:'none',padding:'0.5%',borderRadius:'5px',backgroundColor:'green',color:'white'}}  >Approve</Link>:
-                                                                // <Link  style={{textDecoration:'none',padding:'0.5%',borderRadius:'5px',backgroundColor:'red',color:'white'}}>Disapprove</Link>
-                                                                <></>
-                                                            }
+                                                           <input type="radio" name={index} value={val1.gmail} onChange={(e)=>sapprove(e.target.value)}></input>
                                                         </td>
                                                     </tr>
                                                 ))
@@ -225,7 +229,7 @@ export const Usermanage=()=>
                     </div>
 
 
-{/* Edit user */}
+{/* Update user */}
                     <div className="editdis" style={{display:'none'}} id="editdisplay">
                         <div>
                         <div>
@@ -248,7 +252,7 @@ export const Usermanage=()=>
                                                         <td><b>{val2.gmail}</b></td>
                                                         <td><b>{val2.phone_number}</b></td>
                                                         <td>
-                                                        <input id={index} name="same" type="radio" onChange={(e)=>sedit(val2.gmail)}></input>
+                                                        <input id={index} name="same" type="radio"  ></input>
                                                         </td>
                                                     </tr>
                                                    </>
@@ -256,7 +260,7 @@ export const Usermanage=()=>
                                             }
                                         </table>
                                         <p style={{textAlign:'center'}}><b>{err1}</b></p>
-                                        <button type="submit" style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white' }} onClick={Edituser}>Update</button>
+                                        <button type="submit" style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white' }} >Update</button>
                                     </div>
                         </div>
                     </div>
@@ -282,7 +286,7 @@ export const Usermanage=()=>
                                             <td><b>{val3.gmail}</b></td>
                                             <td><b>{val3.phone_number}</b></td>
                                             <td>
-                                                <input id={index} style={{width:'50px'}} name="same" type="radio" onChange={(e)=>scrt(val3.gmail)}></input>
+                                                <input id={index} style={{width:'50px'}} name="same" type="radio" onChange={(e)=>sedit(val3.gmail)}></input>
                                             </td>
                                         </tr>
                                     ))
@@ -302,7 +306,7 @@ export const Usermanage=()=>
                              dat.map((val4) => (
                                 <div>
                                      {
-                                    val4.gmail===crt?
+                                    val4.gmail===edit?
                                        <>
                                        <tr >
                                        <td><b>{val4.name}</b></td>
@@ -329,8 +333,8 @@ export const Usermanage=()=>
 {/* Reason and confirm detilas of disable enable users */}
                     <div>
                     <div className="disenareason" style={{display:'none'}} id="reasondisplay">
-                        <input type="text" placeholder="Reason..." style={{width:'80vh',height:'10vh',fontSize:'15px'}}></input>
-                        <button type="submit" style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }} onClick={Disconfirm}>Confirm</button>
+                        <textarea type="text" required placeholder="Reason..." style={{width:'80vh',height:'10vh',fontSize:'15px'}}></textarea>
+                        <button type="submit" style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }} onClick={Edituser}>Confirm</button>
                        </div>
                     </div>
 

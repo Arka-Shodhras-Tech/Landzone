@@ -1,16 +1,16 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { About,Contact } from '../navfoot/con_abt';
-import { Adminlogin,Userlogin } from '../login/login';
-import { Adminregister, UserRegister } from '../register/register';
+import { About,Contact } from '../home/nav&foot&contact&about/con_abt';
+import { Adminlogin,Userlogin } from '../credentials/login/login';
+import {Adminupdate,Userupdate} from '../credentials/forgot/forgot'
+import { Adminregister, UserRegister } from '../credentials/register/register';
 import Home from '../home/home';
-import { Adminupdate, Userupdate } from '../forgot/forgot';
 import { Adminpage } from '../adminpage/adminpage';
-import { Dashboard } from '../adminpage/adminlist/dashboard';
-import { Usermanage } from '../adminpage/adminlist/usermanage';
-import { Landmanage } from '../adminpage/adminlist/landmanage';
-import { Adminusermanage } from '../adminpage/adminlist/adminusermanage';
-import { Unitmanage } from '../adminpage/adminlist/unitmanage';
+import { Dashboard } from '../adminpage/selectionbar/dashboard/dashboard';
+import { Usermanage } from '../adminpage/selectionbar/usermanage/usermanage';
+import { Landmanage } from '../adminpage/selectionbar/landmanage/landmanage';
+import { Adminusermanage } from '../adminpage/selectionbar/adminusermanage/adminusermanage';
+import { Unitmanage } from '../adminpage/selectionbar/unitmanage/unitmanage';
 function App() {
   return (
     <>
