@@ -2,12 +2,14 @@ import axios from 'axios';
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Footer, Navbar } from "../../home/nav&foot&contact&about/navbar";
+import GoogleLogin from 'react-google-login'
 export const Adminlogin=()=>
 {
     const nav=useNavigate();
     const [gmail,sgmail]=useState("");
     const [password,spassword]=useState("");
     const [error,serror]=useState("");
+    const [user, suser] = useState([]);
     const emailtest = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
     const Show=async(e)=>{
@@ -35,6 +37,12 @@ export const Adminlogin=()=>
     const Upadate=async()=>{
         nav("/adminupdate")
     }
+    const responseGoogle = (response) =>
+     {
+         console.log(response);
+         suser(response.profileObj);
+        //  console.log(user.email)
+    }
     return(
         <>
         <Navbar/>
@@ -60,6 +68,11 @@ export const Adminlogin=()=>
             <tr>
                 <td colSpan={2}>
                 <button onClick={Show}><b>Login</b></button>
+                </td>
+            </tr>
+            <tr>
+                <td colSpan={2}>
+                <GoogleLogin clientId="587869156137-fl4o2pa496bgslcjqg60fh9ce45s4g8r.apps.googleusercontent.com" buttonText="Sign in with Google" onSuccess={responseGoogle}  onFailure={responseGoogle} cookiePolicy={'single_host_origin'}/>
                 </td>
             </tr>
             <tr >
