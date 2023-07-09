@@ -1,8 +1,8 @@
 import axios from 'axios';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Footer, Navbar } from "../../home/nav&foot&contact&about/navbar";
-import GoogleLogin from 'react-google-login'
+import GoogleLogin from 'react-google-login';
 export const Adminlogin=()=>
 {
     const nav=useNavigate();
@@ -10,6 +10,7 @@ export const Adminlogin=()=>
     const [password,spassword]=useState("");
     const [error,serror]=useState("");
     const [user, suser] = useState([]);
+    const clientId="587869156137-fl4o2pa496bgslcjqg60fh9ce45s4g8r.apps.googleusercontent.com";
     const emailtest = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
     const Show=async(e)=>{
@@ -41,8 +42,19 @@ export const Adminlogin=()=>
      {
          console.log(response);
          suser(response.profileObj);
-        //  console.log(user.email)
+         console.log(user)
     }
+    // useEffect(()=>
+    // {
+    //     const Start=()=>
+    //     {
+    //             // gapi.clientId.init({
+    //                 // clientId:clientId,
+    //                 scope:""
+    //             })
+    //     };
+    //     gapi.load('client:auth2',Start)
+    // });
     return(
         <>
         <Navbar/>
