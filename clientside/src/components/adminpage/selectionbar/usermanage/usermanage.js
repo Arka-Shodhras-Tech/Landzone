@@ -124,14 +124,15 @@ export const Usermanage=()=>
 // Update user details
     const Edituser=async()=>
     {
-        const responce1=await axios.get("http://localhost:8000/admincheck/"+edit)
+        const responce1=await axios.get("http://localhost:8000/approvecheck/"+edit)
         {
             if(responce1.data)
             {
                 alert("Are you update the Users.. clicked OK" )
-               const responce2= await axios.post("http://localhost:8000/deledit/"+responce1.data.name)
+               const responce2= await axios.post("http://localhost:8000/deledit/"+responce1.data.Name)
               {
                 responce2?alert("user details have been successfully updated"): alert("Try again")
+                window.location.reload(3);
               }
                
             }
@@ -153,6 +154,10 @@ export const Usermanage=()=>
         axios.get("http://localhost:8000/aufl")
             .then((result) => {
                 sdat(result.data)
+            })
+        axios.get("http://localhost:8000/disableshow")
+            .then((result2) => {
+                scrt(result2.data)
             })
         axios.get("http://localhost:8000/pymtretrive")
         .then((result1)=>
@@ -255,15 +260,15 @@ export const Usermanage=()=>
                                                 <th>Modify</th>
                                             </tr>
                                             {
-                                                dat.map((val2, index) => (
+                                                crt.map((val2, index) => (
                                                    <>
                                                     <tr>
                                                         <td><b>{index + 1}</b></td>
                                                         <td>
-                                                            <input style={{border:'none',height:'22px'}} type="text" id="name" defaultValue={val2.name}/>
+                                                            <input style={{border:'none',height:'22px'}} type="text" id="name" defaultValue={val2.Name}/>
                                                         </td>
-                                                        <td><b>{val2.gmail}</b></td>
-                                                        <td><b>{val2.phone_number}</b></td>
+                                                        <td><b>{val2.Gmail}</b></td>
+                                                        <td><b>{val2.Phone_Number}</b></td>
                                                         <td>
                                                         <input id={index} name="same" type="radio"  ></input>
                                                         </td>
@@ -292,14 +297,14 @@ export const Usermanage=()=>
                                     <th>Select for en/dis</th>
                                 </tr>
                                 {
-                                    dat.map((val3, index) => (
+                                    crt.map((val3, index) => (
                                         <tr>
                                             <td><b>{index + 1}</b></td>
-                                            <td><b>{val3.name}</b></td>
-                                            <td><b>{val3.gmail}</b></td>
-                                            <td><b>{val3.phone_number}</b></td>
+                                            <td><b>{val3.Name}</b></td>
+                                            <td><b>{val3.Gmail}</b></td>
+                                            <td><b>{val3.Phone_Number}</b></td>
                                             <td>
-                                                <input id={index} style={{width:'50px'}} name="same" type="radio" onChange={(e)=>sedit(val3.gmail)}></input>
+                                                <input id={index} style={{width:'50px'}} name="same" type="radio" onChange={(e)=>sedit(val3.Gmail)}></input>
                                             </td>
                                         </tr>
                                     ))
@@ -316,16 +321,16 @@ export const Usermanage=()=>
                     <div className="editdis" style={{display:'none'}} id="personinfo">
                         <table style={{margin:'15% 0% 0% 35%',border:'1px soild black'}}>
                         {
-                             dat.map((val4) => (
+                             crt.map((val4) => (
                                 <div>
                                      {
-                                    val4.gmail===edit?
+                                    val4.Gmail===edit?
                                        <>
                                        <tr >
-                                       <td><b>{val4.name}</b></td>
+                                       <td><b>{val4.Name}</b></td>
                                        </tr>
                                        <tr>
-                                       <td><b>{val4.gmail}</b></td>
+                                       <td><b>{val4.Gmail}</b></td>
                                        </tr>
                                        </>
                                         :<b></b>
@@ -357,7 +362,7 @@ export const Usermanage=()=>
                             <tr>
                                 <th>S.NO</th>
                                 <th>Bank Details</th>
-                                <th>Sender Name</th>
+                                <th>Sender Email</th>
                                 <th>Sender Account Number</th>
                                 <th>Amount Transfer</th>
                                 <th>Payment Refer Number</th>
@@ -368,7 +373,7 @@ export const Usermanage=()=>
                                         <tr>
                                             <td>{index + 1}</td>
                                             <td>{val5.Bank_details}</td>
-                                            <td>{val5.Sender_name}</td>
+                                            <td>{val5.Sender_email}</td>
                                             <td>{val5.Sender_Acc_Number}</td>
                                             <td>{val5.Amount_Transfered}</td>
                                             <td>{val5.Payment_ref_number}</td>

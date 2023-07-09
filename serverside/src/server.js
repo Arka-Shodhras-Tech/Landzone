@@ -80,6 +80,18 @@ app.get('/approvecheck/:gmail',async(req,res)=>
     const details=await db.collection('Approve_List').findOne({Gmail:req.params.gmail});
     res.json(details);
 })
+// Update and Disable and Enable user
+app.get('/disableshow',async(req,res)=>
+{
+    const details=await db.collection('Approve_List').find().toArray();
+    res.json(details);
+})
+// Edit user data
+app.post('/deledit/:id',async(req,res)=>
+{
+    const details=await db.collection('Approve_List').deleteOne({Name:req.params.id})
+    res.json(details);
+})
 
 
 // Enter project data
@@ -103,6 +115,7 @@ app.post('/updatedata/:proname/:prodesc/:provalue/:proadd/:protime',async(req,re
     res.json(details);
 })
 
+
 // Show entered data
 
 app.get('/showdata',async(req,res)=>
@@ -111,12 +124,6 @@ app.get('/showdata',async(req,res)=>
     res.json(details);
 })
 
-// Edit user data
-app.post('/deledit/:id',async(req,res)=>
-{
-    const details=await db.collection('userdata').deleteOne({name:req.params.id})
-    res.json(details);
-})
 
 // Enter value in usd in dashboard
 app.post('/eviusd/:num/:gmail',async(req,res)=>
@@ -135,7 +142,7 @@ app.get('/eviusdget/:gamil',async(req,res)=>
 // payment details entered
 app.post('/payment/:bankd/:sendname/:accnum/:amt/:refnum/:trnsdt',async(req,res)=>
 {
-    const details=await db.collection('payment').insertOne({Bank_details:req.params.bankd,Sender_name:req.params.sendname,Sender_Acc_Number:req.params.accnum,Amount_Transfered:req.params.amt,Payment_ref_number:req.params.refnum,Transaction_date:req.params.trnsdt})
+    const details=await db.collection('payment').insertOne({Bank_details:req.params.bankd,Sender_email:req.params.sendname,Sender_Acc_Number:req.params.accnum,Amount_Transfered:req.params.amt,Payment_ref_number:req.params.refnum,Transaction_date:req.params.trnsdt})
     res.json(details);
 })
 // payment details retrive

@@ -18,7 +18,7 @@ export const Payment=()=>
             const responce=await axios.post("http://localhost:8000/payment/"+bank+"/"+sendername+"/"+senderacc+"/"+amttrns+"/"+pymt+"/"+transdate)
             {
                 responce?alert("Successfully Entered"):alert("Please try again");
-                form.current.value=" ";
+                window.location.reload(3);
             }
         }
         catch(error)

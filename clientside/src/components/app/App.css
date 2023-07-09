@@ -154,6 +154,12 @@ aside
     color: whitesmoke;
     border-right: 5px solid red;
 }
+.active1
+{
+    background-color:green;
+    color: whitesmoke;
+    border-right: 5px solid red;
+}
 
 /* section tag elements */
 section
@@ -210,6 +216,8 @@ section
     margin-top: 10vh;
     width: 34vh;
     transition: 0.5s;
+    border-radius: 20px;
+    justify-content: center;
 }
 .dashitem:hover
 {
@@ -234,6 +242,8 @@ section
     margin-top: 10vh;
     width: 25vh;
     transition: 0.3s;
+    border-radius: 20px;
+    justify-content: center;
 }
 .usrmngitem:hover
 {
@@ -310,6 +320,8 @@ section
     margin-top: 10vh;
     width: 34vh;
     transition: 0.5s;
+    border-radius: 20px;
+    justify-content: center;
 }
 .landitem:hover
 {
@@ -359,4 +371,29 @@ section
 {
     width: 90%;
     height: 4vh;
+}
+
+/* Unit request management */
+.unitreq
+{
+    background-color:antiquewhite;
+    padding: 1vh 0vh 5.9vh 5vh ;
+    height: 100%;
+}
+.unitreqitem
+{
+    padding: 1% 1%;
+    text-decoration: none;
+    color:black;
+    background-color:rgb(245, 160, 160);
+    display:flex;
+    margin-top: 25vh;
+    width: 24vh;
+    border-radius: 20px;
+    justify-content: center;
+    transition: 0.5s;
+}
+.unitreqitem:hover
+{
+    background-color: aliceblue;
 }
