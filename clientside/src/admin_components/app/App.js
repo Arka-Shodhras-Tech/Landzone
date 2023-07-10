@@ -1,9 +1,12 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { About,Contact } from '../home/nav&foot&contact&about/con_abt';
-import { Adminlogin,Userlogin } from '../credentials/login/login';
-import {Adminupdate,Userupdate} from '../credentials/forgot/forgot'
-import { Adminregister, UserRegister } from '../credentials/register/register';
+import { Adminlogin} from '../credentials/login/login';
+import {Adminupdate} from '../credentials/forgot/forgot';
+import {Userlogin} from '../../user_components/credentials/login/userlogin'
+import { Userupdate } from '../../user_components/credentials/update/userforget';
+import { UserRegister } from '../../user_components/credentials/register/userregister';
+import { Adminregister} from '../credentials/register/register';
 import Home from '../home/home';
 import { Adminpage } from '../adminpage/adminpage';
 import { Dashboard } from '../adminpage/selectionbar/dashboard/dashboard';
