@@ -10,7 +10,8 @@ export const Usermanage=()=>
     const [edit,sedit]=useState([]);
     const [err1,serr1]=useState([]);
     const [pymt,spymt]=useState([]);
-    const [approve,sapprove]=useState([null]);
+    const [approve,sapprove]=useState([]);
+    const [tdata,stdata]=useState([]);
     // const nav=useNavigate();
 
     // Transfer currency to user function
@@ -100,6 +101,7 @@ export const Usermanage=()=>
 // Approve users
     const Approvee=async()=>
     {
+        console.log(tdata)
         try
         {
             const responce=await axios.get("http://localhost:8000/approvecheck/"+approve.gmail)
@@ -110,8 +112,10 @@ export const Usermanage=()=>
             else
             {
                 const responce3=await axios.post("http://localhost:8000/approvelist/"+approve.name+"/"+approve.gmail+"/"+approve.phone_number)
+                // const responce3=await axios.post("http://localhost:8000/approvelist/"+approve)
                 {
                     responce3?alert("Sucessfully Approved"):alert("Try again");
+                    window.location.reload(3);
                 }
             }
         }
