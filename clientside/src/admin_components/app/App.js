@@ -10,6 +10,7 @@ import { Unitmanage } from '../adminpage/selectionbar/unitmanage/unitmanage';
 import { Usermanage } from '../adminpage/selectionbar/usermanage/usermanage';
 import { Adminupdate } from '../credentials/forgot/forgot';
 import { Adminlogin } from '../credentials/login/adminlogin';
+import { ContactUs } from '../credentials/login/email';
 import { Adminregister } from '../credentials/register/register';
 import Home from '../home/home';
 import Login from '../home/login';
@@ -24,6 +25,7 @@ function App() {
       <Route path='/login' element={<Login/>}/>
       <Route path='/about' element={<About/>}/>
       <Route path='/contact' element={<Contact/>}/>
+      <Route path='/mail' element={<ContactUs/>}/>
       <Route exact path='/adminlogin' element={<Adminlogin/>}/>
       <Route exact path='/userlogin' element={<Userlogin/>}/>
       <Route exact path='/adminregister' element={<Adminregister/>}/>

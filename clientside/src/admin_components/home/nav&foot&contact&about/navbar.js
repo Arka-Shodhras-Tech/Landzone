@@ -9,7 +9,6 @@ export const Navbar=()=>
     }
     return(
         <nav>
-            {suser(localStorage.gmail)}
             <div className="navbar">
                 <Link to='/' className="navitem">Home</Link>
                 <Link to='/about' className="navitem">About</Link>

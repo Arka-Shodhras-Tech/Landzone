@@ -22,7 +22,7 @@ export const Comp=()=>
                     <Link  className="drop">
                         <img src={"list.svg"} width={'35px'} alt="list" />
                     </Link>
-                    <NavLink to='/adminpage' className="drop" activeClassName='active' style={{marginLeft:'10vh',padding:'3%',borderRadius:'30px'}}>
+                    <NavLink to='/adminpage' activeClassName='active'  className="drop drop1">
                     <img src={'house.svg'} width={'33px'}  alt="home"></img>
                     </NavLink>
                         </div>

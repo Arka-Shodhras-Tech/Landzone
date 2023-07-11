@@ -6,6 +6,7 @@ const Home=()=>
         <>
         <Navbar/>
         <div className="home">
+            {/* <h1>display about Quntam land</h1> */}
         </div>
         <Footer/>
         </>

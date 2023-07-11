@@ -1,5 +1,6 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import emailjs from 'emailjs-com';
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Footer, Navbar } from "../../../home/nav&foot&contact&about/navbar";
 import { Comp } from "../../asidebar/asidebar";
@@ -12,6 +13,7 @@ export const Usermanage=()=>
     const [pymt,spymt]=useState([]);
     const [approve,sapprove]=useState([]);
     const [tdata,stdata]=useState([]);
+    const form=useRef();
     // const nav=useNavigate();
 
     // Transfer currency to user function
@@ -126,16 +128,23 @@ export const Usermanage=()=>
     }
 
 // Update user details
-    const Edituser=async()=>
+    const Edituser=async(e)=>
     {
-        const responce1=await axios.get("http://localhost:8000/approvecheck/"+edit)
+        const responce1=await axios.get("http://localhost:8000/approvecheck/"+edit.Gmail)
         {
             if(responce1.data)
             {
-                alert("Are you update the Users.. clicked OK" )
                const responce2= await axios.post("http://localhost:8000/deledit/"+responce1.data.Name)
               {
                 responce2?alert("user details have been successfully updated"): alert("Try again")
+                e.preventDefault()
+                emailjs.sendForm('service_yth8b2s', 'template_9bpmz3j', form.current, '10_WMH5qM1GoLv6-g')
+                  .then((result) => {
+                      result.data?alert("Mail sent"):alert("Mail not sent");
+                  }, (error) => {
+                    alert("Try again"+error);
+                  })
+               alert("Send mail successfully")
                 window.location.reload(3);
               }
                
@@ -146,14 +155,8 @@ export const Usermanage=()=>
             }
         }
     }
-// Deselect radio button
-    const Deselect=()=>
-    {
-        document.getElementById(1).checked="none";
-        document.getElementById(1).checked=false;
-    }
 
-    // Edit user update profile
+// Edit user update profile
     useEffect(() => {
         axios.get("http://localhost:8000/aufl")
             .then((result) => {
@@ -308,7 +311,7 @@ export const Usermanage=()=>
                                             <td><b>{val3.Gmail}</b></td>
                                             <td><b>{val3.Phone_Number}</b></td>
                                             <td>
-                                                <input id={index} style={{width:'50px'}} name="same" type="radio" onChange={(e)=>sedit(val3.Gmail)}></input>
+                                                <input id={index} style={{width:'50px'}} name="same" type="radio" onChange={(e)=>sedit(val3)}></input>
                                             </td>
                                         </tr>
                                     ))
@@ -328,7 +331,7 @@ export const Usermanage=()=>
                              crt.map((val4) => (
                                 <div>
                                      {
-                                    val4.Gmail===edit?
+                                    val4.Gmail===edit.Gmail?
                                        <>
                                        <tr >
                                        <td><b>{val4.Name}</b></td>
@@ -354,9 +357,30 @@ export const Usermanage=()=>
 
 {/* Reason and confirm detilas of disable enable users */}
                     <div>
-                    <div className="disenareason" style={{display:'none'}} id="reasondisplay">
-                        <textarea type="text" required placeholder="Reason..." style={{width:'80vh',height:'10vh',fontSize:'15px'}}></textarea>
-                        <button type="submit" style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }} onClick={Edituser}>Confirm</button>
+                                <div className="disenareason" style={{ display: 'none' }} id="reasondisplay">
+                                    <table ref={form}>
+                                        <tr>
+                                            <td>
+                                            <label>Email</label>
+                                            </td>
+                                            <td>
+                                            <input type="email" name="mail" defaultValue={edit.Gmail}/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                            <label>Message</label>
+                                            </td>
+                                            <td>
+                                            <textarea type="text" name="message" required placeholder="Message..." style={{width:'80vh',height:'10vh',fontSize:'15px'}}></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colSpan={2}>
+                                            <button onClick={Edituser} style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>confirm</button>
+                                            </td>
+                                        </tr>
+                                    </table>
                        </div>
                     </div>
 
@@ -395,16 +419,3 @@ export const Usermanage=()=>
         </>
     )
 }
-
-
-
-
-// update profile in Edit user in user mangement
-// export const Editusers=()=>
-// {
-//     return(
-//         <>
-
-//         </>
-//     )
-// }

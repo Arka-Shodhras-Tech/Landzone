@@ -14,9 +14,8 @@ export const ContactUs = () => {
           console.log(error.text);
       });
   };
-
   return (
-    <form ref={form} onSubmit={sendEmail}>
+    <form onSubmit={sendEmail}>
       <label>Name</label>
       <input type="text" name="user_name" />
       <label>Email</label>

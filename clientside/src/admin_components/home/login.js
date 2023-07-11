@@ -10,10 +10,10 @@ const Login=()=>
             <h1 className="homewel">Welcome</h1>
             <div className="homeicon">
             <Link to='/adminlogin'>
-            <img src={"adminlogo.png"} width={'150px'} alt="admin_logo"></img>
+            <img src={"adminlogo.png"} width={'85px'} alt="admin_logo"></img>
             </Link>
             <Link to='/userlogin'>
-            <img src={"userlogin.svg"} width={'100px'} alt="user_logo"></img>
+            <img src={"userlogin.svg"} width={'55px'} alt="user_logo"></img>
             </Link>
             </div>
            <div className="homeicon">
