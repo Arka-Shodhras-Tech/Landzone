@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useState } from "react";
-import GoogleLogin from 'react-google-login';
 import { useNavigate } from "react-router-dom";
 import { Footer, Navbar } from "../../home/nav&foot&contact&about/navbar";
 export const Adminlogin=()=>
@@ -9,10 +8,7 @@ export const Adminlogin=()=>
     const [gmail,sgmail]=useState("");
     const [password,spassword]=useState("");
     const [error,serror]=useState("");
-    const [user, suser] = useState([]);
-    const clientId="587869156137-fl4o2pa496bgslcjqg60fh9ce45s4g8r.apps.googleusercontent.com";
     const emailtest = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
     const Show=async(e)=>{
         if(emailtest.test(gmail))
         {
@@ -38,23 +34,6 @@ export const Adminlogin=()=>
     const Upadate=async()=>{
         nav("/adminupdate")
     }
-    const responseGoogle = (response) =>
-     {
-         console.log(response);
-         suser(response.profileObj);
-         console.log(user)
-    }
-    // useEffect(()=>
-    // {
-    //     const Start=()=>
-    //     {
-    //             // gapi.clientId.init({
-    //                 // clientId:clientId,
-    //                 scope:""
-    //             })
-    //     };
-    //     gapi.load('client:auth2',Start)
-    // });
     return(
         <>
         <Navbar/>
@@ -80,11 +59,6 @@ export const Adminlogin=()=>
             <tr>
                 <td colSpan={2}>
                 <button onClick={Show}><b>Login</b></button>
-                </td>
-            </tr>
-            <tr>
-                <td colSpan={2}>
-                <GoogleLogin clientId="587869156137-fl4o2pa496bgslcjqg60fh9ce45s4g8r.apps.googleusercontent.com" buttonText="Sign in with Google" onSuccess={responseGoogle}  onFailure={responseGoogle} cookiePolicy={'single_host_origin'}/>
                 </td>
             </tr>
             <tr >

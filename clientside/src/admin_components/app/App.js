@@ -1,25 +1,27 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
-import { About,Contact } from '../home/nav&foot&contact&about/con_abt';
-import { Adminlogin} from '../credentials/login/login';
-import {Adminupdate} from '../credentials/forgot/forgot';
-import {Userlogin} from '../../user_components/credentials/login/userlogin'
-import { Userupdate } from '../../user_components/credentials/update/userforget';
+import { Userlogin } from '../../user_components/credentials/login/userlogin';
 import { UserRegister } from '../../user_components/credentials/register/userregister';
-import { Adminregister} from '../credentials/register/register';
-import Home from '../home/home';
+import { Userupdate } from '../../user_components/credentials/update/userforget';
 import { Adminpage } from '../adminpage/adminpage';
-import { Dashboard } from '../adminpage/selectionbar/dashboard/dashboard';
-import { Usermanage } from '../adminpage/selectionbar/usermanage/usermanage';
-import { Landmanage } from '../adminpage/selectionbar/landmanage/landmanage';
 import { Adminusermanage } from '../adminpage/selectionbar/adminusermanage/adminusermanage';
+import { Dashboard } from '../adminpage/selectionbar/dashboard/dashboard';
+import { Landmanage } from '../adminpage/selectionbar/landmanage/landmanage';
 import { Unitmanage } from '../adminpage/selectionbar/unitmanage/unitmanage';
+import { Usermanage } from '../adminpage/selectionbar/usermanage/usermanage';
+import { Adminupdate } from '../credentials/forgot/forgot';
+import { Adminlogin } from '../credentials/login/adminlogin';
+import { Adminregister } from '../credentials/register/register';
+import Home from '../home/home';
+import Login from '../home/login';
+import { About, Contact } from '../home/nav&foot&contact&about/con_abt';
+import './App.css';
 function App() {
   return (
     <>
     <BrowserRouter>
     <Routes>
       <Route path='/' element={<Home/>}/>
+      <Route path='/login' element={<Login/>}/>
       <Route path='/about' element={<About/>}/>
       <Route path='/contact' element={<Contact/>}/>
       <Route exact path='/adminlogin' element={<Adminlogin/>}/>
