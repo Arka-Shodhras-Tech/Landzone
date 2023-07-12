@@ -16,6 +16,7 @@ import Home from '../home/home';
 import Login from '../home/login';
 import { About, Contact } from '../home/nav&foot&contact&about/con_abt';
 import './App.css';
+import './responsive.css';
 function App() {
   return (
     <>

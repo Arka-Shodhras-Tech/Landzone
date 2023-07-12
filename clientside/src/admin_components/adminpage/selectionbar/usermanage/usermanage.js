@@ -130,6 +130,7 @@ export const Usermanage=()=>
 // Update user details
     const Edituser=async(e)=>
     {
+        e.preventDefault()
         const responce1=await axios.get("http://localhost:8000/approvecheck/"+edit.Gmail)
         {
             if(responce1.data)
@@ -137,7 +138,6 @@ export const Usermanage=()=>
                const responce2= await axios.post("http://localhost:8000/deledit/"+responce1.data.Name)
               {
                 responce2?alert("user details have been successfully updated"): alert("Try again")
-                e.preventDefault()
                 emailjs.sendForm('service_yth8b2s', 'template_9bpmz3j', form.current, '10_WMH5qM1GoLv6-g')
                   .then((result) => {
                       result.data?alert("Mail sent"):alert("Mail not sent");
@@ -358,7 +358,7 @@ export const Usermanage=()=>
 {/* Reason and confirm detilas of disable enable users */}
                     <div>
                                 <div className="disenareason" style={{ display: 'none' }} id="reasondisplay">
-                                    <table ref={form}>
+                                    <form ref={form} onSubmit={Edituser}>
                                         <tr>
                                             <td>
                                             <label>Email</label>
@@ -377,10 +377,10 @@ export const Usermanage=()=>
                                         </tr>
                                         <tr>
                                             <td colSpan={2}>
-                                            <button onClick={Edituser} style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>confirm</button>
+                                            <input type="submit" value="Confirm" style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}></input>
                                             </td>
                                         </tr>
-                                    </table>
+                                    </form>
                        </div>
                     </div>
 
