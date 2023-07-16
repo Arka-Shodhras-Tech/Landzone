@@ -1,9 +1,16 @@
 import emailjs from '@emailjs/browser';
-import React, { useRef } from 'react';
-
+import React, { useRef,useState } from 'react';
 export const ContactUs = () => {
   const form = useRef();
+  const [arrays, setArrays] = useState([]);
+  const [currentArray, setCurrentArray] = useState('');
 
+  const handleAddArray = () => {
+    if (currentArray.trim() !== '') {
+      setArrays([...arrays, currentArray]);
+      setCurrentArray('');
+    }
+  }
   const sendEmail = (e) => {
     e.preventDefault();
 
@@ -15,6 +22,7 @@ export const ContactUs = () => {
       });
   };
   return (
+    <>
     <form onSubmit={sendEmail}>
       <label>Name</label>
       <input type="text" name="user_name" />
@@ -24,5 +32,19 @@ export const ContactUs = () => {
       <textarea name="message" />
       <input type="submit" value="Send" />
     </form>
+    <div>
+    <input
+      type="text"
+      value={currentArray}
+      onChange={(e) => setCurrentArray(e.target.value)}
+    />
+    <button onClick={handleAddArray}>Add Array</button>
+  </div>
+  <div>
+      {arrays.map((array, index) => (
+        <div key={index}>{array}</div>
+      ))}
+    </div>
+    </>
   );
 };

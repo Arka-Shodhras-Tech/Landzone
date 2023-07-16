@@ -11,9 +11,10 @@ export const Usermanage=()=>
     const [edit,sedit]=useState([]);
     const [err1,serr1]=useState([]);
     const [pymt,spymt]=useState([]);
-    const [approve,sapprove]=useState([]);
+    const [approve,sapprove]=useState();
     const [tdata,stdata]=useState([]);
     const form=useRef();
+    const [i,si]=useState(0);
     // const nav=useNavigate();
 
     // Transfer currency to user function
@@ -79,7 +80,7 @@ export const Usermanage=()=>
 
     const Disable=async()=>
     {
-        document.getElementById('reasondisplay').style.display='block'
+        
     }
     const Enable=async()=>
     {
@@ -101,9 +102,20 @@ export const Usermanage=()=>
 
     }
 // Approve users
+    const Approvehand=()=>
+    {
+        // const updatedArrays=[...approve];
+        stdata(approve);
+        si(i+1);
+    }
     const Approvee=async()=>
     {
-        console.log(tdata)
+        const formData=new FormData();
+        for(let i=0;i<approve.length;i++)
+        {
+            formData.append(`array[${i}]`,approve[0])
+        }
+        console.log(formData)
         try
         {
             const responce=await axios.get("http://localhost:8000/approvecheck/"+approve.gmail)
@@ -117,7 +129,7 @@ export const Usermanage=()=>
                 // const responce3=await axios.post("http://localhost:8000/approvelist/"+approve)
                 {
                     responce3?alert("Sucessfully Approved"):alert("Try again");
-                    window.location.reload(3);
+                    // window.location.reload(3);
                 }
             }
         }
@@ -128,24 +140,16 @@ export const Usermanage=()=>
     }
 
 // Update user details
-    const Edituser=async(e)=>
+    const Edituser=async()=>
     {
-        e.preventDefault()
+        document.getElementById('reasondisplay').style.display='block';
         const responce1=await axios.get("http://localhost:8000/approvecheck/"+edit.Gmail)
         {
             if(responce1.data)
             {
                const responce2= await axios.post("http://localhost:8000/deledit/"+responce1.data.Name)
               {
-                responce2?alert("user details have been successfully updated"): alert("Try again")
-                emailjs.sendForm('service_yth8b2s', 'template_9bpmz3j', form.current, '10_WMH5qM1GoLv6-g')
-                  .then((result) => {
-                      result.data?alert("Mail sent"):alert("Mail not sent");
-                  }, (error) => {
-                    alert("Try again"+error);
-                  })
-               alert("Send mail successfully")
-                window.location.reload(3);
+                responce2?alert("Disabled user"): alert("Try again")
               }
                
             }
@@ -154,6 +158,19 @@ export const Usermanage=()=>
                 serr1("User not found")
             }
         }
+    }
+
+// Confirm message
+    const Confirm=(e)=>
+    {
+        e.preventDefault();
+        emailjs.sendForm('service_yth8b2s', 'template_9bpmz3j', form.current, '10_WMH5qM1GoLv6-g')
+        .then((result) => {
+            result.data?alert("Mail not sent") :alert("Mail sent");
+            window.location.reload()
+        }, (error) => {
+          alert("Try again"+error);
+        })
     }
 
 // Edit user update profile
@@ -235,12 +252,12 @@ export const Usermanage=()=>
                                             {
                                                 dat.map((val1, index) => (
                                                     <tr>
-                                                        <td><b>{index + 1}</b></td>
+                                                        <td height="40px"><b>{index + 1}</b></td>
                                                         <td><b>{val1.name}</b></td>
                                                         <td><b>{val1.gmail}</b></td>
                                                         <td><b>{val1.phone_number}</b></td>
                                                         <td>
-                                                           <input type="radio" name={index}  onChange={(e)=>sapprove(val1)}></input>
+                                                           <input type="radio"  onChange={(e)=>sapprove(val1)} onClick={Approvehand}></input>
                                                         </td>
                                                         <td>
                                                             <input type="radio" name={index}/>
@@ -311,7 +328,7 @@ export const Usermanage=()=>
                                             <td><b>{val3.Gmail}</b></td>
                                             <td><b>{val3.Phone_Number}</b></td>
                                             <td>
-                                                <input id={index} style={{width:'50px'}} name="same" type="radio" onChange={(e)=>sedit(val3)}></input>
+                                                <input id={index} style={{width:'50px'}} name="same" type="radio"  onChange={(e)=>sedit(val3)}></input>
                                             </td>
                                         </tr>
                                     ))
@@ -347,7 +364,7 @@ export const Usermanage=()=>
                         }
                         <div style={{marginTop:'10vh'}}></div>
                             <tr>
-                                <td style={{width:'2%'}}><Link onClick={Disable} style={{textDecoration:'none',padding:'0.5%',backgroundColor:'red',color:'white'}}><b>Disable User</b></Link></td>
+                                <td style={{width:'2%'}}><Link onClick={Edituser} style={{textDecoration:'none',padding:'0.5%',backgroundColor:'red',color:'white'}}><b>Disable User</b></Link></td>
                                 <td ><Link  onClick={Enable} style={{textDecoration:'none',padding:'0.5%',backgroundColor:'green',color:'white'}}>Enable User</Link></td>
                             </tr>
                         </table>
@@ -358,7 +375,7 @@ export const Usermanage=()=>
 {/* Reason and confirm detilas of disable enable users */}
                     <div>
                                 <div className="disenareason" style={{ display: 'none' }} id="reasondisplay">
-                                    <form ref={form} onSubmit={Edituser}>
+                                    <form ref={form} onSubmit={Confirm}>
                                         <tr>
                                             <td>
                                             <label>Email</label>
@@ -377,7 +394,7 @@ export const Usermanage=()=>
                                         </tr>
                                         <tr>
                                             <td colSpan={2}>
-                                            <input type="submit" value="Confirm" style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}></input>
+                                            <input type="submit" value="confirm" style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}></input>
                                             </td>
                                         </tr>
                                     </form>

@@ -1,11 +1,13 @@
 import React from "react";
+import { Navbar,Footer } from "./navbar";
 export const About=()=>
 {
     return(
         <>
-        <div>
-            <h2>This is land zone page</h2>
+        <Navbar/>
+        <div className="home">
         </div>
+        <Footer/>
         </>
     )
 }
@@ -15,9 +17,10 @@ export const Contact=()=>
 {
     return(
         <>
-        <div>
-            <h2>Contact us</h2>
+        <Navbar/>
+        <div className="home">
         </div>
+        <Footer/>
         </>
     )
 }

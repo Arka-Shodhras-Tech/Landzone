@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 export const Navbar=()=>
 {
-    const [user,suser]=useState('');
     const Logout=()=>
     {
-        suser(null)
+        console.log(localStorage.gmail)
+        // localStorage.gmail=null;
     }
     return(
         <nav>
@@ -14,7 +14,7 @@ export const Navbar=()=>
                 <Link to='/about' className="navitem">About</Link>
                 <Link to='/contact' className="navitem">Contact Us</Link>
                 {
-                    user==null?<Link to='/login' className="navitem">Login</Link>:<Link to='/login' onClick={Logout} className="navitem">Log out</Link>
+                    localStorage.gmail==null?<Link to='/login' className="navitem">Login</Link>:<Link to='/login' onClick={Logout} className="navitem">Log out</Link>
                 }
             </div>
         </nav>

@@ -16,6 +16,8 @@ export const Dashboard=()=>
     const [dat,sdat]=useState([]);
     const [num,snum]=useState([]);
     const [usd,susd]=useState([]);
+    const [land,sland]=useState([]);
+    const [cor,scor]=useState([]);
     const gmal=localStorage.gmail;
     // Create currency
     const CC=()=>
@@ -75,7 +77,7 @@ export const Dashboard=()=>
     {
         try
         {
-            const responce=await axios.post("http://localhost:8000/eviusd/"+num+"/"+gmal)
+            const responce=await axios.post("http://localhost:8000/eviusd/"+gmal+"/"+num)
             {
                 responce?alert(num+" LAND units created successfully"):alert("Enter again")
             }
@@ -96,14 +98,28 @@ export const Dashboard=()=>
             alert("Server Bussy")
         }
     }
-    useEffect(()=>
+
+    const Land=(e)=>
     {
-    axios.get("http://localhost:8000/aufl")
-    .then((result)=>
+        if(land=="Land")
+        {
+            console.log(cor,land);
+        }
+        if(land=="USD")
+        {
+            console.log(cor,land);
+        }
+    }
+    const Usd=()=>
     {
-        sdat(result.data)
-    })
-    },[])
+        console.log("Usd");
+    }
+    useEffect(() => {
+        axios.get("http://localhost:8000/aufl")
+            .then((result) => {
+                sdat(result.data)
+            })
+    }, [])
     return(
         <>
         <Navbar/>
@@ -162,14 +178,14 @@ export const Dashboard=()=>
 {/* Create currency */}
                             <div className="editdis" style={{display:'none'}} id="cc">
                                <div className="ccdisplay">
-                                <label for='land' name="currency"><b>Enter the number of Units: </b><input type="number" name="currency"></input>
-                                <select id="land" name="currency">
+                                <label for='land' name="currency"><b>Enter the number of Units: </b><input type="number" name="currency" onChange={(e)=>scor(e.target.value)}></input>
+                                <select id="land" name="currency" value={land} onChange={(e)=>sland(e.target.value)}>
                                     <option> Choose Currency</option>
                                     <option value="Land">Land</option>
                                     <option value="USD">USD</option>
                                 </select>
                                 </label>
-                                <button type="submit" style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Create</button>
+                                <button onClick={Land} style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Create</button>
                                </div>
                             </div>
 
@@ -195,7 +211,6 @@ export const Dashboard=()=>
                                    }
                                 </table>
                             </div>
-
 
 {/* Approve pending purchases */}
                             <div className="editdis" style={{display:'none'}} id="app">

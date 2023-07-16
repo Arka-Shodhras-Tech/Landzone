@@ -55,14 +55,19 @@ export const Unitmanage=()=>
                                             </tr>
                                             {
                                                 crt.map((val2, index) => (
-                                                   <>
+                                                  <>
+                                                  {
+                                                    gmal===val2.Gmail?
+                                                    <>
                                                     <tr>
                                                         <td><b>{index + 1}</b></td>
                                                         <td><b>{val2.Name}</b></td>
                                                         <td><b>{val2.Gmail}</b></td>
                                                         <td><b>{val2.Phone_Number}</b></td>
                                                     </tr>
-                                                   </>
+                                                   </>:<b></b>
+                                                  }
+                                                  </>
                                                 ))
                                             }
                                             </table>
