@@ -217,9 +217,9 @@ export const Usermanage=()=>
                                     <td>
                                         <input type="gmail" id="gmail"></input>
                                     </td>
-                                    <td>
-                                        <button>SUbmit</button>
-                                    </td>
+                                    {/* <td>
+                                        <button>Submit</button>
+                                    </td> */}
                                 </tr>
                                 <tr>
                                     <td>
@@ -229,7 +229,7 @@ export const Usermanage=()=>
                                         <input type="number" id="amount"></input>
                                     </td>
                                     <td>
-                                        <button>Submit</button>
+                                        <button>Transfer</button>
                                     </td>
                                 </tr>
                             </table>
