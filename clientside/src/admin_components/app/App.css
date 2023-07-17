@@ -282,7 +282,7 @@ section
 .aufltable td
 {
     text-align: center;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 /* disable enable user */

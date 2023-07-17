@@ -242,31 +242,37 @@ export const Usermanage=()=>
                                     <div>
                                         <table className="aufltable">
                                             <tr>
-                                                <th>S.No</th>
-                                                <th for="name">Name</th>
-                                                <th>G-mail</th>
-                                                <th>Phone Number</th>
-                                                <th>Select</th>
-                                                <th>Deselect</th>
+                                                <td colSpan={2}>
+                                                <Link style={{textDecoration:'none',fontSize:'small',color:'green',float:'right'}}><h4>Approved List</h4></Link>
+                                                </td>
                                             </tr>
                                             {
                                                 dat.map((val1, index) => (
+                                                   <>
                                                     <tr>
-                                                        <td height="40px"><b>{index + 1}</b></td>
-                                                        <td><b>{val1.name}</b></td>
-                                                        <td><b>{val1.gmail}</b></td>
-                                                        <td><b>{val1.phone_number}</b></td>
-                                                        <td>
-                                                           <input type="radio"  onChange={(e)=>sapprove(val1)} onClick={Approvehand}></input>
+                                                        <td colSpan={2}><hr style={{height:'10px',backgroundColor:'lightblue'}}/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height='160px' width={'280px'}>
+                                                            <p>{val1.name}</p>
                                                         </td>
                                                         <td>
-                                                            <input type="radio" name={index}/>
+                                                       <td>
+                                                       <p>Gmail <b>{val1.gmail}</b></p>
+                                                        <p>Phone Number <b>{val1.phone_number}</b></p>
+                                                       </td>
+                                                       <td width={'280px'}>
+                                                       <p>
+                                                       <input type="submit" value="Approve"  onChange={(e)=>sapprove(val1)} style={{ margin: "2% 0% 0% 43%", width: '30%', height: '4vh', backgroundColor: 'blue', color: 'white',border:'none', borderRadius:'20px'}} onClick={Approvee}></input>
+                                                       </p>
+                                                       </td>
                                                         </td>
                                                     </tr>
+                                                   </>
                                                 ))
                                             }
                                         </table>
-                                        <button type="submit" onClick={Approvee} style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white'}}>Approve</button >
+                                        {/* <button type="submit" onClick={Approvee} style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white'}}>Approve</button > */}
                                     </div>
                     </div>
 
