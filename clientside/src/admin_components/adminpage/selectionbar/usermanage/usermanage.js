@@ -252,9 +252,10 @@ export const Usermanage=()=>
                                     <option value="USD">eUSD</option>
                                 </select>
                                     </td>
-                                   
-                                    <td>
-                                        <button>Transfer</button>
+                                </tr>
+                                <tr>
+                                    <td colSpan={2}>
+                                    <button type="submit"  style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white'}}>Transfer</button >
                                     </td>
                                 </tr>
                             </table>
