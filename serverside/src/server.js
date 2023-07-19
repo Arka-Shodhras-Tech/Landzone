@@ -126,9 +126,14 @@ app.get('/showdata',async(req,res)=>
 
 
 // Enter value in usd in dashboard
-app.post('/eviusd/:gmail/:num',async(req,res)=>
+app.post('/eviusd/:gmail/:num/:cor/:ab',async(req,res)=>
 {
-    const details=await db.collection("Usd_values").findOneAndUpdate({Gmail:req.params.gmail},{$set:{USD_Values:req.params.num}})
+    const details=await db.collection('Usd_values').insertOne({Gmail:req.params.gmail,USD_Values:req.params.num,create_currvalue:req.params.cor,avl_bal:req.params.ab})
+    res.json(details);
+})
+app.post('/uviusd/:gmail/:num/:cor/:ab',async(req,res)=>
+{
+    const details=await db.collection('Usd_values').findOneAndUpdate({Gmail:req.params.gmail},{$set:{USD_Values:req.params.num,create_currvalue:req.params.cor,avl_bal:req.params.ab}})
     res.json(details);
 })
 

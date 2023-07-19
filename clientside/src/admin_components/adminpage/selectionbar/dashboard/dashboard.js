@@ -19,6 +19,8 @@ export const Dashboard=()=>
     const [land,sland]=useState([]);
     const [cor,scor]=useState([]);
     const gmal=localStorage.gmail;
+    const [x,sx]=useState();
+    let y;
     // Create currency
     const CC=()=>
     {
@@ -75,39 +77,60 @@ export const Dashboard=()=>
     
     const Eusd=async()=>
     {
+        sx(y);
         try
         {
-            const responce=await axios.post("http://localhost:8000/eviusd/"+gmal+"/"+num)
+            const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
             {
-                responce?alert(num+" LAND units created successfully"):alert("Enter again")
+                if(responce1.data)
+                {
+                    susd(num);
+                    const responce=await axios.post("http://localhost:8000/uviusd/"+gmal+"/"+num+"/"+cor+"/"+x)
+                    {
+                        responce?alert(num+" LAND units created successfully"):alert("Enter again")
+                    }
+                }
+                else
+                {
+                    const responce2=await axios.post("http://localhost:8000/eviusd/"+gmal+"/"+num+"/"+cor+"/"+x)
+                    {
+                        responce2?alert(num+" LAND units created successfully"):alert("Enter again");
+                        susd(responce2.data.USD_Values)
+                    }
+                }
+                
             }
         }
         catch(err)
         {
             console.log("Server Bussy");
         }
-        try
-        {
-            const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
-            {
-                responce1?susd(responce1.data.USD_Values):alert("User not found");
-            }
-        }
-        catch(err)
-        {
-            alert("Server Bussy")
-        }
     }
 
     const Land=(e)=>
     {
-        if(land=="Land")
+        if(land=="Land" && cor<=500)
         {
-            console.log(cor,land);
+            scor(cor);
+            alert("units created in lands ");
+        }
+        else
+        {
+            scor();
+            alert("units maximum 500 And select units");
         }
         if(land=="USD")
         {
-            console.log(cor,land);
+            if(cor<=500)
+            {
+                scor(cor);
+                alert("units created in USD");
+            }
+            else
+            {
+                scor(0);
+                alert("units maximum 500");
+            }
         }
     }
     const Usd=()=>
@@ -251,9 +274,10 @@ export const Dashboard=()=>
 {/* Show value in eUSD */}
                             <div className="editdis" style={{display:'none'}} id="svb">
                             <div style={{textAlign:'center',marginTop:'32%'}}>
-                                    <label for='eusd'><b>The total value of USD in bank is : {usd}</b></label>
-                                    <label for='eusd'><b>the number of eUSD's created till now: {usd}</b></label>
-                                    <label for='eusd'><b>Available USD in Bank: {usd}</b></label>
+                                <div style={{display:'none'}}>{y=(parseInt(cor)-parseInt(usd))}</div>
+                                    <label for='eusd'><b>The total value of USD in bank is : {cor}</b></label><br/>
+                                    <label for='eusd'><b>the number of eUSD's created till now: {usd}</b></label><br/>
+                                    <label for='eusd'><b>Available USD in Bank: {y}</b></label><br/>
                                 </div>
                             </div>
                 </section>
