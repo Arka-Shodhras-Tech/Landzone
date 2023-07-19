@@ -16,6 +16,7 @@ export const Dashboard=()=>
     const [dat,sdat]=useState([]);
     const [num,snum]=useState([]);
     const [usd,susd]=useState([]);
+    const [lan,slan]=useState([]);
     const [land,sland]=useState([]);
     const [cor,scor]=useState([]);
     const gmal=localStorage.gmail;
@@ -78,6 +79,21 @@ export const Dashboard=()=>
     const Eusd=async()=>
     {
         sx(y);
+    //     if(land=="Land" && cor<=500)
+    //     {
+    //         scor(cor);
+    //         alert("units created in lands ");
+    //     }
+    //    else if(land=="USD" && cor<=500)
+    //     {
+    //         scor(cor);
+    //         alert("units created in lands ");
+    //     }
+    //     else
+    //     {
+    //         scor();
+    //         alert("units maximum 500 And select units");
+    //     }
         try
         {
             const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
@@ -114,23 +130,15 @@ export const Dashboard=()=>
             scor(cor);
             alert("units created in lands ");
         }
+       else if(land=="USD" && cor<=500)
+        {
+            scor(cor);
+            alert("units created in lands ");
+        }
         else
         {
             scor();
             alert("units maximum 500 And select units");
-        }
-        if(land=="USD")
-        {
-            if(cor<=500)
-            {
-                scor(cor);
-                alert("units created in USD");
-            }
-            else
-            {
-                scor(0);
-                alert("units maximum 500");
-            }
         }
     }
     const Usd=()=>
@@ -265,8 +273,14 @@ export const Dashboard=()=>
 {/* Enter value in eUSD */}
                             <div className="editdis" style={{display:'none'}} id="evb">
                                 <div style={{textAlign:'center',marginTop:'32%'}}>
-                                    <label for='eusd'><b>Please enter value of USD in bank </b></label>
-                                    <input type="number" id="eusd" onChange={(e)=>snum(e.target.value)}></input>
+                                    <label for='eusd'><b>Please enter value of USD in bank </b>
+                                    <input type="number" id="eusd" onChange={(e)=>snum(e.target.value)}/>
+                                    <select id="land" name="currency" value={land} onChange={(e)=>slan(e.target.value)}>
+                                    <option> Choose Currency</option>
+                                    <option value="Land">Land</option>
+                                    <option value="USD">eUSD</option>
+                                </select>
+                                    </label>
                                     <button type="submit" onClick={Eusd} style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Submit</button>
                                 </div>
                             </div>

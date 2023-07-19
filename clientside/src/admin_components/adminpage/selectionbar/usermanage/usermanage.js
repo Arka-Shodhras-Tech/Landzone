@@ -14,6 +14,7 @@ export const Usermanage=()=>
     const [approve,sapprove]=useState();
     const [tdata,stdata]=useState([]);
     const [modname,smodname]=useState([]);
+    const [land,sland]=useState([]);
     const form=useRef();
     const [i,si]=useState(0);
     // const nav=useNavigate();
@@ -223,7 +224,7 @@ export const Usermanage=()=>
                                     </td>
 
                                 <td>
-                                    <input type="gmail" id="gmail"></input>
+                                    <input type="gmail" id="gmail" defaultValue={localStorage.gmail}></input>
                                 </td>
                                
                             </tr>
@@ -241,10 +242,15 @@ export const Usermanage=()=>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <label for='amount'><b>Enter the amount to be transfered in USD</b></label>
+                                        <label for='amount'><b>Enter the amount to be transfered in USD</b>
+                                       </label>
                                     </td>
                                     <td>
-                                        <input type="number" id="amount"></input>
+                                        <input type="number" id="amount"/> <select id="land" name="currency" value={land} onChange={(e)=>sland(e.target.value)}>
+                                    <option> Choose Currency</option>
+                                    <option value="Land">Land</option>
+                                    <option value="USD">eUSD</option>
+                                </select>
                                     </td>
                                    
                                     <td>
@@ -306,9 +312,6 @@ export const Usermanage=()=>
                                                 crt.map((val2, index) => (
                                                     <>
                                                     <tr>
-                                                        <td colSpan={2}><hr style={{height:'10px',backgroundColor:'lightblue'}}/></td>
-                                                    </tr>
-                                                    <tr>
                                                         <td height='160px' width={'280px'}>
                                                             <p>
                                                                 <input type="text" defaultValue={val2.Name} onChange={(e)=>smodname(e.target.value)}></input>
@@ -320,9 +323,12 @@ export const Usermanage=()=>
                                                         <p>Phone Number <b>{val2.Phone_Number}</b></p>
                                                        </td>
                                                        <td width={'280px'}>
-                                                       <button onClick={Modify(val2?.Gmail)} style={{ margin: "2% 0% 0% 43%", width: '30%', height: '4vh', backgroundColor: 'blue', color: 'white',border:'none', borderRadius:'20px' }}>Modify</button>
+                                                       <button onClick={Modify(val2.Gmail)} style={{ margin: "2% 0% 0% 43%", width: '30%', height: '4vh', backgroundColor: 'blue', color: 'white',border:'none', borderRadius:'20px' }}>Modify</button>
                                                        </td>
                                                         </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colSpan={2}><hr style={{height:'10px',backgroundColor:'lightblue'}}/></td>
                                                     </tr>
                                                    </>
                                                 ))
