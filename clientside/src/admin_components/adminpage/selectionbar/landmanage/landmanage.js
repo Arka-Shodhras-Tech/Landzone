@@ -3,7 +3,7 @@ import moment from 'moment';
 import 'moment-timezone';
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Footer, Navbar } from "../../../home/nav&foot&contact&about/navbar";
+import { Footer, Navbar1 } from "../../../home/nav&foot&contact&about/navbar";
 import { Comp } from "../../asidebar/asidebar";
 export const Landmanage=()=>
 {
@@ -130,7 +130,7 @@ export const Landmanage=()=>
     },[])
     return(
         <>
-        <Navbar/>
+        <Navbar1/>
         <div className="home">
             <div className="adpage">
                 <Comp/>

@@ -2,7 +2,7 @@ import axios from "axios";
 import emailjs from 'emailjs-com';
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Footer, Navbar } from "../../../home/nav&foot&contact&about/navbar";
+import { Footer, Navbar1 } from "../../../home/nav&foot&contact&about/navbar";
 import { Comp } from "../../asidebar/asidebar";
 export const Usermanage=()=>
 {
@@ -13,6 +13,7 @@ export const Usermanage=()=>
     const [pymt,spymt]=useState([]);
     const [approve,sapprove]=useState();
     const [tdata,stdata]=useState([]);
+    const [modname,smodname]=useState([]);
     const form=useRef();
     const [i,si]=useState(0);
     // const nav=useNavigate();
@@ -173,6 +174,11 @@ export const Usermanage=()=>
         })
     }
 
+    const Modify=(Gmail)=>
+    {
+        console.log('gmail is',Gmail);
+    }
+
 // Edit user update profile
     useEffect(() => {
         axios.get("http://localhost:8000/aufl")
@@ -191,7 +197,7 @@ export const Usermanage=()=>
     }, [])
     return(
         <>
-        <Navbar/>
+        <Navbar1/>
         <div className="home">
             <div className="adpage">
                 <Comp/>
@@ -282,25 +288,26 @@ export const Usermanage=()=>
                         <div>
                         <div>
                                         <table className="aufltable">
-                                            <tr>
-                                                <th>S.No</th>
-                                                <th>Name</th>
-                                                <th>G-mail</th>
-                                                <th>Phone Number</th>
-                                                <th>Modify</th>
-                                            </tr>
                                             {
                                                 crt.map((val2, index) => (
-                                                   <>
+                                                    <>
                                                     <tr>
-                                                        <td><b>{index + 1}</b></td>
-                                                        <td>
-                                                            <input style={{border:'none',height:'22px'}} type="text" id="name" defaultValue={val2.Name}/>
+                                                        <td colSpan={2}><hr style={{height:'10px',backgroundColor:'lightblue'}}/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height='160px' width={'280px'}>
+                                                            <p>
+                                                                <input type="text" defaultValue={val2.Name} onChange={(e)=>smodname(e.target.value)}></input>
+                                                            </p>
                                                         </td>
-                                                        <td><b>{val2.Gmail}</b></td>
-                                                        <td><b>{val2.Phone_Number}</b></td>
                                                         <td>
-                                                        <input id={index} name="same" type="radio"  ></input>
+                                                       <td>
+                                                       <p>Gmail <b>{val2.Gmail}</b></p>
+                                                        <p>Phone Number <b>{val2.Phone_Number}</b></p>
+                                                       </td>
+                                                       <td width={'280px'}>
+                                                       <button onClick={Modify(val2?.Gmail)} style={{ margin: "2% 0% 0% 43%", width: '30%', height: '4vh', backgroundColor: 'blue', color: 'white',border:'none', borderRadius:'20px' }}>Modify</button>
+                                                       </td>
                                                         </td>
                                                     </tr>
                                                    </>
@@ -308,7 +315,6 @@ export const Usermanage=()=>
                                             }
                                         </table>
                                         <p style={{textAlign:'center'}}><b>{err1}</b></p>
-                                        <button type="submit" style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white' }} >Update</button>
                                     </div>
                         </div>
                     </div>

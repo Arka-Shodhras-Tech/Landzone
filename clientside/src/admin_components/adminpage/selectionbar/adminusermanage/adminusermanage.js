@@ -1,11 +1,11 @@
 import React from "react";
-import { Footer, Navbar } from "../../../home/nav&foot&contact&about/navbar";
+import { Footer, Navbar1 } from "../../../home/nav&foot&contact&about/navbar";
 import { Comp } from "../../asidebar/asidebar";
 export const Adminusermanage=()=>
 {
     return(
         <>
-        <Navbar/>
+        <Navbar1/>
         <div className="home">
             <div className="adpage">
                 <Comp/>
