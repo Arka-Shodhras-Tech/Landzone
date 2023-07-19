@@ -182,7 +182,7 @@ export const Dashboard=()=>
                                 <select id="land" name="currency" value={land} onChange={(e)=>sland(e.target.value)}>
                                     <option> Choose Currency</option>
                                     <option value="Land">Land</option>
-                                    <option value="USD">USD</option>
+                                    <option value="USD">eUSD</option>
                                 </select>
                                 </label>
                                 <button onClick={Land} style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Create</button>
@@ -242,7 +242,7 @@ export const Dashboard=()=>
 {/* Enter value in eUSD */}
                             <div className="editdis" style={{display:'none'}} id="evb">
                                 <div style={{textAlign:'center',marginTop:'32%'}}>
-                                    <label for='eusd'><b>Please enter value of eUSD in bank </b></label>
+                                    <label for='eusd'><b>Please enter value of USD in bank </b></label>
                                     <input type="number" id="eusd" onChange={(e)=>snum(e.target.value)}></input>
                                     <button type="submit" onClick={Eusd} style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Submit</button>
                                 </div>
@@ -251,7 +251,9 @@ export const Dashboard=()=>
 {/* Show value in eUSD */}
                             <div className="editdis" style={{display:'none'}} id="svb">
                             <div style={{textAlign:'center',marginTop:'32%'}}>
-                                    <label for='eusd'><b>The value of eUSD in bank is {usd}</b></label>
+                                    <label for='eusd'><b>The total value of USD in bank is : {usd}</b></label>
+                                    <label for='eusd'><b>the number of eUSD's created till now: {usd}</b></label>
+                                    <label for='eusd'><b>Available USD in Bank: {usd}</b></label>
                                 </div>
                             </div>
                 </section>

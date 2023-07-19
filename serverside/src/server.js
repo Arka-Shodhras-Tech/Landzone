@@ -6,7 +6,7 @@ app.use(express.json());
 app.use(cors());
 //check server//
 app.get('/',(req,res)=>{
-    res.send("server running")
+    res.send("server is running")
 })
 //user data server//
 app.post('/register/:name/:gmail/:password/:cpassword/:phonenumber',async(req,res)=>//register
@@ -37,7 +37,7 @@ app.post('/update/:gmail/:password/:cpassword',async(req,res)=>//forget
 
 
 
-//headbar//
+//headbar//..
 app.get('/headcheck/:name',async(req,res)=>
 {
     const details=await db.collection('userlogin').findOne({name:req.params.name});
@@ -153,7 +153,7 @@ app.get('/pymtretrive',async(req,res)=>
 })
 
 
-//delete data//
+//delete data//..
 app.get('/deladmdata',async(req,res)=>{
     const details=await db.collection('admindata').deleteMany()
    res.json(details)

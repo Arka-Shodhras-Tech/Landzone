@@ -108,7 +108,7 @@ export const Usermanage=()=>
         // const updatedArrays=[...approve];
         stdata(approve);
         si(i+1);
-    }
+    }   
     const Approvee=async()=>
     {
         const formData=new FormData();
@@ -205,40 +205,54 @@ export const Usermanage=()=>
 
 {/* user management list */}
                    <div className="dash">
-                           <Link className="usrmngitem" onClick={Transfer}>Transfer Currency to User</Link>
+                           <Link className="usrmngitem" onClick={Transfer}>Transfer Currency</Link>
                            <Link className="usrmngitem" onClick={Aprove}>Approve Users From List</Link> 
                            <Link className="usrmngitem" onClick={Edit}>Update User Details</Link>
                            <Link className="usrmngitem" onClick={Disena}>Disable/Enable Users</Link>
                            <Link className="usrmngitem" onClick={Transaction}>view transaction history</Link>
                     </div>
 
-{/* Transfer Currency to user */}
+{/* Transfer Currency */}
                     <div>
                         <div className="editdis" style={{display:'none'}} id="transfer">
                             <table className="landtable" style={{paddingTop:'35%'}}>
-                                <tr>
+                            <tr>
+                                    
                                     <td>
-                                        <label for='gmail'><b>Enter User Email id</b></label>
+                                    <label for='gmail'><b>Transfer currency from:(Email id)</b></label>
                                     </td>
+
+                                <td>
+                                    <input type="gmail" id="gmail"></input>
+                                </td>
+                               
+                            </tr>
+                                <tr>
+                                   
+                                        <td>    
+                                        <label for='gmail'><b>Transfer currency to:(Email id)</b></label>
+                                        </td>
                                     <td>
                                         <input type="gmail" id="gmail"></input>
                                     </td>
-                                    <td>
-                                        <button>SUbmit</button>
-                                    </td>
+                                    {/* <td>
+                                        <button>Submit</button>
+                                    </td> */}
                                 </tr>
                                 <tr>
                                     <td>
-                                        <label for='amount'><b>Enter the amount to be transfer</b></label>
+                                        <label for='amount'><b>Enter the amount to be transfered in USD</b></label>
                                     </td>
                                     <td>
                                         <input type="number" id="amount"></input>
                                     </td>
+                                   
                                     <td>
-                                        <button>Submit</button>
+                                        <button>Transfer</button>
                                     </td>
                                 </tr>
                             </table>
+                            
                         </div>
                     </div>
 
