@@ -15,6 +15,7 @@ export const Usermanage=()=>
     const [tdata,stdata]=useState([]);
     const [modname,smodname]=useState([]);
     const [land,sland]=useState([]);
+    const [x,sx]=useState([]);
     const form=useRef();
     const [i,si]=useState(0);
     // const nav=useNavigate();
