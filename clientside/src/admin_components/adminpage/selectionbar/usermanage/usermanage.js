@@ -18,6 +18,7 @@ export const Usermanage=()=>
     const [x,sx]=useState([]);
     const form=useRef();
     const [i,si]=useState(0);
+    const [sm,ssm]=useState([]);
     // const nav=useNavigate();
 
     // Transfer currency to user function
@@ -201,6 +202,12 @@ export const Usermanage=()=>
         document.getElementById('updatedis').style.display="block";
     }
 
+// Transfer Currency
+    const Transcurr=()=>
+    {
+        alert(land+" eUSD has been transferred from "+localStorage.gmail+" to "+sm);
+    }
+
 // Edit user update profile
     useEffect(() => {
         axios.get("http://localhost:8000/aufl")
@@ -237,7 +244,7 @@ export const Usermanage=()=>
 {/* Transfer Currency */}
                     <div>
                         <div className="editdis" style={{display:'none'}} id="transfer">
-                            <table className="landtable" style={{paddingTop:'35%'}}>
+                            <table className="landtable" style={{paddingTop:'25%'}}>
                                     <tr>
 
                                         <td>
@@ -255,11 +262,8 @@ export const Usermanage=()=>
                                             <label for='gmail'><b>Transfer currency to:(Email id)</b></label>
                                         </td>
                                         <td>
-                                            <input type="gmail" id="gmail"></input>
+                                            <input type="gmail" id="gmail" placeholder="Enter sender mail" onChange={(e)=>ssm(e.target.value)}></input>
                                         </td>
-                                        {/* <td>
-                                        <button>Submit</button>
-                                    </td> */}
                                     </tr>
                                     <tr>
                                         <td>
@@ -276,7 +280,7 @@ export const Usermanage=()=>
                                     </tr>
                                     <tr>
                                         <td colSpan={2}>
-                                            <button type="submit" style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white' }}>Transfer</button >
+                                            <button onClick={Transcurr} style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white' }}>Transfer</button >
                                         </td>
                                     </tr>
                             </table>

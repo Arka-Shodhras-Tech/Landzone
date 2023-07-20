@@ -17,15 +17,27 @@ export const Dashboard=()=>
     const [num,snum]=useState([]);
     const [usd,susd]=useState([]);
     const [lan,slan]=useState([]);
+    const [curr,scurr]=useState([]);
     const [land,sland]=useState([]);
     const [cor,scor]=useState([]);
     const gmal=localStorage.gmail;
-    const [x,sx]=useState();
+    const [x,sx]=useState([]);
+    const [vpp,svpp]=useState([]);
+    const [pp,spp]=useState([]);
+    const [i,si]=useState(0);
+    const [j,sj]=useState(0);
     let y;
     // Create currency
     const CC=()=>
     {
-        document.getElementById('cc').style.display='block';
+        if(i==1)
+        {
+            document.getElementById('cc').style.display='none';
+        }
+        else
+        {
+            document.getElementById('cc').style.display='block';
+        }
         document.getElementById('vpp').style.display='none';
         document.getElementById('app').style.display='none';
         document.getElementById('evb').style.display='none';
@@ -52,8 +64,16 @@ export const Dashboard=()=>
         document.getElementById('cc').style.display='none';
         document.getElementById('vpp').style.display='none';
         document.getElementById('app').style.display='none';
-        document.getElementById('evb').style.display='block';
+        if(j==1)
+        {
+            document.getElementById('evb').style.display='none';
+        }
+        else
+        {
+            document.getElementById('evb').style.display='block';
+        }
         document.getElementById('svb').style.display='none';
+        sj(1);
     }
     const Svb=()=>
     {
@@ -78,22 +98,9 @@ export const Dashboard=()=>
     
     const Eusd=async()=>
     {
-        sx(y);
-    //     if(land=="Land" && cor<=500)
-    //     {
-    //         scor(cor);
-    //         alert("units created in lands ");
-    //     }
-    //    else if(land=="USD" && cor<=500)
-    //     {
-    //         scor(cor);
-    //         alert("units created in lands ");
-    //     }
-    //     else
-    //     {
-    //         scor();
-    //         alert("units maximum 500 And select units");
-    //     }
+        scor(cor);
+        snum(num);
+        sx((parseInt(num)-parseInt(cor)));
         try
         {
             const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
@@ -104,6 +111,7 @@ export const Dashboard=()=>
                     const responce=await axios.post("http://localhost:8000/uviusd/"+gmal+"/"+num+"/"+cor+"/"+x)
                     {
                         responce?alert(num+" LAND units created successfully"):alert("Enter again")
+                        sj(1);
                     }
                 }
                 else
@@ -112,6 +120,7 @@ export const Dashboard=()=>
                     {
                         responce2?alert(num+" LAND units created successfully"):alert("Enter again");
                         susd(responce2.data.USD_Values)
+                        sj(1);
                     }
                 }
                 
@@ -123,17 +132,40 @@ export const Dashboard=()=>
         }
     }
 
-    const Land=(e)=>
+    const Land=async(e)=>
     {
         if(land=="Land" && cor<=500)
         {
             scor(cor);
-            alert("units created in lands ");
+            try
+            {
+             const result=await axios.post("http://localhost:8000/crecur/"+gmal+"/"+cor)
+             {
+                 result?alert(cor+" Land instance has been created and sent for approval"):alert("Try again");
+                 si(1);
+             }
+            }
+            catch(e)
+            {
+             console.log(e);
+            }
+
         }
        else if(land=="USD" && cor<=500)
         {
             scor(cor);
-            alert("units created in lands ");
+           try
+           {
+            const result=await axios.post("http://localhost:8000/crecur/"+gmal+"/"+cor)
+            {
+                result?alert(cor+" eUSD instance has been created and sent for approval"):alert("Try again");
+                si(1);
+            }
+           }
+           catch(e)
+           {
+            console.log(e);
+           }
         }
         else
         {
@@ -145,10 +177,35 @@ export const Dashboard=()=>
     {
         console.log("Usd");
     }
+    const Viewpp=async()=>
+    {
+        try
+        {
+            const viewpp=await axios.post("http://localhost:8000/viewpp/"+vpp.Gmail+"/"+vpp.Units)
+            {
+                viewpp?alert("Approved"):alert("Not approved");
+            }
+            const viewpp1=await axios.post("http://localhost:8000/delviewpp/"+vpp.Gmail)
+        }
+        catch(e)
+        {
+            console.log(e)
+        }
+    }
     useEffect(() => {
         axios.get("http://localhost:8000/aufl")
             .then((result) => {
                 sdat(result.data)
+            })
+        axios.get("http://localhost:8000/crecurdis")
+            .then((result1)=>
+            {
+                scurr(result1.data);
+            })
+        axios.get("http://localhost:8000/viewappdis")
+            .then((result2)=>
+            {
+                spp(result2.data);
             })
     }, [])
     return(
@@ -161,7 +218,7 @@ export const Dashboard=()=>
                     <div className="dash">
                         <Link className="dashitem" onClick={CC}>Create Currency (Land/USD Units)</Link>
                         <Link className="dashitem" onClick={Vpp}>view Pending Purchases</Link>
-                        <Link className="dashitem" onClick={App}>Approve Pending Purchases</Link>
+                        <Link className="dashitem" onClick={App}>Approved Purchases</Link>
                         <Link className="dashitem" onClick={Evb}>Enter Value of USD in Bank</Link>
                         <Link className="dashitem" onClick={Svb}>Show Value of USD in Bank</Link>
                     </div>
@@ -224,39 +281,48 @@ export const Dashboard=()=>
                             <div className="editdis" style={{display:'none'}} id="vpp">
                                 <table className="pendtable">
                                    {
-                                    dat.map((val,index)=>
+                                    curr.map((val,index)=>
                                     (
                                        <>
                                         <tr>
                                             <td>{index+1}</td>
                                             <td>
-                                                <p>Purchases {index+1}</p>
+                                                {val.Units}
                                             </td>
                                             <td>
-                                                {val.name}
+                                                {val.Gmail}
+                                            </td>
+                                            <td>
+                                                <input type="radio" id={index} name="same" onChange={(e)=>svpp(val)}/>
                                             </td>
                                         </tr>
+                                        <tr></tr>
                                         <br/>
                                        </>
                                     ))
                                    }
+                                   <tr style={{backgroundColor:'aliceblue'}}>
+                                    <td colSpan={4}>
+                                    <button onClick={Viewpp} style={{ margin: "2% 0% 5% 0%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Approve</button>
+                                    </td>
+                                   </tr>
                                 </table>
                             </div>
 
-{/* Approve pending purchases */}
+{/* Approved purchases */}
                             <div className="editdis" style={{display:'none'}} id="app">
                             <table className="pendtable">
                                    {
-                                    dat.map((val,index)=>
+                                    pp.map((val1,index)=>
                                     (
                                        <>
                                         <tr>
                                             <td>{index+1}</td>
                                             <td>
-                                            <p>Purchases {index+1}</p>
+                                            {val1.Units}
                                             </td>
                                             <td>
-                                                <label for={index}>{val.name}</label>
+                                                <label for={index}>{val1.Gmail}</label>
                                             </td>
                                             <td>
                                                 <input type="radio" name="same" id={index}/>
@@ -275,11 +341,6 @@ export const Dashboard=()=>
                                 <div style={{textAlign:'center',marginTop:'32%'}}>
                                     <label for='eusd'><b>Please enter value of USD in bank </b>
                                     <input type="number" id="eusd" onChange={(e)=>snum(e.target.value)}/>
-                                    <select id="land" name="currency" value={land} onChange={(e)=>slan(e.target.value)}>
-                                    <option> Choose Currency</option>
-                                    <option value="Land">Land</option>
-                                    <option value="USD">eUSD</option>
-                                </select>
                                     </label>
                                     <button type="submit" onClick={Eusd} style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Submit</button>
                                 </div>
@@ -287,11 +348,12 @@ export const Dashboard=()=>
 
 {/* Show value in eUSD */}
                             <div className="editdis" style={{display:'none'}} id="svb">
-                            <div style={{textAlign:'center',marginTop:'32%'}}>
-                                <div style={{display:'none'}}>{y=(parseInt(cor)-parseInt(usd))}</div>
+                            <div style={{textAlign:'center',marginTop:'22%'}}>
+                                {/* <div style={{display:'none'}}>{y=(parseInt(cor)-parseInt(usd))}</div> */}
                                     <label for='eusd'><b>The total value of USD in bank is : {cor}</b></label><br/>
                                     <label for='eusd'><b>the number of eUSD's created till now: {usd}</b></label><br/>
-                                    <label for='eusd'><b>Available USD in Bank: {y}</b></label><br/>
+                                    <label for='eusd'><b>Available USD in Bank: {x}</b></label><br/><br/>
+                                    <label for='eusd'><b>Limit is:</b></label>
                                 </div>
                             </div>
                 </section>

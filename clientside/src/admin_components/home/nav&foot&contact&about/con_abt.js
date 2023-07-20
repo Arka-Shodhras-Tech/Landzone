@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar,Footer } from "./navbar";
+import { Footer, Navbar } from "./navbar";
 export const About=()=>
 {
     return(

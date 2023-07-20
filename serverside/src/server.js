@@ -68,6 +68,34 @@ app.get('/aufl',async(req,res)=>{
     res.json(details);
 })
 
+// Create currency(Land/USD Units)
+app.post('/crecur/:gmail/:val',async(req,res)=>
+{
+    const details=await db.collection('create_currency').insertOne({Gmail:req.params.gmail,Units:req.params.val})
+    res.json(details);
+})
+app.get('/crecurdis',async(req,res)=>
+{
+    const details=await db.collection('create_currency').find().toArray()
+    res.json(details)
+})
+
+// Pending purchses
+app.post('/viewpp/:gmail/:val',async(req,res)=>
+{
+    const details=await db.collection('pending_purchase').insertOne({Gmail:req.params.gmail,Units:req.params.val})
+    res.json(details);
+})
+app.get('/viewappdis',async(req,res)=>
+{
+    const details=await db.collection('pending_purchase').find().toArray()
+    res.json(details)
+})
+app.post('/delviewpp/:gmail',async(req,res)=>
+{
+    const details=await db.collection('create_currency').deleteOne({Gmail:req.params.gmail})
+    res.json(details);
+})
 // Approve list from approve
 app.post('/approvelist/:name/:gmail/:phonenum',async(req,res)=>
 {
