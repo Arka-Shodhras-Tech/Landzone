@@ -21,6 +21,7 @@ export const Landmanage=()=>
     const [err1,serr1]=useState([]);
     const [err2,serr2]=useState([]);
     const [pdsc,spdsc]=useState([]);
+    const [search,ssearch]=useState([]);
     const table=useRef();
     let x=0;
     const Elpd=async()=>
@@ -113,15 +114,11 @@ export const Landmanage=()=>
         }
     }
 
-// date function
-    useEffect(() => {
-        const etime = moment().format('YYYY-MM-DD HH:mm:ss Z');
-        setime(etime);
-    }, []);
-
     // Show land project data
     useEffect(()=>
     {
+        const etime = moment().format('YYYY-MM-DD HH:mm:ss Z');
+        setime(etime);
         axios.get("http://localhost:8000/showdata")
         .then((result)=>
         {
@@ -184,9 +181,21 @@ export const Landmanage=()=>
                         <div>
                             <table className="landtable">
                             <tr>
+                                {/* {data.fillter(project=>projectname.toLowerclass().include(search.toLowercase())).map(val1)} */}
                                     <td><label for='search' className="landinput"><b>Land Project Name</b></label></td>
-                                    <td><input id='search' type="text" className="landinput"  placeholder="Enter project name" onChange={(e)=>scpn(e.target.value)}></input>
-                                    <Link style={{padding:'2px',borderRadius:'8px',backgroundColor:'green',textDecoration:'none',marginLeft:'1vh',color:'white'}} onClick={Search}>search</Link></td>
+                                    <td><input id='search' value={cpn}  type="text" className="landinput"  placeholder="Enter project name" onChange={(e)=>scpn(e.target.value)}></input>
+                                    {
+                                    sld.filter(project=>project.project_name.includes(cpn)).map((project)=>
+                                    (
+                                        <div>
+                                            <button>{project.project_name}</button>
+                                        </div>
+                                    ))
+                                    }
+                                    <div>
+                                    </div>
+                                    <Link style={{padding:'2px',borderRadius:'8px',backgroundColor:'green',textDecoration:'none',marginLeft:'1vh',color:'white'}} onClick={Search}>search</Link>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><label className="landinput"><b>Land Project Description</b></label></td>

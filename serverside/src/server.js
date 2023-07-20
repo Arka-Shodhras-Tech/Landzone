@@ -74,6 +74,11 @@ app.post('/approvelist/:name/:gmail/:phonenum',async(req,res)=>
     const details=await db.collection('Approve_List').insertOne({Name:req.params.name,Gmail:req.params.gmail,Phone_Number:req.params.phonenum})
     res.json(details);
 })
+app.post('/updatenames/:name/:gmail/:phonenum',async(req,res)=>
+{
+    const details=await db.collection('Approve_List').findOneAndUpdate({$set:{Name:req.params.name}},{Gmail:req.params.gmail,Phone_Number:req.params.phonenum})
+    res.json(details);
+})
 // Approve list check email id
 app.get('/approvecheck/:gmail',async(req,res)=>
 {

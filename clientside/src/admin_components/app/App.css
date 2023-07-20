@@ -284,6 +284,16 @@ section
     text-align: center;
     /* border: 1px solid black; */
 }
+.updatedis
+{
+    width: 40%;
+    height: 40vh;
+    top:30%;
+    left: 50%;
+    border: 1px solid green;
+    background-color: aliceblue;
+    position: absolute;
+}
 
 /* disable enable user */
 .disenadis
