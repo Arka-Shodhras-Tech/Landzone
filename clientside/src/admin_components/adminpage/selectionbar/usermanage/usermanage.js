@@ -243,7 +243,7 @@ export const Usermanage=()=>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <label for='amount'><b>Enter the amount to be transfered in USD</b>
+                                        <label for='amount'><b>Enter the number of units to be transfered:</b>
                                        </label>
                                     </td>
                                     <td>
