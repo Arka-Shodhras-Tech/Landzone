@@ -440,11 +440,11 @@ export const Usermanage=()=>
                         <table className="pymttable" style={{textAlign:'center',overflowY:'scroll'}}>
                             <tr>
                                 <th>S.NO</th>
-                                <th>Bank Details</th>
+                                <th>Name of the bank</th>
                                 <th>Sender Email</th>
                                 <th>Sender Account Number</th>
                                 <th>Amount Transfer</th>
-                                <th>Payment Refer Number</th>
+                                <th>Payment id</th>
                                 <th>Transfer Date and Time</th>
                             </tr>
                             {

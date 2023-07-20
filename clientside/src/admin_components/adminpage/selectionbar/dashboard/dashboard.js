@@ -161,7 +161,7 @@ export const Dashboard=()=>
                     <div className="dash">
                         <Link className="dashitem" onClick={CC}>Create Currency (Land/USD Units)</Link>
                         <Link className="dashitem" onClick={Vpp}>view Pending Purchases</Link>
-                        <Link className="dashitem" onClick={App}>Approve Pending Purchases</Link>
+                        <Link className="dashitem" onClick={App}>Approved Purchases</Link>
                         <Link className="dashitem" onClick={Evb}>Enter Value of USD in Bank</Link>
                         <Link className="dashitem" onClick={Svb}>Show Value of USD in Bank</Link>
                     </div>
@@ -289,9 +289,10 @@ export const Dashboard=()=>
                             <div className="editdis" style={{display:'none'}} id="svb">
                             <div style={{textAlign:'center',marginTop:'32%'}}>
                                 <div style={{display:'none'}}>{y=(parseInt(usd) - parseInt(cor))}</div>
-                                    <label for='eusd'><b>The number of eUSD's created till now : {cor}</b></label><br/>
                                     <label for='eusd'><b> The total value of USD in bank is : {usd}</b></label><br/>
-                                    <label for='eusd'><b>Available USD in Bank: {y}</b></label><br/>
+                                    <label for='eusd'><b>The number of eUSD created till now : {cor}</b></label><br/>
+                                    <label for='eusd'><b> The number of eUSD pending approval : </b></label><br/>
+                                    <label for='eusd'><b>Number of eUSD possible to create: {y}</b></label><br/>
                                 </div>
                             </div>
                 </section>
