@@ -91,6 +91,11 @@ app.get('/viewappdis',async(req,res)=>
     const details=await db.collection('pending_purchase').find().toArray()
     res.json(details)
 })
+app.get('/appdis/:gmail',async(req,res)=>
+{
+    const details=await db.collection('pending_purchase').findOne({Gmail:req.params.gmail})
+    res.json(details);
+})
 app.post('/delviewpp/:gmail',async(req,res)=>
 {
     const details=await db.collection('create_currency').deleteOne({Gmail:req.params.gmail})
@@ -159,14 +164,14 @@ app.get('/showdata',async(req,res)=>
 
 
 // Enter value in usd in dashboard
-app.post('/eviusd/:gmail/:num/:cor/:ab',async(req,res)=>
+app.post('/eviusd/:gmail/:num/:cor/:ab/:lan',async(req,res)=>
 {
-    const details=await db.collection('Usd_values').insertOne({Gmail:req.params.gmail,USD_Values:req.params.num,create_currvalue:req.params.cor,avl_bal:req.params.ab})
+    const details=await db.collection('Usd_values').insertOne({Gmail:req.params.gmail,USD_Values:req.params.num,create_currvalue:req.params.cor,avl_bal:req.params.ab,Limit_bal:req.params.lan})
     res.json(details);
 })
-app.post('/uviusd/:gmail/:num/:cor/:ab',async(req,res)=>
+app.post('/uviusd/:gmail/:num/:cor/:ab/:lan',async(req,res)=>
 {
-    const details=await db.collection('Usd_values').findOneAndUpdate({Gmail:req.params.gmail},{$set:{USD_Values:req.params.num,create_currvalue:req.params.cor,avl_bal:req.params.ab}})
+    const details=await db.collection('Usd_values').findOneAndUpdate({Gmail:req.params.gmail},{$set:{USD_Values:req.params.num,create_currvalue:req.params.cor,avl_bal:req.params.ab,Limit_bal:req.params.lan}})
     res.json(details);
 })
 

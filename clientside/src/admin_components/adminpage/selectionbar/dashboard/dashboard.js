@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useActionData } from "react-router-dom";
 import { Footer, Navbar1 } from "../../../home/nav&foot&contact&about/navbar";
 import { Comp } from "../../asidebar/asidebar";
 export const Dashboard=()=>
@@ -26,9 +26,13 @@ export const Dashboard=()=>
     const [pp,spp]=useState([]);
     const [i,si]=useState(0);
     const [j,sj]=useState(0);
-    let y;
+    const [a,sa]=useState([]);
+    const [b,sb]=useState([]);
+    const [c,sc]=useState([]);
+    const [d,sd]=useState([]);
+    const [appdis,sappdis]=useState([]);
     // Create currency
-    const CC=()=>
+    const CC=async()=>
     {
         if(i==1)
         {
@@ -42,6 +46,13 @@ export const Dashboard=()=>
         document.getElementById('app').style.display='none';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='none';
+        const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
+        {
+            if(responce1.data)
+            {
+                sd(responce1.data.Limit_bal)
+            }
+        }
     }
     const Vpp=()=>
     {
@@ -51,20 +62,28 @@ export const Dashboard=()=>
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='none';
     }
-    const App=()=>
+    const App=async()=>
     {
         document.getElementById('cc').style.display='none';
         document.getElementById('vpp').style.display='none';
         document.getElementById('app').style.display='block';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='none';
+        const responce1=await axios.get("http://localhost:8000/appdis/"+gmal)
+        {
+            if(responce1.data)
+            {
+                sappdis(responce1.data.Units)
+            }
+        }
     }
+    console.log(appdis)
     const Evb=()=>
     {
         document.getElementById('cc').style.display='none';
         document.getElementById('vpp').style.display='none';
         document.getElementById('app').style.display='none';
-        if(j==1)
+        if(j==10)
         {
             document.getElementById('evb').style.display='none';
         }
@@ -75,13 +94,23 @@ export const Dashboard=()=>
         document.getElementById('svb').style.display='none';
         sj(1);
     }
-    const Svb=()=>
+    const Svb=async()=>
     {
         document.getElementById('cc').style.display='none';
         document.getElementById('vpp').style.display='none';
         document.getElementById('app').style.display='none';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='block';
+        const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
+        {
+            if(responce1.data)
+            {
+                sa(responce1.data.create_currvalue);
+                sb(responce1.data.USD_Values);
+                sc(responce1.data.avl_bal);
+                sd(responce1.data.Limit_bal)
+            }
+        }
     }
 // Land display in create currency
     const Landdis=()=>
@@ -101,6 +130,8 @@ export const Dashboard=()=>
         scor(cor);
         snum(num);
         sx((parseInt(num)-parseInt(cor)));
+        slan((500-parseInt(appdis)))
+        console.log(lan);
         try
         {
             const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
@@ -108,7 +139,7 @@ export const Dashboard=()=>
                 if(responce1.data)
                 {
                     susd(num);
-                    const responce=await axios.post("http://localhost:8000/uviusd/"+gmal+"/"+num+"/"+cor+"/"+x)
+                    const responce=await axios.post("http://localhost:8000/uviusd/"+gmal+"/"+num+"/"+cor+"/"+x+"/"+lan)
                     {
                         responce?alert(num+" LAND units created successfully"):alert("Enter again")
                         sj(1);
@@ -116,7 +147,7 @@ export const Dashboard=()=>
                 }
                 else
                 {
-                    const responce2=await axios.post("http://localhost:8000/eviusd/"+gmal+"/"+num+"/"+cor+"/"+x)
+                    const responce2=await axios.post("http://localhost:8000/eviusd/"+gmal+"/"+num+"/"+cor+"/"+x+"/"+lan)
                     {
                         responce2?alert(num+" LAND units created successfully"):alert("Enter again");
                         susd(responce2.data.USD_Values)
@@ -134,7 +165,7 @@ export const Dashboard=()=>
 
     const Land=async(e)=>
     {
-        if(land=="Land" && cor<=500)
+        if(land=="Land" && cor<=d)
         {
             scor(cor);
             try
@@ -151,7 +182,7 @@ export const Dashboard=()=>
             }
 
         }
-       else if(land=="USD" && cor<=500)
+       else if(land=="USD" && cor<=d)
         {
             scor(cor);
            try
@@ -170,7 +201,7 @@ export const Dashboard=()=>
         else
         {
             scor();
-            alert("units maximum 500 And select units");
+            alert("units maximum "+ d +" And select units");
         }
     }
     const Usd=()=>
@@ -350,10 +381,10 @@ export const Dashboard=()=>
                             <div className="editdis" style={{display:'none'}} id="svb">
                             <div style={{textAlign:'center',marginTop:'22%'}}>
                                 {/* <div style={{display:'none'}}>{y=(parseInt(cor)-parseInt(usd))}</div> */}
-                                    <label for='eusd'><b>The total value of USD in bank is : {cor}</b></label><br/>
-                                    <label for='eusd'><b>the number of eUSD's created till now: {usd}</b></label><br/>
-                                    <label for='eusd'><b>Available USD in Bank: {x}</b></label><br/><br/>
-                                    <label for='eusd'><b>Limit is:</b></label>
+                                    <label for='eusd'><b>The total value of USD in bank is : {b}</b></label><br/>
+                                    <label for='eusd'><b>the number of eUSD's created till now: {a}</b></label><br/>
+                                    <label for='eusd'><b>Available USD in Bank: {c}</b></label><br/><br/>
+                                    <label for='eusd'><b>Limit is:{d}</b></label>
                                 </div>
                             </div>
                 </section>
