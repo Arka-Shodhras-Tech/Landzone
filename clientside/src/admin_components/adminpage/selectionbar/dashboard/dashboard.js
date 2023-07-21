@@ -57,13 +57,6 @@ export const Dashboard=()=>
                 sd(responce1.data.USD_Values);
             }
         }
-        // const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
-        // {
-        //     if(responce1.data)
-        //     {
-        //         sd(responce1.data.Limit_bal)
-        //     }
-        // }
     }
     const Vpp=()=>
     {
@@ -80,13 +73,6 @@ export const Dashboard=()=>
         document.getElementById('app').style.display='block';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='none';
-        // const responce1=await axios.get("http://localhost:8000/appdis/"+gmal)
-        // {
-        //     if(responce1.data)
-        //     {
-        //         sappdis(responce1.data.Units)
-        //     }
-        // }
     }
     const Evb=async()=>
     {
@@ -102,21 +88,6 @@ export const Dashboard=()=>
             document.getElementById('evb').style.display='block';
         }
         document.getElementById('svb').style.display='none';
-        // const details=await axios.get("http://localhost:8000/appdis/"+gmal)
-        // {
-        //     if(details.data)
-        //     {
-        //         scor(details.data.Units);
-        //     }
-        // }
-        // const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
-        // {
-        //     if(responce1.data)
-        //     {
-        //         sappdis(responce1.data.Limit_bal)
-        //     }
-        // }
-
     }
     const Svb=async()=>
     {
@@ -130,21 +101,9 @@ export const Dashboard=()=>
             if(responce1.data)
             {
                 sd(responce1.data.USD_Values);
-                localStorage.limit=responce1.data.USD_Values-(pendg+unit)
             }
         }
         localStorage.avil=(usd-unit)
-        // const res=await axios.get("http://localhost:8000/"+)
-        // const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
-        // {
-        //     if(responce1.data)
-        //     {
-        //         sa(responce1.data.create_currvalue);
-        //         sb(responce1.data.USD_Values);
-        //         sc(responce1.data.avl_bal);
-        //         sd(responce1.data.Limit_bal)
-        //     }
-        // }
     }
 // Land display in create currency
     const Landdis=()=>
@@ -215,7 +174,7 @@ export const Dashboard=()=>
         }
        else if(land=="USD" && cor<=parseInt(d))
         {
-            localStorage.pendg=cor;
+            localStorage.pendg=parseInt(pendg)+parseInt(cor);
             scor(cor);
            try
            {
@@ -247,6 +206,7 @@ export const Dashboard=()=>
         {
             localStorage.pendg=parseInt(pendg)-parseInt(vpp.Units);
             localStorage.unit=parseInt(unit)+parseInt(vpp.Units);
+            localStorage.limit=parseInt(limit)-(pendg+parseInt(unit))
             const viewpp=await axios.post("http://localhost:8000/viewpp/"+vpp.Gmail+"/"+vpp.Units)
             {
                 viewpp?alert("Approved"):alert("Try again");
