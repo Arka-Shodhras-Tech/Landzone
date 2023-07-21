@@ -69,16 +69,15 @@ export const Dashboard=()=>
         document.getElementById('app').style.display='block';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='none';
-        const responce1=await axios.get("http://localhost:8000/appdis/"+gmal)
-        {
-            if(responce1.data)
-            {
-                sappdis(responce1.data.Units)
-            }
-        }
+        // const responce1=await axios.get("http://localhost:8000/appdis/"+gmal)
+        // {
+        //     if(responce1.data)
+        //     {
+        //         sappdis(responce1.data.Units)
+        //     }
+        // }
     }
-    console.log(appdis)
-    const Evb=()=>
+    const Evb=async()=>
     {
         document.getElementById('cc').style.display='none';
         document.getElementById('vpp').style.display='none';
@@ -92,7 +91,21 @@ export const Dashboard=()=>
             document.getElementById('evb').style.display='block';
         }
         document.getElementById('svb').style.display='none';
-        sj(1);
+        const details=await axios.get("http://localhost:8000/appdis/"+gmal)
+        {
+            if(details.data)
+            {
+                scor(details.data.Units);
+            }
+        }
+        const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
+        {
+            if(responce1.data)
+            {
+                sappdis(responce1.data.Limit_bal)
+            }
+        }
+
     }
     const Svb=async()=>
     {
@@ -127,10 +140,9 @@ export const Dashboard=()=>
     
     const Eusd=async()=>
     {
-        scor(cor);
         snum(num);
         sx((parseInt(num)-parseInt(cor)));
-        slan((500-parseInt(appdis)))
+        slan((500-parseInt(cor)))
         console.log(lan);
         try
         {
@@ -174,6 +186,7 @@ export const Dashboard=()=>
              {
                  result?alert(cor+" Land instance has been created and sent for approval"):alert("Try again");
                  si(1);
+                 window.location.reload(5);
              }
             }
             catch(e)
@@ -191,6 +204,7 @@ export const Dashboard=()=>
             {
                 result?alert(cor+" eUSD instance has been created and sent for approval"):alert("Try again");
                 si(1);
+                window.location.reload(5);
             }
            }
            catch(e)
@@ -212,11 +226,26 @@ export const Dashboard=()=>
     {
         try
         {
-            const viewpp=await axios.post("http://localhost:8000/viewpp/"+vpp.Gmail+"/"+vpp.Units)
+            const responce1=await axios.get("http://localhost:8000/appdis/"+gmal)
+        {
+            if(responce1.data)
             {
-                viewpp?alert("Approved"):alert("Not approved");
+                const viewpp=await axios.post("http://localhost:8000/uviewpp/"+vpp.Gmail+"/"+vpp.Units)
+                sappdis(responce1.data.Units)
+                window.location.reload(3);
             }
+            else
+            {
+                const viewpp=await axios.post("http://localhost:8000/viewpp/"+vpp.Gmail+"/"+vpp.Units)
+                {
+                    viewpp?alert("Approved"):alert("Not approved");
+                }
+            }
+        }
             const viewpp1=await axios.post("http://localhost:8000/delviewpp/"+vpp.Gmail)
+            {
+                viewpp1?window.location.reload(3):<></>
+            }
         }
         catch(e)
         {
@@ -386,10 +415,10 @@ export const Dashboard=()=>
                             <div className="editdis" style={{display:'none'}} id="svb">
                             <div style={{textAlign:'center',marginTop:'22%'}}>
                                 {/* <div style={{display:'none'}}>{y=(parseInt(cor)-parseInt(usd))}</div> */}
-                                    <label for='eusd'><b>The total value of USD in bank is : {cor}</b></label><br/>
-                                    <label for='eusd'><b>the number of eUSD's created till now: {usd}</b></label><br/>
-                                    <label for='eusd'><b>Available USD in Bank: {x}</b></label><br/><br/>
-                                    <label for='eusd'><b>Limit is:</b></label>
+                                    <label for='eusd'><b>The total value of USD in bank is : {b}</b></label><br/>
+                                    <label for='eusd'><b>the number of eUSD's created till now: {a}</b></label><br/>
+                                    <label for='eusd'><b>Available USD in Bank: {c}</b></label><br/><br/>
+                                    <label for='eusd'><b>Limit is:{d}</b></label>
                                 </div>
                             </div>
                 </section>
