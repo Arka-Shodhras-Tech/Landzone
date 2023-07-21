@@ -372,6 +372,11 @@ export const Dashboard=()=>
                                 <div style={{textAlign:'center',marginTop:'32%'}}>
                                     <label for='eusd'><b>Please enter value of USD in bank </b>
                                     <input type="number" id="eusd" onChange={(e)=>snum(e.target.value)}/>
+                                    <select id="land" name="currency" value={land} onChange={(e)=>slan(e.target.value)}>
+                                    <option> Choose Currency</option>
+                                    <option value="Land">Land</option>
+                                    <option value="USD">eUSD</option>
+                                </select>
                                     </label>
                                     <button type="submit" onClick={Eusd} style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Submit</button>
                                 </div>
@@ -381,10 +386,10 @@ export const Dashboard=()=>
                             <div className="editdis" style={{display:'none'}} id="svb">
                             <div style={{textAlign:'center',marginTop:'22%'}}>
                                 {/* <div style={{display:'none'}}>{y=(parseInt(cor)-parseInt(usd))}</div> */}
-                                    <label for='eusd'><b>The total value of USD in bank is : {b}</b></label><br/>
-                                    <label for='eusd'><b>the number of eUSD's created till now: {a}</b></label><br/>
-                                    <label for='eusd'><b>Available USD in Bank: {c}</b></label><br/><br/>
-                                    <label for='eusd'><b>Limit is:{d}</b></label>
+                                    <label for='eusd'><b>The total value of USD in bank is : {cor}</b></label><br/>
+                                    <label for='eusd'><b>the number of eUSD's created till now: {usd}</b></label><br/>
+                                    <label for='eusd'><b>Available USD in Bank: {x}</b></label><br/><br/>
+                                    <label for='eusd'><b>Limit is:</b></label>
                                 </div>
                             </div>
                 </section>

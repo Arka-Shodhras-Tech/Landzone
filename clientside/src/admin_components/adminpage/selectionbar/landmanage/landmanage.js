@@ -134,10 +134,10 @@ export const Landmanage=()=>
                 <section>
                     <div>
                     <div className="land">
-                        <Link className="landitem" onClick={Elpd}>Enter Land project data</Link>
-                        <Link className="landitem" onClick={Clpd}>change Land project data</Link>
-                        <Link className="landitem" onClick={Vled}>view/show Land entered data</Link>
-                        <Link className="landitem" onClick={Sltv}>show Land total value</Link>
+                        <Link className="landitem" onClick={Elpd}>Add new Land project details</Link>
+                        <Link className="landitem" onClick={Clpd}>Update existing Land project details</Link>
+                        <Link className="landitem" onClick={Vled}>View existing Land project details</Link>
+                        <Link className="landitem" onClick={Sltv}>View the total land value</Link>
                     </div>
 
 {/* Enter land details */}
@@ -155,6 +155,10 @@ export const Landmanage=()=>
                                 </tr>
                                 <tr>
                                     <td><label className="landinput"><b>Enter Land value in USD </b></label></td>
+                                    <td><input type='number' className="landinput" onChange={(e)=>sepv(e.target.value)}></input></td>
+                                </tr>
+                                <tr>
+                                    <td><label className="landinput"><b>Enter Cadaster number </b></label></td>
                                     <td><input type='number' className="landinput" onChange={(e)=>sepv(e.target.value)}></input></td>
                                 </tr>
                                 <tr>
@@ -205,6 +209,10 @@ export const Landmanage=()=>
                                     <td><label className="landinput"><b>Enter Land value in USD</b></label></td>
                                     <td><input type='number' className="landinput" defaultValue={pdsc.project_value}  onChange={(e)=>scpv(e.target.value)}></input></td>
                                 </tr>
+                                {/* <tr>
+                                    <td><label className="landinput"><b>Enter Cadaster number</b></label></td>
+                                    <td><input type='number' className="landinput" defaultValue={pdsc.project_value}  onChange={(e)=>scpv(e.target.value)}></input></td>
+                                </tr> */}
                                 <tr>
                                     <td><label className="landinput"><b>Land Address</b></label></td>
                                     <td><textarea type="paragraph" className="landinput" defaultValue={pdsc.project_address} style={{width:'80%',height:'10vh'}} onChange={(e)=>scpa(e.target.value)}></textarea></td>

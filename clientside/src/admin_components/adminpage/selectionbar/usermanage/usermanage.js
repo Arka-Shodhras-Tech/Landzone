@@ -261,28 +261,31 @@ export const Usermanage=()=>
                                         <td>
                                             <label for='gmail'><b>Transfer currency to:(Email id)</b></label>
                                         </td>
-                                        <td>
-                                            <input type="gmail" id="gmail" placeholder="Enter sender mail" onChange={(e)=>ssm(e.target.value)}></input>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label for='amount'><b>Enter the amount to be transfered in USD</b>
-                                            </label>
-                                        </td>
-                                        <td>
-                                            <input type="number" id="amount" /> <select id="land" name="currency" value={land} onChange={(e) => sland(e.target.value)}>
-                                                <option> Choose Currency</option>
-                                                <option value="Land">Land</option>
-                                                <option value="USD">eUSD</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colSpan={2}>
-                                            <button onClick={Transcurr} style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white' }}>Transfer</button >
-                                        </td>
-                                    </tr>
+                                    <td>
+                                        <input type="gmail" id="gmail"></input>
+                                    </td>
+                                    {/* <td>
+                                        <button>Submit</button>
+                                    </td> */}
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for='amount'><b>Enter the amount to be transfered in USD</b>
+                                       </label>
+                                    </td>
+                                    <td>
+                                        <input type="number" id="amount"/> <select id="land" name="currency" value={land} onChange={(e)=>sland(e.target.value)}>
+                                    <option> Choose Currency</option>
+                                    <option value="Land">Land</option>
+                                    <option value="USD">eUSD</option>
+                                </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colSpan={2}>
+                                    <button type="submit"  style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white'}}>Transfer</button >
+                                    </td>
+                                </tr>
                             </table>
                             
                         </div>
@@ -466,11 +469,11 @@ export const Usermanage=()=>
                         <table className="pymttable" style={{textAlign:'center',overflowY:'scroll'}}>
                             <tr>
                                 <th>S.NO</th>
-                                <th>Bank Details</th>
+                                <th>Name of the bank</th>
                                 <th>Sender Email</th>
                                 <th>Sender Account Number</th>
                                 <th>Amount Transfer</th>
-                                <th>Payment Refer Number</th>
+                                <th>Payment id</th>
                                 <th>Transfer Date and Time</th>
                             </tr>
                             {
