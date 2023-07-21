@@ -68,10 +68,43 @@ app.get('/aufl',async(req,res)=>{
     res.json(details);
 })
 
+// Create currency(Land/USD Units)
+app.post('/crecur/:gmail/:val',async(req,res)=>
+{
+    const details=await db.collection('create_currency').insertOne({Gmail:req.params.gmail,Units:req.params.val})
+    res.json(details);
+})
+app.get('/crecurdis',async(req,res)=>
+{
+    const details=await db.collection('create_currency').find().toArray()
+    res.json(details)
+})
+
+// Pending purchses
+app.post('/viewpp/:gmail/:val',async(req,res)=>
+{
+    const details=await db.collection('pending_purchase').insertOne({Gmail:req.params.gmail,Units:req.params.val})
+    res.json(details);
+})
+app.get('/viewappdis',async(req,res)=>
+{
+    const details=await db.collection('pending_purchase').find().toArray()
+    res.json(details)
+})
+app.post('/delviewpp/:gmail',async(req,res)=>
+{
+    const details=await db.collection('create_currency').deleteOne({Gmail:req.params.gmail})
+    res.json(details);
+})
 // Approve list from approve
 app.post('/approvelist/:name/:gmail/:phonenum',async(req,res)=>
 {
     const details=await db.collection('Approve_List').insertOne({Name:req.params.name,Gmail:req.params.gmail,Phone_Number:req.params.phonenum})
+    res.json(details);
+})
+app.post('/updatenames/:name/:gmail/:phonenum',async(req,res)=>
+{
+    const details=await db.collection('Approve_List').findOneAndUpdate({$set:{Name:req.params.name}},{Gmail:req.params.gmail,Phone_Number:req.params.phonenum})
     res.json(details);
 })
 // Approve list check email id

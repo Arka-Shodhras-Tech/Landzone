@@ -18,6 +18,7 @@ export const Usermanage=()=>
     const [x,sx]=useState([]);
     const form=useRef();
     const [i,si]=useState(0);
+    const [sm,ssm]=useState([]);
     // const nav=useNavigate();
 
     // Transfer currency to user function
@@ -113,12 +114,13 @@ export const Usermanage=()=>
     }   
     const Approvee=async()=>
     {
-        const formData=new FormData();
-        for(let i=0;i<approve.length;i++)
-        {
-            formData.append(`array[${i}]`,approve[0])
-        }
-        console.log(formData)
+        console.log(x);
+        // const formData=new FormData();
+        // for(let i=0;i<approve.length;i++)
+        // {
+        //     formData.append(`array[${i}]`,approve[0])
+        // }
+        // console.log(formData)
         try
         {
             const responce=await axios.get("http://localhost:8000/approvecheck/"+approve.gmail)
@@ -128,20 +130,39 @@ export const Usermanage=()=>
             }
             else
             {
-                const responce3=await axios.post("http://localhost:8000/approvelist/"+approve.name+"/"+approve.gmail+"/"+approve.phone_number)
+                try
+                {
+                    const responce3=await axios.post("http://localhost:8000/approvelist/"+approve.name+"/"+approve.gmail+"/"+approve.phone_number)
                 // const responce3=await axios.post("http://localhost:8000/approvelist/"+approve)
                 {
                     responce3?alert("Sucessfully Approved"):alert("Try again");
                     // window.location.reload(3);
                 }
+                }
+                catch(e)
+                {
+                    console.log(e);
+                }
+                try
+                {
+                    const responce4=await axios.post("http://localhost:8000/updatenames/"+modname+"/"+approve.gmail+"/"+approve.phone_number)
+                    {
+                        responce4?alert("Sucessfully Updated"):alert("Try again");
+                    }
+                }
+                catch(e)
+                {
+                    console.log(e);
+                }
             }
+            smodname(approve.name);
         }
         catch(err)
         {
             alert("Serrver Bussy");
         }
     }
-
+    console.log(x);
 // Update user details
     const Edituser=async()=>
     {
@@ -176,9 +197,15 @@ export const Usermanage=()=>
         })
     }
 
-    const Modify=(Gmail)=>
+    const Modify=()=>
     {
-        console.log('gmail is',Gmail);
+        document.getElementById('updatedis').style.display="block";
+    }
+
+// Transfer Currency
+    const Transcurr=()=>
+    {
+        alert(land+" eUSD has been transferred from "+localStorage.gmail+" to "+sm);
     }
 
 // Edit user update profile
@@ -217,22 +244,22 @@ export const Usermanage=()=>
 {/* Transfer Currency */}
                     <div>
                         <div className="editdis" style={{display:'none'}} id="transfer">
-                            <table className="landtable" style={{paddingTop:'35%'}}>
-                            <tr>
-                                    
-                                    <td>
-                                    <label for='gmail'><b>Transfer currency from:(Email id)</b></label>
-                                    </td>
+                            <table className="landtable" style={{paddingTop:'25%'}}>
+                                    <tr>
 
-                                <td>
-                                    <input type="gmail" id="gmail" defaultValue={localStorage.gmail}></input>
-                                </td>
-                               
-                            </tr>
-                                <tr>
-                                   
-                                        <td>    
-                                        <label for='gmail'><b>Transfer currency to:(Email id)</b></label>
+                                        <td>
+                                            <label for='gmail'><b>Transfer currency from:(Email id)</b></label>
+                                        </td>
+
+                                        <td>
+                                            <input type="gmail" id="gmail" defaultValue={localStorage.gmail}></input>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+
+                                        <td>
+                                            <label for='gmail'><b>Transfer currency to:(Email id)</b></label>
                                         </td>
                                     <td>
                                         <input type="gmail" id="gmail"></input>
@@ -243,7 +270,7 @@ export const Usermanage=()=>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <label for='amount'><b>Enter the number of units to be transfered:</b>
+                                        <label for='amount'><b>Enter the amount to be transfered in USD</b>
                                        </label>
                                     </td>
                                     <td>
@@ -325,7 +352,6 @@ export const Usermanage=()=>
                                                         <p>Phone Number <b>{val2.Phone_Number}</b></p>
                                                        </td>
                                                        <td width={'280px'}>
-                                                       <button onClick={Modify(val2.Gmail)} style={{ margin: "2% 0% 0% 43%", width: '30%', height: '4vh', backgroundColor: 'blue', color: 'white',border:'none', borderRadius:'20px' }}>Modify</button>
                                                        </td>
                                                         </td>
                                                     </tr>
@@ -339,6 +365,9 @@ export const Usermanage=()=>
                                         <p style={{textAlign:'center'}}><b>{err1}</b></p>
                                     </div>
                         </div>
+                    </div>
+
+                    <div className="updatedis" style={{display:'none'}} id='updatedis'>
                     </div>
 
 

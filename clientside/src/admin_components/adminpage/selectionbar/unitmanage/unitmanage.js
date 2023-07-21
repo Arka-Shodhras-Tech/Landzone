@@ -1,10 +1,9 @@
-import React from "react";
-import { Footer, Navbar1 } from "../../../home/nav&foot&contact&about/navbar";
-import { Link } from "react-router-dom";
-import { Comp } from "../../asidebar/asidebar";
-import { useState,useEffect } from "react";
-import { Payment } from "./payment/payment";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Footer, Navbar1 } from "../../../home/nav&foot&contact&about/navbar";
+import { Comp } from "../../asidebar/asidebar";
+import { Payment } from "./payment/payment";
 export const Unitmanage=()=>
 {
     const [pymt,spymt]=useState([]);
