@@ -15,13 +15,15 @@ export const Dashboard=()=>
     const [pt,spt]=useState(0);
     const [dat,sdat]=useState([]);
     const [num,snum]=useState([]);
-    const [usd,susd]=useState([]);
-    const [lan,slan]=useState([]);
     const [curr,scurr]=useState([]);
     const [land,sland]=useState([]);
     const [cor,scor]=useState([]);
     const gmal=localStorage.gmail;
-    const [x,sx]=useState([]);
+    const unit=localStorage.unit;
+    const pendg=localStorage.pendg;
+    const avil=localStorage.avil;
+    const usd=localStorage.usd;
+    const limit=localStorage.limit;
     const [vpp,svpp]=useState([]);
     const [pp,spp]=useState([]);
     const [i,si]=useState(0);
@@ -31,7 +33,9 @@ export const Dashboard=()=>
     const [c,sc]=useState([]);
     const [d,sd]=useState([]);
     const [appdis,sappdis]=useState([]);
-    // Create currency
+    const [x,sx]=useState([]);
+
+// Create currency
     const CC=async()=>
     {
         if(i==1)
@@ -50,9 +54,16 @@ export const Dashboard=()=>
         {
             if(responce1.data)
             {
-                sd(responce1.data.Limit_bal)
+                sd(responce1.data.USD_Values);
             }
         }
+        // const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
+        // {
+        //     if(responce1.data)
+        //     {
+        //         sd(responce1.data.Limit_bal)
+        //     }
+        // }
     }
     const Vpp=()=>
     {
@@ -91,20 +102,20 @@ export const Dashboard=()=>
             document.getElementById('evb').style.display='block';
         }
         document.getElementById('svb').style.display='none';
-        const details=await axios.get("http://localhost:8000/appdis/"+gmal)
-        {
-            if(details.data)
-            {
-                scor(details.data.Units);
-            }
-        }
-        const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
-        {
-            if(responce1.data)
-            {
-                sappdis(responce1.data.Limit_bal)
-            }
-        }
+        // const details=await axios.get("http://localhost:8000/appdis/"+gmal)
+        // {
+        //     if(details.data)
+        //     {
+        //         scor(details.data.Units);
+        //     }
+        // }
+        // const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
+        // {
+        //     if(responce1.data)
+        //     {
+        //         sappdis(responce1.data.Limit_bal)
+        //     }
+        // }
 
     }
     const Svb=async()=>
@@ -118,12 +129,22 @@ export const Dashboard=()=>
         {
             if(responce1.data)
             {
-                sa(responce1.data.create_currvalue);
-                sb(responce1.data.USD_Values);
-                sc(responce1.data.avl_bal);
-                sd(responce1.data.Limit_bal)
+                sd(responce1.data.USD_Values);
+                localStorage.limit=responce1.data.USD_Values-(pendg+unit)
             }
         }
+        localStorage.avil=(usd-unit)
+        // const res=await axios.get("http://localhost:8000/"+)
+        // const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
+        // {
+        //     if(responce1.data)
+        //     {
+        //         sa(responce1.data.create_currvalue);
+        //         sb(responce1.data.USD_Values);
+        //         sc(responce1.data.avl_bal);
+        //         sd(responce1.data.Limit_bal)
+        //     }
+        // }
     }
 // Land display in create currency
     const Landdis=()=>
@@ -137,48 +158,45 @@ export const Dashboard=()=>
         document.getElementById('usdis').style.display='block';
         document.getElementById('landis').style.display='none';
     }
-    
     const Eusd=async()=>
     {
-        snum(num);
-        sx((parseInt(num)-parseInt(cor)));
-        slan((500-parseInt(cor)))
-        console.log(lan);
         try
         {
+            localStorage.usd=num;
             const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
             {
                 if(responce1.data)
                 {
-                    susd(num);
-                    const responce=await axios.post("http://localhost:8000/uviusd/"+gmal+"/"+num+"/"+cor+"/"+x+"/"+lan)
+                    const details=await axios.post("http://localhost:8000/uviusd/"+gmal+"/"+num)
                     {
-                        responce?alert(num+" LAND units created successfully"):alert("Enter again")
-                        sj(1);
+                        details?alert(num+" USD units are there in your Bank account"):alert("Try again");
+                        window.location.reload(5);
                     }
                 }
                 else
                 {
-                    const responce2=await axios.post("http://localhost:8000/eviusd/"+gmal+"/"+num+"/"+cor+"/"+x+"/"+lan)
+                    const details=await axios.post("http://localhost:8000/eviusd/"+gmal+"/"+num)
                     {
-                        responce2?alert(num+" LAND units created successfully"):alert("Enter again");
-                        susd(responce2.data.USD_Values)
-                        sj(1);
+                        details?alert(num+" USD units are there in your Bank account"):alert("Try again");
+                        window.location.reload(5);
                     }
                 }
-                
             }
         }
-        catch(err)
+        catch(e)
         {
-            console.log("Server Bussy");
+            console.log(e);
         }
+        // snum(num);
+        // sx((parseInt(num)-parseInt(cor)));
+        // slan((500-parseInt(cor)))
     }
 
     const Land=async(e)=>
     {
-        if(land=="Land" && cor<=d)
+        if(land=="Land" && cor<=parseInt(d))
         {
+            localStorage.pendg=parseInt(pendg)+parseInt(cor);
             scor(cor);
             try
             {
@@ -195,8 +213,9 @@ export const Dashboard=()=>
             }
 
         }
-       else if(land=="USD" && cor<=d)
+       else if(land=="USD" && cor<=parseInt(d))
         {
+            localStorage.pendg=cor;
             scor(cor);
            try
            {
@@ -226,26 +245,16 @@ export const Dashboard=()=>
     {
         try
         {
-            const responce1=await axios.get("http://localhost:8000/appdis/"+gmal)
-        {
-            if(responce1.data)
+            localStorage.pendg=parseInt(pendg)-parseInt(vpp.Units);
+            localStorage.unit=parseInt(unit)+parseInt(vpp.Units);
+            const viewpp=await axios.post("http://localhost:8000/viewpp/"+vpp.Gmail+"/"+vpp.Units)
             {
-                const viewpp=await axios.post("http://localhost:8000/uviewpp/"+vpp.Gmail+"/"+vpp.Units)
-                sappdis(responce1.data.Units)
-                window.location.reload(3);
+                viewpp?alert("Approved"):alert("Try again");
             }
-            else
-            {
-                const viewpp=await axios.post("http://localhost:8000/viewpp/"+vpp.Gmail+"/"+vpp.Units)
-                {
-                    viewpp?alert("Approved"):alert("Not approved");
-                }
-            }
-        }
             const viewpp1=await axios.post("http://localhost:8000/delviewpp/"+vpp.Gmail)
             {
-                viewpp1?window.location.reload(3):<></>
-            }
+                viewpp1?window.location.reload(3):alert("Try again");
+            }  
         }
         catch(e)
         {
@@ -276,10 +285,10 @@ export const Dashboard=()=>
                 <Comp/>
                 <section>
                     <div className="dash">
+                        <Link className="dashitem" onClick={Evb}>Enter Value of USD in Bank</Link>
                         <Link className="dashitem" onClick={CC}>Create Currency (Land/USD Units)</Link>
                         <Link className="dashitem" onClick={Vpp}>view Pending Purchases</Link>
                         <Link className="dashitem" onClick={App}>Approved Purchases</Link>
-                        <Link className="dashitem" onClick={Evb}>Enter Value of USD in Bank</Link>
                         <Link className="dashitem" onClick={Svb}>Show Value of USD in Bank</Link>
                     </div>
                             <div>
@@ -323,6 +332,16 @@ export const Dashboard=()=>
                                 </table>
                             </div>
 
+{/* Enter value in eUSD */}
+                            <div className="editdis" style={{display:'none'}} id="evb">
+                                <div style={{textAlign:'center',marginTop:'32%'}}>
+                                    <label for='eusd'><b>Please enter value of USD in bank </b>
+                                    <input type="number" id="eusd" onChange={(e)=>snum(e.target.value)}/>
+                                    </label>
+                                    <button type="submit" onClick={Eusd} style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Submit</button>
+                                </div>
+                            </div>
+
 {/* Create currency */}
                             <div className="editdis" style={{display:'none'}} id="cc">
                                <div className="ccdisplay">
@@ -336,6 +355,7 @@ export const Dashboard=()=>
                                 <button onClick={Land} style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Create</button>
                                </div>
                             </div>
+
 
 {/* View pending purchases */}
                             <div className="editdis" style={{display:'none'}} id="vpp">
@@ -384,9 +404,6 @@ export const Dashboard=()=>
                                             <td>
                                                 <label for={index}>{val1.Gmail}</label>
                                             </td>
-                                            <td>
-                                                <input type="radio" name="same" id={index}/>
-                                            </td>
                                         </tr>
                                         <br/>
                                        </>
@@ -396,29 +413,17 @@ export const Dashboard=()=>
                                 <button type="submit" style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Approve</button>
                             </div>
 
-{/* Enter value in eUSD */}
-                            <div className="editdis" style={{display:'none'}} id="evb">
-                                <div style={{textAlign:'center',marginTop:'32%'}}>
-                                    <label for='eusd'><b>Please enter value of USD in bank </b>
-                                    <input type="number" id="eusd" onChange={(e)=>snum(e.target.value)}/>
-                                    <select id="land" name="currency" value={land} onChange={(e)=>slan(e.target.value)}>
-                                    <option> Choose Currency</option>
-                                    <option value="Land">Land</option>
-                                    <option value="USD">eUSD</option>
-                                </select>
-                                    </label>
-                                    <button type="submit" onClick={Eusd} style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Submit</button>
-                                </div>
-                            </div>
+
 
 {/* Show value in eUSD */}
                             <div className="editdis" style={{display:'none'}} id="svb">
                             <div style={{textAlign:'center',marginTop:'22%'}}>
                                 {/* <div style={{display:'none'}}>{y=(parseInt(cor)-parseInt(usd))}</div> */}
-                                    <label for='eusd'><b>The total value of USD in bank is : {b}</b></label><br/>
-                                    <label for='eusd'><b>the number of eUSD's created till now: {a}</b></label><br/>
-                                    <label for='eusd'><b>Available USD in Bank: {c}</b></label><br/><br/>
-                                    <label for='eusd'><b>Limit is:{d}</b></label>
+                                    <label for='eusd'><b>The total value of USD in bank is : {d}</b></label><br/>
+                                    <label for="eusd"><b>Pending eUSD:{pendg}</b></label><br/>
+                                    <label for='eusd'><b>the number of eUSD's created till now: {unit}</b></label><br/>
+                                    <label for='eusd'><b>Available USD in Bank: {avil}</b></label><br/><br/>
+                                    <label for='eusd'><b>Limit is:{limit}</b></label>
                                 </div>
                             </div>
                 </section>
