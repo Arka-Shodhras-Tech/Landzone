@@ -19,8 +19,7 @@ export const Usermanage=()=>
     const form=useRef();
     const [i,si]=useState(0);
     const [sm,ssm]=useState([]);
-    // const nav=useNavigate();
-
+    const [at,sat]=useState([]);
     // Transfer currency to user function
     const Transfer=async()=>
     {
@@ -205,7 +204,7 @@ export const Usermanage=()=>
 // Transfer Currency
     const Transcurr=()=>
     {
-        alert(land+" eUSD has been transferred from "+localStorage.gmail+" to "+sm);
+        alert(at+" eUSD has been transferred from "+localStorage.gmail+" to "+sm);
     }
 
 // Edit user update profile
@@ -246,27 +245,20 @@ export const Usermanage=()=>
                         <div className="editdis" style={{display:'none'}} id="transfer">
                             <table className="landtable" style={{paddingTop:'25%'}}>
                                     <tr>
-
                                         <td>
                                             <label for='gmail'><b>Transfer currency from:(Email id)</b></label>
                                         </td>
-
                                         <td>
                                             <input type="gmail" id="gmail" defaultValue={localStorage.gmail}></input>
                                         </td>
-
                                     </tr>
                                     <tr>
-
                                         <td>
                                             <label for='gmail'><b>Transfer currency to:(Email id)</b></label>
                                         </td>
                                     <td>
-                                        <input type="gmail" id="gmail"></input>
+                                        <input type="gmail" id="gmail" onChange={(e)=>ssm(e.target.value)}></input>
                                     </td>
-                                    {/* <td>
-                                        <button>Submit</button>
-                                    </td> */}
                                 </tr>
                                 <tr>
                                     <td>
@@ -274,7 +266,7 @@ export const Usermanage=()=>
                                        </label>
                                     </td>
                                     <td>
-                                        <input type="number" id="amount"/> <select id="land" name="currency" value={land} onChange={(e)=>sland(e.target.value)}>
+                                        <input type="number" id="amount" onChange={(e)=>sat(e.target.value)}/> <select id="land" name="currency" value={land} onChange={(e)=>sland(e.target.value)}>
                                     <option> Choose Currency</option>
                                     <option value="Land">Land</option>
                                     <option value="USD">eUSD</option>
@@ -283,7 +275,7 @@ export const Usermanage=()=>
                                 </tr>
                                 <tr>
                                     <td colSpan={2}>
-                                    <button type="submit"  style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white'}}>Transfer</button >
+                                    <button onClick={Transcurr}  style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white'}}>Transfer</button >
                                     </td>
                                 </tr>
                             </table>
