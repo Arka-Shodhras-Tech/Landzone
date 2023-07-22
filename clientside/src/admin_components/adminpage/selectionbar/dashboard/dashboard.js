@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useActionData } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Footer, Navbar1 } from "../../../home/nav&foot&contact&about/navbar";
 import { Comp } from "../../asidebar/asidebar";
 export const Dashboard=()=>
@@ -24,20 +24,23 @@ export const Dashboard=()=>
     const avil=localStorage.avil;
     const usd=localStorage.usd;
     const limit=localStorage.limit;
+    const total=localStorage.total;
     const [vpp,svpp]=useState([]);
     const [pp,spp]=useState([]);
     const [i,si]=useState(0);
     const [j,sj]=useState(0);
-    const [a,sa]=useState([]);
+    const [a,sa]=useState(0);
     const [b,sb]=useState([]);
     const [c,sc]=useState([]);
     const [d,sd]=useState([]);
     const [appdis,sappdis]=useState([]);
     const [x,sx]=useState([]);
+    const p=localStorage.p;
 
 // Create currency
     const CC=async()=>
     {
+        localStorage.total=limit;
         if(i==1)
         {
             document.getElementById('cc').style.display='none';
@@ -68,6 +71,7 @@ export const Dashboard=()=>
     }
     const App=async()=>
     {
+        localStorage.limit=0;
         document.getElementById('cc').style.display='none';
         document.getElementById('vpp').style.display='none';
         document.getElementById('app').style.display='block';
@@ -76,6 +80,8 @@ export const Dashboard=()=>
     }
     const Evb=async()=>
     {
+        localStorage.limit=0;
+        localStorage.p=0;
         document.getElementById('cc').style.display='none';
         document.getElementById('vpp').style.display='none';
         document.getElementById('app').style.display='none';
@@ -101,15 +107,20 @@ export const Dashboard=()=>
             if(responce1.data)
             {
                 sd(responce1.data.USD_Values);
+                
             }
         }
         localStorage.avil=(usd-unit)
+        if(parseInt(p)===0)
+        {
+            localStorage.limit=parseInt(limit)-(parseInt(pendg)+parseInt(unit))
+            localStorage.p=p+1;
+        }
     }
 // Land display in create currency
-    const Landdis=()=>
+    const Limitdis=()=>
     {
-        document.getElementById('landis').style.display='block';
-        document.getElementById('usdis').style.display='none';
+        document.getElementById(1).disabled=true;
     }
 // USD display in create currency
     const Usddis=()=>
@@ -122,11 +133,12 @@ export const Dashboard=()=>
         try
         {
             localStorage.usd=num;
+            localStorage.limit=num;
             const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
             {
                 if(responce1.data)
                 {
-                    const details=await axios.post("http://localhost:8000/uviusd/"+gmal+"/"+num)
+                    const details=await axios.post("http://localhost:8000/uviusd/"+gmal+"/"+limit)
                     {
                         details?alert(num+" USD units are there in your Bank account"):alert("Try again");
                         window.location.reload(5);
@@ -134,7 +146,7 @@ export const Dashboard=()=>
                 }
                 else
                 {
-                    const details=await axios.post("http://localhost:8000/eviusd/"+gmal+"/"+num)
+                    const details=await axios.post("http://localhost:8000/eviusd/"+gmal+"/"+limit)
                     {
                         details?alert(num+" USD units are there in your Bank account"):alert("Try again");
                         window.location.reload(5);
@@ -153,7 +165,7 @@ export const Dashboard=()=>
 
     const Land=async(e)=>
     {
-        if(land=="Land" && cor<=parseInt(d))
+        if(land=="Land" && cor<=parseInt(total))
         {
             localStorage.pendg=parseInt(pendg)+parseInt(cor);
             scor(cor);
@@ -172,7 +184,7 @@ export const Dashboard=()=>
             }
 
         }
-       else if(land=="USD" && cor<=parseInt(d))
+       else if(land=="USD" && cor<=parseInt(total))
         {
             localStorage.pendg=parseInt(pendg)+parseInt(cor);
             scor(cor);
@@ -193,12 +205,17 @@ export const Dashboard=()=>
         else
         {
             scor();
-            alert("units maximum "+ d +" And select units");
+            alert("units maximum "+ total +" And select units");
         }
     }
-    const Usd=()=>
+    const Clear=()=>
     {
-        console.log("Usd");
+        localStorage.gmail=0;
+        localStorage.unit=0;
+        localStorage.pendg=0;
+        localStorage.avil=0;
+        localStorage.usd=0;
+        localStorage.limit=0;
     }
     const Viewpp=async()=>
     {
@@ -206,7 +223,6 @@ export const Dashboard=()=>
         {
             localStorage.pendg=parseInt(pendg)-parseInt(vpp.Units);
             localStorage.unit=parseInt(unit)+parseInt(vpp.Units);
-            localStorage.limit=parseInt(limit)-(pendg+parseInt(unit))
             const viewpp=await axios.post("http://localhost:8000/viewpp/"+vpp.Gmail+"/"+vpp.Units)
             {
                 viewpp?alert("Approved"):alert("Try again");
@@ -379,11 +395,12 @@ export const Dashboard=()=>
                             <div className="editdis" style={{display:'none'}} id="svb">
                             <div style={{textAlign:'center',marginTop:'22%'}}>
                                 {/* <div style={{display:'none'}}>{y=(parseInt(cor)-parseInt(usd))}</div> */}
-                                    <label for='eusd'><b>The total value of USD in bank is : {d}</b></label><br/>
+                                    <label for='eusd'><b>The total value of USD in bank is : {usd}</b></label><br/>
                                     <label for="eusd"><b>Pending eUSD:{pendg}</b></label><br/>
                                     <label for='eusd'><b>the number of eUSD's created till now: {unit}</b></label><br/>
                                     <label for='eusd'><b>Available USD in Bank: {avil}</b></label><br/><br/>
                                     <label for='eusd'><b>Limit is:{limit}</b></label>
+                                    {/* <button id={1} onClick={Limitdis}><b>Limit</b></button><div>{limit}</div> */}
                                 </div>
                             </div>
                 </section>
