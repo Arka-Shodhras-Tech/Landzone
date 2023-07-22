@@ -41,25 +41,11 @@ export const Dashboard=()=>
     const CC=async()=>
     {
         localStorage.total=limit;
-        if(i==1)
-        {
-            document.getElementById('cc').style.display='none';
-        }
-        else
-        {
-            document.getElementById('cc').style.display='block';
-        }
+        document.getElementById('cc').style.display='block';
         document.getElementById('vpp').style.display='none';
         document.getElementById('app').style.display='none';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='none';
-        const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
-        {
-            if(responce1.data)
-            {
-                sd(responce1.data.USD_Values);
-            }
-        }
     }
     const Vpp=()=>
     {
@@ -71,7 +57,6 @@ export const Dashboard=()=>
     }
     const App=async()=>
     {
-        localStorage.limit=0;
         document.getElementById('cc').style.display='none';
         document.getElementById('vpp').style.display='none';
         document.getElementById('app').style.display='block';
@@ -85,7 +70,7 @@ export const Dashboard=()=>
         document.getElementById('cc').style.display='none';
         document.getElementById('vpp').style.display='none';
         document.getElementById('app').style.display='none';
-        if(j==10)
+        if(j==1)
         {
             document.getElementById('evb').style.display='none';
         }
@@ -94,6 +79,7 @@ export const Dashboard=()=>
             document.getElementById('evb').style.display='block';
         }
         document.getElementById('svb').style.display='none';
+        sj(1);
     }
     const Svb=async()=>
     {
@@ -102,31 +88,12 @@ export const Dashboard=()=>
         document.getElementById('app').style.display='none';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='block';
-        const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
-        {
-            if(responce1.data)
-            {
-                sd(responce1.data.USD_Values);
-                
-            }
-        }
         localStorage.avil=(usd-unit)
         if(parseInt(p)===0)
         {
-            localStorage.limit=parseInt(limit)-(parseInt(pendg)+parseInt(unit))
+            localStorage.limit=parseInt(usd)-(parseInt(pendg)+parseInt(unit))
             localStorage.p=p+1;
         }
-    }
-// Land display in create currency
-    const Limitdis=()=>
-    {
-        document.getElementById(1).disabled=true;
-    }
-// USD display in create currency
-    const Usddis=()=>
-    {
-        document.getElementById('usdis').style.display='block';
-        document.getElementById('landis').style.display='none';
     }
     const Eusd=async()=>
     {
@@ -158,13 +125,10 @@ export const Dashboard=()=>
         {
             console.log(e);
         }
-        // snum(num);
-        // sx((parseInt(num)-parseInt(cor)));
-        // slan((500-parseInt(cor)))
     }
-
     const Land=async(e)=>
     {
+        localStorage.p=0;
         if(land=="Land" && cor<=parseInt(total))
         {
             localStorage.pendg=parseInt(pendg)+parseInt(cor);
@@ -182,7 +146,6 @@ export const Dashboard=()=>
             {
              console.log(e);
             }
-
         }
        else if(land=="USD" && cor<=parseInt(total))
         {
@@ -210,22 +173,25 @@ export const Dashboard=()=>
     }
     const Clear=()=>
     {
-        localStorage.gmail=0;
         localStorage.unit=0;
         localStorage.pendg=0;
         localStorage.avil=0;
         localStorage.usd=0;
         localStorage.limit=0;
+        window.location.reload(5);
     }
     const Viewpp=async()=>
     {
+        localStorage.p=0;
         try
         {
             localStorage.pendg=parseInt(pendg)-parseInt(vpp.Units);
             localStorage.unit=parseInt(unit)+parseInt(vpp.Units);
+            localStorage.limit=0;
             const viewpp=await axios.post("http://localhost:8000/viewpp/"+vpp.Gmail+"/"+vpp.Units)
             {
                 viewpp?alert("Approved"):alert("Try again");
+                localStorage.limit=usd;
             }
             const viewpp1=await axios.post("http://localhost:8000/delviewpp/"+vpp.Gmail)
             {
@@ -346,7 +312,7 @@ export const Dashboard=()=>
                                                 {val.Units}
                                             </td>
                                             <td>
-                                                {val.Gmail}
+                                                <label for={index}>{val.Gmail}</label>
                                             </td>
                                             <td>
                                                 <input type="radio" id={index} name="same" onChange={(e)=>svpp(val)}/>
@@ -393,7 +359,8 @@ export const Dashboard=()=>
 
 {/* Show value in eUSD */}
                             <div className="editdis" style={{display:'none'}} id="svb">
-                            <div style={{textAlign:'center',marginTop:'22%'}}>
+                            <button onClick={Clear} style={{ margin: "3% 0% 0% 85%", width: '10%', height: '4vh', backgroundColor: 'red', color: 'white' }}>Clear All</button>
+                            <div style={{textAlign:'center',marginTop:'18%'}}>
                                 {/* <div style={{display:'none'}}>{y=(parseInt(cor)-parseInt(usd))}</div> */}
                                     <label for='eusd'><b>The total value of USD in bank is : {usd}</b></label><br/>
                                     <label for="eusd"><b>Pending eUSD:{pendg}</b></label><br/>
