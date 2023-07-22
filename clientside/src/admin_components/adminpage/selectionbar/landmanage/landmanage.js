@@ -16,11 +16,23 @@ export const Landmanage=()=>
     const [cpd,scpd]=useState([]);
     const [cpv,scpv]=useState([]);
     const [cpa,scpa]=useState([]);
+    const [sa,ssa]=useState([]);
+    const [la,sla]=useState([]);
+    const [ca,sca]=useState([]);
+    const [pa,spa]=useState([]);
+    const [ra,sra]=useState([]);
+    const [csa,scsa]=useState([]);
+    const [cla,scla]=useState([]);
+    const [cca,scca]=useState([]);
+    const [cpca,scpca]=useState([]);
+    const [cra,scra]=useState([]);
     const [ctime,sctime]=useState("");
     const [sld,ssld]=useState([]);
     const [err1,serr1]=useState([]);
     const [err2,serr2]=useState([]);
     const [pdsc,spdsc]=useState([]);
+    const [ecn,secn]=useState([]);
+    const [ccn,sccn]=useState([]);
     const [search,ssearch]=useState([]);
     const table=useRef();
     let x=0;
@@ -56,6 +68,8 @@ export const Landmanage=()=>
     // Enter land project data
     const Enterdata=async()=>
     {
+       try
+       {
         const responce1=await axios.get("http://localhost:8000/entercheckdata/"+epn)
         {
             if(responce1.data)
@@ -64,54 +78,82 @@ export const Landmanage=()=>
             }
             else
             {
-               const responce2= await axios.post("http://localhost:8000/enterdata/"+epn+"/"+epd+"/"+epv+"/"+epa+"/"+etime)
+               const responce2= await axios.post("http://localhost:8000/enterdata/"+epn+"/"+epd+"/"+epv+"/"+ecn+"/"+sa+"/"+la+"/"+pa+"/"+ra+"/"+ca+"/"+etime)
                {
                 responce2?serr1("Your project sucessfully saved"):serr1("Try agin")
                 window.location.reload(5)
                }
             }
         }
+       }
+       catch(e)
+       {
+        console.log(e)
+       }
     }
     
 
     // Change land project data
     const Updatedata=async()=>
     {
-        
-        const responce1=await axios.get("http://localhost:8000/entercheckdata/"+cpn)
+        try
         {
-            if(responce1.data)
+            const responce1=await axios.get("http://localhost:8000/entercheckdata/"+cpn)
             {
-                const responce2=await axios.post("http://localhost:8000/updatedata/"+cpn+"/"+cpd+"/"+cpv+"/"+cpa+"/"+etime)
-                if(responce2.data)
+                if(responce1.data)
                 {
-                    serr2("Project details updateded sucessfully")
-                     window.location.reload(3)
+                    const responce2=await axios.post("http://localhost:8000/updatedata/"+cpn+"/"+cpd+"/"+cpv+"/"+ccn+"/"+"/"+etime)
+                    if(responce2.data)
+                    {
+                        serr2("Project details updateded sucessfully")
+                         window.location.reload(3)
+                    }
+                    else
+                    {
+                        serr2("Try again")
+                    }
                 }
                 else
                 {
-                    serr2("Try again")
+                    serr2('Project name not found')
                 }
             }
-            else
-            {
-                serr2('Project name not found')
-            }
+        }
+        catch(e)
+        {
+            console.log(e);
         }
     }
 
     //Search data in change land project
     const Search=async()=>
     {
+       try
+       {
         const responce=await axios.get("http://localhost:8000/entercheckdata/"+cpn)
         if(responce.data)
         {
             spdsc(responce.data)
             scpd(responce.data.project_desc);
             scpv(responce.data.project_value)
+            sccn(responce.data.project_cadaster)
             scpa(responce.data.project_address)
             sctime(responce.data.project_takentime)
+            document.getElementById('proname').style.display="none";
         }
+       }
+       catch(e)
+       {
+        console.log(e)
+       }
+    }
+    const Proname=async()=>
+    {
+        document.getElementById('proname').style.display="block";
+    }
+    const Pronone=()=>
+    {
+        document.getElementById('proname').style.display="none";
     }
 
     // Show land project data
@@ -146,27 +188,48 @@ export const Landmanage=()=>
                         <div>
                         <table className="landtable">
                                 <tr>
-                                    <td><label className="landinput"><b>Land Project Name </b></label></td>
-                                    <td><input type="text" className="landinput" onChange={(e)=>sepn(e.target.value)}></input></td>
+                                    <td><label className="landinput1" for="lpn"><b>Land Project Name </b></label></td>
+                                    <td><input type="text" className="landinput" id="lpn" onChange={(e)=>sepn(e.target.value)}></input></td>
                                 </tr>
                                 <tr>
-                                    <td><label className="landinput"><b>Land Project Description </b></label></td>
-                                    <td><textarea type="paragraph" className="landinput" style={{width:'80%',height:'20vh'}} onChange={(e)=>sepd(e.target.value)}></textarea></td>
+                                    <td><label className="landinput1" for='lpd'><b>Land Project Description </b></label></td>
+                                    <td><textarea type="paragraph" className="landinput" id="lpd" style={{width:'80%',height:'20vh'}} onChange={(e)=>sepd(e.target.value)}></textarea></td>
                                 </tr>
                                 <tr>
-                                    <td><label className="landinput"><b>Enter Land value in USD </b></label></td>
-                                    <td><input type='number' className="landinput" onChange={(e)=>sepv(e.target.value)}></input></td>
+                                    <td><label className="landinput1" for='elv'><b>Enter Land value in USD </b></label></td>
+                                    <td><input type='number' className="landinput" id="elv" onChange={(e)=>sepv(e.target.value)}></input></td>
                                 </tr>
                                 <tr>
-                                    <td><label className="landinput"><b>Enter Cadaster number </b></label></td>
-                                    <td><input type='number' className="landinput" onChange={(e)=>sepv(e.target.value)}></input></td>
+                                    <td><label className="landinput1" for='ecn'><b>Enter Cadaster number </b></label></td>
+                                    <td><input type='number' className="landinput" id="ecn" onChange={(e)=>secn(e.target.value)}></input></td>
                                 </tr>
                                 <tr>
-                                    <td><label className="landinput"><b>Land Address</b></label></td>
-                                    <td><textarea type="paragraph" className="landinput" style={{width:'80%',height:'10vh'}} onChange={(e)=>sepa(e.target.value)}></textarea></td>
+                                    <td className="landinput1" ><label><b>Address</b></label></td>
+                                    <td className="landinput1">
+                                        <tr  style={{width:'50%'}}>
+                                            <td><label for="street">Street Address</label></td>
+                                            <td> <textarea type="paragraph" className="landinput" id="street" onChange={(e)=>ssa(e.target.value)}></textarea></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="city">City or Loacality</label></td>
+                                            <td><input type="text" id="city" className="landinput" onChange={(e)=>sla(e.target.value)}></input></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="postal">Postal Code</label></td>
+                                            <td><input type="number" id="postal" className="landinput" onChange={(e)=>spa(e.target.value)}></input></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="state">State</label></td>
+                                            <td><input type="text" id="state" className="landinput" onChange={(e)=>sra(e.target.value)}></input></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="country">Country</label></td>
+                                            <td><input type="text" id="country" className="landinput" onChange={(e)=>sca(e.target.value)}></input></td>
+                                        </tr>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td><label className="landinput"><b>Date & Time</b></label></td>
+                                    <td><label className="landinput1"><b>Date & Time</b></label></td>
                                     <td>{etime}</td>
                                 </tr>
                                 <tr>
@@ -186,43 +249,65 @@ export const Landmanage=()=>
                             <table className="landtable">
                             <tr>
                                 {/* {data.fillter(project=>projectname.toLowerclass().include(search.toLowercase())).map(val1)} */}
-                                    <td><label for='search' className="landinput"><b>Land Project Name</b></label></td>
-                                    <td><input id='search' value={cpn}  type="text" className="landinput"  placeholder="Enter project name" onChange={(e)=>scpn(e.target.value)}></input>
+                                    <td><label for='search' className="landinput1"><b>Land Project Name</b></label></td>
+                                    <td><input id='search' value={cpn}  type="text" className="landinput"  placeholder="Enter project name" onChange={(e)=>scpn(e.target.value)} onClick={Proname}></input><Link style={{padding:'2px',borderRadius:'4px',fontSize:'17px',backgroundColor:'green',textDecoration:'none',marginLeft:'1vh',color:'white'}} onClick={Search}>search</Link>
+                                    <div className="projectname" style={{display:'none'}} id="proname">
                                     {
                                     sld.filter(project=>project.project_name.includes(cpn)).map((project)=>
                                     (
-                                        <div>
-                                            <button>{project.project_name}</button>
-                                        </div>
+                                       
+                                           <>
+                                            <button className="probtn" onClick={(e)=>scpn(project.project_name)}><b>{project.project_name}</b></button>
+                                            <br/>
+                                           </>
                                     ))
                                     }
-                                    <div>
                                     </div>
-                                    <Link style={{padding:'2px',borderRadius:'8px',backgroundColor:'green',textDecoration:'none',marginLeft:'1vh',color:'white'}} onClick={Search}>search</Link>
+                                    </td>
+                                </tr>
+                                <tr onClick={Pronone}>
+                                    <td><label className="landinput1" for="clpd"><b>Land Project Description</b></label></td>
+                                    <td><textarea type="paragraph" className="landinput" id="clpd" defaultValue={pdsc.project_desc} style={{width:'80%',height:'20vh'}} onChange={(e)=>scpd(e.target.value)}></textarea></td>
+                                </tr>
+                                <tr onClick={Pronone}>
+                                    <td><label className="landinput1" for="celv"><b>Enter Land value in USD</b></label></td>
+                                    <td><input type='number' className="landinput" id="celv" defaultValue={pdsc.project_value}  onChange={(e)=>scpv(e.target.value)}></input></td>
+                                </tr>
+                                <tr onClick={Pronone}>
+                                    <td><label className="landinput1" for='cecn'><b>Enter Cadaster number</b></label></td>
+                                    <td><input type='number' className="landinput" id="cecn" defaultValue={pdsc.project_cadaster}  onChange={(e)=>sccn(e.target.value)}></input></td>
+                                </tr>
+                                <tr>
+                                <td className="landinput1" ><label><b>Address</b></label></td>
+                                    <td className="landinput1">
+                                        <tr  style={{width:'50%'}}>
+                                            <td><label for="cstreet">Street Address</label></td>
+                                            <td> <textarea type="paragraph" className="landinput" id="cstreet" onChange={(e)=>ssa(e.target.value)}></textarea></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="ccity">City or Loacality</label></td>
+                                            <td><input type="text" id="ccity" className="landinput" onChange={(e)=>sla(e.target.value)}></input></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="cpostal">Postal Code</label></td>
+                                            <td><input type="number" id="cpostal" className="landinput" onChange={(e)=>spa(e.target.value)}></input></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="cstate">State</label></td>
+                                            <td><input type="text" id="cstate" className="landinput" onChange={(e)=>sra(e.target.value)}></input></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="ccountry">Country</label></td>
+                                            <td><input type="text" id="ccountry" className="landinput" onChange={(e)=>sca(e.target.value)}></input></td>
+                                        </tr>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><label className="landinput"><b>Land Project Description</b></label></td>
-                                    <td><textarea type="paragraph" className="landinput" defaultValue={pdsc.project_desc} style={{width:'80%',height:'20vh'}} onChange={(e)=>scpd(e.target.value)}></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td><label className="landinput"><b>Enter Land value in USD</b></label></td>
-                                    <td><input type='number' className="landinput" defaultValue={pdsc.project_value}  onChange={(e)=>scpv(e.target.value)}></input></td>
-                                </tr>
-                                {/* <tr>
-                                    <td><label className="landinput"><b>Enter Cadaster number</b></label></td>
-                                    <td><input type='number' className="landinput" defaultValue={pdsc.project_value}  onChange={(e)=>scpv(e.target.value)}></input></td>
-                                </tr> */}
-                                <tr>
-                                    <td><label className="landinput"><b>Land Address</b></label></td>
-                                    <td><textarea type="paragraph" className="landinput" defaultValue={pdsc.project_address} style={{width:'80%',height:'10vh'}} onChange={(e)=>scpa(e.target.value)}></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td><label className="landinput"><b>Land Create Date</b></label></td>
+                                    <td><label className="landinput1"><b>Land Create Date</b></label></td>
                                     <td>{ctime}</td>
                                 </tr>
                                 <tr>
-                                    <td><label className="landinput"><b>Update Date & Time</b></label></td>
+                                    <td><label className="landinput1"><b>Update Date & Time</b></label></td>
                                     <td>{etime}</td>
                                 </tr>
                                 <tr>

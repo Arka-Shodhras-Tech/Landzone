@@ -350,6 +350,12 @@ section
     font-size:large;
     border-radius: 5px;
 }
+.landinput1
+{
+    margin:5% 0% 0% 3%;
+    font-size:large;
+    border-radius: 5px;
+}
 .landinput:hover
 {
     border-color: rgb(69, 69, 243);
@@ -413,4 +419,21 @@ section
 .unitreqitem:hover
 {
     background-color: aliceblue;
+}
+.projectname
+{
+    width: 50%;
+    min-height: 0vh;
+    background-color:aliceblue;
+    border-radius: 8px;
+    position: absolute;
+}
+.probtn
+{
+    border: none;
+    color: blue;
+    padding: 0.5%;
+    border-radius: 5px;
+    font-size: 20px;
+    background: none;
 }

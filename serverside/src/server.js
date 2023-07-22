@@ -109,9 +109,9 @@ app.post('/deledit/:id',async(req,res)=>
 
 // Enter project data
 
-app.post('/enterdata/:proname/:prodesc/:provalue/:proadd/:protime',async(req,res)=>
+app.post('/enterdata/:proname/:prodesc/:provalue/:prost/:proloc/:propost/:proreg/:procou/:procn/:proadd/:protime',async(req,res)=>
 {
-    const details=await db.collection('entereddata').insertOne({project_name:req.params.proname,project_desc:req.params.prodesc,project_value:req.params.provalue,project_address:req.params.proadd,project_takentime:req.params.protime})
+    const details=await db.collection('entereddata').insertOne({project_name:req.params.proname,project_desc:req.params.prodesc,project_value:req.params.provalue,project_cadaster:req.params.procn,project_address:{Street:req.params.prost,City:req.params.proloc,Postal:req.params.propost,State:req.params.proreg,Country:req.params.procou},project_takentime:req.params.protime})
     res.json(details);
 })
 app.get("/entercheckdata/:proname",async(req,res)=>
@@ -122,9 +122,9 @@ app.get("/entercheckdata/:proname",async(req,res)=>
 
 // change project data
 
-app.post('/updatedata/:proname/:prodesc/:provalue/:proadd/:protime',async(req,res)=>
+app.post('/updatedata/:proname/:prodesc/:provalue/:procn/:proadd/:protime',async(req,res)=>
 {
-    const details=await db.collection('entereddata').findOneAndUpdate({project_name:req.params.proname},{$set:{project_desc:req.params.prodesc,project_value:req.params.provalue,project_address:req.params.proadd,project_changetime:req.params.protime}})
+    const details=await db.collection('entereddata').findOneAndUpdate({project_name:req.params.proname},{$set:{project_desc:req.params.prodesc,project_value:req.params.provalue,project_cadaster:req.params.procn,project_address:req.params.proadd,project_changetime:req.params.protime}})
     res.json(details);
 })
 
