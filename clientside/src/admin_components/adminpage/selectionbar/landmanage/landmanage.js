@@ -15,7 +15,6 @@ export const Landmanage=()=>
     const [cpn,scpn]=useState([]);
     const [cpd,scpd]=useState([]);
     const [cpv,scpv]=useState([]);
-    const [cpa,scpa]=useState([]);
     const [sa,ssa]=useState([]);
     const [la,sla]=useState([]);
     const [ca,sca]=useState([]);
@@ -102,7 +101,7 @@ export const Landmanage=()=>
             {
                 if(responce1.data)
                 {
-                    const responce2=await axios.post("http://localhost:8000/updatedata/"+cpn+"/"+cpd+"/"+cpv+"/"+ccn+"/"+"/"+etime)
+                    const responce2=await axios.post("http://localhost:8000/updatedata/"+cpn+"/"+cpd+"/"+cpv+"/"+ccn+"/"+csa+"/"+cla+"/"+cpca+"/"+cra+"/"+cca+"/"+etime)
                     if(responce2.data)
                     {
                         serr2("Project details updateded sucessfully")
@@ -137,7 +136,11 @@ export const Landmanage=()=>
             scpd(responce.data.project_desc);
             scpv(responce.data.project_value)
             sccn(responce.data.project_cadaster)
-            scpa(responce.data.project_address)
+            scsa(responce.data.project_address.Street)
+            scla(responce.data.project_address.City)
+            scpca(responce.data.project_address.Postal)
+            scra(responce.data.project_address.State)
+            scca(responce.data.project_address.Country)
             sctime(responce.data.project_takentime)
             document.getElementById('proname').style.display="none";
         }
@@ -244,7 +247,7 @@ export const Landmanage=()=>
 
 {/* Change land details */}
                      <div className="editdis" style={{display:'none'}} id="cld">
-                        <h1 style={{color:'red',textAlign:'center'}}>Edit Land Detilas</h1>
+                        <h1 onClick={Pronone} style={{color:'red',textAlign:'center'}}>Edit Land Detilas</h1>
                         <div>
                             <table className="landtable">
                             <tr>
@@ -282,23 +285,23 @@ export const Landmanage=()=>
                                     <td className="landinput1">
                                         <tr  style={{width:'50%'}}>
                                             <td><label for="cstreet">Street Address</label></td>
-                                            <td> <textarea type="paragraph" className="landinput" id="cstreet" onChange={(e)=>ssa(e.target.value)}></textarea></td>
+                                            <td> <textarea type="paragraph" className="landinput" id="cstreet" defaultValue={csa} onChange={(e)=>ssa(e.target.value)}></textarea></td>
                                         </tr>
                                         <tr>
                                             <td><label for="ccity">City or Loacality</label></td>
-                                            <td><input type="text" id="ccity" className="landinput" onChange={(e)=>sla(e.target.value)}></input></td>
+                                            <td><input type="text" id="ccity" className="landinput" defaultValue={cla} onChange={(e)=>sla(e.target.value)}></input></td>
                                         </tr>
                                         <tr>
                                             <td><label for="cpostal">Postal Code</label></td>
-                                            <td><input type="number" id="cpostal" className="landinput" onChange={(e)=>spa(e.target.value)}></input></td>
+                                            <td><input type="number" id="cpostal" className="landinput" defaultValue={cpca} onChange={(e)=>spa(e.target.value)}></input></td>
                                         </tr>
                                         <tr>
                                             <td><label for="cstate">State</label></td>
-                                            <td><input type="text" id="cstate" className="landinput" onChange={(e)=>sra(e.target.value)}></input></td>
+                                            <td><input type="text" id="cstate" className="landinput" defaultValue={cra} onChange={(e)=>sra(e.target.value)}></input></td>
                                         </tr>
                                         <tr>
                                             <td><label for="ccountry">Country</label></td>
-                                            <td><input type="text" id="ccountry" className="landinput" onChange={(e)=>sca(e.target.value)}></input></td>
+                                            <td><input type="text" id="ccountry" className="landinput" defaultValue={cca} onChange={(e)=>sca(e.target.value)}></input></td>
                                         </tr>
                                     </td>
                                 </tr>
@@ -332,7 +335,7 @@ export const Landmanage=()=>
                                 sld.map((val1,index)=>
                                 (
                                     <>
-                                    <tr>
+                                <tr>
                                     <td style={{color:'darkblue'}}><b>{index+1}</b></td>
                                     <td><b>Land Project</b></td>
                                     <td>{val1.project_name}</td>
@@ -349,18 +352,34 @@ export const Landmanage=()=>
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td><b>Land Project Address</b></td>
-                                    <td>{val1.project_address}</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
                                     <td><b>Land Project Create Date & Time</b></td>
                                     <td>{val1.project_takentime}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td style={{width:'40%'}}><b>Land Project Updated Date & Time</b></td>
+                                    <td style={{width:'50%'}}><b>Land Project Updated Date & Time</b></td>
                                     <td>{val1.project_changetime}</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><b>Land Project Address</b></td>
+                                    <td>
+                                        <tr>
+                                            <td><b>Street</b></td><td width='50px'><b>:</b></td><td>{val1.project_address.Street}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>City</b></td><td><b>:</b></td><td>{val1.project_address.City}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Postal</b></td><td><b>:</b></td><td>{val1.project_address.Postal}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>State</b></td><td><b>:</b></td><td>{val1.project_address.State}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Country</b></td><td><b>:</b></td><td>{val1.project_address.Country}</td>
+                                        </tr>
+                                    </td>
                                 </tr>
                                 <br/><br/>
                                 </>
