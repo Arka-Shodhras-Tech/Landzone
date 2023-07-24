@@ -95,6 +95,29 @@ export const Dashboard=()=>
             localStorage.p=p+1;
         }
     }
+    const Save=async()=>
+    {
+        try
+        {
+            const res1=await axios.get("http://localhost:8000/getshowvalue/"+gmal)
+            {
+                if(res1.data)
+                {
+                    axios.post("http://localhost:8000/updateshow/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+avil+"/"+limit)?
+                    alert("Saved"):alert("Try agian");
+                }
+                else
+                {
+                    axios.post("http://localhost:8000/showvalue/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+avil+"/"+limit)?
+                    alert("Saved"):alert("Try agian");
+                }
+            }
+        }
+        catch(e)
+        {
+            console.log(e);
+        }
+    }
     const Eusd=async()=>
     {
         try
@@ -171,14 +194,40 @@ export const Dashboard=()=>
             alert("units maximum "+ total +" And select units");
         }
     }
-    const Clear=()=>
+    const Clear=async()=>
     {
         localStorage.unit=0;
         localStorage.pendg=0;
         localStorage.avil=0;
         localStorage.usd=0;
         localStorage.limit=0;
-        window.location.reload(5);
+       try
+       {
+        await axios.post("http://localhost:8000/deledata")?
+        window.location.reload(5):alert("Try again")
+       }
+       catch(e)
+       {
+        console.log(e);
+       }
+    }
+    const Prev=async()=>
+    {
+        const res=await axios.get("http://localhost:8000/getshowvalue/"+gmal)
+        {
+            if(res.data)
+            {
+                localStorage.limit=res.data.Limit;
+                localStorage.pendg=res.data.Pending;
+                localStorage.avil=res.data.Available;
+                localStorage.unit=res.data.Created;
+                localStorage.usd=res.data.USD;
+            }
+        }
+    }
+    const PreList=async()=>
+    {
+
     }
     const Viewpp=async()=>
     {
@@ -193,6 +242,7 @@ export const Dashboard=()=>
                 viewpp?alert("Approved"):alert("Try again");
                 localStorage.limit=usd;
             }
+            await axios.post("http://localhost:8000/sviewpp/"+vpp.Gmail+"/"+vpp.Units)
             const viewpp1=await axios.post("http://localhost:8000/delviewpp/"+vpp.Gmail)
             {
                 viewpp1?window.location.reload(3):alert("Try again");
@@ -204,10 +254,6 @@ export const Dashboard=()=>
         }
     }
     useEffect(() => {
-        axios.get("http://localhost:8000/aufl")
-            .then((result) => {
-                sdat(result.data)
-            })
         axios.get("http://localhost:8000/crecurdis")
             .then((result1)=>
             {
@@ -333,6 +379,7 @@ export const Dashboard=()=>
 
 {/* Approved purchases */}
                             <div className="editdis" style={{display:'none'}} id="app">
+                            <button onClick={PreList} style={{ margin: "2% 0% 5% 83%", width: '15%', height: '4vh',border:'none',borderRadius:'8px', backgroundColor:"royalblue", color: 'white' }}>Previous List</button>
                             <table className="pendtable">
                                    {
                                     pp.map((val1,index)=>
@@ -359,7 +406,10 @@ export const Dashboard=()=>
 
 {/* Show value in eUSD */}
                             <div className="editdis" style={{display:'none'}} id="svb">
-                            <button onClick={Clear} style={{ margin: "3% 0% 0% 85%", width: '10%', height: '4vh', backgroundColor: 'red', color: 'white' }}>Clear All</button>
+                            <div style={{display:'flex'}}>
+                            <button onClick={Prev} style={{ margin: "5% 0% 0% 12%", width: '10%', height: '4vh', backgroundColor: 'orange', color: 'white' }}>Previous Values</button>
+                            <button onClick={Clear} style={{ margin: "5% 0% 0% 55%", width: '10%', height: '4vh', backgroundColor: 'red', color: 'white' }}>Clear All</button>
+                            </div>
                             <div style={{textAlign:'center',marginTop:'18%'}}>
                                 {/* <div style={{display:'none'}}>{y=(parseInt(cor)-parseInt(usd))}</div> */}
                                     <label for='eusd'><b>The total value of USD in bank is : {usd}</b></label><br/>
@@ -369,6 +419,7 @@ export const Dashboard=()=>
                                     <label for='eusd'><b>Limit is:{limit}</b></label>
                                     {/* <button id={1} onClick={Limitdis}><b>Limit</b></button><div>{limit}</div> */}
                                 </div>
+                                <button onClick={Save} style={{ margin: "15% 0% 0% 78%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Save</button>
                             </div>
                 </section>
             </div>

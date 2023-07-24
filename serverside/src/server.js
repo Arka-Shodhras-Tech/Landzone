@@ -8,8 +8,10 @@ app.use(cors());
 app.get('/',(req,res)=>{
     res.send("server is running")
 })
-//user data server//
-app.post('/register/:name/:gmail/:password/:cpassword/:phonenumber',async(req,res)=>//register
+try
+{
+    //user data server//
+    app.post('/register/:name/:gmail/:password/:cpassword/:phonenumber',async(req,res)=>//register
 {
     const details=await db.collection('userlogin').insertOne({name:req.params.name,gmail:req.params.gmail,password:req.params.password,cpassword:req.params.cpassword,phone_number:req.params.phonenumber})
     res.json(details);
@@ -170,20 +172,42 @@ app.post('/viewpp/:gmail/:val',async(req,res)=>
     const details=await db.collection('pending_purchase').insertOne({Gmail:req.params.gmail,Units:req.params.val})
     res.json(details);
 })
+app.post('/sviewpp/:gmail/:val',async(req,res)=>
+{
+    const details=await db.collection('saved_pending_purchase').insertOne({Gmail:req.params.gmail,Units:req.params.val})
+    res.json(details);
+})
+app.post('/deledata',async(req,res)=>
+{
+    const details=await db.collection('create_currency').deleteMany()
+   res.json(details)
+   const details1=await db.collection('pending_purchase').deleteMany()
+   res.json(details1)
+})
 app.post('/delviewpp/:gmail',async(req,res)=>
 {
     const details=await db.collection('create_currency').deleteOne({Gmail:req.params.gmail})
     res.json(details);
 })
-// app.get('/appdis/:gmail',async(req,res)=>
-// {
-//     const details=await db.collection('pending_purchase').findOne({Gmail:req.params.gmail})
-//     res.json(details);
-// })
 app.get('/viewappdis',async(req,res)=>
 {
     const details=await db.collection('pending_purchase').find().toArray()
     res.json(details)
+})
+app.post('/showvalue/:gmail/:usd/:pend/:unit/:avl/:lim',async(req,res)=>
+{
+    const details=await db.collection("Show_values").insertOne({Gmail:req.params.gmail,Showvalues:{USD:req.params.usd,Pending:req.params.pend,Created:req.params.unit,Available:req.params.avl,Limit:req.params.lim}})
+    res.json(details);
+})
+app.get('/getshowvalue/:gmail',async(req,res)=>
+{
+    const details=await db.collection("Show_values").findOne({Gmail:req.params.gmail})
+    res.json(details);
+})
+app.post('/updateshow/:gmail/:usd/:pend/:unit/:avl/:lim',async(req,res)=>
+{
+    const details=await db.collection("Show_values").findOneAndUpdate({Gmail:req.params.gmail},{$set:{USD:req.params.usd,Pending:req.params.pend,Created:req.params.unit,Available:req.params.avl,Limit:req.params.lim}})
+    res.json(details);
 })
 
 
@@ -194,11 +218,11 @@ app.get('/viewappdis',async(req,res)=>
 
 // Pending purchses
 
-app.post('/uviewpp/:gmail/:val',async(req,res)=>
-{
-    const details=await db.collection('pending_purchase').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Units:req.params.val}})
-    res.json(details);
-})
+// app.post('/uviewpp/:gmail/:val',async(req,res)=>
+// {
+//     const details=await db.collection('pending_purchase').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Units:req.params.val}})
+//     res.json(details);
+// })
 
 
 
@@ -236,6 +260,11 @@ app.get('/delentertine',async(req,res)=>{
     const details=await db.collection('entertinescore').deleteMany()
    res.json(details)
 })
+}
+catch(e)
+{
+    console.log(e);
+}
  connectToDB(()=>{
     app.listen(8000,()=>{
         console.log("server running at 8000");
