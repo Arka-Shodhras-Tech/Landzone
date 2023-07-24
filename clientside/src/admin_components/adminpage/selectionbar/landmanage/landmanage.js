@@ -285,23 +285,23 @@ export const Landmanage=()=>
                                     <td className="landinput1">
                                         <tr  style={{width:'50%'}}>
                                             <td><label for="cstreet">Street Address</label></td>
-                                            <td> <textarea type="paragraph" className="landinput" id="cstreet" defaultValue={csa} onChange={(e)=>ssa(e.target.value)}></textarea></td>
+                                            <td> <textarea type="paragraph" className="landinput" id="cstreet" defaultValue={csa} onChange={(e)=>scsa(e.target.value)}></textarea></td>
                                         </tr>
                                         <tr>
                                             <td><label for="ccity">City or Loacality</label></td>
-                                            <td><input type="text" id="ccity" className="landinput" defaultValue={cla} onChange={(e)=>sla(e.target.value)}></input></td>
+                                            <td><input type="text" id="ccity" className="landinput" defaultValue={cla} onChange={(e)=>scla(e.target.value)}></input></td>
                                         </tr>
                                         <tr>
                                             <td><label for="cpostal">Postal Code</label></td>
-                                            <td><input type="number" id="cpostal" className="landinput" defaultValue={cpca} onChange={(e)=>spa(e.target.value)}></input></td>
+                                            <td><input type="number" id="cpostal" className="landinput" defaultValue={cpca} onChange={(e)=>scpca(e.target.value)}></input></td>
                                         </tr>
                                         <tr>
                                             <td><label for="cstate">State</label></td>
-                                            <td><input type="text" id="cstate" className="landinput" defaultValue={cra} onChange={(e)=>sra(e.target.value)}></input></td>
+                                            <td><input type="text" id="cstate" className="landinput" defaultValue={cra} onChange={(e)=>scra(e.target.value)}></input></td>
                                         </tr>
                                         <tr>
                                             <td><label for="ccountry">Country</label></td>
-                                            <td><input type="text" id="ccountry" className="landinput" defaultValue={cca} onChange={(e)=>sca(e.target.value)}></input></td>
+                                            <td><input type="text" id="ccountry" className="landinput" defaultValue={cca} onChange={(e)=>scca(e.target.value)}></input></td>
                                         </tr>
                                     </td>
                                 </tr>

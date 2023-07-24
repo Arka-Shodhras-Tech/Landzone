@@ -204,7 +204,7 @@ export const Usermanage=()=>
 // Transfer Currency
     const Transcurr=()=>
     {
-        alert(at+" eUSD has been transferred from "+localStorage.gmail+" to "+sm);
+        alert(at+" "+land+" has been transferred from "+localStorage.gmail+" to "+sm);
     }
 
 // Edit user update profile
@@ -266,10 +266,11 @@ export const Usermanage=()=>
                                        </label>
                                     </td>
                                     <td>
-                                        <input type="number" id="amount" onChange={(e)=>sat(e.target.value)}/> <select id="land" name="currency" value={land} onChange={(e)=>sland(e.target.value)}>
+                                    <input type="number" id="amount" onChange={(e)=>sat(e.target.value)}/>
+                                    <select id="land" name="currency" value={land} onChange={(e)=>sland(e.target.value)}>
                                     <option> Choose Currency</option>
                                     <option value="Land">Land</option>
-                                    <option value="USD">eUSD</option>
+                                    <option value="eUSD">eUSD</option>
                                 </select>
                                     </td>
                                 </tr>
