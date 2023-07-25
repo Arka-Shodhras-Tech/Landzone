@@ -203,7 +203,8 @@ export const Dashboard=()=>
         localStorage.limit=0;
        try
        {
-        await axios.post("http://localhost:8000/deledata")?
+        (await axios.post("http://localhost:8000/delecurr")&&
+        await axios.post("http://localhost:8000/delepend"))?
         window.location.reload(5):alert("Try again")
        }
        catch(e)
@@ -213,6 +214,8 @@ export const Dashboard=()=>
     }
     const Prev=async()=>
     {
+       try
+       {
         const res=await axios.get("http://localhost:8000/getshowvalue/"+gmal)
         {
             if(res.data)
@@ -224,6 +227,11 @@ export const Dashboard=()=>
                 localStorage.usd=res.data.USD;
             }
         }
+       }
+       catch(e)
+       {
+        console.log(e);
+       }
     }
     const PreList=async()=>
     {
@@ -254,16 +262,23 @@ export const Dashboard=()=>
         }
     }
     useEffect(() => {
+       try
+       {
         axios.get("http://localhost:8000/crecurdis")
-            .then((result1)=>
-            {
-                scurr(result1.data);
-            })
-        axios.get("http://localhost:8000/viewappdis")
-            .then((result2)=>
-            {
-                spp(result2.data);
-            })
+        .then((result1)=>
+        {
+            scurr(result1.data);
+        })
+    axios.get("http://localhost:8000/viewappdis")
+        .then((result2)=>
+        {
+            spp(result2.data);
+        })
+       }
+       catch(e)
+       {
+        console.log(e);
+       }
     }, [])
     return(
         <>
@@ -399,7 +414,6 @@ export const Dashboard=()=>
                                     ))
                                    }
                                 </table>
-                                <button type="submit" style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Approve</button>
                             </div>
 
 
@@ -407,16 +421,16 @@ export const Dashboard=()=>
 {/* Show value in eUSD */}
                             <div className="editdis" style={{display:'none'}} id="svb">
                             <div style={{display:'flex'}}>
-                            <button onClick={Prev} style={{ margin: "5% 0% 0% 12%", width: '10%', height: '4vh', backgroundColor: 'orange', color: 'white' }}>Previous Values</button>
-                            <button onClick={Clear} style={{ margin: "5% 0% 0% 55%", width: '10%', height: '4vh', backgroundColor: 'red', color: 'white' }}>Clear All</button>
+                            <button onClick={Prev} style={{ margin: "5% 0% 0% 12%", width: '15%', height: '4vh', backgroundColor: 'orange', color: 'black' }}><b>Previous Values</b></button>
+                            <button onClick={Clear} style={{ margin: "5% 0% 0% 55%", width: '10%', height: '4vh', backgroundColor: 'red', color: 'white' }}><b>Clear All</b></button>
                             </div>
                             <div style={{textAlign:'center',marginTop:'18%'}}>
                                 {/* <div style={{display:'none'}}>{y=(parseInt(cor)-parseInt(usd))}</div> */}
                                     <label for='eusd'><b>The total value of USD in bank is : {usd}</b></label><br/>
                                     <label for="eusd"><b>Pending eUSD:{pendg}</b></label><br/>
                                     <label for='eusd'><b>the number of eUSD's created till now: {unit}</b></label><br/>
-                                    <label for='eusd'><b>Available USD in Bank: {avil}</b></label><br/><br/>
-                                    <label for='eusd'><b>Limit is:{limit}</b></label>
+                                    {/* <label for='eusd'><b>Available USD in Bank: {avil}</b></label><br/><br/> */}
+                                    <label for='eusd'><b>eUSD possible to be created:{limit}</b></label>
                                     {/* <button id={1} onClick={Limitdis}><b>Limit</b></button><div>{limit}</div> */}
                                 </div>
                                 <button onClick={Save} style={{ margin: "15% 0% 0% 78%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Save</button>

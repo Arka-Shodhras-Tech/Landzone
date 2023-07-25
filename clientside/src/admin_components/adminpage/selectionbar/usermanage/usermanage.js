@@ -11,6 +11,7 @@ export const Usermanage=()=>
     const [edit,sedit]=useState([]);
     const [err1,serr1]=useState([]);
     const [pymt,spymt]=useState([]);
+    const [trans,strans]=useState([]);
     const [approve,sapprove]=useState();
     const [tdata,stdata]=useState([]);
     const [modname,smodname]=useState([]);
@@ -95,11 +96,6 @@ export const Usermanage=()=>
     {
         document.getElementById('reasondisplay').style.display='none'
     }
-    // const Enconfirm=async()=>
-    // {
-    //     document.getElementById('confirm').style.display='none';
-    // }
-
     const Hidden=()=>
     {
 
@@ -161,7 +157,6 @@ export const Usermanage=()=>
             alert("Serrver Bussy");
         }
     }
-    console.log(x);
 // Update user details
     const Edituser=async()=>
     {
@@ -202,9 +197,18 @@ export const Usermanage=()=>
     }
 
 // Transfer Currency
-    const Transcurr=()=>
+    const Transcurr=async()=>
     {
-        alert(at+" "+land+" has been transferred from "+localStorage.gmail+" to "+sm);
+        try
+        {
+            await axios.post("http://localhost:8000/transfer/"+localStorage.gmail+"/"+sm+"/"+at+"/"+land)?
+        alert(at+" "+land+" has been transferred from "+localStorage.gmail+" to "+sm):
+        alert("Try again");
+        }
+        catch(e)
+        {
+            console.log(e)
+        }
     }
 
 // Edit user update profile
@@ -216,6 +220,11 @@ export const Usermanage=()=>
         axios.get("http://localhost:8000/disableshow")
             .then((result2) => {
                 scrt(result2.data)
+            })
+        axios.get("http://localhost:8000/gettransfer")
+            .then((result)=>
+            {
+                strans(result.data);
             })
         axios.get("http://localhost:8000/pymtretrive")
         .then((result1)=>
@@ -276,7 +285,7 @@ export const Usermanage=()=>
                                 </tr>
                                 <tr>
                                     <td colSpan={2}>
-                                    <button onClick={Transcurr}  style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white'}}>Transfer</button >
+                                    <button onClick={Transcurr} style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white'}}>Transfer</button >
                                     </td>
                                 </tr>
                             </table>
@@ -460,7 +469,35 @@ export const Usermanage=()=>
 {/* View transaction history */}
                         <div className="editdis" style={{display:'none'}} id="transction">
                         <table className="pymttable" style={{textAlign:'center',overflowY:'scroll'}}>
-                            <tr>
+                            {
+                                trans.map((tran,index)=>
+                                (
+                                <tr>
+                                <td><b>{index+1}</b></td>
+                                <td>
+                                    <tr>
+                                        <tr>
+                                            <td><b>Sender Mail</b></td>
+                                            <td>{tran.Sender_email}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Reciver Mail</b></td>
+                                            <td>{tran.Reciver_email}</td>
+                                        </tr>
+                                    </tr>
+                                </td>
+                                <td>
+                                    <td><b>Amount</b></td>
+                                    <td>{tran.Amount_Transfered}</td>
+                                </td>
+                                <td>
+                                    <td><b>In</b></td>
+                                    <td>{tran.In}</td>
+                                </td>
+                            </tr>
+                                ))
+                            }
+                            {/* <tr>
                                 <th>S.NO</th>
                                 <th>Name of the bank</th>
                                 <th>Sender Email</th>
@@ -481,7 +518,7 @@ export const Usermanage=()=>
                                             <td>{val5.Transaction_date}</td>
                                         </tr>
                                     ))
-                                }
+                                } */}
                         </table>
                         </div>
                     </div>

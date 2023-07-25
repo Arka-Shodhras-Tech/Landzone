@@ -177,12 +177,15 @@ app.post('/sviewpp/:gmail/:val',async(req,res)=>
     const details=await db.collection('saved_pending_purchase').insertOne({Gmail:req.params.gmail,Units:req.params.val})
     res.json(details);
 })
-app.post('/deledata',async(req,res)=>
+app.post('/delecurr',async(req,res)=>
 {
     const details=await db.collection('create_currency').deleteMany()
-   res.json(details)
-   const details1=await db.collection('pending_purchase').deleteMany()
-   res.json(details1)
+   res.json(details);
+})
+app.post('/delepend',async(req,res)=>
+{
+    const details1=await db.collection('pending_purchase').deleteMany()
+    res.json(details1);
 })
 app.post('/delviewpp/:gmail',async(req,res)=>
 {
@@ -207,6 +210,19 @@ app.get('/getshowvalue/:gmail',async(req,res)=>
 app.post('/updateshow/:gmail/:usd/:pend/:unit/:avl/:lim',async(req,res)=>
 {
     const details=await db.collection("Show_values").findOneAndUpdate({Gmail:req.params.gmail},{$set:{USD:req.params.usd,Pending:req.params.pend,Created:req.params.unit,Available:req.params.avl,Limit:req.params.lim}})
+    res.json(details);
+})
+
+
+//Transfer currency
+app.post('/transfer/:sgmail/:rgmail/:amt/:land',async(req,res)=>
+{
+    const details=await db.collection("Transfer_currency").insertOne({Sender_email:req.params.sgmail,Reciver_email:req.params.rgmail,Amount_Transfered:req.params.amt,In:req.params.land})
+    res.json(details);
+})
+app.get('/gettransfer',async(req,res)=>
+{
+    const details=await db.collection("Transfer_currency").find().toArray();
     res.json(details);
 })
 
