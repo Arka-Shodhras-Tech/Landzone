@@ -13,10 +13,12 @@ export const Usermanage=()=>
     const [pymt,spymt]=useState([]);
     const [trans,strans]=useState([]);
     const [approve,sapprove]=useState();
+    const [update,supdate]=useState([]);
     const [tdata,stdata]=useState([]);
     const [modname,smodname]=useState([]);
     const [land,sland]=useState([]);
-    const [x,sx]=useState([]);
+    const [apvd,sapvd]=useState([]);
+    const [disap,sdisap]=useState([]);
     const form=useRef();
     const [i,si]=useState(0);
     const [sm,ssm]=useState([]);
@@ -30,6 +32,7 @@ export const Usermanage=()=>
         document.getElementById('disenadisplay').style.display="none";
         document.getElementById('transction').style.display="none";
         document.getElementById('reasondisplay').style.display='none';
+        document.getElementById("approvelist").style.display="none";
     }
 
      // Approve user from list
@@ -40,7 +43,8 @@ export const Usermanage=()=>
          document.getElementById('disenadisplay').style.display="none";
          document.getElementById('editdisplay').style.display="none";
          document.getElementById('transction').style.display="none";
-         document.getElementById('reasondisplay').style.display='none'
+         document.getElementById('reasondisplay').style.display='none';
+         document.getElementById("approvelist").style.display="none";
      }
 
     // Update user details
@@ -81,11 +85,6 @@ export const Usermanage=()=>
         document.getElementById('disenadisplay').style.display="none";
         document.getElementById('personinfo').style.display='block';
     }
-
-    const Disable=async()=>
-    {
-        
-    }
     const Enable=async()=>
     {
         document.getElementById('enable').style.display='none';
@@ -100,6 +99,8 @@ export const Usermanage=()=>
     {
 
     }
+
+
 // Approve users
     const Approvehand=()=>
     {
@@ -130,18 +131,6 @@ export const Usermanage=()=>
                 {
                     console.log(e);
                 }
-                // try
-                // {
-                //     const responce4=await axios.post("http://localhost:8000/updatenames/"+modname+"/"+approve.gmail+"/"+approve.phone_number)&&
-                //     await axios.post("http://localhost:8000/savedupdatenames/"+modname+"/"+approve.gmail+"/"+approve.phone_number)
-                //     {
-                //         responce4?alert("Sucessfully Updated"):alert("Try again");
-                //     }
-                // }
-                // catch(e)
-                // {
-                //     console.log(e);
-                // }
             }
             smodname(approve.name);
         }
@@ -149,6 +138,13 @@ export const Usermanage=()=>
         {
             alert("Serrver Bussy");
         }
+    }
+
+
+    const Disapprove=async()=>
+    {
+        await axios.post("http://localhost:8000/disapprove/"+disap.Gmail)?
+        document.getElementById(disap._id).innerHTML="Dispproved":alert("Again clicked");
     }
 // Update user details
     const Edituser=async()=>
@@ -169,6 +165,27 @@ export const Usermanage=()=>
                 serr1("User not found")
             }
         }
+    }
+    const Update=async()=>
+    {
+              try
+                {
+                    const responce4=await axios.post("http://localhost:8000/updatenames/"+modname+"/"+update.Gmail+"/"+update.Phone_Number)
+                    {
+                        responce4?
+                        document.getElementById(update.Gmail).innerHTML="Updated":
+                        alert("Try again");
+                    }
+                }
+                catch(e)
+                {
+                    console.log(e);
+                }
+    }
+
+    const Approvedis=()=>
+    {
+        document.getElementById("approvelist").style.display="block";
     }
 // Confirm message
     const Confirm=(e)=>
@@ -221,7 +238,12 @@ export const Usermanage=()=>
         axios.get("http://localhost:8000/pymtretrive")
         .then((result1)=>
         {
-            spymt(result1.data)
+            spymt(result1.data);
+        })
+        axios.get("http://localhost:8000/approvedlist")
+        .then((result)=>
+        {
+            sapvd(result.data);
         })
     }, [])
     return(
@@ -286,13 +308,12 @@ export const Usermanage=()=>
                     </div>
 
 {/* Approve users from list */}
-                    <div>
                                 <div className="editdis" style={{ display: 'none' }} id="approvedisplay">
                                     <div>
                                         <table className="aufltable">
                                             <tr>
                                                 <td colSpan={2}>
-                                                <Link style={{textDecoration:'none',fontSize:'small',color:'green',float:'right'}}><h4>Approved List</h4></Link>
+                                                <Link onClick={Approvedis} style={{textDecoration:'none',fontSize:'small',color:'green',float:'right'}}><h4>Approved List</h4></Link>
                                                 </td>
                                             </tr>
                                             {
@@ -321,8 +342,37 @@ export const Usermanage=()=>
                                                 ))
                                             }
                                         </table>
-                                        {/* <button type="submit" onClick={Approvee} style={{ margin: "2% 0% 0% 43%", width: '10%', height: '4vh', backgroundColor: 'blue', color: 'white'}}>Approve</button > */}
                                     </div>
+                    </div>
+
+
+                    <div className="editdis" style={{display:'none'}} id="approvelist">
+                        <div>
+                        <div>
+                            <table className="aufltable">
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Name</th>
+                                    <th>G-mail</th>
+                                    <th>Phone Number</th>
+                                    <th>Disapprove</th>
+                                </tr>
+                                {
+                                    apvd.map((apv, index) => (
+                                        <tr>
+                                            <td><b>{index + 1}</b></td>
+                                            <td><b>{apv.Name}</b></td>
+                                            <td><b>{apv.Gmail}</b></td>
+                                            <td><b>{apv.Phone_Number}</b></td>
+                                            <td style={{height:'60px'}}>
+                                                <button onClick={Disapprove} id={apv._id} onClickCapture={(e)=>sdisap(apv)} style={{width:'80px',backgroundColor:'orangered',color:'whitesmoke'}}>Disapprove</button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                                        </table>
+                                    </div>
+                        </div>
                     </div>
 
 
@@ -345,12 +395,13 @@ export const Usermanage=()=>
                                                        <p>Gmail <b>{val2.Gmail}</b></p>
                                                         <p>Phone Number <b>{val2.Phone_Number}</b></p>
                                                        </td>
-                                                       <td width={'280px'}>
-                                                       </td>
+                                                        </td>
+                                                        <td>
+                                                        <button onClick={Update} id={val2.Gmail} onClickCapture={(e)=>supdate(val2)}  style={{width:'80px',backgroundColor:'blue',color:'whitesmoke',borderRadius:'5px',fontSize:'15px'}}>Update</button> 
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td colSpan={2}><hr style={{height:'10px',backgroundColor:'lightblue'}}/></td>
+                                                        <td colSpan={3}><hr style={{height:'10px',backgroundColor:'lightblue'}}/></td>
                                                     </tr>
                                                    </>
                                                 ))
@@ -384,7 +435,7 @@ export const Usermanage=()=>
                                             <td><b>{val3.Name}</b></td>
                                             <td><b>{val3.Gmail}</b></td>
                                             <td><b>{val3.Phone_Number}</b></td>
-                                            <td>
+                                            <td style={{height:'60px'}}>
                                                 <input id={index} style={{width:'50px'}} name="same" type="radio"  onChange={(e)=>sedit(val3)}></input>
                                             </td>
                                         </tr>
@@ -513,7 +564,6 @@ export const Usermanage=()=>
                                 } */}
                         </table>
                         </div>
-                    </div>
                 </section>
             </div>
         </div>

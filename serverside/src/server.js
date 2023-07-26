@@ -84,9 +84,18 @@ app.post('/approvelist/:name/:gmail/:phonenum',async(req,res)=>
     const details=await db.collection('Approve_List').insertOne({Name:req.params.name,Gmail:req.params.gmail,Phone_Number:req.params.phonenum})
     res.json(details);
 })
+app.get('/approvedlist',async(req,res)=>{
+    const details=await db.collection('Approve_List').find().toArray()
+    res.json(details);
+})
 app.post('/delapprovelist/:gmail',async(req,res)=>
 {
     const details=await db.collection('userlogin').deleteOne({gmail:req.params.gmail})
+    res.json(details);
+})
+app.post('/disapprove/:gmail',async(req,res)=>
+{
+    const details=await db.collection('Approve_List').deleteOne({Gmail:req.params.gmail})
     res.json(details);
 })
 // Approve list check email id
@@ -102,7 +111,7 @@ app.get('/approvecheck/:gmail',async(req,res)=>
 // })
 app.post('/updatenames/:name/:gmail/:phonenum',async(req,res)=>
 {
-    const details=await db.collection('Approve_List').findOneAndUpdate({$set:{Name:req.params.name}},{Gmail:req.params.gmail,Phone_Number:req.params.phonenum})
+    const details=await db.collection('Approve_List').findOneAndUpdate({Gmail:req.params.gmail,Phone_Number:req.params.phonenum},{$set:{Name:req.params.name}})
     res.json(details);
 })
 // app.post('/savedupdatenames/:name/:gmail/:phonenum',async(req,res)=>
@@ -193,6 +202,11 @@ app.post('/sviewpp/:gmail/:val',async(req,res)=>
     const details=await db.collection('saved_pending_purchase').insertOne({Gmail:req.params.gmail,Units:req.params.val})
     res.json(details);
 })
+app.get('/sviewdis',async(req,res)=>
+{
+    const details=await db.collection('saved_pending_purchase').find().toArray();
+    res.json(details);
+})
 app.post('/delecurr',async(req,res)=>
 {
     const details=await db.collection('create_currency').deleteMany()
@@ -203,9 +217,9 @@ app.post('/delepend',async(req,res)=>
     const details1=await db.collection('pending_purchase').deleteMany()
     res.json(details1);
 })
-app.post('/delviewpp/:gmail',async(req,res)=>
+app.post('/delviewpp/:unit',async(req,res)=>
 {
-    const details=await db.collection('create_currency').deleteOne({Gmail:req.params.gmail})
+    const details=await db.collection('create_currency').deleteOne({Units:req.params.unit})
     res.json(details);
 })
 app.get('/viewappdis',async(req,res)=>

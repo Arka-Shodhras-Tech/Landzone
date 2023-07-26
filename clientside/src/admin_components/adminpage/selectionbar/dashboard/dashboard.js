@@ -19,6 +19,7 @@ export const Dashboard=()=>
     const [cor,scor]=useState([]);
     const [vpp,svpp]=useState([]);
     const [pp,spp]=useState([]);
+    const [prev,sprev]=useState([]);
     const [j,sj]=useState(0);
     const p=localStorage.p;
     const gmal=localStorage.gmail;
@@ -38,6 +39,7 @@ export const Dashboard=()=>
         document.getElementById('app').style.display='none';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='none';
+        document.getElementById('prevlist').style.display="none";
     }
     const Vpp=()=>
     {
@@ -46,6 +48,7 @@ export const Dashboard=()=>
         document.getElementById('app').style.display='none';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='none';
+        document.getElementById('prevlist').style.display="none";
     }
     const App=async()=>
     {
@@ -54,6 +57,7 @@ export const Dashboard=()=>
         document.getElementById('app').style.display='block';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='none';
+        document.getElementById('prevlist').style.display="none";
     }
     const Evb=async()=>
     {
@@ -61,6 +65,7 @@ export const Dashboard=()=>
         document.getElementById('cc').style.display='none';
         document.getElementById('vpp').style.display='none';
         document.getElementById('app').style.display='none';
+        document.getElementById('prevlist').style.display="none";
         if(j==1)
         {
             document.getElementById('evb').style.display='none';
@@ -79,6 +84,7 @@ export const Dashboard=()=>
         document.getElementById('app').style.display='none';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='block';
+        document.getElementById('prevlist').style.display="none";
         localStorage.avil=(usd-unit)
         if(parseInt(p)===0)
         {
@@ -225,7 +231,7 @@ export const Dashboard=()=>
     }
     const PreList=async()=>
     {
-
+        document.getElementById('prevlist').style.display="block";
     }
     const Viewpp=async()=>
     {
@@ -241,7 +247,7 @@ export const Dashboard=()=>
                 localStorage.limit=usd;
             }
             await axios.post("http://localhost:8000/sviewpp/"+vpp.Gmail+"/"+vpp.Units)
-            const viewpp1=await axios.post("http://localhost:8000/delviewpp/"+vpp.Gmail)
+            const viewpp1=await axios.post("http://localhost:8000/delviewpp/"+vpp.Units)
             {
                 viewpp1?window.location.reload(3):alert("Try again");
             }  
@@ -259,10 +265,15 @@ export const Dashboard=()=>
         {
             scurr(result1.data);
         })
-    axios.get("http://localhost:8000/viewappdis")
+        axios.get("http://localhost:8000/viewappdis")
         .then((result2)=>
         {
             spp(result2.data);
+        })
+        axios.get("http://localhost:8000/sviewdis")
+        .then((result3)=>
+        {
+            sprev(result3.data);
         })
        }
        catch(e)
@@ -424,6 +435,28 @@ export const Dashboard=()=>
                                     {/* <button id={1} onClick={Limitdis}><b>Limit</b></button><div>{limit}</div> */}
                                 </div>
                                 <button onClick={Save} style={{ margin: "15% 0% 0% 78%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Save</button>
+                            </div>
+
+                            <div className="editdis" style={{display:'none'}} id="prevlist">
+                                <table className="pendtable" style={{marginTop:'5%'}}>
+                                {
+                                    prev.map((pre,index)=>
+                                    (
+                                       <>
+                                        <tr>
+                                            <td>{index+1}</td>
+                                            <td>
+                                            {pre.Units}
+                                            </td>
+                                            <td>
+                                                <label for={index}>{pre.Gmail}</label>
+                                            </td>
+                                        </tr>
+                                        <br/>
+                                       </>
+                                    ))
+                                   }
+                                </table>
                             </div>
                 </section>
             </div>
