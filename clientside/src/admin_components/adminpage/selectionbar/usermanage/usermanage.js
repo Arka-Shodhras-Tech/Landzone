@@ -114,7 +114,7 @@ export const Usermanage=()=>
             const responce=await axios.get("http://localhost:8000/approvecheck/"+approve.gmail)
             if(responce.data)
             {
-                alert("Already approve data");
+                alert("Already approve data\nPlease refresh page");
             }
             else
             {
@@ -123,7 +123,7 @@ export const Usermanage=()=>
                     const responce3=await axios.post("http://localhost:8000/approvelist/"+approve.name+"/"+approve.gmail+"/"+approve.phone_number)
                 {
                     responce3 && axios.post("http://localhost:8000/delapprovelist/"+approve.gmail)?alert("Sucessfully Approved"):alert("Try again");
-                    // window.location.reload(5);
+                    document.getElementById(approve._id).innerHTML="Approved";
                 }
                 }
                 catch(e)
@@ -312,7 +312,7 @@ export const Usermanage=()=>
                                                        </td>
                                                        <td width={'280px'}>
                                                        <p>
-                                                       <button  onClick={Approvee} onClickCapture={(e)=>sapprove(val1)}  style={{ margin: "2% 0% 0% 43%", width: '30%', height: '4vh', backgroundColor: 'blue', color: 'white',border:'none', borderRadius:'20px'}}>Approve</button>
+                                                       <button id={val1._id} onClick={Approvee} onClickCapture={(e)=>sapprove(val1)}  style={{ margin: "2% 0% 0% 43%", width: '30%', height: '4vh', backgroundColor: 'blue', color: 'white',border:'none', borderRadius:'20px'}}>Approve</button>
                                                        </p>
                                                        </td>
                                                         </td>
