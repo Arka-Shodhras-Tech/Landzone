@@ -13,11 +13,14 @@ export const Dashboard=()=>
     const [tv,stv]=useState(0);
     const [ts,sts]=useState(0);
     const [pt,spt]=useState(0);
-    const [dat,sdat]=useState([]);
     const [num,snum]=useState([]);
     const [curr,scurr]=useState([]);
     const [land,sland]=useState([]);
     const [cor,scor]=useState([]);
+    const [vpp,svpp]=useState([]);
+    const [pp,spp]=useState([]);
+    const [j,sj]=useState(0);
+    const p=localStorage.p;
     const gmal=localStorage.gmail;
     const unit=localStorage.unit;
     const pendg=localStorage.pendg;
@@ -25,17 +28,6 @@ export const Dashboard=()=>
     const usd=localStorage.usd;
     const limit=localStorage.limit;
     const total=localStorage.total;
-    const [vpp,svpp]=useState([]);
-    const [pp,spp]=useState([]);
-    const [i,si]=useState(0);
-    const [j,sj]=useState(0);
-    const [a,sa]=useState(0);
-    const [b,sb]=useState([]);
-    const [c,sc]=useState([]);
-    const [d,sd]=useState([]);
-    const [appdis,sappdis]=useState([]);
-    const [x,sx]=useState([]);
-    const p=localStorage.p;
 
 // Create currency
     const CC=async()=>
@@ -65,7 +57,6 @@ export const Dashboard=()=>
     }
     const Evb=async()=>
     {
-        localStorage.limit=0;
         localStorage.p=0;
         document.getElementById('cc').style.display='none';
         document.getElementById('vpp').style.display='none';
@@ -123,13 +114,14 @@ export const Dashboard=()=>
         try
         {
             localStorage.usd=num;
-            localStorage.limit=num;
+            localStorage.limit=0;
             const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
             {
                 if(responce1.data)
                 {
                     const details=await axios.post("http://localhost:8000/uviusd/"+gmal+"/"+limit)
                     {
+                        localStorage.limit=num;
                         details?alert(num+" USD units are there in your Bank account"):alert("Try again");
                         window.location.reload(5);
                     }
@@ -161,7 +153,6 @@ export const Dashboard=()=>
              const result=await axios.post("http://localhost:8000/crecur/"+gmal+"/"+cor)
              {
                  result?alert(cor+" Land instance has been created and sent for approval"):alert("Try again");
-                 si(1);
                  window.location.reload(5);
              }
             }
@@ -179,7 +170,6 @@ export const Dashboard=()=>
             const result=await axios.post("http://localhost:8000/crecur/"+gmal+"/"+cor)
             {
                 result?alert(cor+" eUSD instance has been created and sent for approval"):alert("Try again");
-                si(1);
                 window.location.reload(5);
             }
            }

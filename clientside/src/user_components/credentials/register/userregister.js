@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { useNavigate } from "react-router-dom";
-import { Navbar,Footer } from "../../../admin_components/home/nav&foot&contact&about/navbar";
+import { Footer, Navbar } from "../../../admin_components/home/nav&foot&contact&about/navbar";
 export const UserRegister=()=>{
     const nav=useNavigate();
     const [name,sname]=useState("");
@@ -29,7 +29,8 @@ export const UserRegister=()=>{
                 {
                    try
                    {
-                    const responce=await axios.post("http://localhost:8000/register/"+name+"/"+gmail+"/"+password+"/"+cpassword+"/"+phonenumber)
+                    const responce=await axios.post("http://localhost:8000/register/"+name+"/"+gmail+"/"+password+"/"+cpassword+"/"+phonenumber)&&
+                    await axios.post("http://localhost:8000/userapprove/"+name+"/"+gmail+"/"+phonenumber)
                     responce.data? nav("/userlogin"):serr("Error")
                    }
                    catch(error)

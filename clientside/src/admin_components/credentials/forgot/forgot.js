@@ -1,6 +1,5 @@
-import React from "react";
-import { useState } from "react";
 import axios from "axios";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Footer, Navbar } from "../../home/nav&foot&contact&about/navbar";
 export const Adminupdate=()=>{

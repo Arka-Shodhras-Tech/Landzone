@@ -109,13 +109,6 @@ export const Usermanage=()=>
     }   
     const Approvee=async()=>
     {
-        console.log(x);
-        // const formData=new FormData();
-        // for(let i=0;i<approve.length;i++)
-        // {
-        //     formData.append(`array[${i}]`,approve[0])
-        // }
-        // console.log(formData)
         try
         {
             const responce=await axios.get("http://localhost:8000/approvecheck/"+approve.gmail)
@@ -128,27 +121,27 @@ export const Usermanage=()=>
                 try
                 {
                     const responce3=await axios.post("http://localhost:8000/approvelist/"+approve.name+"/"+approve.gmail+"/"+approve.phone_number)
-                // const responce3=await axios.post("http://localhost:8000/approvelist/"+approve)
                 {
-                    responce3?alert("Sucessfully Approved"):alert("Try again");
-                    // window.location.reload(3);
+                    responce3 && axios.post("http://localhost:8000/delapprovelist/"+approve.gmail)?alert("Sucessfully Approved"):alert("Try again");
+                    // window.location.reload(5);
                 }
                 }
                 catch(e)
                 {
                     console.log(e);
                 }
-                try
-                {
-                    const responce4=await axios.post("http://localhost:8000/updatenames/"+modname+"/"+approve.gmail+"/"+approve.phone_number)
-                    {
-                        responce4?alert("Sucessfully Updated"):alert("Try again");
-                    }
-                }
-                catch(e)
-                {
-                    console.log(e);
-                }
+                // try
+                // {
+                //     const responce4=await axios.post("http://localhost:8000/updatenames/"+modname+"/"+approve.gmail+"/"+approve.phone_number)&&
+                //     await axios.post("http://localhost:8000/savedupdatenames/"+modname+"/"+approve.gmail+"/"+approve.phone_number)
+                //     {
+                //         responce4?alert("Sucessfully Updated"):alert("Try again");
+                //     }
+                // }
+                // catch(e)
+                // {
+                //     console.log(e);
+                // }
             }
             smodname(approve.name);
         }
@@ -177,7 +170,6 @@ export const Usermanage=()=>
             }
         }
     }
-
 // Confirm message
     const Confirm=(e)=>
     {
@@ -320,7 +312,7 @@ export const Usermanage=()=>
                                                        </td>
                                                        <td width={'280px'}>
                                                        <p>
-                                                       <input type="submit" value="Approve"  onChange={(e)=>sapprove(val1)} style={{ margin: "2% 0% 0% 43%", width: '30%', height: '4vh', backgroundColor: 'blue', color: 'white',border:'none', borderRadius:'20px'}} onClick={Approvee}></input>
+                                                       <button  onClick={Approvee} onClickCapture={(e)=>sapprove(val1)}  style={{ margin: "2% 0% 0% 43%", width: '30%', height: '4vh', backgroundColor: 'blue', color: 'white',border:'none', borderRadius:'20px'}}>Approve</button>
                                                        </p>
                                                        </td>
                                                         </td>

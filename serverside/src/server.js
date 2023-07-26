@@ -10,15 +10,15 @@ app.get('/',(req,res)=>{
 })
 try
 {
-    //user data server//
-    app.post('/register/:name/:gmail/:password/:cpassword/:phonenumber',async(req,res)=>//register
+//user data server//
+app.post('/register/:name/:gmail/:password/:cpassword/:phonenumber',async(req,res)=>//register
 {
     const details=await db.collection('userlogin').insertOne({name:req.params.name,gmail:req.params.gmail,password:req.params.password,cpassword:req.params.cpassword,phone_number:req.params.phonenumber})
     res.json(details);
 })
 app.post('/userapprove/:name/:gmail/:phonenumber',async(req,res)=>//register
 {
-    const details=await db.collection('User_Approvelist').insertOne({name:req.params.name,gmail:req.params.gmail,phone_number:req.params.phonenumber})
+    const details=await db.collection('saved_userlogin').insertOne({name:req.params.name,gmail:req.params.gmail,phone_number:req.params.phonenumber})
     res.json(details);
 })
 app.get('/check/:gmail',async(req,res)=>//mail check in register
@@ -84,9 +84,9 @@ app.post('/approvelist/:name/:gmail/:phonenum',async(req,res)=>
     const details=await db.collection('Approve_List').insertOne({Name:req.params.name,Gmail:req.params.gmail,Phone_Number:req.params.phonenum})
     res.json(details);
 })
-app.post('/updatenames/:name/:gmail/:phonenum',async(req,res)=>
+app.post('/delapprovelist/:gmail',async(req,res)=>
 {
-    const details=await db.collection('Approve_List').findOneAndUpdate({$set:{Name:req.params.name}},{Gmail:req.params.gmail,Phone_Number:req.params.phonenum})
+    const details=await db.collection('userlogin').deleteOne({gmail:req.params.gmail})
     res.json(details);
 })
 // Approve list check email id
@@ -95,6 +95,22 @@ app.get('/approvecheck/:gmail',async(req,res)=>
     const details=await db.collection('Approve_List').findOne({Gmail:req.params.gmail});
     res.json(details);
 })
+// app.post('/savedapprovelist/:name/:gmail/:phonenum',async(req,res)=>
+// {
+//     const details=await db.collection('Saved_Approve_List').insertOne({Name:req.params.name,Gmail:req.params.gmail,Phone_Number:req.params.phonenum})
+//     res.json(details);
+// })
+app.post('/updatenames/:name/:gmail/:phonenum',async(req,res)=>
+{
+    const details=await db.collection('Approve_List').findOneAndUpdate({$set:{Name:req.params.name}},{Gmail:req.params.gmail,Phone_Number:req.params.phonenum})
+    res.json(details);
+})
+// app.post('/savedupdatenames/:name/:gmail/:phonenum',async(req,res)=>
+// {
+//     const details=await db.collection('Saved_Approve_List').findOneAndUpdate({$set:{Name:req.params.name}},{Gmail:req.params.gmail,Phone_Number:req.params.phonenum})
+//     res.json(details);
+// })
+
 // Update and Disable and Enable user
 app.get('/disableshow',async(req,res)=>
 {
