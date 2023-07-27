@@ -20,6 +20,9 @@ export const Dashboard=()=>
     const [vpp,svpp]=useState([]);
     const [pp,spp]=useState([]);
     const [prev,sprev]=useState([]);
+    const usdval=localStorage.usdval;
+    const [val, sval] = useState(usdval);
+    const [prevdate, sprevdate] = useState(new Date());
     const [j,sj]=useState(0);
     const p=localStorage.p;
     const gmal=localStorage.gmail;
@@ -39,6 +42,7 @@ export const Dashboard=()=>
         document.getElementById('app').style.display='none';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='none';
+        document.getElementById('svlb').style.display='none';
         document.getElementById('prevlist').style.display="none";
     }
     const Vpp=()=>
@@ -48,6 +52,7 @@ export const Dashboard=()=>
         document.getElementById('app').style.display='none';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='none';
+        document.getElementById('svlb').style.display='none';
         document.getElementById('prevlist').style.display="none";
     }
     const App=async()=>
@@ -57,6 +62,7 @@ export const Dashboard=()=>
         document.getElementById('app').style.display='block';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='none';
+        document.getElementById('svlb').style.display='none';
         document.getElementById('prevlist').style.display="none";
     }
     const Evb=async()=>
@@ -65,6 +71,7 @@ export const Dashboard=()=>
         document.getElementById('cc').style.display='none';
         document.getElementById('vpp').style.display='none';
         document.getElementById('app').style.display='none';
+        document.getElementById('svlb').style.display='none';
         document.getElementById('prevlist').style.display="none";
         if(j==1)
         {
@@ -76,6 +83,16 @@ export const Dashboard=()=>
         }
         document.getElementById('svb').style.display='none';
         sj(1);
+    }
+    const Svlb=async()=>
+    {
+        document.getElementById('cc').style.display='none';
+        document.getElementById('vpp').style.display='none';
+        document.getElementById('app').style.display='none';
+        document.getElementById('evb').style.display='none';
+        document.getElementById('svlb').style.display='block';
+        document.getElementById('svb').style.display='none';
+        document.getElementById('prevlist').style.display="none";   
     }
     const Svb=async()=>
     {
@@ -280,6 +297,13 @@ export const Dashboard=()=>
        {
         console.log(e);
        }
+       const currentDate = new Date();
+       if (currentDate.getDate() !== prevdate.getDate())
+        {
+         sval(parseFloat(val)+0.000205);
+         localStorage.usdval=val;
+         sprevdate(currentDate);
+       }
     }, [])
     return(
         <>
@@ -293,6 +317,7 @@ export const Dashboard=()=>
                         <Link className="dashitem" onClick={CC}>Create Currency (Land/USD Units)</Link>
                         <Link className="dashitem" onClick={Vpp}>view Pending Purchases</Link>
                         <Link className="dashitem" onClick={App}>Approved Purchases</Link>
+                        <Link className="dashitem" onClick={Svlb}>Show Value of Land in Bank</Link>
                         <Link className="dashitem" onClick={Svb}>Show Value of USD in Bank</Link>
                     </div>
                             <div>
@@ -418,6 +443,23 @@ export const Dashboard=()=>
                             </div>
 
 
+{/* Show value in Land */}
+                            <div className="editdis" style={{display:'none'}} id="svlb">
+                            <div style={{textAlign:'center',marginTop:'25%'}}>
+                                {/* <div style={{display:'none'}}>{y=(parseInt(cor)-parseInt(usd))}</div> */}
+                                <label>Present eUSD value::{val}</label><br/>
+                                    <label for='eusd'><b>The total value of eUSD in bank is : {usd}</b></label><br/>
+                                    <label for="eusd"><b>Pending Land:{pendg}</b></label><br/>
+                                    <label for="eusd"><b>Pending Land <i>(in eUSD)</i>:{pendg*val}</b></label><br/>
+                                    <label for='eusd'><b>The number of Land's created till now: {unit}</b></label><br/>
+                                    {/* <label for='eusd'><b>Available USD in Bank: {avil}</b></label><br/><br/> */}
+                                    <label for='eusd'><b>The number of Land's created till now: {unit*val}</b></label><br/>
+                                    <label for='eusd'><b>eUSD possible to be created:{limit}</b></label>
+                                    {/* <button id={1} onClick={Limitdis}><b>Limit</b></button><div>{limit}</div> */}
+                                </div>
+                            </div>
+
+
 
 {/* Show value in eUSD */}
                             <div className="editdis" style={{display:'none'}} id="svb">
@@ -431,7 +473,7 @@ export const Dashboard=()=>
                                     <label for="eusd"><b>Pending eUSD:{pendg}</b></label><br/>
                                     <label for='eusd'><b>the number of eUSD's created till now: {unit}</b></label><br/>
                                     {/* <label for='eusd'><b>Available USD in Bank: {avil}</b></label><br/><br/> */}
-                                    <label for='eusd'><b>eUSD possible to be created:{limit}</b></label>
+                                    <label for='eusd'><b>eUSD possible to be created:{limit}</b></label><br/>
                                     {/* <button id={1} onClick={Limitdis}><b>Limit</b></button><div>{limit}</div> */}
                                 </div>
                                 <button onClick={Save} style={{ margin: "15% 0% 0% 78%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Save</button>
