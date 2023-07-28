@@ -182,9 +182,9 @@ app.get('/eviusdget/:gamil',async(req,res)=>
     res.json(details);
 })
 // Create currency(Land/USD Units)
-app.post('/crecur/:gmail/:val',async(req,res)=>
+app.post('/crecur/:gmail/:val/:land',async(req,res)=>
 {
-    const details=await db.collection('create_currency').insertOne({Gmail:req.params.gmail,Units:req.params.val})
+    const details=await db.collection('create_currency').insertOne({Gmail:req.params.gmail,Units:req.params.val,In:req.params.land})
     res.json(details);
 })
 app.get('/crecurdis',async(req,res)=>
@@ -192,14 +192,14 @@ app.get('/crecurdis',async(req,res)=>
     const details=await db.collection('create_currency').find().toArray()
     res.json(details)   
 })
-app.post('/viewpp/:gmail/:val',async(req,res)=>
+app.post('/viewpp/:gmail/:val/:land',async(req,res)=>
 {
-    const details=await db.collection('pending_purchase').insertOne({Gmail:req.params.gmail,Units:req.params.val})
+    const details=await db.collection('pending_purchase').insertOne({Gmail:req.params.gmail,Units:req.params.val,In:req.params.land})
     res.json(details);
 })
-app.post('/sviewpp/:gmail/:val',async(req,res)=>
+app.post('/sviewpp/:gmail/:val/:land',async(req,res)=>
 {
-    const details=await db.collection('saved_pending_purchase').insertOne({Gmail:req.params.gmail,Units:req.params.val})
+    const details=await db.collection('saved_pending_purchase').insertOne({Gmail:req.params.gmail,Units:req.params.val,In:req.params.land})
     res.json(details);
 })
 app.get('/sviewdis',async(req,res)=>

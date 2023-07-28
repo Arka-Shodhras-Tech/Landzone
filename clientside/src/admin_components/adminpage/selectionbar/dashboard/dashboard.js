@@ -22,7 +22,8 @@ export const Dashboard=()=>
     const [prev,sprev]=useState([]);
     const usdval=localStorage.usdval;
     const [val, sval] = useState(usdval);
-    const [prevdate, sprevdate] = useState(new Date());
+    const predate=localStorage.predate;
+    const [prevdate, sprevdate] = useState(predate);
     const [j,sj]=useState(0);
     const p=localStorage.p;
     const gmal=localStorage.gmail;
@@ -93,21 +94,27 @@ export const Dashboard=()=>
         document.getElementById('svlb').style.display='block';
         document.getElementById('svb').style.display='none';
         document.getElementById('prevlist').style.display="none";   
-    }
-    const Svb=async()=>
-    {
-        document.getElementById('cc').style.display='none';
-        document.getElementById('vpp').style.display='none';
-        document.getElementById('app').style.display='none';
-        document.getElementById('evb').style.display='none';
-        document.getElementById('svb').style.display='block';
-        document.getElementById('prevlist').style.display="none";
         localStorage.avil=(usd-unit)
         if(parseInt(p)===0)
         {
             localStorage.limit=parseInt(usd)-(parseInt(pendg)+parseInt(unit))
             localStorage.p=p+1;
         }
+    }
+    const Svb=async()=>
+    {
+        localStorage.avil=(usd-unit)
+        if(parseInt(p)===0)
+        {
+            localStorage.limit=parseInt(usd)-(parseInt(pendg)+parseInt(unit))
+            localStorage.p=p+1;
+        }
+        document.getElementById('cc').style.display='none';
+        document.getElementById('vpp').style.display='none';
+        document.getElementById('app').style.display='none';
+        document.getElementById('evb').style.display='none';
+        document.getElementById('svb').style.display='block';
+        document.getElementById('prevlist').style.display="none";
     }
     const Save=async()=>
     {
@@ -167,15 +174,15 @@ export const Dashboard=()=>
     const Land=async(e)=>
     {
         localStorage.p=0;
-        if(land=="Land" && cor<=parseInt(total))
+        if(cor<=parseInt(total))
         {
             localStorage.pendg=parseInt(pendg)+parseInt(cor);
             scor(cor);
             try
             {
-             const result=await axios.post("http://localhost:8000/crecur/"+gmal+"/"+cor)
+             const result=await axios.post("http://localhost:8000/crecur/"+gmal+"/"+cor+"/"+land)
              {
-                 result?alert(cor+" Land instance has been created and sent for approval"):alert("Try again");
+                 result?alert(cor+" "+land +" instance has been created and sent for approval"):alert("Try again");
                  window.location.reload(5);
              }
             }
@@ -183,28 +190,6 @@ export const Dashboard=()=>
             {
              console.log(e);
             }
-        }
-       else if(land=="USD" && cor<=parseInt(total))
-        {
-            localStorage.pendg=parseInt(pendg)+parseInt(cor);
-            scor(cor);
-           try
-           {
-            const result=await axios.post("http://localhost:8000/crecur/"+gmal+"/"+cor)
-            {
-                result?alert(cor+" eUSD instance has been created and sent for approval"):alert("Try again");
-                window.location.reload(5);
-            }
-           }
-           catch(e)
-           {
-            console.log(e);
-           }
-        }
-        else
-        {
-            scor();
-            alert("units maximum "+ total +" And select units");
         }
     }
     const Clear=async()=>
@@ -258,12 +243,12 @@ export const Dashboard=()=>
             localStorage.pendg=parseInt(pendg)-parseInt(vpp.Units);
             localStorage.unit=parseInt(unit)+parseInt(vpp.Units);
             localStorage.limit=0;
-            const viewpp=await axios.post("http://localhost:8000/viewpp/"+vpp.Gmail+"/"+vpp.Units)
+            const viewpp=await axios.post("http://localhost:8000/viewpp/"+vpp.Gmail+"/"+vpp.Units+"/"+vpp.In)
             {
                 viewpp?alert("Approved"):alert("Try again");
                 localStorage.limit=usd;
             }
-            await axios.post("http://localhost:8000/sviewpp/"+vpp.Gmail+"/"+vpp.Units)
+            await axios.post("http://localhost:8000/sviewpp/"+vpp.Gmail+"/"+vpp.Units+"/"+vpp.In)
             const viewpp1=await axios.post("http://localhost:8000/delviewpp/"+vpp.Units)
             {
                 viewpp1?window.location.reload(3):alert("Try again");
@@ -298,11 +283,12 @@ export const Dashboard=()=>
         console.log(e);
        }
        const currentDate = new Date();
-       if (currentDate.getDate() !== prevdate.getDate())
+       if (currentDate.getDate() !== prevdate)
         {
          sval(parseFloat(val)+0.000205);
          localStorage.usdval=val;
          sprevdate(currentDate);
+         localStorage.predate=prevdate;
        }
     }, [])
     return(
@@ -378,7 +364,7 @@ export const Dashboard=()=>
                                 <select id="land" name="currency" value={land} onChange={(e)=>sland(e.target.value)}>
                                     <option> Choose Currency</option>
                                     <option value="Land">Land</option>
-                                    <option value="USD">eUSD</option>
+                                    <option value="eUSD">eUSD</option>
                                 </select>
                                 </label>
                                 <button onClick={Land} style={{ margin: "2% 0% 5% 43%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Create</button>
@@ -389,6 +375,14 @@ export const Dashboard=()=>
 {/* View pending purchases */}
                             <div className="editdis" style={{display:'none'}} id="vpp">
                                 <table className="pendtable">
+                                    <tr>
+                                        <td><b>S.No</b></td>
+                                        <td><b>Amount</b></td>
+                                        <td><b>Currency</b></td>
+                                        <td><b>User</b></td>
+                                        <td><b>Select</b></td>
+                                    </tr>
+                                    <br/>
                                    {
                                     curr.map((val,index)=>
                                     (
@@ -397,6 +391,9 @@ export const Dashboard=()=>
                                             <td>{index+1}</td>
                                             <td>
                                                 {val.Units}
+                                            </td>
+                                            <td>
+                                                {val.In}
                                             </td>
                                             <td>
                                                 <label for={index}>{val.Gmail}</label>
@@ -422,6 +419,13 @@ export const Dashboard=()=>
                             <div className="editdis" style={{display:'none'}} id="app">
                             <button onClick={PreList} style={{ margin: "2% 0% 5% 83%", width: '15%', height: '4vh',border:'none',borderRadius:'8px', backgroundColor:"royalblue", color: 'white' }}>Previous List</button>
                             <table className="pendtable">
+                                    <tr>
+                                        <td><b>S.No</b></td>
+                                        <td><b>Amount</b></td>
+                                        <td><b>Currency</b></td>
+                                        <td><b>User</b></td>
+                                    </tr>
+                                    <br/>
                                    {
                                     pp.map((val1,index)=>
                                     (
@@ -432,7 +436,10 @@ export const Dashboard=()=>
                                             {val1.Units}
                                             </td>
                                             <td>
-                                                <label for={index}>{val1.Gmail}</label>
+                                                {val1.In}
+                                            </td>
+                                            <td>
+                                                <label>{val1.Gmail}</label>
                                             </td>
                                         </tr>
                                         <br/>
@@ -447,14 +454,14 @@ export const Dashboard=()=>
                             <div className="editdis" style={{display:'none'}} id="svlb">
                             <div style={{textAlign:'center',marginTop:'25%'}}>
                                 {/* <div style={{display:'none'}}>{y=(parseInt(cor)-parseInt(usd))}</div> */}
-                                <label>Present eUSD value::{val}</label><br/>
+                                {/* <label>Current 1 Land Unit value in USD:{val}</label><br/> */}
                                     <label for='eusd'><b>The total value of eUSD in bank is : {usd}</b></label><br/>
-                                    <label for="eusd"><b>Pending Land:{pendg}</b></label><br/>
-                                    <label for="eusd"><b>Pending Land <i>(in eUSD)</i>:{pendg*val}</b></label><br/>
-                                    <label for='eusd'><b>The number of Land's created till now: {unit}</b></label><br/>
+                                    <label for="eusd"><b>Pending Land units :{pendg}</b></label><br/>
+                                    {/* <label for="eusd"><b>Pending Land <i>(in eUSD)</i>:{pendg*val}</b></label><br/> */}
+                                    <label for='eusd'><b>The number of Land created till now: {unit}</b></label><br/>
                                     {/* <label for='eusd'><b>Available USD in Bank: {avil}</b></label><br/><br/> */}
-                                    <label for='eusd'><b>The number of Land's created till now: {unit*val}</b></label><br/>
-                                    <label for='eusd'><b>eUSD possible to be created:{limit}</b></label>
+                                    {/* <label for='eusd'><b>The number of Land's created till now: {unit*val}</b></label><br/> */}
+                                    <label for='eusd'><b>Land Units possible to be created:{limit}</b></label>
                                     {/* <button id={1} onClick={Limitdis}><b>Limit</b></button><div>{limit}</div> */}
                                 </div>
                             </div>
