@@ -167,6 +167,7 @@ export const Dashboard=()=>
     const Land=async(e)=>
     {
         localStorage.p=0;
+        localStorage.q=0;
         if(cor<=parseInt(total))
         {
             if(land=="Land")
@@ -243,6 +244,7 @@ export const Dashboard=()=>
     const Viewpp=async()=>
     {
         localStorage.p=0;
+        localStorage.q=0;
         try
         {
             if(vpp.In=="Land")
