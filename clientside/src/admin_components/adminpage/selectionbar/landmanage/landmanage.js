@@ -123,7 +123,6 @@ export const Landmanage=()=>
             console.log(e);
         }
     }
-
     //Search data in change land project
     const Search=async()=>
     {
@@ -399,11 +398,13 @@ export const Landmanage=()=>
                                     sld.map((val2,index)=>
                                     (
                                         <>
-                                        <p style={{display:"none"}}>{x=x+(parseInt(val2.project_value))}</p>
+                                        <p style={{display:"none"}}>{x=x+(parseInt(val2.project_value))}
+                                        {localStorage.totalland=x}</p>
                                             <tr>
                                                 <td><b>{index+1}</b></td>
                                                 <td><b>Land Project name</b></td>
                                                 <td>{val2.project_name}</td>
+                                                {console.log(localStorage.landlimit)}
                                             </tr>
                                             <tr>
                                                 <td></td>

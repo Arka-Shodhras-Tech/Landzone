@@ -191,7 +191,7 @@ export const Usermanage=()=>
     const Confirm=(e)=>
     {
         e.preventDefault();
-        emailjs.sendForm('service_yth8b2s', 'template_9bpmz3j', form.current, '10_WMH5qM1GoLv6-g')
+        emailjs.sendForm('service_pa9f60g', 'template_ytccqn8', form.current, 'p9psZmdJ3HsKrmRoN')
         .then((result) => {
             result.data?alert("Mail not sent") :alert("Mail sent");
             window.location.reload()

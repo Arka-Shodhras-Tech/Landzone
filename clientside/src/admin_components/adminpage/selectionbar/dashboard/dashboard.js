@@ -33,6 +33,10 @@ export const Dashboard=()=>
     const usd=localStorage.usd;
     const limit=localStorage.limit;
     const total=localStorage.total;
+    const totalland=localStorage.totalland;
+    const landpend=localStorage.landpend;
+    const landunit=localStorage.landunit;
+    const landlimit=localStorage.landlimit;
 
 // Create currency
     const CC=async()=>
@@ -87,6 +91,7 @@ export const Dashboard=()=>
         if(parseInt(p)===0)
         {
             localStorage.limit=parseInt(usd)-(parseInt(pendg)+parseInt(unit))
+            localStorage.landlimit=parseInt(totalland)-(parseInt(landpend)+parseInt(landunit))
             localStorage.p=p+1;
         }
         document.getElementById('cc').style.display='none';
@@ -151,13 +156,23 @@ export const Dashboard=()=>
             console.log(e);
         }
     }
+
+// create currency
     const Land=async(e)=>
     {
         localStorage.p=0;
         if(cor<=parseInt(total))
         {
-            localStorage.pendg=parseInt(pendg)+parseInt(cor);
-            scor(cor);
+            if(land=="Land")
+            {
+                localStorage.landpend=parseInt(landpend)+parseInt(cor);
+                scor(cor);
+            }
+            else
+            {
+                localStorage.pendg=parseInt(pendg)+parseInt(cor);
+                scor(cor);
+            }
             try
             {
              const result=await axios.post("http://localhost:8000/crecur/"+gmal+"/"+cor+"/"+land)
@@ -179,6 +194,8 @@ export const Dashboard=()=>
         localStorage.avil=0;
         localStorage.usd=0;
         localStorage.limit=0;
+        localStorage.landpend=0;
+        localStorage.landunit=0;
        try
        {
         (await axios.post("http://localhost:8000/delecurr")&&
@@ -215,13 +232,23 @@ export const Dashboard=()=>
     {
         document.getElementById('prevlist').style.display="block";
     }
+
+// view pending approval
     const Viewpp=async()=>
     {
         localStorage.p=0;
         try
         {
-            localStorage.pendg=parseInt(pendg)-parseInt(vpp.Units);
-            localStorage.unit=parseInt(unit)+parseInt(vpp.Units);
+            if(vpp.In=="Land")
+            {
+                localStorage.landpend=parseInt(landpend)-parseInt(vpp.Units);
+                localStorage.landunit=parseInt(landunit)+parseInt(vpp.Units);
+            }
+            else
+            {
+                localStorage.pendg=parseInt(pendg)-parseInt(vpp.Units);
+                localStorage.unit=parseInt(unit)+parseInt(vpp.Units);
+            }
             localStorage.limit=0;
             const viewpp=await axios.post("http://localhost:8000/viewpp/"+vpp.Gmail+"/"+vpp.Units+"/"+vpp.In)
             {
@@ -430,21 +457,7 @@ export const Dashboard=()=>
                             </div>
 
 
-{/* Show value in Land */}
-                            {/* <div className="editdis" style={{display:'none'}} id="svlb">
-                            <div style={{textAlign:'center',marginTop:'25%'}}>
-                                <div style={{display:'none'}}>{y=(parseInt(cor)-parseInt(usd))}</div>
-                                <label>Current 1 Land Unit value in USD:{val}</label><br/>
-                                    <label for='eusd'><b>The total value of eUSD in bank is : {usd}</b></label><br/>
-                                    <label for="eusd"><b>Pending Land units :{pendg}</b></label><br/>
-                                    <label for="eusd"><b>Pending Land <i>(in eUSD)</i>:{pendg*val}</b></label><br/>
-                                    <label for='eusd'><b>The number of Land created till now: {unit}</b></label><br/>
-                                    <label for='eusd'><b>Available USD in Bank: {avil}</b></label><br/><br/>
-                                    <label for='eusd'><b>The number of Land's created till now: {unit*val}</b></label><br/>
-                                    <label for='eusd'><b>Land Units possible to be created:{limit}</b></label>
-                                    <button id={1} onClick={Limitdis}><b>Limit</b></button><div>{limit}</div>
-                                </div>
-                            </div> */}
+
 
 
 
@@ -455,13 +468,6 @@ export const Dashboard=()=>
                             <button onClick={Clear} style={{ margin: "5% 0% 0% 55%", width: '10%', height: '4vh', backgroundColor: 'red', color: 'white' }}><b>Clear All</b></button>
                             </div>
                             <div style={{textAlign:'center',marginTop:'18%'}}>
-                                {/* <div style={{display:'none'}}>{y=(parseInt(cor)-parseInt(usd))}</div> */}
-                                    {/* <label for='eusd'><b>The total value of USD in bank is : {usd}</b></label><br/>
-                                    <label for="eusd"><b>Pending eUSD:{pendg}</b></label><br/>
-                                    <label for='eusd'><b>the number of eUSD's created till now: {unit}</b></label><br/>
-                                    <label for='eusd'><b>Available USD in Bank: {avil}</b></label><br/><br/>
-                                    <label for='eusd'><b>eUSD possible to be created:{limit}</b></label><br/>
-                                    <button id={1} onClick={Limitdis}><b>Limit</b></button><div>{limit}</div> */}
                                     <table>
                                         <tr>
                                         <th>Currency</th>
@@ -472,10 +478,10 @@ export const Dashboard=()=>
                                         </tr>
                                         <tr style={{color:'navy'}}>
                                             <td style={{height:'12vh',color:'blue'}}><b>Land</b></td>
-                                            <td>{usd}</td>
-                                            <td>{unit}</td>
-                                            <td>{pendg}</td>
-                                            <td>{limit}</td>
+                                            <td>{totalland}</td>
+                                            <td>{landunit}</td>
+                                            <td>{landpend}</td>
+                                            <td>{landlimit}</td>
                                         </tr>
                                         <tr style={{color:'green'}}>
                                             <td style={{color:'blue'}}><b>eUSD</b></td>
