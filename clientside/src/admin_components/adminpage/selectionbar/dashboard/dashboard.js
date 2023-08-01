@@ -26,6 +26,7 @@ export const Dashboard=()=>
     const [prevdate, sprevdate] = useState(predate);
     const [j,sj]=useState(0);
     const p=localStorage.p;
+    const q=localStorage.q;
     const gmal=localStorage.gmail;
     const unit=localStorage.unit;
     const pendg=localStorage.pendg;
@@ -93,6 +94,11 @@ export const Dashboard=()=>
             localStorage.limit=parseInt(usd)-(parseInt(pendg)+parseInt(unit))
             localStorage.landlimit=parseInt(totalland)-(parseInt(landpend)+parseInt(landunit))
             localStorage.p=p+1;
+        }
+        if(parseInt(q)===0)
+        {
+            localStorage.landlimit=parseInt(totalland)-(parseInt(landpend)+parseInt(landunit))
+            localStorage.q=q+1;   
         }
         document.getElementById('cc').style.display='none';
         document.getElementById('vpp').style.display='none';
