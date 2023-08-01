@@ -43,7 +43,6 @@ export const Dashboard=()=>
         document.getElementById('app').style.display='none';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='none';
-        document.getElementById('svlb').style.display='none';
         document.getElementById('prevlist').style.display="none";
     }
     const Vpp=()=>
@@ -53,7 +52,6 @@ export const Dashboard=()=>
         document.getElementById('app').style.display='none';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='none';
-        document.getElementById('svlb').style.display='none';
         document.getElementById('prevlist').style.display="none";
     }
     const App=async()=>
@@ -63,7 +61,6 @@ export const Dashboard=()=>
         document.getElementById('app').style.display='block';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='none';
-        document.getElementById('svlb').style.display='none';
         document.getElementById('prevlist').style.display="none";
     }
     const Evb=async()=>
@@ -72,7 +69,6 @@ export const Dashboard=()=>
         document.getElementById('cc').style.display='none';
         document.getElementById('vpp').style.display='none';
         document.getElementById('app').style.display='none';
-        document.getElementById('svlb').style.display='none';
         document.getElementById('prevlist').style.display="none";
         if(j==1)
         {
@@ -84,22 +80,6 @@ export const Dashboard=()=>
         }
         document.getElementById('svb').style.display='none';
         sj(1);
-    }
-    const Svlb=async()=>
-    {
-        document.getElementById('cc').style.display='none';
-        document.getElementById('vpp').style.display='none';
-        document.getElementById('app').style.display='none';
-        document.getElementById('evb').style.display='none';
-        document.getElementById('svlb').style.display='block';
-        document.getElementById('svb').style.display='none';
-        document.getElementById('prevlist').style.display="none";   
-        localStorage.avil=(usd-unit)
-        if(parseInt(p)===0)
-        {
-            localStorage.limit=parseInt(usd)-(parseInt(pendg)+parseInt(unit))
-            localStorage.p=p+1;
-        }
     }
     const Svb=async()=>
     {
@@ -144,7 +124,7 @@ export const Dashboard=()=>
         try
         {
             localStorage.usd=num;
-            localStorage.limit=0;
+            // localStorage.limit=0;
             const responce1=await axios.get("http://localhost:8000/eviusdget/"+gmal)
             {
                 if(responce1.data)
@@ -303,8 +283,8 @@ export const Dashboard=()=>
                         <Link className="dashitem" onClick={CC}>Create Currency (Land/USD Units)</Link>
                         <Link className="dashitem" onClick={Vpp}>view Pending Purchases</Link>
                         <Link className="dashitem" onClick={App}>Approved Purchases</Link>
-                        <Link className="dashitem" onClick={Svlb}>Show Value of Land in Bank</Link>
-                        <Link className="dashitem" onClick={Svb}>Show Value of USD in Bank</Link>
+                        {/* <Link className="dashitem" onClick={Svlb}>Show Value of Land in Bank</Link> */}
+                        <Link className="dashitem" onClick={Svb}>Show Value of Land/USD in Bank</Link>
                     </div>
                             <div>
                                 <table className="dashtable">
@@ -451,20 +431,20 @@ export const Dashboard=()=>
 
 
 {/* Show value in Land */}
-                            <div className="editdis" style={{display:'none'}} id="svlb">
+                            {/* <div className="editdis" style={{display:'none'}} id="svlb">
                             <div style={{textAlign:'center',marginTop:'25%'}}>
-                                {/* <div style={{display:'none'}}>{y=(parseInt(cor)-parseInt(usd))}</div> */}
-                                {/* <label>Current 1 Land Unit value in USD:{val}</label><br/> */}
+                                <div style={{display:'none'}}>{y=(parseInt(cor)-parseInt(usd))}</div>
+                                <label>Current 1 Land Unit value in USD:{val}</label><br/>
                                     <label for='eusd'><b>The total value of eUSD in bank is : {usd}</b></label><br/>
                                     <label for="eusd"><b>Pending Land units :{pendg}</b></label><br/>
-                                    {/* <label for="eusd"><b>Pending Land <i>(in eUSD)</i>:{pendg*val}</b></label><br/> */}
+                                    <label for="eusd"><b>Pending Land <i>(in eUSD)</i>:{pendg*val}</b></label><br/>
                                     <label for='eusd'><b>The number of Land created till now: {unit}</b></label><br/>
-                                    {/* <label for='eusd'><b>Available USD in Bank: {avil}</b></label><br/><br/> */}
-                                    {/* <label for='eusd'><b>The number of Land's created till now: {unit*val}</b></label><br/> */}
+                                    <label for='eusd'><b>Available USD in Bank: {avil}</b></label><br/><br/>
+                                    <label for='eusd'><b>The number of Land's created till now: {unit*val}</b></label><br/>
                                     <label for='eusd'><b>Land Units possible to be created:{limit}</b></label>
-                                    {/* <button id={1} onClick={Limitdis}><b>Limit</b></button><div>{limit}</div> */}
+                                    <button id={1} onClick={Limitdis}><b>Limit</b></button><div>{limit}</div>
                                 </div>
-                            </div>
+                            </div> */}
 
 
 
@@ -476,16 +456,39 @@ export const Dashboard=()=>
                             </div>
                             <div style={{textAlign:'center',marginTop:'18%'}}>
                                 {/* <div style={{display:'none'}}>{y=(parseInt(cor)-parseInt(usd))}</div> */}
-                                    <label for='eusd'><b>The total value of USD in bank is : {usd}</b></label><br/>
+                                    {/* <label for='eusd'><b>The total value of USD in bank is : {usd}</b></label><br/>
                                     <label for="eusd"><b>Pending eUSD:{pendg}</b></label><br/>
                                     <label for='eusd'><b>the number of eUSD's created till now: {unit}</b></label><br/>
-                                    {/* <label for='eusd'><b>Available USD in Bank: {avil}</b></label><br/><br/> */}
+                                    <label for='eusd'><b>Available USD in Bank: {avil}</b></label><br/><br/>
                                     <label for='eusd'><b>eUSD possible to be created:{limit}</b></label><br/>
-                                    {/* <button id={1} onClick={Limitdis}><b>Limit</b></button><div>{limit}</div> */}
-                                </div>
+                                    <button id={1} onClick={Limitdis}><b>Limit</b></button><div>{limit}</div> */}
+                                    <table>
+                                        <tr>
+                                        <th>Currency</th>
+                                        <th>The total value of Land/USD Bank</th>
+                                        <th>Number of Units Created</th>
+                                        <th>Units Pending approval</th>
+                                        <th>Units available to be created</th>
+                                        </tr>
+                                        <tr style={{color:'navy'}}>
+                                            <td style={{height:'12vh',color:'blue'}}><b>Land</b></td>
+                                            <td>{usd}</td>
+                                            <td>{unit}</td>
+                                            <td>{pendg}</td>
+                                            <td>{limit}</td>
+                                        </tr>
+                                        <tr style={{color:'green'}}>
+                                            <td style={{color:'blue'}}><b>eUSD</b></td>
+                                            <td>{usd}</td>
+                                            <td>{unit}</td>
+                                            <td>{pendg}</td>
+                                            <td>{limit}</td>
+                                        </tr>
+                                    </table>
+                            </div>
                                 <button onClick={Save} style={{ margin: "15% 0% 0% 78%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Save</button>
                             </div>
-
+{/* Previous List */}
                             <div className="editdis" style={{display:'none'}} id="prevlist">
                                 <table className="pendtable" style={{marginTop:'5%'}}>
                                 {
@@ -497,6 +500,7 @@ export const Dashboard=()=>
                                             <td>
                                             {pre.Units}
                                             </td>
+                                            <td>{pre.In}</td>
                                             <td>
                                                 <label for={index}>{pre.Gmail}</label>
                                             </td>

@@ -418,7 +418,7 @@ export const Landmanage=()=>
                                     ))
                                 }
                                 <tr>
-                                    <td style={{fontSize:'28px', backgroundColor:"lightgreen",color:'black'}} colSpan={3}>The Land total value of all projects is <b style={{color:"#330033"}}>{x}</b> USD</td>
+                                    <td style={{fontSize:'28px', backgroundColor:"lightgreen",color:'black'}} colSpan={3}> Total value of Land in the bank is  <b style={{color:"#330033"}}>{x}</b> USD</td>
                                 </tr>
                             </table>
                         </div>

@@ -187,7 +187,7 @@ section
 .dash
 {
     background-color:antiquewhite;
-    padding: 1vh 0vh 5.9vh 5vh ;
+    padding: 1vh 0vh 0vh 5vh ;
     height: 100%;
 }
 
@@ -219,7 +219,7 @@ section
     color:aliceblue;
     background-color:rgb(69, 68, 68);
     display:flex;
-    margin-top: 8vh;
+    margin-top: 10vh;
     width: 34vh;
     transition: 0.5s;
     border-radius: 20px;
