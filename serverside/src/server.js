@@ -16,6 +16,11 @@ app.post('/register/:name/:gmail/:password/:cpassword/:phonenumber',async(req,re
     const details=await db.collection('userlogin').insertOne({Name:req.params.name,Gmail:req.params.gmail,Password:req.params.password,Cpassword:req.params.cpassword,Phone_Number:req.params.phonenumber})
     res.json(details);
 })
+app.post('/approvetoadmin/:name/:gmail/:password/:cpassword/:phonenumber',async(req,res)=>//register
+{
+    const details=await db.collection('user_to_admin').insertOne({Name:req.params.name,Gmail:req.params.gmail,Password:req.params.password,Cpassword:req.params.cpassword,Phone_Number:req.params.phonenumber})
+    res.json(details);
+})
 app.post('/userapprove/:name/:gmail/:phonenumber',async(req,res)=>//register
 {
     const details=await db.collection('saved_userlogin').insertOne({Name:req.params.name,Gmail:req.params.gmail,Phone_Number:req.params.phonenumber})
@@ -302,7 +307,7 @@ app.post('/deleteadmin/:gmail',async(req,res)=>
 }
 )
 app.get('/adminlist',async(req,res)=>{
-    const details=await db.collection('adminlogin').find().toArray()
+    const details=await db.collection('Approve_List').find().toArray()
     res.json(details);
 })
 

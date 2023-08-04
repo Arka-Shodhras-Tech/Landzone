@@ -32,6 +32,7 @@ export const Usermanage=()=>
         document.getElementById('disenadisplay').style.display="none";
         document.getElementById('transction').style.display="none";
         document.getElementById('reasondisplay').style.display='none';
+        document.getElementById('personinfo').style.display="none";
         document.getElementById("approvelist").style.display="none";
     }
 
@@ -44,6 +45,7 @@ export const Usermanage=()=>
          document.getElementById('editdisplay').style.display="none";
          document.getElementById('transction').style.display="none";
          document.getElementById('reasondisplay').style.display='none';
+         document.getElementById('personinfo').style.display="none";
          document.getElementById("approvelist").style.display="none";
      }
 
@@ -55,6 +57,7 @@ export const Usermanage=()=>
         document.getElementById('editdisplay').style.display="block";
         document.getElementById('disenadisplay').style.display="none";
         document.getElementById('transction').style.display="none";
+        document.getElementById('personinfo').style.display="none";
         document.getElementById('reasondisplay').style.display='none'
     }
 
@@ -66,6 +69,8 @@ export const Usermanage=()=>
         document.getElementById('disenadisplay').style.display="block";
         document.getElementById('transction').style.display="none";
         document.getElementById('editdisplay').style.display="none";
+        document.getElementById('personinfo').style.display="none";
+        document.getElementById('reasondisplay').style.display="none";
     }
 
 // View transaction history
@@ -76,6 +81,7 @@ export const Usermanage=()=>
          document.getElementById('editdisplay').style.display="none";
          document.getElementById('disenadisplay').style.display="none";
          document.getElementById('transction').style.display='block';
+         document.getElementById('personinfo').style.display="none";
          document.getElementById('reasondisplay').style.display='none';
      }
 
@@ -91,23 +97,7 @@ export const Usermanage=()=>
         document.getElementById('confirm').style.display='block';
         document.getElementById('reasondisplay').style.display='none';
     }
-    const Disconfirm=async()=>
-    {
-        document.getElementById('reasondisplay').style.display='none'
-    }
-    const Hidden=()=>
-    {
 
-    }
-
-
-// Approve users
-    const Approvehand=()=>
-    {
-        // const updatedArrays=[...approve];
-        stdata(approve);
-        si(i+1);
-    }   
     const Approvee=async()=>
     {
         try
@@ -540,28 +530,6 @@ export const Usermanage=()=>
                             </tr>
                                 ))
                             }
-                            {/* <tr>
-                                <th>S.NO</th>
-                                <th>Name of the bank</th>
-                                <th>Sender Email</th>
-                                <th>Sender Account Number</th>
-                                <th>Amount Transfer</th>
-                                <th>Payment id</th>
-                                <th>Transfer Date and Time</th>
-                            </tr>
-                            {
-                                    pymt.map((val5, index) => (
-                                        <tr>
-                                            <td>{index + 1}</td>
-                                            <td>{val5.Bank_details}</td>
-                                            <td>{val5.Sender_email}</td>
-                                            <td>{val5.Sender_Acc_Number}</td>
-                                            <td>{val5.Amount_Transfered}</td>
-                                            <td>{val5.Payment_ref_number}</td>
-                                            <td>{val5.Transaction_date}</td>
-                                        </tr>
-                                    ))
-                                } */}
                         </table>
                         </div>
                 </section>

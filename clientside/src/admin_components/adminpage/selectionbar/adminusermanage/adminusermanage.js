@@ -40,7 +40,7 @@ export const Adminusermanage=()=>
     }
     useEffect(()=>
     {
-        axios.get("http://localhost:8000/aufl")
+        axios.get("http://localhost:8000/disableshow")
         .then((result) => {
             sdisen(result.data)
         })
@@ -55,12 +55,8 @@ export const Adminusermanage=()=>
         <div className="home">
             <div className="adpage">
                 <Comp/>
-                <section>
-                    <div className="dash">
-                            <Link className="adminuseritem" onClick={Ea}>Enable Admin</Link>
-                            <Link className="adminuseritem" onClick={Da}>Disable Admin</Link>
-                    </div>
-                    <div className="editdis" style={{display:'none'}} id="enableadmin">
+                <section className="dash">
+                    <div className="editdis">
                         <table className="aufltable">
                         <tr>
                             <th>S.no</th>
@@ -72,56 +68,13 @@ export const Adminusermanage=()=>
                         (
                             <tr>
                                 <td><b>{index+1}</b></td>
-                                <td style={{width:'50%'}}>
-                                    <tr>
-                                        <td>{enable.name}</td>
-                                        <td style={{paddingLeft:"50%"}}>
-                                            <tr>
-                                                <td style={{color:"darkgreen"}}>{enable.gmail}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{enable.phone_number}</td>
-                                            </tr>
-                                        </td>
-                                    </tr>
+                                <td style={{paddingLeft:'20%'}}>
+                                    <tr>{enable.Name}</tr>
+                                    <tr>{enable.Gmail}</tr>
+                                    <tr>{enable.Phone_Number}</tr>
                                 </td>
                                 <td>
-                                    <button id={enable.gmail} onClick={Approve} onClickCapture={(e)=>sapprove(enable)} style={{ margin: "2% 0% 0% 43%", width: '45%', height: '4vh', backgroundColor: 'blue', color: 'white',border:'none', borderRadius:'20px'}}>Approve</button>
-                                </td>
-                            </tr>
-                        ))
-                       }
-                       <tr>
-                       </tr>
-                        </table>
-                    </div>
-                    <div className="editdis" style={{display:'none'}} id="disableadmin">
-                    <table className="aufltable">
-                        <tr>
-                            <th>S.no</th>
-                            <th>Detilas</th>
-                            <th>Select</th>
-                        </tr>
-                       {
-                        disable.map((disab,index)=>
-                        (
-                            <tr>
-                                <td><b>{index+1}</b></td>
-                                <td style={{width:'50%'}}>
-                                    <tr>
-                                        <td>{disab.Name}</td>
-                                        <td style={{paddingLeft:"50%"}}>
-                                            <tr>
-                                                <td style={{color:"darkgreen"}}>{disab.Gmail}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{disab.phone_number}</td>
-                                            </tr>
-                                        </td>
-                                    </tr>
-                                </td>
-                                <td>
-                                    <button id={disab.gmail} onClick={Disapprove} onClickCapture={(e)=>sdisapprove(disab)} style={{ margin: "2% 0% 0% 43%", width: '45%', height: '4vh', backgroundColor: 'blue', color: 'white',border:'none', borderRadius:'20px'}}>Disapprove</button>
+                                    <button id={enable.gmail} onClick={Approve} onClickCapture={(e)=>sapprove(enable)} style={{ margin: "2% 0% 0% 43%", width: '45%', height: '4vh', backgroundColor: 'blue', color: 'white',border:'none', borderRadius:'20px'}}>Enable As Admin</button>
                                 </td>
                             </tr>
                         ))
