@@ -13,12 +13,12 @@ try
 //user data server//
 app.post('/register/:name/:gmail/:password/:cpassword/:phonenumber',async(req,res)=>//register
 {
-    const details=await db.collection('userlogin').insertOne({name:req.params.name,gmail:req.params.gmail,password:req.params.password,cpassword:req.params.cpassword,phone_number:req.params.phonenumber})
+    const details=await db.collection('userlogin').insertOne({name:req.params.name,gmail:req.params.gmail,password:req.params.password,cpassword:req.params.cpassword,Phone_Number:req.params.phonenumber})
     res.json(details);
 })
 app.post('/userapprove/:name/:gmail/:phonenumber',async(req,res)=>//register
 {
-    const details=await db.collection('saved_userlogin').insertOne({name:req.params.name,gmail:req.params.gmail,phone_number:req.params.phonenumber})
+    const details=await db.collection('saved_userlogin').insertOne({name:req.params.name,gmail:req.params.gmail,Phone_Number:req.params.phonenumber})
     res.json(details);
 })
 app.get('/check/:gmail',async(req,res)=>//mail check in register
@@ -270,7 +270,34 @@ app.get('/gettransfer',async(req,res)=>
 //     res.json(details);
 // })
 
+// Admin user management
 
+// Enable user
+
+app.post('/enableadmin/:approve',async(req,res)=>
+{
+   try
+   {
+    const details=await db.collection("adminlogin").insertOne(approve)
+    res.json(details);
+    const details1=await db.collection("saved_adminlogin").insertOne(approve)
+    res.json(details1);
+   }
+   catch(e)
+   {
+    console.log(e);
+   }
+})
+app.post('/deleteadmin/:gmail',async(req,res)=>
+{
+    const details2=await db.collection('adminlogin').deleteOne({Gmail:req.params.gmail})
+    res.json(details2);
+}
+)
+app.get('/adminlist',async(req,res)=>{
+    const details=await db.collection('adminlogin').find().toArray()
+    res.json(details);
+})
 
 
 

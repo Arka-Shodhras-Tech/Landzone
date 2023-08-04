@@ -279,6 +279,7 @@ section
 .aufltable th
 {
     border:solid 2px blue;
+    height: 5vh;
 }
 .aufltable td
 {
@@ -436,4 +437,22 @@ section
     border-radius: 5px;
     font-size: 20px;
     background: none;
+}
+.adminuseritem
+{
+    padding: 1% 1%;
+    text-decoration: none;
+    color:white;
+    background-color:blueviolet;
+    display:flex;
+    margin-top: 25vh;
+    width: 24vh;
+    border-radius: 20px;
+    justify-content: center;
+    transition: 0.5s;
+}
+.adminuseritem:hover
+{
+    background-color: aliceblue;
+    color: black;
 }

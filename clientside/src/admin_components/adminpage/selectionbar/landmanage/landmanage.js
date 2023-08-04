@@ -254,7 +254,7 @@ export const Landmanage=()=>
                             <tr>
                                 {/* {data.fillter(project=>projectname.toLowerclass().include(search.toLowercase())).map(val1)} */}
                                     <td><label for='search' className="landinput1" ><b>Land Project Name</b></label></td>
-                                    <td><input id='search' value={cpn}   type="text" className="landinput"  placeholder="Enter project name" onChange={(e)=>scpn(e.target.value)} onClick={Proname}></input><Link style={{padding:'2px',borderRadius:'4px',fontSize:'17px',backgroundColor:'green',textDecoration:'none',marginLeft:'1vh',color:'white'}} onClick={Search}>search</Link>
+                                    <td><input id='search' value={cpn}   type="text" autoComplete="none" className="landinput"  placeholder="Enter project name" onChange={(e)=>scpn(e.target.value)} onClick={Proname}></input><Link style={{padding:'2px',borderRadius:'4px',fontSize:'17px',backgroundColor:'green',textDecoration:'none',marginLeft:'1vh',color:'white'}} onClick={Search}>search</Link>
                                     <div className="projectname" style={{display:'none'}} id="proname">
                                     {
                                     sld.filter(project=>project.project_name.includes(cpn)).map((project)=>
