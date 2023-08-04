@@ -13,27 +13,27 @@ try
 //user data server//
 app.post('/register/:name/:gmail/:password/:cpassword/:phonenumber',async(req,res)=>//register
 {
-    const details=await db.collection('userlogin').insertOne({name:req.params.name,gmail:req.params.gmail,password:req.params.password,cpassword:req.params.cpassword,Phone_Number:req.params.phonenumber})
+    const details=await db.collection('userlogin').insertOne({Name:req.params.name,Gmail:req.params.gmail,Password:req.params.password,Cpassword:req.params.cpassword,Phone_Number:req.params.phonenumber})
     res.json(details);
 })
 app.post('/userapprove/:name/:gmail/:phonenumber',async(req,res)=>//register
 {
-    const details=await db.collection('saved_userlogin').insertOne({name:req.params.name,gmail:req.params.gmail,Phone_Number:req.params.phonenumber})
+    const details=await db.collection('saved_userlogin').insertOne({Name:req.params.name,Gmail:req.params.gmail,Phone_Number:req.params.phonenumber})
     res.json(details);
 })
 app.get('/check/:gmail',async(req,res)=>//mail check in register
 {
-    const details=await db.collection('userlogin').findOne({gmail:req.params.gmail});
+    const details=await db.collection('userlogin').findOne({Gmail:req.params.gmail});
     res.json(details);
 })
 app.get('/login/:gmail/:password',async(req,res)=>//login
 {
-    const details=await db.collection('userlogin').findOne({gmail:req.params.gmail,password:req.params.password});
+    const details=await db.collection('userlogin').findOne({Gmail:req.params.gmail,Password:req.params.password});
     res.json(details);
 })
 app.post('/update/:gmail/:password/:cpassword',async(req,res)=>//forget
 {
-    const details=await db.collection('userlogin').findOneAndUpdate({gmail:req.params.gmail},{$set:{password:req.params.password,cpassword:req.params.cpassword}})
+    const details=await db.collection('userlogin').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Password:req.params.password,Cpassword:req.params.cpassword}})
     res.json(details);
 })
 
@@ -42,7 +42,7 @@ app.post('/update/:gmail/:password/:cpassword',async(req,res)=>//forget
 //headbar//..
 app.get('/headcheck/:name',async(req,res)=>
 {
-    const details=await db.collection('userlogin').findOne({name:req.params.name});
+    const details=await db.collection('userlogin').findOne({Name:req.params.name});
     res.json(details);
 })
 
@@ -50,18 +50,27 @@ app.get('/headcheck/:name',async(req,res)=>
 // Admin data server//
 app.get('/adminlogin/:mail/:password',async(req,res)=>//login
 {
-    const details=await db.collection('adminlogin').findOne({mail:req.params.gmail,password:req.params.password});
+    const details=await db.collection('adminlogin').findOne({Gmail:req.params.mail,Password:req.params.password});
     res.json(details);
 })
 app.get('/admincheck/:gmail',async(req,res)=>//mail check
 {
-    const details=await db.collection('adminlogin').findOne({gmail:req.params.gmail});
+    const details=await db.collection('adminlogin').findOne({Gmail:req.params.gmail});
     res.json(details);
 })
 app.post('/adminregister/:name/:gmail/:password/:cpassword/:phonenumber',async(req,res)=>//register
 {
-    const details=await db.collection('adminlogin').insertOne({name:req.params.name,gmail:req.params.gmail,password:req.params.password,cpassword:req.params.cpassword,phone_number:req.params.phonenumber})
-    res.json(details);
+    try
+    {
+        const details=await db.collection('adminlogin').insertOne({Name:req.params.name,Gmail:req.params.gmail,Password:req.params.password,Cpassword:req.params.cpassword,Phone_Number:req.params.phonenumber})
+        res.json(details);
+        const details1=await db.collection('saved_adminlogin').insertOne({Name:req.params.name,Gmail:req.params.gmail,Password:req.params.password,Cpassword:req.params.cpassword,Phone_Number:req.params.phonenumber})
+        res.json(details1);
+    }
+    catch(e)
+    {
+        console.log(e);
+    }
 })
 
 //Approve user from list
@@ -90,7 +99,7 @@ app.get('/approvedlist',async(req,res)=>{
 })
 app.post('/delapprovelist/:gmail',async(req,res)=>
 {
-    const details=await db.collection('userlogin').deleteOne({gmail:req.params.gmail})
+    const details=await db.collection('userlogin').deleteOne({Gmail:req.params.gmail})
     res.json(details);
 })
 app.post('/disapprove/:gmail',async(req,res)=>
@@ -280,8 +289,6 @@ app.post('/enableadmin/:approve',async(req,res)=>
    {
     const details=await db.collection("adminlogin").insertOne(approve)
     res.json(details);
-    const details1=await db.collection("saved_adminlogin").insertOne(approve)
-    res.json(details1);
    }
    catch(e)
    {
