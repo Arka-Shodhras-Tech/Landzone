@@ -285,6 +285,7 @@ section
 {
     text-align: center;
     /* border: 1px solid black; */
+    /* background-color:rgb(235, 69, 69); */
 }
 .updatedis
 {
@@ -438,6 +439,8 @@ section
     font-size: 20px;
     background: none;
 }
+
+/* Adminuser management */
 .adminuseritem
 {
     padding: 1% 1%;
@@ -455,4 +458,11 @@ section
 {
     background-color: aliceblue;
     color: black;
+}
+.admincheck
+{
+    margin-top: 50% ;
+    font-size: 3vh;
+    width: 33vh;
+    height: 5vh;
 }

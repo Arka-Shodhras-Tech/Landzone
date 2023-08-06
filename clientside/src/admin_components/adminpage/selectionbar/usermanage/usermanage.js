@@ -102,7 +102,7 @@ export const Usermanage=()=>
     {
         try
         {
-            const responce=await axios.get("http://localhost:8000/approvecheck/"+approve.gmail)
+            const responce=await axios.get("http://localhost:8000/approvecheck/"+approve.Gmail)
             if(responce.data)
             {
                 alert("Already approve data\nPlease refresh page");
@@ -111,9 +111,9 @@ export const Usermanage=()=>
             {
                 try
                 {
-                    const responce3=await axios.post("http://localhost:8000/approvelist/"+approve.name+"/"+approve.gmail+"/"+approve.phone_number)
+                    const responce3=await axios.post("http://localhost:8000/approvelist/"+approve.Name+"/"+approve.Gmail+"/"+approve.Phone_Number+"/"+approve.Password+"/"+approve.Cpassword)
                 {
-                    responce3 && axios.post("http://localhost:8000/delapprovelist/"+approve.gmail)?alert("Sucessfully Approved"):alert("Try again");
+                    responce3 && axios.post("http://localhost:8000/delapprovelist/"+approve.Gmail)?alert("Sucessfully Approved"):alert("Try again");
                     document.getElementById(approve._id).innerHTML="Approved";
                 }
                 }
@@ -122,7 +122,7 @@ export const Usermanage=()=>
                     console.log(e);
                 }
             }
-            smodname(approve.name);
+            smodname(approve.Name);
         }
         catch(err)
         {
@@ -314,12 +314,12 @@ export const Usermanage=()=>
                                                     </tr>
                                                     <tr>
                                                         <td height='160px' width={'280px'}>
-                                                            <p>{val1.name}</p>
+                                                            <p>{val1.Name}</p>
                                                         </td>
                                                         <td>
                                                        <td>
-                                                       <p>Gmail <b>{val1.gmail}</b></p>
-                                                        <p>Phone Number <b>{val1.phone_number}</b></p>
+                                                       <p>Gmail <b>{val1.Gmail}</b></p>
+                                                        <p>Phone Number <b>{val1.Phone_Number}</b></p>
                                                        </td>
                                                        <td width={'280px'}>
                                                        <p>

@@ -16,11 +16,6 @@ app.post('/register/:name/:gmail/:password/:cpassword/:phonenumber',async(req,re
     const details=await db.collection('userlogin').insertOne({Name:req.params.name,Gmail:req.params.gmail,Password:req.params.password,Cpassword:req.params.cpassword,Phone_Number:req.params.phonenumber})
     res.json(details);
 })
-app.post('/approvetoadmin/:name/:gmail/:password/:cpassword/:phonenumber',async(req,res)=>//register
-{
-    const details=await db.collection('user_to_admin').insertOne({Name:req.params.name,Gmail:req.params.gmail,Password:req.params.password,Cpassword:req.params.cpassword,Phone_Number:req.params.phonenumber})
-    res.json(details);
-})
 app.post('/userapprove/:name/:gmail/:phonenumber',async(req,res)=>//register
 {
     const details=await db.collection('saved_userlogin').insertOne({Name:req.params.name,Gmail:req.params.gmail,Phone_Number:req.params.phonenumber})
@@ -63,14 +58,17 @@ app.get('/admincheck/:gmail',async(req,res)=>//mail check
     const details=await db.collection('adminlogin').findOne({Gmail:req.params.gmail});
     res.json(details);
 })
+app.get('/saveadmincheck/:gmail',async(req,res)=>//mail check
+{
+    const details=await db.collection('saved_adminlogin').findOne({Gmail:req.params.gmail});
+    res.json(details);
+})
 app.post('/adminregister/:name/:gmail/:password/:cpassword/:phonenumber',async(req,res)=>//register
 {
     try
     {
         const details=await db.collection('adminlogin').insertOne({Name:req.params.name,Gmail:req.params.gmail,Password:req.params.password,Cpassword:req.params.cpassword,Phone_Number:req.params.phonenumber})
         res.json(details);
-        const details1=await db.collection('saved_adminlogin').insertOne({Name:req.params.name,Gmail:req.params.gmail,Password:req.params.password,Cpassword:req.params.cpassword,Phone_Number:req.params.phonenumber})
-        res.json(details1);
     }
     catch(e)
     {
@@ -85,17 +83,10 @@ app.get('/aufl',async(req,res)=>{
 })
 
 
-
-
-
-
-
-
-
 // Approve list from approve
-app.post('/approvelist/:name/:gmail/:phonenum',async(req,res)=>
+app.post('/approvelist/:name/:gmail/:phonenum/:password/:cpassword',async(req,res)=>
 {
-    const details=await db.collection('Approve_List').insertOne({Name:req.params.name,Gmail:req.params.gmail,Phone_Number:req.params.phonenum})
+    const details=await db.collection('Approve_List').insertOne({Name:req.params.name,Gmail:req.params.gmail,Phone_Number:req.params.phonenum,Password:req.params.password,Cpassword:req.params.cpassword})
     res.json(details);
 })
 app.get('/approvedlist',async(req,res)=>{
@@ -112,27 +103,19 @@ app.post('/disapprove/:gmail',async(req,res)=>
     const details=await db.collection('Approve_List').deleteOne({Gmail:req.params.gmail})
     res.json(details);
 })
+
 // Approve list check email id
 app.get('/approvecheck/:gmail',async(req,res)=>
 {
     const details=await db.collection('Approve_List').findOne({Gmail:req.params.gmail});
     res.json(details);
 })
-// app.post('/savedapprovelist/:name/:gmail/:phonenum',async(req,res)=>
-// {
-//     const details=await db.collection('Saved_Approve_List').insertOne({Name:req.params.name,Gmail:req.params.gmail,Phone_Number:req.params.phonenum})
-//     res.json(details);
-// })
 app.post('/updatenames/:name/:gmail/:phonenum',async(req,res)=>
 {
     const details=await db.collection('Approve_List').findOneAndUpdate({Gmail:req.params.gmail,Phone_Number:req.params.phonenum},{$set:{Name:req.params.name}})
     res.json(details);
 })
-// app.post('/savedupdatenames/:name/:gmail/:phonenum',async(req,res)=>
-// {
-//     const details=await db.collection('Saved_Approve_List').findOneAndUpdate({$set:{Name:req.params.name}},{Gmail:req.params.gmail,Phone_Number:req.params.phonenum})
-//     res.json(details);
-// })
+
 
 // Update and Disable and Enable user
 app.get('/disableshow',async(req,res)=>
@@ -241,9 +224,9 @@ app.get('/viewappdis',async(req,res)=>
     const details=await db.collection('pending_purchase').find().toArray()
     res.json(details)
 })
-app.post('/showvalue/:gmail/:usd/:pend/:unit/:avl/:lim',async(req,res)=>
+app.post('/showvalue/:gmail/:usd/:pend/:unit/:avl/:lim/:land/:landpend/:landunit/:landavil',async(req,res)=>
 {
-    const details=await db.collection("Show_values").insertOne({Gmail:req.params.gmail,Showvalues:{USD:req.params.usd,Pending:req.params.pend,Created:req.params.unit,Available:req.params.avl,Limit:req.params.lim}})
+    const details=await db.collection("Show_values").insertOne({Gmail:req.params.gmail,USD_Values:{Total_USD:req.params.usd,USD_Pending:req.params.pend,USD_Created:req.params.unit,USD_Available:req.params.avl,USD_Limit:req.params.lim},Land_values:{Total_Land:req.params.land,Land_Pending:req.params.landpend,Land_Created:req.params.landunit,Land_Available:req.params.landavil}})
     res.json(details);
 })
 app.get('/getshowvalue/:gmail',async(req,res)=>
@@ -251,9 +234,9 @@ app.get('/getshowvalue/:gmail',async(req,res)=>
     const details=await db.collection("Show_values").findOne({Gmail:req.params.gmail})
     res.json(details);
 })
-app.post('/updateshow/:gmail/:usd/:pend/:unit/:avl/:lim',async(req,res)=>
+app.post('/updateshow/:gmail/:usd/:pend/:unit/:avl/:lim/:land/:landpend/:landunit/:landavil',async(req,res)=>
 {
-    const details=await db.collection("Show_values").findOneAndUpdate({Gmail:req.params.gmail},{$set:{USD:req.params.usd,Pending:req.params.pend,Created:req.params.unit,Available:req.params.avl,Limit:req.params.lim}})
+    const details=await db.collection("Show_values").findOneAndUpdate({Gmail:req.params.gmail},{$set:{USD_Values:{Total_USD:req.params.usd,USD_Pending:req.params.pend,USD_Created:req.params.unit,USD_Available:req.params.avl,USD_Limit:req.params.lim},Land_values:{Total_Land:req.params.land,Land_Pending:req.params.landpend,Land_Created:req.params.landunit,Land_Available:req.params.landavil}}})
     res.json(details);
 })
 
@@ -274,25 +257,15 @@ app.get('/gettransfer',async(req,res)=>
 
 
 
-// Show value in usd in dashboard
-
-// Pending purchses
-
-// app.post('/uviewpp/:gmail/:val',async(req,res)=>
-// {
-//     const details=await db.collection('pending_purchase').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Units:req.params.val}})
-//     res.json(details);
-// })
-
 // Admin user management
 
-// Enable user
-
-app.post('/enableadmin/:approve',async(req,res)=>
+// Enable user and Disable user
+app.post('/enableadmin/:name/:gmail/:password/:cpassword/:phonenumber',async(req,res)=>
 {
    try
    {
-    const details=await db.collection("adminlogin").insertOne(approve)
+    const details=await db.collection("adminlogin").insertOne({Name:req.params.name,Gmail:req.params.gmail,Password:req.params.password,Cpassword:req.params.cpassword,Phone_Number:req.params.phonenumber})&&
+    db.collection("saved_adminlogin").insertOne({Name:req.params.name,Gmail:req.params.gmail,Password:req.params.password,Cpassword:req.params.cpassword,Phone_Number:req.params.phonenumber})
     res.json(details);
    }
    catch(e)
@@ -300,14 +273,28 @@ app.post('/enableadmin/:approve',async(req,res)=>
     console.log(e);
    }
 })
-app.post('/deleteadmin/:gmail',async(req,res)=>
+app.post('/disableadmin/:gmail',async(req,res)=>
 {
-    const details2=await db.collection('adminlogin').deleteOne({Gmail:req.params.gmail})
+   try
+   {
+    const details2=await db.collection('adminlogin').deleteOne({Gmail:req.params.gmail}) && 
+    await db.collection('saved_adminlogin').deleteOne({Gmail:req.params.gmail})
     res.json(details2);
+   }
+   catch(e)
+   {
+    console.log(e);
+   }
 }
 )
-app.get('/adminlist',async(req,res)=>{
-    const details=await db.collection('Approve_List').find().toArray()
+app.get('/saveadminlist',async(req,res)=>
+{
+    const details=await db.collection('saved_adminlogin').find().toArray()
+    res.json(details);
+})
+app.get('/adminlist',async(req,res)=>
+{
+    const details=await db.collection('adminlogin').find().toArray()
     res.json(details);
 })
 

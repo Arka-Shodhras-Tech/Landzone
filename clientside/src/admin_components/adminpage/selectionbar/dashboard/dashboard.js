@@ -115,12 +115,12 @@ export const Dashboard=()=>
             {
                 if(res1.data)
                 {
-                    axios.post("http://localhost:8000/updateshow/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+avil+"/"+limit)?
+                    axios.post("http://localhost:8000/updateshow/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+avil+"/"+limit+"/"+totalland+"/"+landpend+"/"+landunit+"/"+landlimit)?
                     alert("Saved"):alert("Try agian");
                 }
                 else
                 {
-                    axios.post("http://localhost:8000/showvalue/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+avil+"/"+limit)?
+                    axios.post("http://localhost:8000/showvalue/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+avil+"/"+limit+"/"+totalland+"/"+landpend+"/"+landunit+"/"+landlimit)?
                     alert("Saved"):alert("Try agian");
                 }
             }
@@ -222,11 +222,16 @@ export const Dashboard=()=>
         {
             if(res.data)
             {
-                localStorage.limit=res.data.Limit;
-                localStorage.pendg=res.data.Pending;
-                localStorage.avil=res.data.Available;
-                localStorage.unit=res.data.Created;
-                localStorage.usd=res.data.USD;
+                localStorage.limit=res.data.USD_Values.USD_Limit;
+                localStorage.pendg=res.data.USD_Values.USD_Pending;
+                localStorage.avil=res.data.USD_Values.USD_Available;
+                localStorage.unit=res.data.USD_Values.USD_Created;
+                localStorage.usd=res.data.USD_Values.Total_USD;
+                localStorage.totalland=res.data.Land_values.Total_Land;
+                localStorage.landpend=res.data.Land_values.Land_Pending;
+                localStorage.landunit=res.data.Land_values.Land_Created;
+                localStorage.landlimit=res.data.Land_values.Land_Available;
+                window.location.reload(5);
             }
         }
        }
