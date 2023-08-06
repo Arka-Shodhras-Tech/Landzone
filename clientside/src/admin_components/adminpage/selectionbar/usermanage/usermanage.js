@@ -10,17 +10,15 @@ export const Usermanage=()=>
     const [crt,scrt]=useState([]);
     const [edit,sedit]=useState([]);
     const [err1,serr1]=useState([]);
-    const [pymt,spymt]=useState([]);
+    // const [pymt,spymt]=useState([]);
     const [trans,strans]=useState([]);
     const [approve,sapprove]=useState();
     const [update,supdate]=useState([]);
-    const [tdata,stdata]=useState([]);
     const [modname,smodname]=useState([]);
     const [land,sland]=useState([]);
     const [apvd,sapvd]=useState([]);
     const [disap,sdisap]=useState([]);
     const form=useRef();
-    const [i,si]=useState(0);
     const [sm,ssm]=useState([]);
     const [at,sat]=useState([]);
     // Transfer currency to user function
@@ -219,16 +217,18 @@ export const Usermanage=()=>
         axios.get("http://localhost:8000/disableshow")
             .then((result2) => {
                 scrt(result2.data)
+                localStorage.usercount=(result2.data).length;
             })
         axios.get("http://localhost:8000/gettransfer")
             .then((result)=>
             {
                 strans(result.data);
+                localStorage.transcount=(result.data).length;
             })
         axios.get("http://localhost:8000/pymtretrive")
         .then((result1)=>
         {
-            spymt(result1.data);
+            // spymt(result1.data);
         })
         axios.get("http://localhost:8000/approvedlist")
         .then((result)=>

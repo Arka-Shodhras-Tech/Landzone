@@ -5,26 +5,6 @@ import { Footer, Navbar1 } from "../../../home/nav&foot&contact&about/navbar";
 import { Comp } from "../../asidebar/asidebar";
 export const Dashboard=()=>
 {
-    const [uc,suc]=useState(0);
-    const [pc,spc]=useState(0);
-    const [uib,suib]=useState(0);
-    const [eib,seib]=useState(0);
-    const [ru,sru]=useState(0);
-    const [tv,stv]=useState(0);
-    const [ts,sts]=useState(0);
-    const [pt,spt]=useState(0);
-    const [num,snum]=useState([]);
-    const [curr,scurr]=useState([]);
-    const [land,sland]=useState([]);
-    const [cor,scor]=useState([]);
-    const [vpp,svpp]=useState([]);
-    const [pp,spp]=useState([]);
-    const [prev,sprev]=useState([]);
-    const usdval=localStorage.usdval;
-    const [val, sval] = useState(usdval);
-    const predate=localStorage.predate;
-    const [prevdate, sprevdate] = useState(predate);
-    const [j,sj]=useState(0);
     const p=localStorage.p;
     const q=localStorage.q;
     const gmal=localStorage.gmail;
@@ -38,6 +18,26 @@ export const Dashboard=()=>
     const landpend=localStorage.landpend;
     const landunit=localStorage.landunit;
     const landlimit=localStorage.landlimit;
+    const [uc,suc]=useState(localStorage.usercount);
+    const [pc,spc]=useState(localStorage.procount);
+    const [uib,suib]=useState(usd);
+    const [eib,seib]=useState(0);
+    const [ru,sru]=useState(0);
+    const [tv,stv]=useState(totalland);
+    const [ts,sts]=useState(localStorage.transcount);
+    const [pt,spt]=useState(0);
+    const [num,snum]=useState([]);
+    const [curr,scurr]=useState([]);
+    const [land,sland]=useState([]);
+    const [cor,scor]=useState([]);
+    const [vpp,svpp]=useState([]);
+    const [pp,spp]=useState([]);
+    const [prev,sprev]=useState([]);
+    const usdval=localStorage.usdval;
+    const [val, sval] = useState(usdval);
+    const predate=localStorage.predate;
+    const [prevdate, sprevdate] = useState(predate);
+    const [j,sj]=useState(0);
 
 // Create currency
     const CC=async()=>
@@ -170,7 +170,7 @@ export const Dashboard=()=>
         localStorage.q=0;
         if(cor<=parseInt(total))
         {
-            if(land=="Land")
+            if(land==="Land")
             {
                 localStorage.landpend=parseInt(landpend)+parseInt(cor);
                 scor(cor);
@@ -252,7 +252,7 @@ export const Dashboard=()=>
         localStorage.q=0;
         try
         {
-            if(vpp.In=="Land")
+            if(vpp.In==="Land")
             {
                 localStorage.landpend=parseInt(landpend)-parseInt(vpp.Units);
                 localStorage.landunit=parseInt(landunit)+parseInt(vpp.Units);

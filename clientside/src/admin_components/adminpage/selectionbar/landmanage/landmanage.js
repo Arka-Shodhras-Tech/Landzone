@@ -10,7 +10,6 @@ export const Landmanage=()=>
     const [epn,sepn]=useState([]);
     const [epd,sepd]=useState([]);
     const [epv,sepv]=useState([]);
-    const [epa,sepa]=useState([]);
     const [etime,setime]=useState("");
     const [cpn,scpn]=useState([]);
     const [cpd,scpd]=useState([]);
@@ -32,8 +31,6 @@ export const Landmanage=()=>
     const [pdsc,spdsc]=useState([]);
     const [ecn,secn]=useState([]);
     const [ccn,sccn]=useState([]);
-    const [search,ssearch]=useState([]);
-    const table=useRef();
     let x=0;
     const Elpd=async()=>
     {
@@ -169,6 +166,7 @@ export const Landmanage=()=>
         .then((result)=>
         {
             ssld(result.data);
+            localStorage.procount=(result.data).length;
         })
     },[])
     return(
@@ -405,7 +403,6 @@ export const Landmanage=()=>
                                                 <td><b>{index+1}</b></td>
                                                 <td><b>Land Project name</b></td>
                                                 <td>{val2.project_name}</td>
-                                                {console.log(localStorage.landlimit)}
                                             </tr>
                                             <tr>
                                                 <td></td>
