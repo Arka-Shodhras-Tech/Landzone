@@ -2,21 +2,9 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 export const Comp=()=>
 {
-    // const Close=async()=>
-    // {
-    //     document.getElementById('sidebar').style.display="none";
-    // }
-    // const Open=async()=>
-    // {
-    //     document.getElementById('sidebar').style.display="block";
-    // }
+    console.log(localStorage.adminmail)
     return(
                <>
-                {/* <div className="drop">
-                        <Link >
-                            <img src={"list.svg"} width={'35px'} alt="list"/>
-                        </Link>
-                </div> */}
                 <aside>
                 <div>
                     <Link  className="drop">
@@ -28,7 +16,9 @@ export const Comp=()=>
                         </div>
                             <NavLink to='/dashboard' className="asidebtn"  activeClassName='active'><b>Dashboard</b></NavLink>
                             <NavLink to='/usermanage' className="asidebtn" activeClassName="active"><b>User Management</b></NavLink>
-                            <NavLink to='/adminusermanage' className="asidebtn" activeClassName="active"><b>Admin User Management</b></NavLink>
+                            {
+                                localStorage.adminmail==="null"?<b></b>:<NavLink to='/adminusermanage' className="asidebtn" activeClassName="active"><b>Admin User Management</b></NavLink>
+                            }
                             <NavLink to='/landmanage' className="asidebtn" activeClassName="active"><b>Land Management</b></NavLink>
                             <NavLink to='/unitmanage' className="asidebtn" activeClassName="active"><b>Unit Request Management</b></NavLink>
                 </aside>

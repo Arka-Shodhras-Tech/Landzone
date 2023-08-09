@@ -20,6 +20,7 @@ export const Navbar1=()=>
     {
         localStorage.gmail='';
         localStorage.name='';
+        localStorage.adminmail='';
     }
     return(
         <nav>

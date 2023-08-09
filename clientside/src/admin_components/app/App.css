@@ -269,6 +269,24 @@ section
     overflow-y: scroll;
     font-size:large;
 }
+.editdis1
+{
+    top:22%;
+    left: 50%;
+    position:absolute;
+    width: 38%;
+    height: 50%;
+    color: aliceblue;
+    background-color:rgb(8, 0, 0);
+    overflow-y: scroll;
+    font-size:large;
+}
+.editdis1 td
+{
+    width: 1%;
+    height: 8vh;
+    text-align: center;
+}
 .aufltable
 {
     width: 100%;
@@ -461,7 +479,7 @@ section
 }
 .admincheck
 {
-    margin-top: 50% ;
+    margin-top: 30% ;
     font-size: 3vh;
     width: 33vh;
     height: 5vh;

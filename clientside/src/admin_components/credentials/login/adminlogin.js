@@ -10,8 +10,19 @@ export const Adminlogin=()=>
     const [error,serror]=useState("");
     const emailtest = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const Show=async(e)=>{
-        if(emailtest.test(gmail))
+        try
         {
+            if(emailtest.test(gmail))
+        {
+            const responce1=await axios.get("http://localhost:8000/mainadmin1/"+gmail)
+            if(responce1.data)
+            {
+                localStorage.adminmail=responce1.data.Gmail;
+            }
+            else
+            {
+                localStorage.adminmail=null;
+            }
             const responce=await axios.get("http://localhost:8000/adminlogin/"+gmail+"/"+password);
             if(responce.data)
         {
@@ -27,6 +38,12 @@ export const Adminlogin=()=>
         {
             serror("Enter in email formate")
         }
+        }
+        catch(e)
+        {
+            console.log(e.data);
+        }
+
     }
     const Regi=async()=>{
         nav("/adminregister")

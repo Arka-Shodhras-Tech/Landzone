@@ -38,6 +38,7 @@ export const Dashboard=()=>
     const predate=localStorage.predate;
     const [prevdate, sprevdate] = useState(predate);
     const [j,sj]=useState(0);
+    const [number, setNumber] = useState(1);
 
 // Create currency
     const CC=async()=>
@@ -310,6 +311,11 @@ export const Dashboard=()=>
          sprevdate(currentDate);
          localStorage.predate=prevdate;
        }
+       const interval = setInterval(() => {
+        setNumber(prevNumber => prevNumber + 1);
+      }, 24 * 60 * 60 * 1000); // 24 hours in milliseconds
+  
+      return () => clearInterval(interval);
     }, [])
     return(
         <>
@@ -357,13 +363,13 @@ export const Dashboard=()=>
                                         <td>{tv}</td>
                                     </tr>
                                     <tr>
-                                        <td>Recent Transactions (upto 10)</td>
+                                        <td>Recent Transactions</td>
                                         <td>{ts}</td>
                                     </tr>
-                                    <tr>
+                                    {/* <tr>
                                         <td>Approval Pending Transactions(upto 10)</td>
                                         <td>{pt}</td>
-                                    </tr>
+                                    </tr> */}
                                 </table>
                             </div>
 
@@ -482,6 +488,9 @@ export const Dashboard=()=>
                             </div>
                             <div style={{textAlign:'center',marginTop:'18%'}}>
                                     <table>
+                                        <tr>
+                                            <td colSpan={5} style={{color:'green'}}><b>Current Value::{number}</b></td>
+                                        </tr>
                                         <tr>
                                         <th>Currency</th>
                                         <th>The total value of Land/USD Bank</th>

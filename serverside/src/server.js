@@ -297,6 +297,26 @@ app.get('/adminlist',async(req,res)=>
     const details=await db.collection('adminlogin').find().toArray()
     res.json(details);
 })
+app.post('/mainadmin/:approve',async(req,res)=>
+{
+    const details=await db.collection('Main_admin').deleteMany() &&await db.collection('Main_admin').insertOne({Gmail:req.params.approve})
+    res.json(details)
+})
+app.get('/mainadmin',async(req,res)=>
+{
+    const details=await db.collection('Main_admin').findOne();
+    res.json(details)
+})
+app.get('/mainadmin1/:gmail',async(req,res)=>
+{
+    const details=await db.collection('Main_admin').findOne({Gmail:req.params.gmail});
+    res.json(details)
+})
+app.get('/mainadminlist',async(req,res)=>
+{
+    const details= await db.collection('Main_admin').find().toArray()
+    res.json(details);
+})
 
 
 
