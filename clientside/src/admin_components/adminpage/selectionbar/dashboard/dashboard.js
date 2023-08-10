@@ -21,8 +21,8 @@ export const Dashboard=()=>
     const [uc,suc]=useState(localStorage.usercount);
     const [pc,spc]=useState(localStorage.procount);
     const [uib,suib]=useState(usd);
-    const [eib,seib]=useState(0);
-    const [ru,sru]=useState(0);
+    const [eib,seib]=useState(unit);
+    const [ru,sru]=useState(landunit);
     const [tv,stv]=useState(totalland);
     const [ts,sts]=useState(localStorage.transcount);
     const [pt,spt]=useState(0);
@@ -339,7 +339,7 @@ export const Dashboard=()=>
                                         <th>Total count</th>
                                     </tr>
                                     <tr>
-                                        <td>Total User's Count</td>
+                                        <td>Total Approved User's Count</td>
                                         <td>{uc}</td>
                                     </tr>
                                     <tr>
@@ -351,15 +351,15 @@ export const Dashboard=()=>
                                         <td>{uib}</td>
                                     </tr>
                                     <tr>
-                                        <td>Total eUSD in bank</td>
+                                        <td>Total eUSD Created till now</td>
                                         <td>{eib}</td>
                                     </tr>
                                     <tr>
-                                        <td>Total Land Units</td>
+                                        <td>Total Land Units created till now</td>
                                         <td>{ru}</td>
                                     </tr>
                                     <tr>
-                                        <td>Land Total Value</td>
+                                        <td>Total Value of Land</td>
                                         <td>{tv}</td>
                                     </tr>
                                     <tr>
