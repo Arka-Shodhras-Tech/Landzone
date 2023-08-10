@@ -45,9 +45,9 @@ export const Adminlogin=()=>
         }
 
     }
-    const Regi=async()=>{
-        nav("/adminregister")
-    }
+    // const Regi=async()=>{
+    //     nav("/adminregister")
+    // }
     const Upadate=async()=>{
         nav("/adminupdate")
     }
@@ -79,9 +79,9 @@ export const Adminlogin=()=>
                 </td>
             </tr>
             <tr >
-                <td >
+                {/* <td >
                     <button style={{width:'20vh'}} onClick={Regi}><b>New account</b></button>
-                </td>
+                </td> */}
                 <td>
                     <button onClick={Upadate}><b>Forgot password</b></button>
                 </td>
