@@ -4,6 +4,15 @@
     height: 95vh;
    max-width: 100%;
 }
+.homename
+{
+  padding:15% 0% 0% 10%;
+  background:linear-gradient(180deg,#2900de,#2f0927);
+  font-size: 180px;
+  font-family: poppins;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 nav
 {
     width: 100%;

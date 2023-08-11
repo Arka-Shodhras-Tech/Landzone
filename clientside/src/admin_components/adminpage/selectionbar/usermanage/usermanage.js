@@ -2,7 +2,7 @@ import axios from "axios";
 import emailjs from 'emailjs-com';
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Footer, Navbar1 } from "../../../home/nav&foot&contact&about/navbar";
+import { Footer, Navbar } from "../../../home/nav&foot&contact&about/navbar";
 import { Comp } from "../../asidebar/asidebar";
 export const Usermanage=()=>
 {
@@ -10,7 +10,6 @@ export const Usermanage=()=>
     const [crt,scrt]=useState([]);
     const [edit,sedit]=useState([]);
     const [err1,serr1]=useState([]);
-    // const [pymt,spymt]=useState([]);
     const [trans,strans]=useState([]);
     const [approve,sapprove]=useState();
     const [update,supdate]=useState([]);
@@ -238,7 +237,7 @@ export const Usermanage=()=>
     }, [])
     return(
         <>
-        <Navbar1/>
+        <Navbar/>
         <div className="home">
             <div className="adpage">
                 <Comp/>

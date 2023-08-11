@@ -6,7 +6,6 @@ export const Payment=()=>
     const [sendername,ssendername]=useState([]);
     const [senderacc,ssenderacc]=useState([]);
     const [amttrns,samttrns]=useState([]);
-    // const [deti,sdeti]=useState([]);
     const [pymt,spymt]=useState([]);
     const [transdate,stransdate]=useState([]);
     const form=useRef('');

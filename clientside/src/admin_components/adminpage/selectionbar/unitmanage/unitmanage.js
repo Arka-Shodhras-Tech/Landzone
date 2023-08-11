@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Footer, Navbar1 } from "../../../home/nav&foot&contact&about/navbar";
+import { Footer, Navbar } from "../../../home/nav&foot&contact&about/navbar";
 import { Comp } from "../../asidebar/asidebar";
 import { Payment } from "./payment/payment";
 export const Unitmanage=()=>
@@ -32,7 +32,7 @@ export const Unitmanage=()=>
     }, [])
     return(
         <>
-        <Navbar1/>
+        <Navbar/>
         <div className="home">
             <div className="adpage">
                 <Comp/>

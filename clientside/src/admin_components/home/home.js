@@ -6,7 +6,9 @@ const Home=()=>
         <>
         <Navbar/>
         <div className="home">
-            {/* <h1>display about Quntam land</h1> */}
+            <div className="homename">
+               <b> Quntam2Land</b>
+            </div>
         </div>
         <Footer/>
         </>

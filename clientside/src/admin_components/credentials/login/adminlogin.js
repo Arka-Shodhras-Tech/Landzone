@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { Footer, Navbar } from "../../home/nav&foot&contact&about/navbar";
 export const Adminlogin=()=>
 {
@@ -14,21 +14,14 @@ export const Adminlogin=()=>
         {
             if(emailtest.test(gmail))
         {
-            const responce1=await axios.get("http://localhost:8000/mainadmin1/"+gmail)
-            if(responce1.data)
-            {
-                localStorage.adminmail=responce1.data.Gmail;
-            }
-            else
-            {
-                localStorage.adminmail=null;
-            }
             const responce=await axios.get("http://localhost:8000/adminlogin/"+gmail+"/"+password);
             if(responce.data)
         {
                 localStorage.name = responce.data.Name;
                 localStorage.gmail = responce.data.Gmail;
-                nav('/adminpage');
+                localStorage.adminmail=responce.data.Gmail;
+                nav('/adminpage')
+                window.location.reload(3);
         }
         else{
             serror("password or mail incorrect")
@@ -45,14 +38,14 @@ export const Adminlogin=()=>
         }
 
     }
-    const Upadate=async()=>{
-        nav("/adminupdate")
-    }
     return(
         <>
         <Navbar/>
         <div className="home">
        <table className='tabledata'>
+            <tr>
+                <td colSpan={2} align='center'><h3>Admin Login</h3></td>
+            </tr>
             <tr>
             <td className="input">
                 <label for="gmail"><b>Gmail:: </b></label>
@@ -73,11 +66,6 @@ export const Adminlogin=()=>
             <tr>
                 <td colSpan={2}>
                 <button onClick={Show}><b>Login</b></button>
-                </td>
-            </tr>
-            <tr >
-                <td>
-                    <button onClick={Upadate}><b>Forgot password</b></button>
                 </td>
             </tr>
         </table>        

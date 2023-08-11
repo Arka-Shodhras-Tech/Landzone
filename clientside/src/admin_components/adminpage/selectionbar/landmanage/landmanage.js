@@ -1,9 +1,9 @@
 import axios from "axios";
 import moment from 'moment';
 import 'moment-timezone';
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Footer, Navbar1 } from "../../../home/nav&foot&contact&about/navbar";
+import { Footer, Navbar } from "../../../home/nav&foot&contact&about/navbar";
 import { Comp } from "../../asidebar/asidebar";
 export const Landmanage=()=>
 {
@@ -171,7 +171,7 @@ export const Landmanage=()=>
     },[])
     return(
         <>
-        <Navbar1/>
+        <Navbar/>
         <div className="home">
             <div className="adpage">
                 <Comp/>
@@ -195,7 +195,7 @@ export const Landmanage=()=>
                                 </tr>
                                 <tr>
                                     <td><label className="landinput1" for='lpd'><b>Land Project Description </b></label></td>
-                                    <td><textarea type="paragraph" className="landinput" id="lpd" style={{width:'80%',height:'20vh'}} onChange={(e)=>sepd(e.target.value)}></textarea></td>
+                                    <td><textarea type="text" className="landinput" id="lpd" style={{width:'80%',height:'20vh'}} onChange={(e)=>sepd(e.target.value)}></textarea></td>
                                 </tr>
                                 <tr>
                                     <td><label className="landinput1" for='elv'><b>Enter Land value in USD </b></label></td>

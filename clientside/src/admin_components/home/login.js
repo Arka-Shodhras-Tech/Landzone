@@ -3,6 +3,13 @@ import { Link } from "react-router-dom";
 import { Footer, Navbar } from "./nav&foot&contact&about/navbar";
 const Login=()=>
 {
+    if(localStorage.gmail!=='')
+    {
+        alert("logouted");
+        localStorage.name = '';
+        localStorage.gmail = '';
+        localStorage.adminmail='';
+    }
     return(
         <>
         <Navbar/>

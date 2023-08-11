@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Footer, Navbar1 } from "../../../home/nav&foot&contact&about/navbar";
+import { Footer, Navbar } from "../../../home/nav&foot&contact&about/navbar";
 import { Comp } from "../../asidebar/asidebar";
 export const Adminusermanage=()=>
 {
@@ -135,7 +135,7 @@ export const Adminusermanage=()=>
     },[]);
     return(
         <>
-        <Navbar1/>
+        <Navbar/>
         <div className="home">
             <div className="adpage">
                 <Comp/>
