@@ -37,31 +37,10 @@ export const Dashboard=()=>
     const usdval=localStorage.usdval;
     const [val, sval] = useState(usdval);
     const [j,sj]=useState(0);
-    const date=new Date();
-    let value;
-    const name="Quntam";
 
 // Create currency
     const CC=async()=>
     {
-       try
-       {
-        const responce = await axios.get("http://localhost:8000/currentland/"+name)
-        if (responce.data.Date !== date.toDateString()) {
-            value = parseFloat(responce.data.Value) + 1;
-            const responce2 = await axios.post("http://localhost:8000/insertcurland/"+name+"/"+date.toDateString()+"/"+value)
-            if (responce2.data) {
-                localStorage.currentland=responce2.data.Value;
-            }
-        }
-        else {
-            localStorage.currentland=responce.data.Value;
-        }
-       }
-       catch(e)
-       {
-        console.log(e);
-       }
         localStorage.total=limit;
         document.getElementById('cc').style.display='block';
         document.getElementById('vpp').style.display='none';
@@ -117,7 +96,7 @@ export const Dashboard=()=>
         }
         if(parseInt(q)===0)
         {
-            localStorage.landlimit=parseInt(totalland)-(parseInt(landpend)+parseInt(landunit)*val)
+            localStorage.landlimit=parseInt(totalland/currentland)-(parseInt(landpend)+parseInt(landunit)*val)
             localStorage.q=q+1;   
         }
         document.getElementById('cc').style.display='none';
@@ -322,6 +301,7 @@ export const Dashboard=()=>
        {
         console.log(e);
        }
+       
     }, [])
     return(
         <>
@@ -393,7 +373,8 @@ export const Dashboard=()=>
                             <div className="editdis" style={{display:'none'}} id="cc">
                                <div className="ccdisplay">
                                <b>Current Land Value::{currentland}</b>
-                               <br/><br/>
+                               <br/>Current 1.207909
+                               <br/>
                                 <label for='land' name="currency"><b>Enter the number of Units: </b><input type="number" name="currency" onChange={(e)=>scor(e.target.value)}></input>
                                 <select id="land" name="currency" value={land} onChange={(e)=>sland(e.target.value)}>
                                     <option> Choose Currency</option>
@@ -508,7 +489,7 @@ export const Dashboard=()=>
                                             <td>{totalland}</td>
                                             <td>{landunit*currentland}</td>
                                             <td>{landpend}</td>
-                                            <td>{landlimit/currentland}</td>
+                                            <td>{landlimit}</td>
                                         </tr>
                                         <tr style={{color:'green'}}>
                                             <td style={{color:'blue'}}><b>eUSD</b></td>
