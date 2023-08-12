@@ -178,6 +178,9 @@ app.get('/eviusdget/:gamil',async(req,res)=>
     const details=await db.collection('Usd_values').findOne({Gmail:req.params.gamil})
     res.json(details);
 })
+
+
+
 // Create currency(Land/USD Units)
 app.post('/crecur/:gmail/:val/:land',async(req,res)=>
 {
@@ -238,6 +241,16 @@ app.post('/updateshow/:gmail/:usd/:pend/:unit/:avl/:lim/:land/:landpend/:landuni
 {
     const details=await db.collection("Show_values").findOneAndUpdate({Gmail:req.params.gmail},{$set:{USD_Values:{Total_USD:req.params.usd,USD_Pending:req.params.pend,USD_Created:req.params.unit,USD_Available:req.params.avl,USD_Limit:req.params.lim},Land_values:{Total_Land:req.params.land,Land_Pending:req.params.landpend,Land_Created:req.params.landunit,Land_Available:req.params.landavil}}})
     res.json(details);
+})
+app.get('/currentland/:name',async(req,res)=>
+{
+    const details=await db.collection("Current_Land").findOne({Name:req.params.name})
+    res.json(details);
+})
+app.post('/insertcurland/:name/:date/:value',async(req,res)=>
+{
+    const details=await db.collection("Current_Land").findOneAndUpdate({Name:req.params.name},{$set:{Date:req.params.date,Value:req.params.value}})
+    res.json(details)
 })
 
 

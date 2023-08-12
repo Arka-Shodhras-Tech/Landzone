@@ -5,7 +5,7 @@ const Login=()=>
 {
     if(localStorage.gmail!=='')
     {
-        alert("logouted");
+        alert("Welcome Please Login");
         localStorage.name = '';
         localStorage.gmail = '';
         localStorage.adminmail='';

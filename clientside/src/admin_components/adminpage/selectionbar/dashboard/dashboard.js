@@ -18,6 +18,7 @@ export const Dashboard=()=>
     const landpend=localStorage.landpend;
     const landunit=localStorage.landunit;
     const landlimit=localStorage.landlimit;
+    const currentland=localStorage.currentland;
     const [uc,suc]=useState(localStorage.usercount);
     const [pc,spc]=useState(localStorage.procount);
     const [uib,suib]=useState(usd);
@@ -35,14 +36,32 @@ export const Dashboard=()=>
     const [prev,sprev]=useState([]);
     const usdval=localStorage.usdval;
     const [val, sval] = useState(usdval);
-    const predate=localStorage.predate;
-    const [prevdate, sprevdate] = useState(predate);
     const [j,sj]=useState(0);
-    const [number, setNumber] = useState(1);
+    const date=new Date();
+    let value;
+    const name="Quntam";
 
 // Create currency
     const CC=async()=>
     {
+       try
+       {
+        const responce = await axios.get("http://localhost:8000/currentland/"+name)
+        if (responce.data.Date !== date.toDateString()) {
+            value = parseFloat(responce.data.Value) + 1;
+            const responce2 = await axios.post("http://localhost:8000/insertcurland/"+name+"/"+date.toDateString()+"/"+value)
+            if (responce2.data) {
+                localStorage.currentland=responce2.data.Value;
+            }
+        }
+        else {
+            localStorage.currentland=responce.data.Value;
+        }
+       }
+       catch(e)
+       {
+        console.log(e);
+       }
         localStorage.total=limit;
         document.getElementById('cc').style.display='block';
         document.getElementById('vpp').style.display='none';
@@ -98,7 +117,7 @@ export const Dashboard=()=>
         }
         if(parseInt(q)===0)
         {
-            localStorage.landlimit=parseInt(totalland)-(parseInt(landpend)+parseInt(landunit))
+            localStorage.landlimit=parseInt(totalland)-(parseInt(landpend)+parseInt(landunit)*val)
             localStorage.q=q+1;   
         }
         document.getElementById('cc').style.display='none';
@@ -303,19 +322,6 @@ export const Dashboard=()=>
        {
         console.log(e);
        }
-       const currentDate = new Date();
-       if (currentDate.getDate() !== prevdate)
-        {
-         sval(parseFloat(val)+0.000205);
-         localStorage.usdval=val;
-         sprevdate(currentDate);
-         localStorage.predate=prevdate;
-       }
-       const interval = setInterval(() => {
-        setNumber(prevNumber => prevNumber + 1);
-      }, 24 * 60 * 60 * 1000); // 24 hours in milliseconds
-  
-      return () => clearInterval(interval);
     }, [])
     return(
         <>
@@ -386,6 +392,8 @@ export const Dashboard=()=>
 {/* Create currency */}
                             <div className="editdis" style={{display:'none'}} id="cc">
                                <div className="ccdisplay">
+                               <b>Current Land Value::{currentland}</b>
+                               <br/><br/>
                                 <label for='land' name="currency"><b>Enter the number of Units: </b><input type="number" name="currency" onChange={(e)=>scor(e.target.value)}></input>
                                 <select id="land" name="currency" value={land} onChange={(e)=>sland(e.target.value)}>
                                     <option> Choose Currency</option>
@@ -489,9 +497,6 @@ export const Dashboard=()=>
                             <div style={{textAlign:'center',marginTop:'18%'}}>
                                     <table>
                                         <tr>
-                                            <td colSpan={5} style={{color:'green'}}><b>Current Value::{number}</b></td>
-                                        </tr>
-                                        <tr>
                                         <th>Currency</th>
                                         <th>The total value of Land/USD Bank</th>
                                         <th>Number of Units Created</th>
@@ -501,9 +506,9 @@ export const Dashboard=()=>
                                         <tr style={{color:'navy'}}>
                                             <td style={{height:'12vh',color:'blue'}}><b>Land</b></td>
                                             <td>{totalland}</td>
-                                            <td>{landunit}</td>
+                                            <td>{landunit*currentland}</td>
                                             <td>{landpend}</td>
-                                            <td>{landlimit}</td>
+                                            <td>{landlimit/currentland}</td>
                                         </tr>
                                         <tr style={{color:'green'}}>
                                             <td style={{color:'blue'}}><b>eUSD</b></td>
@@ -514,7 +519,9 @@ export const Dashboard=()=>
                                         </tr>
                                     </table>
                             </div>
-                                <button onClick={Save} style={{ margin: "15% 0% 0% 78%", width: '10%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Save</button>
+                            <p style={{margin: "10% 0% 0% 38%",}}>
+                            Please Save the Values other wise it will be Earse <button onClick={Save} style={{ width: '15%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Save</button>
+                            </p>
                             </div>
 {/* Previous List */}
                             <div className="editdis" style={{display:'none'}} id="prevlist">
