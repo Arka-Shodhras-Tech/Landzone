@@ -4,11 +4,10 @@ import { Footer, Navbar } from "./nav&foot&contact&about/navbar";
 const Login=()=>
 {
    
-    if(localStorage.gmail!=='')
+    if(localStorage.adminmail!=='')
     {
-        alert("Welcome Please Login");
+        alert("Welcome to Quantum2Land Please Login");
         localStorage.name = '';
-        localStorage.gmail = '';
         localStorage.adminmail='';
     }
     
