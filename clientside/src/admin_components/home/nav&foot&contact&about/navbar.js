@@ -1,25 +1,55 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 export const Navbar=()=>
 {
+    const [prof,sprof]=useState([]);
     const Logout=()=>
     {
         localStorage.gmail='';
         localStorage.name='';
         localStorage.adminmail='';
     }
+    const Profile=async()=>
+    {
+        const responce1=await axios.get("http://localhost:8000/admincheck/"+localStorage.adminmail)
+        if(responce1.data)
+        {
+            sprof(responce1.data);
+            document.getElementById('profiledis').style.display="block";
+        }
+    }
+    const Disprofile=()=>
+    {
+        document.getElementById('profiledis').style.display="none";
+    }
     return(
         <nav>
-            <div className="navbar">
+            <div className="navbar" onClick={Disprofile}>
                 <Link to='/home' className="navitem">Home</Link>
+                <Link to={"/adminpage"} className="navitem">Menu</Link>
+                {
+                     localStorage.adminmail===''?<Link to='/adminlogin' className="navitem">Login</Link>:<Link onClick={Profile} className="navitem" style={{color:'blue'}}>{localStorage.name}</Link>
+                }
                 <Link to='/about' className="navitem">About</Link>
                 <Link to='/contact' className="navitem">Contact Us</Link>
-                {
-                     localStorage.adminmail===''?<b></b>:<Link to='/profile' className="navitem" style={{color:'blue'}}>{localStorage.name}</Link>
-                }
-                {
-                    localStorage.adminmail===''?<Link to='/adminlogin' className="navitem">Login</Link>:<Link to='/' className="navitem" onClick={Logout}>Log Out</Link>
-                }
+            </div>
+
+            <div className="profile" id="profiledis">
+                <tr>
+                    <td><b>Name</b></td><td>{prof.Name}</td>
+                </tr>
+                <tr>
+                    <td><b>Gmail</b></td><td>{prof.Gmail}</td>
+                </tr>
+                <tr>
+                    <td><b>Phone number</b></td><td>{prof.Phone_Number}</td>
+                </tr>
+                <tr>
+                    <td colSpan={2}>
+                    <Link to='/' style={{color:'red',margin:'5vh 0% 0% 60%'}} className="navitem"  onClick={Logout}>Log Out</Link>
+                    </td>
+                </tr>
             </div>
         </nav>
     )

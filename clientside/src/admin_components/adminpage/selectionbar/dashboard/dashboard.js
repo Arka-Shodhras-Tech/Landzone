@@ -37,10 +37,33 @@ export const Dashboard=()=>
     const usdval=localStorage.usdval;
     const [val, sval] = useState(usdval);
     const [j,sj]=useState(0);
+    const date=new Date();
+    let value;
+    const name="Quntam";
 
 // Create currency
     const CC=async()=>
     {
+    try
+   {
+    console.log(name);
+    const responce=axios.get("http://localhost:8000/currentland/"+name)
+    console.log(responce.data.Value)
+    if (responce.data.Date !== date.toDateString()) {
+        value = parseFloat(responce.data.Value) + 1;
+        const responce2=axios.post("http://localhost:8000/insertcurland/"+name+"/"+date.toDateString()+"/"+value)
+        if (responce2.data) {
+            localStorage.currentland=responce2.data.Value;
+        }
+    }
+    else {
+        localStorage.currentland=responce.data.Value;
+    }
+   }
+   catch(e)
+   {
+    console.log(e);
+   }
         localStorage.total=limit;
         document.getElementById('cc').style.display='block';
         document.getElementById('vpp').style.display='none';

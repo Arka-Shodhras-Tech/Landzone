@@ -18,7 +18,6 @@ export const Adminlogin=()=>
             if(responce.data)
         {
                 localStorage.name = responce.data.Name;
-                localStorage.gmail = responce.data.Gmail;
                 localStorage.adminmail=responce.data.Gmail;
                 nav('/adminpage')
                 window.location.reload(3);

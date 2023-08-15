@@ -207,6 +207,7 @@ section
     left: 53%;
     height: 70vh;
     width: 30%;
+    z-index: 0;
     position:absolute;
 }
 .dashtable tr
@@ -492,4 +493,13 @@ section
     font-size: 3vh;
     width: 33vh;
     height: 5vh;
+}
+.profile
+{
+    width: 25%;
+    height: 20vh;
+    background-color: azure;
+    margin-left: 37%;
+    position:absolute;
+    display: none;
 }

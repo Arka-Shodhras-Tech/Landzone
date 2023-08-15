@@ -26,12 +26,12 @@ function App() {
       <Route exact path='/userlogin' element={<Userlogin/>}/>
       <Route exact path='/userregister' element={<UserRegister/>}/>
       <Route exact path='/userupdate' element={<Userupdate/>}/>
-      <Route exact path='/adminpage' element={(localStorage.gmail===''?<Adminlogin/>:<Dashboard/>)}/>
-      <Route exact path='/dashboard' element={(localStorage.gmail===''?<Adminlogin/>:<Dashboard/>)}/>
-      <Route exact path='/usermanage' element={(localStorage.gmail===''?<Adminlogin/>:<Usermanage/>)}/>
-      <Route exact path='/landmanage' element={(localStorage.gmail===''?<Adminlogin/>:<Landmanage/>)}/>
-      <Route exact path='/adminusermanage' element={(localStorage.gmail===''?<Adminlogin/>:<Adminusermanage/>)}/>
-      <Route exact path='/unitmanage' element={(localStorage.gmail===''?<Adminlogin/>:<Unitmanage/>)}/>
+      <Route exact path='/adminpage' element={(localStorage.adminmail===''?<Adminlogin/>:<Dashboard/>)}/>
+      <Route exact path='/dashboard' element={(localStorage.adminmail===''?<Adminlogin/>:<Dashboard/>)}/>
+      <Route exact path='/usermanage' element={(localStorage.adminmail===''?<Adminlogin/>:<Usermanage/>)}/>
+      <Route exact path='/landmanage' element={(localStorage.adminmail===''?<Adminlogin/>:<Landmanage/>)}/>
+      <Route exact path='/adminusermanage' element={(localStorage.adminmail===''?<Adminlogin/>:<Adminusermanage/>)}/>
+      <Route exact path='/unitmanage' element={(localStorage.adminmail===''?<Adminlogin/>:<Unitmanage/>)}/>
     </Routes>
     </BrowserRouter>
     </>

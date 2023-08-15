@@ -212,7 +212,7 @@ export const Adminusermanage=()=>
                                 }
                             })
                         })
-                    }   
+                    } 
                 </section>
             </div>
         </div>

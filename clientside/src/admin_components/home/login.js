@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { Footer, Navbar } from "./nav&foot&contact&about/navbar";
 const Login=()=>
 {
@@ -12,30 +11,7 @@ const Login=()=>
         localStorage.gmail = '';
         localStorage.adminmail='';
     }
-    useEffect(()=>
-    {
-        const date=new Date();
-        let value;
-        const name="Quntam";
-        try
-       {
-        const responce=axios.get("http://localhost:8000/currentland/"+name)
-        if (responce.data.Date !== date.toDateString()) {
-            value = parseFloat(responce.data.Value) + 1;
-            const responce2=axios.post("http://localhost:8000/insertcurland/"+name+"/"+date.toDateString()+"/"+value)
-            if (responce2.data) {
-                localStorage.currentland=responce2.data.Value;
-            }
-        }
-        else {
-            localStorage.currentland=responce.data.Value;
-        }
-       }
-       catch(e)
-       {
-        console.log(e);
-       }
-    })
+    
     return(
         <>
         <Navbar/>
