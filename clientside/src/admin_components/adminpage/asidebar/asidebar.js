@@ -6,14 +6,14 @@ export const Comp=()=>
     return(
                <>
                 <aside>
-                <div>
+                {/* <div>
                     <Link  className="drop">
                         <img src={"list.svg"} width={'35px'} alt="list" />
                     </Link>
                     <NavLink to='/adminpage' activeClassName='active'  className="drop drop1">
                     <img src={'house.svg'} width={'33px'}  alt="home"></img>
                     </NavLink>
-                        </div>
+                        </div> */}
                             <NavLink to='/dashboard' className="asidebtn"  activeClassName='active'><b>Dashboard</b></NavLink>
                             <NavLink to='/usermanage' className="asidebtn" activeClassName="active"><b>User Management</b></NavLink>
                             {

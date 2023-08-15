@@ -497,9 +497,22 @@ section
 .profile
 {
     width: 25%;
-    height: 20vh;
+    height: 40vh;
     background-color: azure;
-    margin-left: 37%;
+    margin-left: 20%;
     position:absolute;
     display: none;
+}
+.profile tr td
+{
+    height: 1ovh;
+}
+.profileLink
+{
+    color:rgb(3, 3, 56);
+    padding: 1%;
+    border-radius: 5px;
+    background-color:rgb(255, 82, 82);
+    text-decoration: none;
+    margin-left: 30vh;
 }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 export const Navbar=()=>
 {
@@ -35,7 +35,7 @@ export const Navbar=()=>
                 <Link to='/contact' className="navitem">Contact Us</Link>
             </div>
 
-            <div className="profile" id="profiledis">
+            <div className="profile" onClick={Disprofile} id="profiledis">
                 <tr>
                     <td><b>Name</b></td><td>{prof.Name}</td>
                 </tr>
@@ -47,7 +47,7 @@ export const Navbar=()=>
                 </tr>
                 <tr>
                     <td colSpan={2}>
-                    <Link to='/' style={{color:'red',margin:'5vh 0% 0% 60%'}} className="navitem"  onClick={Logout}>Log Out</Link>
+                    <Link to='/' className="profileLink"  onClick={Logout}>Log Out</Link>
                     </td>
                 </tr>
             </div>

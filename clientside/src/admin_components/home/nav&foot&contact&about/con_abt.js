@@ -6,6 +6,9 @@ export const About=()=>
         <>
         <Navbar/>
         <div className="home">
+        <div className="homename">
+               <b> Quntam2Land About</b>
+            </div>
         </div>
         <Footer/>
         </>
@@ -19,6 +22,9 @@ export const Contact=()=>
         <>
         <Navbar/>
         <div className="home">
+        <div className="homename">
+               <b> Quntam2Land Contact</b>
+            </div>
         </div>
         <Footer/>
         </>

@@ -7,7 +7,7 @@ const Home=()=>
         <Navbar/>
         <div className="home">
             <div className="homename">
-               <b> Quntam2Land</b>
+               <b> Quntam2Land Home</b>
             </div>
         </div>
         <Footer/>
