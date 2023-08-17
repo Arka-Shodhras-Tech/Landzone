@@ -7,7 +7,7 @@ export const Dashboard=()=>
 {
     const p=localStorage.p;
     const q=localStorage.q;
-    const gmal=localStorage.gmail;
+    const gmal=localStorage.adminmail;
     const unit=localStorage.unit;
     const pendg=localStorage.pendg;
     const avil=localStorage.avil;
@@ -46,18 +46,12 @@ export const Dashboard=()=>
     {
     try
    {
-    console.log(name);
     const responce=axios.get("http://localhost:8000/currentland/"+name)
-    console.log(responce.data.Value)
-    if (responce.data.Date !== date.toDateString()) {
-        value = parseFloat(responce.data.Value) + 1;
-        const responce2=axios.post("http://localhost:8000/insertcurland/"+name+"/"+date.toDateString()+"/"+value)
-        if (responce2.data) {
-            localStorage.currentland=responce2.data.Value;
-        }
-    }
-    else {
-        localStorage.currentland=responce.data.Value;
+    localStorage.currentland=(await responce).data.Value;
+    if ((await responce).data.Dates !== date.toDateString())
+    {
+        value = parseFloat(responce.data.Value)+0.000205;
+        axios.post("http://localhost:8000/insertcurland/"+name+"/"+date.toDateString()+"/"+value)
     }
    }
    catch(e)
@@ -119,8 +113,25 @@ export const Dashboard=()=>
         }
         if(parseInt(q)===0)
         {
-            localStorage.landlimit=parseInt(totalland/currentland)-(parseInt(landpend)+parseInt(landunit)*val)
+            localStorage.landlimit=parseFloat(totalland/currentland)-(parseInt(landpend)+parseFloat(landunit)*val)
             localStorage.q=q+1;   
+        }
+        try
+        {
+            const res1=await axios.get("http://localhost:8000/getshowvalue/"+gmal)
+            {
+                if(res1.data)
+                {
+                    axios.post("http://localhost:8000/updateshow/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+avil+"/"+limit+"/"+totalland+"/"+landpend+"/"+landunit+"/"+landlimit)
+                }
+                else
+                {
+                    axios.post("http://localhost:8000/showvalue/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+avil+"/"+limit+"/"+totalland+"/"+landpend+"/"+landunit+"/"+landlimit)                }
+            }
+        }
+        catch(e)
+        {
+            console.log(e);
         }
         document.getElementById('cc').style.display='none';
         document.getElementById('vpp').style.display='none';
@@ -128,29 +139,6 @@ export const Dashboard=()=>
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='block';
         document.getElementById('prevlist').style.display="none";
-    }
-    const Save=async()=>
-    {
-        try
-        {
-            const res1=await axios.get("http://localhost:8000/getshowvalue/"+gmal)
-            {
-                if(res1.data)
-                {
-                    axios.post("http://localhost:8000/updateshow/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+avil+"/"+limit+"/"+totalland+"/"+landpend+"/"+landunit+"/"+landlimit)?
-                    alert("Saved"):alert("Try agian");
-                }
-                else
-                {
-                    axios.post("http://localhost:8000/showvalue/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+avil+"/"+limit+"/"+totalland+"/"+landpend+"/"+landunit+"/"+landlimit)?
-                    alert("Saved"):alert("Try agian");
-                }
-            }
-        }
-        catch(e)
-        {
-            console.log(e);
-        }
     }
     const Eusd=async()=>
     {
@@ -523,9 +511,6 @@ export const Dashboard=()=>
                                         </tr>
                                     </table>
                             </div>
-                            <p style={{margin: "10% 0% 0% 38%",}}>
-                            Please Save the Values other wise it will be Earse <button onClick={Save} style={{ width: '15%', height: '4vh', backgroundColor: 'green', color: 'white' }}>Save</button>
-                            </p>
                             </div>
 {/* Previous List */}
                             <div className="editdis" style={{display:'none'}} id="prevlist">

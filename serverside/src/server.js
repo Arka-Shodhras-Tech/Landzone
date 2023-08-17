@@ -249,7 +249,7 @@ app.get('/currentland/:name',async(req,res)=>
 })
 app.post('/insertcurland/:name/:date/:value',async(req,res)=>
 {
-    const details=await db.collection("Current_Land").findOneAndUpdate({Name:req.params.name},{$set:{Date:req.params.date,Value:req.params.value}})
+    const details=await db.collection("Current_Land").findOneAndUpdate({Name:req.params.name},{$set:{Dates:req.params.date,Value:req.params.value}})
     res.json(details)
 })
 
