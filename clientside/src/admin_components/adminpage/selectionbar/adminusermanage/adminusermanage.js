@@ -26,7 +26,7 @@ export const Adminusermanage=()=>
     {
         try
         {
-            const responce1=await axios.get("http://localhost:8000/admincheck/"+approve.Gmail)&& await axios.get("http://localhost:8000/admincheck/"+approve.Gmail)
+            const responce1=await axios.get("http://localhost:8000/admincheck/"+approve.Gmail)
             if(responce1.data)
             {
                 alert("Admin Already Exist")
@@ -37,7 +37,6 @@ export const Adminusermanage=()=>
                 if(responce.data)
                 {
                     alert("Sucessfully "+approve.Gmail+" Approved");
-                    // document.getElementById(approve.Gmail).style.display="none";
                     window.location.reload(1);
                 }
                 else

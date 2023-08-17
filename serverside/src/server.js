@@ -242,6 +242,11 @@ app.post('/updateshow/:gmail/:usd/:pend/:unit/:avl/:lim/:land/:landpend/:landuni
     const details=await db.collection("Show_values").findOneAndUpdate({Gmail:req.params.gmail},{$set:{USD_Values:{Total_USD:req.params.usd,USD_Pending:req.params.pend,USD_Created:req.params.unit,USD_Available:req.params.avl,USD_Limit:req.params.lim},Land_values:{Total_Land:req.params.land,Land_Pending:req.params.landpend,Land_Created:req.params.landunit,Land_Available:req.params.landavil}}})
     res.json(details);
 })
+app.post('/token/:gmail/:unit/:landunit',async(req,res)=>
+{
+    const details=await db.collection("Show_values").findOneAndUpdate({Gmail:req.params.gmail},{$set:{USD_Values:{USD_Created:req.params.unit},Land_values:{Land_Created:req.params.landunit}}})
+    res.json(details);
+})
 app.get('/currentland/:name',async(req,res)=>
 {
     const details=await db.collection("Current_Land").findOne({Name:req.params.name})

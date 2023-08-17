@@ -9,6 +9,7 @@ const Login=()=>
         alert("Welcome to Quantum2Land Please Login");
         localStorage.name = '';
         localStorage.adminmail='';
+        localStorage.mainadmin='';
     }
     
     return(
