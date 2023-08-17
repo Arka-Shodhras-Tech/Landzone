@@ -19,6 +19,7 @@ export const Dashboard=()=>
     const landunit=localStorage.landunit;
     const landlimit=localStorage.landlimit;
     const currentland=localStorage.currentland;
+    const token=localStorage.token;
     const [uc,suc]=useState(localStorage.usercount);
     const [pc,spc]=useState(localStorage.procount);
     const [uib,suib]=useState(usd);
@@ -50,7 +51,7 @@ export const Dashboard=()=>
     localStorage.currentland=(await responce).data.Value;
     if ((await responce).data.Dates !== date.toDateString())
     {
-        value = parseFloat(responce.data.Value)+0.000205;
+        value = parseFloat((await responce).data.Value)+0.000205;
         axios.post("http://localhost:8000/insertcurland/"+name+"/"+date.toDateString()+"/"+value)
     }
    }
@@ -64,6 +65,7 @@ export const Dashboard=()=>
         document.getElementById('app').style.display='none';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='none';
+        document.getElementById('conv').style.display='none';
         document.getElementById('prevlist').style.display="none";
     }
     const Vpp=()=>
@@ -73,6 +75,7 @@ export const Dashboard=()=>
         document.getElementById('app').style.display='none';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='none';
+        document.getElementById('conv').style.display='none';
         document.getElementById('prevlist').style.display="none";
     }
     const App=async()=>
@@ -82,6 +85,7 @@ export const Dashboard=()=>
         document.getElementById('app').style.display='block';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='none';
+        document.getElementById('conv').style.display='none';
         document.getElementById('prevlist').style.display="none";
     }
     const Evb=async()=>
@@ -91,6 +95,7 @@ export const Dashboard=()=>
         document.getElementById('vpp').style.display='none';
         document.getElementById('app').style.display='none';
         document.getElementById('prevlist').style.display="none";
+        document.getElementById('conv').style.display='none';
         if(j==1)
         {
             document.getElementById('evb').style.display='none';
@@ -138,6 +143,7 @@ export const Dashboard=()=>
         document.getElementById('app').style.display='none';
         document.getElementById('evb').style.display='none';
         document.getElementById('svb').style.display='block';
+        document.getElementById('conv').style.display='none';
         document.getElementById('prevlist').style.display="none";
     }
     const Eusd=async()=>
@@ -170,6 +176,37 @@ export const Dashboard=()=>
         catch(e)
         {
             console.log(e);
+        }
+    }
+
+    // convert
+    const Conv=()=>
+    {
+        document.getElementById('cc').style.display='none';
+        document.getElementById('vpp').style.display='none';
+        document.getElementById('app').style.display='none';
+        document.getElementById('evb').style.display='none';
+        document.getElementById('svb').style.display='none';
+        document.getElementById('conv').style.display='block';
+        document.getElementById('prevlist').style.display="none";
+    }
+    const Convert=()=>
+    {
+        if(land==="Land")
+        {
+            localStorage.token=num;
+            localStorage.landunit=landunit-num*currentland;
+            axios.post("http://localhost:8000/token/"+localStorage.adminmail+"/"+unit+"/"+landunit)?
+            alert(token+"sucessfully Convert in LAND"):<b></b>
+            window.reload.location(4);
+        }
+        else
+        {
+            localStorage.token=num;
+            localStorage.unit=unit-num;
+            axios.post("http://localhost:8000/token/"+localStorage.adminmail+"/"+unit+"/"+landunit)?
+            alert(token+"sucessfully Convert in USD"):<b></b>
+            window.reload.location(4);
         }
     }
 
@@ -215,7 +252,8 @@ export const Dashboard=()=>
         localStorage.landunit=0;
        try
        {
-        (await axios.post("http://localhost:8000/delecurr")&&
+        (
+        await axios.post("http://localhost:8000/delecurr")&&
         await axios.post("http://localhost:8000/delepend"))?
         window.location.reload(5):alert("Try again")
        }
@@ -265,7 +303,7 @@ export const Dashboard=()=>
             if(vpp.In==="Land")
             {
                 localStorage.landpend=parseInt(landpend)-parseInt(vpp.Units);
-                localStorage.landunit=parseInt(landunit)+parseInt(vpp.Units);
+                localStorage.landunit=parseInt(landunit*currentland)+parseInt(vpp.Units);
             }
             else
             {
@@ -328,6 +366,7 @@ export const Dashboard=()=>
                         <Link className="dashitem" onClick={App}>Approved Purchases</Link>
                         {/* <Link className="dashitem" onClick={Svlb}>Show Value of Land in Bank</Link> */}
                         <Link className="dashitem" onClick={Svb}>Show Value of Land/USD in Bank</Link>
+                        <Link className="dashitem" onClick={Conv}>Convert</Link>
                     </div>
                             <div>
                                 <table className="dashtable">
@@ -498,7 +537,7 @@ export const Dashboard=()=>
                                         <tr style={{color:'navy'}}>
                                             <td style={{height:'12vh',color:'blue'}}><b>Land</b></td>
                                             <td>{totalland}</td>
-                                            <td>{landunit*currentland}</td>
+                                            <td>{landunit}</td>
                                             <td>{landpend}</td>
                                             <td>{landlimit}</td>
                                         </tr>
@@ -534,6 +573,32 @@ export const Dashboard=()=>
                                     ))
                                    }
                                 </table>
+                            </div>
+
+
+                            <div className="editdis" style={{display:'none'}} id="conv">
+                                <tr>
+                                    <td><b>Enter the number of Tokens Create::</b></td>
+                                    <td>
+                                    <label>
+                                        <input type="number" onChange={(e) => { snum(e.target.value) }} />
+                                        <select id="land" name="currency" value={land} onChange={(e) => sland(e.target.value)}>
+                                            <option> Choose Currency</option>
+                                            <option value="Land">Land</option>
+                                            <option value="eUSD">eUSD</option>
+                                        </select>
+                                    </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                <button onClick={Convert} style={{ margin: "2% 0% 5% 83%", width: '25%', height: '4vh',border:'none',borderRadius:'8px', backgroundColor:"royalblue", color: 'white' }}>Convert</button>
+                                </tr>
+                                <br/>
+                                <br/>
+                                <tr>
+                                    <td><b>Currency In Tokens::</b>{token} 1 token value = 1 land and usd value</td>
+                                    <td></td>
+                                </tr>
                             </div>
                 </section>
             </div>

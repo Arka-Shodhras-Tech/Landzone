@@ -19,6 +19,11 @@ export const Adminlogin=()=>
         {
                 localStorage.name = responce.data.Name;
                 localStorage.adminmail=responce.data.Gmail;
+                const responce1=await axios.get("http://localhost:8000/mainadmin1/"+gmail)
+                if(responce1.data)
+                {
+                    localStorage.mainadmin=responce1.data.Gmail;
+                }
                 nav('/adminpage')
                 window.location.reload(3);
         }
