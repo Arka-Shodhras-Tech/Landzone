@@ -14,12 +14,12 @@ export const Adminlogin=()=>
         {
             if(emailtest.test(gmail))
         {
-            const responce=await axios.get("http://localhost:8000/adminlogin/"+gmail+"/"+password);
+            const responce=await axios.get("https://landzone-server.onrender.com/adminlogin/"+gmail+"/"+password);
             if(responce.data)
         {
                 localStorage.name = responce.data.Name;
                 localStorage.adminmail=responce.data.Gmail;
-                const responce1=await axios.get("http://localhost:8000/mainadmin1/"+gmail)
+                const responce1=await axios.get("https://landzone-server.onrender.com/mainadmin1/"+gmail)
                 if(responce1.data)
                 {
                     localStorage.mainadmin=responce1.data.Gmail;

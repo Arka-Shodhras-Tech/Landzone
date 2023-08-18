@@ -12,14 +12,14 @@ export const Userupdate=()=>{
     const Updtshow=async()=>{
         if(emailtest.test(gmail))
         {
-            const responce1=await axios.get("http://localhost:8000/check/"+gmail);
+            const responce1=await axios.get("https://landzone-server.onrender.com/check/"+gmail);
         if(responce1.data)
         {
             if((password.length)>7)
                {
                 if(password===cpassword)
                 {
-                    const responce=await axios.post("http://localhost:8000/update/"+gmail+"/"+password+"/"+cpassword)
+                    const responce=await axios.post("https://landzone-server.onrender.com/update/"+gmail+"/"+password+"/"+cpassword)
                     if(responce.data)
                         {
                              nav('/userlogin');  

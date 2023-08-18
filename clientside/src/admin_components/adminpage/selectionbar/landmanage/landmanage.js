@@ -67,7 +67,7 @@ export const Landmanage=()=>
         localStorage.q=0;
        try
        {
-        const responce1=await axios.get("http://localhost:8000/entercheckdata/"+epn)
+        const responce1=await axios.get("https://landzone-server.onrender.com/entercheckdata/"+epn)
         {
             if(responce1.data)
             {
@@ -75,7 +75,7 @@ export const Landmanage=()=>
             }
             else
             {
-               const responce2= await axios.post("http://localhost:8000/enterdata/"+epn+"/"+epd+"/"+epv+"/"+ecn+"/"+sa+"/"+la+"/"+pa+"/"+ra+"/"+ca+"/"+etime)
+               const responce2= await axios.post("https://landzone-server.onrender.com/enterdata/"+epn+"/"+epd+"/"+epv+"/"+ecn+"/"+sa+"/"+la+"/"+pa+"/"+ra+"/"+ca+"/"+etime)
                {
                 responce2?serr1("Your project sucessfully saved"):serr1("Try agin")
                 window.location.reload(5)
@@ -96,11 +96,11 @@ export const Landmanage=()=>
         localStorage.q=0;
         try
         {
-            const responce1=await axios.get("http://localhost:8000/entercheckdata/"+cpn)
+            const responce1=await axios.get("https://landzone-server.onrender.com/entercheckdata/"+cpn)
             {
                 if(responce1.data)
                 {
-                    const responce2=await axios.post("http://localhost:8000/updatedata/"+cpn+"/"+cpd+"/"+cpv+"/"+ccn+"/"+csa+"/"+cla+"/"+cpca+"/"+cra+"/"+cca+"/"+etime)
+                    const responce2=await axios.post("https://landzone-server.onrender.com/updatedata/"+cpn+"/"+cpd+"/"+cpv+"/"+ccn+"/"+csa+"/"+cla+"/"+cpca+"/"+cra+"/"+cca+"/"+etime)
                     if(responce2.data)
                     {
                         serr2("Project details updateded sucessfully")
@@ -127,7 +127,7 @@ export const Landmanage=()=>
     {
        try
        {
-        const responce=await axios.get("http://localhost:8000/entercheckdata/"+cpn)
+        const responce=await axios.get("https://landzone-server.onrender.com/entercheckdata/"+cpn)
         if(responce.data)
         {
             spdsc(responce.data)
@@ -162,7 +162,7 @@ export const Landmanage=()=>
     {
         const etime = moment().format('YYYY-MM-DD HH:mm:ss Z');
         setime(etime);
-        axios.get("http://localhost:8000/showdata")
+        axios.get("https://landzone-server.onrender.com/showdata")
         .then((result)=>
         {
             ssld(result.data);

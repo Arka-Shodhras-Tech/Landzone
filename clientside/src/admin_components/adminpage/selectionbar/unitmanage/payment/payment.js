@@ -14,7 +14,7 @@ export const Payment=()=>
     {
         try
         {
-            const responce=await axios.post("http://localhost:8000/payment/"+bank+"/"+sendername+"/"+senderacc+"/"+amttrns+"/"+pymt+"/"+transdate)
+            const responce=await axios.post("https://landzone-server.onrender.com/payment/"+bank+"/"+sendername+"/"+senderacc+"/"+amttrns+"/"+pymt+"/"+transdate)
             {
                 responce?alert("Successfully Entered"):alert("Please try again");
                 window.location.reload(3);

@@ -26,14 +26,14 @@ export const Adminusermanage=()=>
     {
         try
         {
-            const responce1=await axios.get("http://localhost:8000/admincheck/"+approve.Gmail)
+            const responce1=await axios.get("https://landzone-server.onrender.com/admincheck/"+approve.Gmail)
             if(responce1.data)
             {
                 alert("Admin Already Exist")
             }
             else
             {
-                const responce=await axios.post("http://localhost:8000/enableadmin/"+approve.Name+"/"+approve.Gmail+"/"+approve.Password+"/"+approve.Cpassword+"/"+approve.Phone_Number)
+                const responce=await axios.post("https://landzone-server.onrender.com/enableadmin/"+approve.Name+"/"+approve.Gmail+"/"+approve.Password+"/"+approve.Cpassword+"/"+approve.Phone_Number)
                 if(responce.data)
                 {
                     alert("Sucessfully "+approve.Gmail+" Approved");
@@ -54,7 +54,7 @@ export const Adminusermanage=()=>
     {
         try
         {
-            const responce=await axios.post("http://localhost:8000/disableadmin/"+approve.Gmail)
+            const responce=await axios.post("https://landzone-server.onrender.com/disableadmin/"+approve.Gmail)
             if(responce.data)
             {
                 alert("Successfully disabled "+approve.Gmail);
@@ -71,7 +71,7 @@ export const Adminusermanage=()=>
     const Addadmin=async()=>
     {
         document.getElementById("admin").style.display="block";
-        const responce=await axios.get("http://localhost:8000/mainadmin")
+        const responce=await axios.get("https://landzone-server.onrender.com/mainadmin")
         if(responce.data)
         {
             try
@@ -92,7 +92,7 @@ export const Adminusermanage=()=>
     {
        try
        {
-        const responce=await axios.post("http://localhost:8000/mainadmin/"+approve.Gmail)
+        const responce=await axios.post("https://landzone-server.onrender.com/mainadmin/"+approve.Gmail)
         if(responce.data)
         {
             alert("Sucessfully Admited");
@@ -108,7 +108,7 @@ export const Adminusermanage=()=>
     {
         try
         {
-        axios.get("http://localhost:8000/disableshow")
+        axios.get("https://landzone-server.onrender.com/disableshow")
         .then((result) => {
             sdisen(result.data)
         })
@@ -116,12 +116,12 @@ export const Adminusermanage=()=>
         // .then((result) => {
         //     sdisable(result.data)
         // })
-        axios.get("http://localhost:8000/saveadminlist")
+        axios.get("https://landzone-server.onrender.com/saveadminlist")
         .then((result)=>
         {
             scheck(result.data)
         })
-        axios.get("http://localhost:8000/adminlist")
+        axios.get("https://landzone-server.onrender.com/adminlist")
         .then((result)=>
         {
             sadminlist(result.data)

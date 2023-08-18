@@ -12,7 +12,7 @@ export const Navbar=()=>
     }
     const Profile=async()=>
     {
-        const responce1=await axios.get("http://localhost:8000/admincheck/"+localStorage.adminmail)
+        const responce1=await axios.get("https://landzone-server.onrender.com/admincheck/"+localStorage.adminmail)
         if(responce1.data)
         {
             sprof(responce1.data);

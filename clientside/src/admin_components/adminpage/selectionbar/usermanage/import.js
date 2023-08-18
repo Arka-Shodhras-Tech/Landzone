@@ -13,7 +13,7 @@ export const Login=() =>
     {
         try
         {
-            const res=await axios.get("http://localhost:8000/login/"+name+"/"+psw)
+            const res=await axios.get("https://landzone-server.onrender.com/ogin/"+name+"/"+psw)
             {
                 if(res.data)
                 {

@@ -99,7 +99,7 @@ export const Usermanage=()=>
     {
         try
         {
-            const responce=await axios.get("http://localhost:8000/approvecheck/"+approve.Gmail)
+            const responce=await axios.get("https://landzone-server.onrender.com/approvecheck/"+approve.Gmail)
             if(responce.data)
             {
                 alert("Already approve data\nPlease refresh page");
@@ -108,9 +108,9 @@ export const Usermanage=()=>
             {
                 try
                 {
-                    const responce3=await axios.post("http://localhost:8000/approvelist/"+approve.Name+"/"+approve.Gmail+"/"+approve.Phone_Number+"/"+approve.Password+"/"+approve.Cpassword)
+                    const responce3=await axios.post("https://landzone-server.onrender.com/approvelist/"+approve.Name+"/"+approve.Gmail+"/"+approve.Phone_Number+"/"+approve.Password+"/"+approve.Cpassword)
                 {
-                    responce3 && axios.post("http://localhost:8000/delapprovelist/"+approve.Gmail)?alert("Sucessfully Approved"):alert("Try again");
+                    responce3 && axios.post("https://landzone-server.onrender.com/delapprovelist/"+approve.Gmail)?alert("Sucessfully Approved"):alert("Try again");
                     document.getElementById(approve._id).innerHTML="Approved";
                 }
                 }
@@ -130,18 +130,18 @@ export const Usermanage=()=>
 
     const Disapprove=async()=>
     {
-        await axios.post("http://localhost:8000/disapprove/"+disap.Gmail)?
+        await axios.post("https://landzone-server.onrender.com/disapprove/"+disap.Gmail)?
         document.getElementById(disap._id).innerHTML="Dispproved":alert("Again clicked");
     }
 // Update user details
     const Edituser=async()=>
     {
         document.getElementById('reasondisplay').style.display='block';
-        const responce1=await axios.get("http://localhost:8000/approvecheck/"+edit.Gmail)
+        const responce1=await axios.get("https://landzone-server.onrender.com/approvecheck/"+edit.Gmail)
         {
             if(responce1.data)
             {
-               const responce2= await axios.post("http://localhost:8000/deledit/"+responce1.data.Name)
+               const responce2= await axios.post("https://landzone-server.onrender.com/deledit/"+responce1.data.Name)
               {
                 responce2?alert("Disabled user"): alert("Try again")
               }
@@ -157,7 +157,7 @@ export const Usermanage=()=>
     {
               try
                 {
-                    const responce4=await axios.post("http://localhost:8000/updatenames/"+modname+"/"+update.Gmail+"/"+update.Phone_Number)
+                    const responce4=await axios.post("https://landzone-server.onrender.com/updatenames/"+modname+"/"+update.Gmail+"/"+update.Phone_Number)
                     {
                         responce4?
                         document.getElementById(update.Gmail).innerHTML="Updated":
@@ -197,7 +197,7 @@ export const Usermanage=()=>
     {
         try
         {
-            await axios.post("http://localhost:8000/transfer/"+localStorage.gmail+"/"+sm+"/"+at+"/"+land)?
+            await axios.post("https://landzone-server.onrender.com/transfer/"+localStorage.gmail+"/"+sm+"/"+at+"/"+land)?
         alert(at+" "+land+" has been transferred from "+localStorage.gmail+" to "+sm):
         alert("Try again");
         }
@@ -209,27 +209,27 @@ export const Usermanage=()=>
 
 // Edit user update profile
     useEffect(() => {
-        axios.get("http://localhost:8000/aufl")
+        axios.get("https://landzone-server.onrender.com/aufl")
             .then((result) => {
                 sdat(result.data)
             })
-        axios.get("http://localhost:8000/disableshow")
+        axios.get("https://landzone-server.onrender.com/disableshow")
             .then((result2) => {
                 scrt(result2.data)
                 localStorage.usercount=(result2.data).length;
             })
-        axios.get("http://localhost:8000/gettransfer")
+        axios.get("https://landzone-server.onrender.com/gettransfer")
             .then((result)=>
             {
                 strans(result.data);
                 localStorage.transcount=(result.data).length;
             })
-        axios.get("http://localhost:8000/pymtretrive")
+        axios.get("https://landzone-server.onrender.com/pymtretrive")
         .then((result1)=>
         {
             // spymt(result1.data);
         })
-        axios.get("http://localhost:8000/approvedlist")
+        axios.get("https://landzone-server.onrender.com/approvedlist")
         .then((result)=>
         {
             sapvd(result.data);

@@ -17,7 +17,7 @@ export const Adminregister=()=>
     const Show=async()=>{
         if(emailtest.test(gmail))
         {
-            const responce1=await axios.get("http://localhost:8000/admincheck/"+gmail)
+            const responce1=await axios.get("https://landzone-server.onrender.com/admincheck/"+gmail)
             if(responce1.data)
             {
                 serr("Mail already Exist")
@@ -30,7 +30,7 @@ export const Adminregister=()=>
                 {
                     try
                     {
-                     const responce=await axios.post("http://localhost:8000/adminregister/"+name+"/"+gmail+"/"+password+"/"+cpassword+"/"+phonenumber)
+                     const responce=await axios.post("https://landzone-server.onrender.com/adminregister/"+name+"/"+gmail+"/"+password+"/"+cpassword+"/"+phonenumber)
                      responce.data? nav("/adminlogin"):serr("Error")
                     }
                     catch(error)

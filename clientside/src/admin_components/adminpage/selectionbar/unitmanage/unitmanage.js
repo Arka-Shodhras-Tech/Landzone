@@ -20,11 +20,11 @@ export const Unitmanage=()=>
         document.getElementById('tansdetail').style.display="none";
     }
     useEffect(() => {
-        axios.get("http://localhost:8000/disableshow")
+        axios.get("https://landzone-server.onrender.com/disableshow")
         .then((result2) => {
             scrt(result2.data)
         })
-        axios.get("http://localhost:8000/pymtretrive")
+        axios.get("https://landzone-server.onrender.com/pymtretrive")
         .then((result1)=>
         {
             spymt(result1.data)
