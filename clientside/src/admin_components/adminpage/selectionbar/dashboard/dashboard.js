@@ -366,7 +366,6 @@ export const Dashboard=()=>
                         <Link className="dashitem" onClick={CC}>Create Currency (Land/USD Units)</Link>
                         <Link className="dashitem" onClick={Vpp}>view Pending Purchases</Link>
                         <Link className="dashitem" onClick={App}>Approved Purchases</Link>
-                        {/* <Link className="dashitem" onClick={Svlb}>Show Value of Land in Bank</Link> */}
                         <Link className="dashitem" onClick={Svb}>Show Value of Land/USD in Bank</Link>
                         <Link className="dashitem" onClick={Conv}>Convert</Link>
                     </div>
@@ -404,10 +403,6 @@ export const Dashboard=()=>
                                         <td>Recent Transactions</td>
                                         <td>{ts}</td>
                                     </tr>
-                                    {/* <tr>
-                                        <td>Approval Pending Transactions(upto 10)</td>
-                                        <td>{pt}</td>
-                                    </tr> */}
                                 </table>
                             </div>
 
@@ -515,10 +510,6 @@ export const Dashboard=()=>
                                    }
                                 </table>
                             </div>
-
-
-
-
 
 
 {/* Show value in eUSD */}
