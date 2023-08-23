@@ -59,3 +59,12 @@ const [pt,spt]=useState(0);
                                     <button id={1} onClick={Limitdis}><b>Limit</b></button><div>{limit}</div>
                                 </div>
                             </div> */}
+
+                             {/* <div>
+                    <Link  className="drop">
+                        <img src={"list.svg"} width={'35px'} alt="list" />
+                    </Link>
+                    <NavLink to='/adminpage' activeClassName='active'  className="drop drop1">
+                    <img src={'house.svg'} width={'33px'}  alt="home"></img>
+                    </NavLink>
+                        </div> */}

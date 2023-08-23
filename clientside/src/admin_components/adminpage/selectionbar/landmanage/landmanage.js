@@ -67,19 +67,14 @@ export const Landmanage=()=>
         localStorage.q=0;
        try
        {
-        const responce1=await axios.get("https://landzone-server.onrender.com/entercheckdata/"+epn)
         {
-            if(responce1.data)
+            if(await axios.get("https://landzone-server.onrender.com/entercheckdata/"+epn))
             {
                 serr1("Project name Existed please enter different project name")
             }
             else
             {
-               const responce2= await axios.post("https://landzone-server.onrender.com/enterdata/"+epn+"/"+epd+"/"+epv+"/"+ecn+"/"+sa+"/"+la+"/"+pa+"/"+ra+"/"+ca+"/"+etime)
-               {
-                responce2?serr1("Your project sucessfully saved"):serr1("Try agin")
-                window.location.reload(5)
-               }
+               await axios.post("https://landzone-server.onrender.com/enterdata/"+epn+"/"+epd+"/"+epv+"/"+ecn+"/"+sa+"/"+la+"/"+pa+"/"+ra+"/"+ca+"/"+etime)?serr1("Your project sucessfully saved")&&window.location.reload(5):serr1("Try agin")
             }
         }
        }
@@ -96,26 +91,15 @@ export const Landmanage=()=>
         localStorage.q=0;
         try
         {
-            const responce1=await axios.get("https://landzone-server.onrender.com/entercheckdata/"+cpn)
-            {
-                if(responce1.data)
+                if(await axios.get("https://landzone-server.onrender.com/entercheckdata/"+cpn))
                 {
-                    const responce2=await axios.post("https://landzone-server.onrender.com/updatedata/"+cpn+"/"+cpd+"/"+cpv+"/"+ccn+"/"+csa+"/"+cla+"/"+cpca+"/"+cra+"/"+cca+"/"+etime)
-                    if(responce2.data)
-                    {
-                        serr2("Project details updateded sucessfully")
-                         window.location.reload(3)
-                    }
-                    else
-                    {
-                        serr2("Try again")
-                    }
+                    const responce2=await axios.post("https://landzone-server.onrender.com/updatedata/"+cpn+"/"+cpd+"/"+cpv+"/"+ccn+"/"+csa+"/"+cla+"/"+cpca+"/"+cra+"/"+cca+"/"+etime)?
+                    serr2("Project details updateded sucessfully")&& window.location.reload(3):serr2("Try again")
                 }
                 else
                 {
                     serr2('Project name not found')
                 }
-            }
         }
         catch(e)
         {
@@ -128,19 +112,21 @@ export const Landmanage=()=>
        try
        {
         const responce=await axios.get("https://landzone-server.onrender.com/entercheckdata/"+cpn)
-        if(responce.data)
         {
-            spdsc(responce.data)
-            scpd(responce.data.project_desc);
-            scpv(responce.data.project_value)
-            sccn(responce.data.project_cadaster)
-            scsa(responce.data.project_address.Street)
-            scla(responce.data.project_address.City)
-            scpca(responce.data.project_address.Postal)
-            scra(responce.data.project_address.State)
-            scca(responce.data.project_address.Country)
-            sctime(responce.data.project_takentime)
-            document.getElementById('proname').style.display="none";
+            if(responce.data)
+            {
+                spdsc(responce.data)
+                scpd(responce.data.project_desc);
+                scpv(responce.data.project_value)
+                sccn(responce.data.project_cadaster)
+                scsa(responce.data.project_address.Street)
+                scla(responce.data.project_address.City)
+                scpca(responce.data.project_address.Postal)
+                scra(responce.data.project_address.State)
+                scca(responce.data.project_address.Country)
+                sctime(responce.data.project_takentime)
+                document.getElementById('proname').style.display="none";
+            }
         }
        }
        catch(e)

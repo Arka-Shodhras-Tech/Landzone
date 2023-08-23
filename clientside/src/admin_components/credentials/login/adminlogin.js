@@ -16,7 +16,7 @@ export const Adminlogin=()=>
         {
             const responce=await axios.get("https://landzone-server.onrender.com/adminlogin/"+gmail+"/"+password);
             if(responce.data)
-        {
+            {
                 localStorage.name = responce.data.Name;
                 localStorage.adminmail=responce.data.Gmail;
                 const responce1=await axios.get("https://landzone-server.onrender.com/mainadmin1/"+gmail)

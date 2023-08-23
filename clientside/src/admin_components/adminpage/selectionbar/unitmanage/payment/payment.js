@@ -14,11 +14,7 @@ export const Payment=()=>
     {
         try
         {
-            const responce=await axios.post("https://landzone-server.onrender.com/payment/"+bank+"/"+sendername+"/"+senderacc+"/"+amttrns+"/"+pymt+"/"+transdate)
-            {
-                responce?alert("Successfully Entered"):alert("Please try again");
-                window.location.reload(3);
-            }
+            await axios.post("https://landzone-server.onrender.com/payment/"+bank+"/"+sendername+"/"+senderacc+"/"+amttrns+"/"+pymt+"/"+transdate)?alert("Successfully Entered")&& window.location.reload(3):alert("Please try again");
         }
         catch(error)
         {

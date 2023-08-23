@@ -99,8 +99,7 @@ export const Usermanage=()=>
     {
         try
         {
-            const responce=await axios.get("https://landzone-server.onrender.com/approvecheck/"+approve.Gmail)
-            if(responce.data)
+            if(await axios.get("https://landzone-server.onrender.com/approvecheck/"+approve.Gmail))
             {
                 alert("Already approve data\nPlease refresh page");
             }
@@ -137,32 +136,23 @@ export const Usermanage=()=>
     const Edituser=async()=>
     {
         document.getElementById('reasondisplay').style.display='block';
-        const responce1=await axios.get("https://landzone-server.onrender.com/approvecheck/"+edit.Gmail)
-        {
-            if(responce1.data)
+            if(await axios.get("https://landzone-server.onrender.com/approvecheck/"+edit.Gmail))
             {
-               const responce2= await axios.post("https://landzone-server.onrender.com/deledit/"+responce1.data.Name)
-              {
-                responce2?alert("Disabled user"): alert("Try again")
-              }
-               
+                const responce1=await axios.get("https://landzone-server.onrender.com/approvecheck/"+edit.Gmail);
+               await axios.post("https://landzone-server.onrender.com/deledit/"+responce1.data.Name)?alert("Disabled user"): alert("Try again") 
             }
             else
             {
                 serr1("User not found")
             }
-        }
     }
     const Update=async()=>
     {
               try
                 {
-                    const responce4=await axios.post("https://landzone-server.onrender.com/updatenames/"+modname+"/"+update.Gmail+"/"+update.Phone_Number)
-                    {
-                        responce4?
-                        document.getElementById(update.Gmail).innerHTML="Updated":
-                        alert("Try again");
-                    }
+                    await axios.post("https://landzone-server.onrender.com/updatenames/"+modname+"/"+update.Gmail+"/"+update.Phone_Number)?
+                    document.getElementById(update.Gmail).innerHTML="Updated":
+                    alert("Try again");
                 }
                 catch(e)
                 {
@@ -197,7 +187,7 @@ export const Usermanage=()=>
     {
         try
         {
-            await axios.post("https://landzone-server.onrender.com/transfer/"+localStorage.gmail+"/"+sm+"/"+at+"/"+land)?
+        await axios.post("https://landzone-server.onrender.com/transfer/"+localStorage.gmail+"/"+sm+"/"+at+"/"+land)?
         alert(at+" "+land+" has been transferred from "+localStorage.gmail+" to "+sm):
         alert("Try again");
         }

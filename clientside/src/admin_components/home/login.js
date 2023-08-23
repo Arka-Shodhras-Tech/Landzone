@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Footer, Navbar } from "./nav&foot&contact&about/navbar";
 const Login=()=>
 {
-   
+    const gmal=localStorage.gmail;
     if(localStorage.adminmail!=='')
     {
         alert("Welcome to Quantum2Land Please Login");
@@ -11,7 +11,6 @@ const Login=()=>
         localStorage.adminmail='';
         localStorage.mainadmin='';
     }
-    
     return(
         <>
         <Navbar/>

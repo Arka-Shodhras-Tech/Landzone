@@ -16,8 +16,7 @@ export const UserRegister=()=>{
     const Show=async()=>{
         if(emailtest.test(gmail))
         {
-            const responce1=await axios.get("https://landzone-server.onrender.com/check/"+gmail)
-            if(responce1.data)
+            if(await axios.get("https://landzone-server.onrender.com/check/"+gmail))
             {
                 serr("Mail already Exist")
             }
@@ -29,9 +28,8 @@ export const UserRegister=()=>{
                 {
                    try
                    {
-                    const responce=await axios.post("https://landzone-server.onrender.com/register/"+name+"/"+gmail+"/"+password+"/"+cpassword+"/"+phonenumber)&&
-                    await axios.post("https://landzone-server.onrender.com/userapprove/"+name+"/"+gmail+"/"+phonenumber)
-                    responce.data? nav("/userlogin"):serr("Error")
+                    await axios.post("https://landzone-server.onrender.com/register/"+name+"/"+gmail+"/"+password+"/"+cpassword+"/"+phonenumber)&&
+                    await axios.post("https://landzone-server.onrender.com/userapprove/"+name+"/"+gmail+"/"+phonenumber)?nav("/userlogin"):serr("Error")
                    }
                    catch(error)
                    {

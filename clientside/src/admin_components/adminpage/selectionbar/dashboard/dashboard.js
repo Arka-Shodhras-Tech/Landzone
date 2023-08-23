@@ -121,23 +121,6 @@ export const Dashboard=()=>
             localStorage.landlimit=parseFloat(totalland/currentland)-(parseInt(landpend)+parseFloat(landunit)*val)
             localStorage.q=q+1;   
         }
-        try
-        {
-            const res1=await axios.get("https://landzone-server.onrender.com/getshowvalue/"+gmal)
-            {
-                if(res1.data)
-                {
-                    axios.post("https://landzone-server.onrender.com/updateshow/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+avil+"/"+limit+"/"+totalland+"/"+landpend+"/"+landunit+"/"+landlimit)
-                }
-                else
-                {
-                    axios.post("https://landzone-server.onrender.com/showvalue/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+avil+"/"+limit+"/"+totalland+"/"+landpend+"/"+landunit+"/"+landlimit)                }
-            }
-        }
-        catch(e)
-        {
-            console.log(e);
-        }
         document.getElementById('cc').style.display='none';
         document.getElementById('vpp').style.display='none';
         document.getElementById('app').style.display='none';
@@ -152,9 +135,8 @@ export const Dashboard=()=>
         {
             localStorage.usd=num;
             // localStorage.limit=0;
-            const responce1=await axios.get("https://landzone-server.onrender.com/eviusdget/"+gmal)
             {
-                if(responce1.data)
+                if(await axios.get("https://landzone-server.onrender.com/eviusdget/"+gmal))
                 {
                     const details=await axios.post("https://landzone-server.onrender.com/uviusd/"+gmal+"/"+limit)
                     {
@@ -165,11 +147,9 @@ export const Dashboard=()=>
                 }
                 else
                 {
-                    const details=await axios.post("https://landzone-server.onrender.com/eviusd/"+gmal+"/"+limit)
-                    {
-                        details?alert(num+" USD units are there in your Bank account"):alert("Try again");
-                        window.location.reload(5);
-                    }
+                    const details=await axios.post("https://landzone-server.onrender.com/eviusd/"+gmal+"/"+limit)?
+                    alert(num+" USD units are there in your Bank account"):alert("Try again")
+                    window.location.reload(5);
                 }
             }
         }
@@ -264,33 +244,55 @@ export const Dashboard=()=>
     }
     const Prev=async()=>
     {
-       try
-       {
-        const res=await axios.get("https://landzone-server.onrender.com/getshowvalue/"+gmal)
+        try
         {
-            if(res.data)
-            {
-                localStorage.limit=res.data.USD_Values.USD_Limit;
-                localStorage.pendg=res.data.USD_Values.USD_Pending;
-                localStorage.avil=res.data.USD_Values.USD_Available;
-                localStorage.unit=res.data.USD_Values.USD_Created;
-                localStorage.usd=res.data.USD_Values.Total_USD;
-                localStorage.totalland=res.data.Land_values.Total_Land;
-                localStorage.landpend=res.data.Land_values.Land_Pending;
-                localStorage.landunit=res.data.Land_values.Land_Created;
-                localStorage.landlimit=res.data.Land_values.Land_Available;
-                window.location.reload(5);
-            }
+         const res=await axios.get("https://landzone-server.onrender.com/getshowvalue/"+gmal)
+         {
+             if(res.data)
+             {
+                 localStorage.limit=res.data.USD_Values.USD_Limit;
+                 localStorage.pendg=res.data.USD_Values.USD_Pending;
+                 localStorage.avil=res.data.USD_Values.USD_Available;
+                 localStorage.unit=res.data.USD_Values.USD_Created;
+                 localStorage.usd=res.data.USD_Values.Total_USD;
+                 localStorage.totalland=res.data.Land_values.Total_Land;
+                 localStorage.landpend=res.data.Land_values.Land_Pending;
+                 localStorage.landunit=res.data.Land_values.Land_Created;
+                 localStorage.landlimit=res.data.Land_values.Land_Available;
+                 window.location.reload(5);
+             }
+         }
         }
-       }
-       catch(e)
-       {
-        console.log(e);
-       }
+        catch(e)
+        {
+         console.log(e);
+        }
     }
     const PreList=async()=>
     {
         document.getElementById('prevlist').style.display="block";
+    }
+    const Save=async()=>
+    {
+        try
+        {
+            {
+                if(await axios.get("https://landzone-server.onrender.com/getshowvalue/"+gmal))
+                {
+                    axios.post("https://landzone-server.onrender.com/updateshow/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+avil+"/"+limit+"/"+totalland+"/"+landpend+"/"+landunit+"/"+landlimit)?
+                    alert("Sucessfully saved"):alert("Try again");
+                }
+                else
+                {
+                    axios.post("https://landzone-server.onrender.com/showvalue/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+avil+"/"+limit+"/"+totalland+"/"+landpend+"/"+landunit+"/"+landlimit)?
+                    alert("Sucessfully saved"):alert("Try again");
+                }
+            }
+        }
+        catch(e)
+        {
+            console.log(e);
+        }
     }
 
 // view pending approval
@@ -350,7 +352,7 @@ export const Dashboard=()=>
        {
         console.log(e);
        }
-       
+      
     }, [])
     return(
         <>
@@ -549,6 +551,16 @@ export const Dashboard=()=>
                                             <td>{limit}</td>
                                         </tr>
                                     </table>
+                                    <br/>
+                                    <br/>
+                                    <tr>
+                                        <td>
+                                        Please save your statical values and try trail methods
+                                        </td>
+                                        <td style={{width:'30%'}}>
+                                        <button onClick={Save} style={{ margin: "5% 0% 0% 55%", width: '50%', height: '4vh', backgroundColor: 'green', color: 'white' }}><b>Save</b></button>
+                                        </td>
+                                    </tr>
                             </div>
                             </div>
 {/* Previous List */}

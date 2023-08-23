@@ -26,23 +26,14 @@ export const Adminusermanage=()=>
     {
         try
         {
-            const responce1=await axios.get("https://landzone-server.onrender.com/admincheck/"+approve.Gmail)
-            if(responce1.data)
+            if(await axios.get("https://landzone-server.onrender.com/admincheck/"+approve.Gmail))
             {
                 alert("Admin Already Exist")
             }
             else
             {
-                const responce=await axios.post("https://landzone-server.onrender.com/enableadmin/"+approve.Name+"/"+approve.Gmail+"/"+approve.Password+"/"+approve.Cpassword+"/"+approve.Phone_Number)
-                if(responce.data)
-                {
-                    alert("Sucessfully "+approve.Gmail+" Approved");
-                    window.location.reload(1);
-                }
-                else
-                {
-                    alert("Try again");
-                }
+                await axios.post("https://landzone-server.onrender.com/enableadmin/"+approve.Name+"/"+approve.Gmail+"/"+approve.Password+"/"+approve.Cpassword+"/"+approve.Phone_Number)?alert("Sucessfully "+approve.Gmail+" Approved"):alert("Try again");
+                window.location.reload(1);
             }
         }
         catch(e)
@@ -54,19 +45,15 @@ export const Adminusermanage=()=>
     {
         try
         {
-            const responce=await axios.post("https://landzone-server.onrender.com/disableadmin/"+approve.Gmail)
-            if(responce.data)
-            {
-                alert("Successfully disabled "+approve.Gmail);
-                window.location.reload(1);
-            }
-            else
-            {
-                alert("Try again");
-            }
+            await axios.post("https://landzone-server.onrender.com/disableadmin/"+approve.Gmail)?
+            alert("Successfully disabled "+approve.Gmail):
+            alert("Try again");
+            window.location.reload(1);
         }
         catch(e)
-        {}
+        {
+            console.log(e);
+        }
     }
     const Addadmin=async()=>
     {
@@ -112,10 +99,6 @@ export const Adminusermanage=()=>
         .then((result) => {
             sdisen(result.data)
         })
-        // axios.get("http://localhost:8000/userlist")
-        // .then((result) => {
-        //     sdisable(result.data)
-        // })
         axios.get("https://landzone-server.onrender.com/saveadminlist")
         .then((result)=>
         {
@@ -148,7 +131,6 @@ export const Adminusermanage=()=>
                         <tr>
                             <th>S.no</th>
                             <th>User Detilas</th>
-                            {/* <th>Select</th> */}
                         </tr>
                        {
                         disen.filter(user=>(user.Gmail).includes(select)||(user.Name).includes(select)).map((enable,index)=>
