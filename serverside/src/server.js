@@ -39,6 +39,11 @@ app.get('/adminlogin/:mail/:password',async(req,res)=>//login
     const details=await db.collection('Admin_Data').findOne({Gmail:req.params.mail,Password:req.params.password});
     res.json(details);
 })
+app.get('/mainadmin1/:gmail',async(req,res)=>
+{
+    const details=await db.collection('Main_admin').findOne({Gmail:req.params.gmail});
+    res.json(details)
+})
 app.post('/adminregister/:fname/:lname/:gmail/:password/:phonenumber',async(req,res)=>//register
 {
     const details=await db.collection('Admin_Data').insertOne({
@@ -304,11 +309,6 @@ app.post('/mainadmin/:approve',async(req,res)=>
 app.get('/mainadmin',async(req,res)=>
 {
     const details=await db.collection('Main_admin').findOne();
-    res.json(details)
-})
-app.get('/mainadmin1/:gmail',async(req,res)=>
-{
-    const details=await db.collection('Main_admin').findOne({Gmail:req.params.gmail});
     res.json(details)
 })
 app.get('/mainadminlist',async(req,res)=>
