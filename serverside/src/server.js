@@ -11,9 +11,9 @@ app.get('/',(req,res)=>{
 try
 {
 //user data server//
-app.post('/register/:name/:gmail/:password/:cpassword/:phonenumber',async(req,res)=>//register
+app.post('/register/:fname/:lname/:gmail/:password/:phonenumber',async(req,res)=>//register
 {
-    const details=await db.collection('userlogin').insertOne({Name:req.params.name,Gmail:req.params.gmail,Password:req.params.password,Cpassword:req.params.cpassword,Phone_Number:req.params.phonenumber})
+    const details=await db.collection('User_Data').insertOne({Firstname:req.params.fname,Lastname:req.params.lname,Gmail:req.params.gmail,Password:req.params.password,Phonenumber:req.params.phonenumber,PasswordResetToken:req.params=' ',PasswordResetExpires:{date:new Date()},isAdmin:req.params=false,isApproved:req.params='', __v:req.params=0,accountNumber:req.params='',isVerified:req.params=true})
     res.json(details);
 })
 app.post('/userapprove/:name/:gmail/:phonenumber',async(req,res)=>//register
@@ -23,7 +23,7 @@ app.post('/userapprove/:name/:gmail/:phonenumber',async(req,res)=>//register
 })
 app.get('/check/:gmail',async(req,res)=>//mail check in register
 {
-    const details=await db.collection('userlogin').findOne({Gmail:req.params.gmail});
+    const details=await db.collection('User_Data').findOne({Gmail:req.params.gmail});
     res.json(details);
 })
 app.get('/login/:gmail/:password',async(req,res)=>//login

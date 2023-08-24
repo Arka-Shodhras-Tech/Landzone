@@ -6,45 +6,52 @@ import { useNavigate } from "react-router-dom";
 import { Footer, Navbar } from "../../../admin_components/home/nav&foot&contact&about/navbar";
 export const UserRegister=()=>{
     const nav=useNavigate();
-    const [name,sname]=useState("");
+    const [fname,sfname]=useState("");
+    const [lname,slname]=useState("");
     const [gmail,sgmail]=useState("");
     const [password,spassword]=useState("");
     const [cpassword,scpassword]=useState("");
     const [phonenumber,sphonenumber]=useState('');
     const [err,serr]=useState("");
     const emailtest = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const Show=async()=>{
+    const Show=async()=>
+    {
+        fname===''?serr("First name required"):<b></b> && lname===''?serr("Last name required"):<b></b> && phonenumber===''?serr("Number required"):<b></b> &&
+        password===''?serr("Password required"):<b></b> && gmail===''?serr("Gmail required"):<b></b> && cpassword===''?serr("Confirm password required"):<b></b>
         if(emailtest.test(gmail))
         {
-            if(await axios.get("https://landzone-server.onrender.com/check/"+gmail))
+            const res=await axios.get("https://landzone-server.onrender.com/check/"+gmail)
             {
-                serr("Mail already Exist")
-            }
-            else
-            {
-               if(password.length>7)
-               {
-                if(password === cpassword)
+                if(res.data)
                 {
-                   try
-                   {
-                    await axios.post("https://landzone-server.onrender.com/register/"+name+"/"+gmail+"/"+password+"/"+cpassword+"/"+phonenumber)&&
-                    await axios.post("https://landzone-server.onrender.com/userapprove/"+name+"/"+gmail+"/"+phonenumber)?nav("/userlogin"):serr("Error")
-                   }
-                   catch(error)
-                   {
-                    alert("Required all fields or Server bussy");
-                   }
+                    serr("Mail already Exist")
                 }
                 else
                 {
-                    serr("Passwords Not Match")
+                   if(password.length>7)
+                   {
+                    if(password === cpassword)
+                    {
+                       try
+                       {
+                        await axios.post("https://landzone-server.onrender.com/register/"+fname+"/"+lname+"/"+gmail+"/"+password+"/"+phonenumber)?nav("/userlogin"):serr("Error");
+                        // await axios.post("https://landzone-server.onrender.com/userapprove/"+name+"/"+gmail+"/"+phonenumber)
+                       }
+                       catch(error)
+                       {
+                        console.log(error);
+                       }
+                    }
+                    else
+                    {
+                        serr("Passwords Not Match")
+                    }
+                   }
+                   else
+                   {
+                    serr("password length must be >=8")
+                   }
                 }
-               }
-               else
-               {
-                serr("password length must be >=8")
-               }
             }
         }
         else
@@ -67,10 +74,18 @@ export const UserRegister=()=>{
         <table className='tabledata' style={{marginTop:'9%'}}>
             <tr>
                 <td className="input">
-                    <label for="name"><b>Name </b></label>
+                    <label for="name"><b>First Name </b></label>
                 </td>
                 <td className="input">
-                <input type='text' name='name' id="name" autoComplete="none" placeholder='Enter your full name' onChange={(e)=>sname(e.target.value.charAt(0).toLocaleUpperCase()+e.target.value.slice(1))} required></input>
+                <input type='text' name='fname' id="fname" placeholder='Enter your full name' onChange={(e)=>sfname(e.target.value.charAt(0).toLocaleUpperCase()+e.target.value.slice(1))}></input>
+                </td>
+            </tr>
+            <tr>
+                <td className="input">
+                    <label for="name"><b>Last Name </b></label>
+                </td>
+                <td className="input">
+                <input type='text' name='lname' id="lname" placeholder='Enter your full name' onChange={(e)=>slname(e.target.value.charAt(0).toLocaleUpperCase()+e.target.value.slice(1))} required></input>
                 </td>
             </tr>
             <tr>
@@ -78,7 +93,7 @@ export const UserRegister=()=>{
                 <label for="gmail"><b>Gmail </b></label>
                 </td>
                 <td className="input">
-                <input type='mail' name='gmail' id="gmail" required autoComplete="none" placeholder='Enter your mail' onChange={(e)=>sgmail(e.target.value)}></input>
+                <input type='mail' name='gmail' id="gmail" required placeholder='Enter your mail' onChange={(e)=>sgmail(e.target.value)}></input>
                 </td>
             </tr>
             <tr>

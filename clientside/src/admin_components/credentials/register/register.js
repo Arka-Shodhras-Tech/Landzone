@@ -4,48 +4,54 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { useNavigate } from "react-router-dom";
 import { Footer, Navbar } from "../../home/nav&foot&contact&about/navbar";
+
 export const Adminregister=()=>
 {
     const nav=useNavigate();
-    const [name,sname]=useState("");
+   
     const [gmail,sgmail]=useState("");
     const [password,spassword]=useState("");
     const [cpassword,scpassword]=useState("");
     const [err,serr]=useState("");
     const [phonenumber,sphonenumber]=useState("");
     const emailtest = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  
     const Show=async()=>{
         if(emailtest.test(gmail))
         {
-            if(await axios.get("https://landzone-server.onrender.com/admincheck/"+gmail))
+            const responce=await axios.get("https://landzone-server.onrender.com/admincheck/"+gmail)
             {
-                serr("Mail already Exist")
-            }
-            else
-            {
-               if(password.length>7)
-               {
-                if(password === cpassword)
+                if(responce.data)
                 {
-                    try
-                    {
-                     const responce=await axios.post("https://landzone-server.onrender.com/adminregister/"+name+"/"+gmail+"/"+password+"/"+cpassword+"/"+phonenumber)?
-                     nav("/adminlogin"):serr("Error")
-                    }
-                    catch(error)
-                    {
-                     alert("Required all fields or Server bussy");
-                    }
+                    serr("Mail already Exist")
                 }
                 else
                 {
-                    serr("Passwords Not Match")
+                   if(password.length>7)
+                   {
+                    if(password === cpassword)
+                    {
+                        try
+                        {
+                         await axios.post("https://landzone-server.onrender.com/adminregister/"+name+"/"+gmail+"/"+password+"/"+cpassword+"/"+phonenumber)?
+                         nav("/adminlogin"):serr("Error")
+                        }
+                        catch(error)
+                        {
+                         alert("Required all fields or Server bussy");
+                        }
+                    }
+                    else
+                    {
+                        serr("Passwords Not Match")
+                    }
+                   }
+                   else
+                   {
+                    serr("password length must be >=8")
+                   }
                 }
-               }
-               else
-               {
-                serr("password length must be >=8")
-               }
             }
         }
         else
