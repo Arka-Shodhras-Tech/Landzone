@@ -16,11 +16,6 @@ app.post('/register/:fname/:lname/:gmail/:password/:phonenumber',async(req,res)=
     const details=await db.collection('User_Data').insertOne({Firstname:req.params.fname,Lastname:req.params.lname,Gmail:req.params.gmail,Password:req.params.password,Phonenumber:req.params.phonenumber,PasswordResetToken:req.params=' ',PasswordResetExpires:{date:new Date()},isAdmin:req.params=false,isApproved:req.params='', __v:req.params=0,accountNumber:req.params='',isVerified:req.params=true})
     res.json(details);
 })
-app.post('/userapprove/:name/:gmail/:phonenumber',async(req,res)=>//register
-{
-    const details=await db.collection('saved_userlogin').insertOne({Name:req.params.name,Gmail:req.params.gmail,Phone_Number:req.params.phonenumber})
-    res.json(details);
-})
 app.get('/check/:gmail',async(req,res)=>//mail check in register
 {
     const details=await db.collection('User_Data').findOne({Gmail:req.params.gmail});
@@ -28,12 +23,12 @@ app.get('/check/:gmail',async(req,res)=>//mail check in register
 })
 app.get('/login/:gmail/:password',async(req,res)=>//login
 {
-    const details=await db.collection('userlogin').findOne({Gmail:req.params.gmail,Password:req.params.password});
+    const details=await db.collection('User_Data').findOne({Gmail:req.params.gmail,Password:req.params.password});
     res.json(details);
 })
 app.post('/update/:gmail/:password/:cpassword',async(req,res)=>//forget
 {
-    const details=await db.collection('userlogin').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Password:req.params.password,Cpassword:req.params.cpassword}})
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Password:req.params.password}})
     res.json(details);
 })
 

@@ -35,7 +35,7 @@ export const UserRegister=()=>{
                        try
                        {
                         await axios.post("https://landzone-server.onrender.com/register/"+fname+"/"+lname+"/"+gmail+"/"+password+"/"+phonenumber)?
-                        (alert("Sucessfully registered")&&nav("/userlogin")):serr("Error");
+                        nav("/userlogin"):serr("Error");
                        }
                        catch(error)
                        {
