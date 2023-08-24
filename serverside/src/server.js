@@ -13,7 +13,19 @@ try
 //user data server//
 app.post('/register/:fname/:lname/:gmail/:password/:phonenumber',async(req,res)=>//register
 {
-    const details=await db.collection('User_Data').insertOne({Firstname:req.params.fname,Lastname:req.params.lname,Gmail:req.params.gmail,Password:req.params.password,Phonenumber:req.params.phonenumber,PasswordResetToken:req.params=' ',PasswordResetExpires:{date:new Date()},isAdmin:req.params=false,isApproved:req.params='', __v:req.params=0,accountNumber:req.params='',isVerified:req.params=true})
+    const details=await db.collection('User_Data').insertOne({
+        Firstname:req.params.fname,
+        Lastname:req.params.lname,
+        Gmail:req.params.gmail,
+        Password:req.params.password,
+        Phonenumber:req.params.phonenumber,
+        PasswordResetToken:req.params=' ',
+        PasswordResetExpires:{date:new Date()},
+        isAdmin:req.params=false,
+        isApproved:req.params='',
+         __v:req.params=0,
+         accountNumber:req.params='',
+         isVerified:req.params=true})
     res.json(details);
 })
 app.get('/check/:gmail',async(req,res)=>//mail check in register
@@ -52,8 +64,13 @@ app.post('/adminregister/:fname/:lname/:gmail/:password/:phonenumber',async(req,
 })
 
 //Approve user from list
-app.get('/level0data',async(req,res)=>{
+app.get('/levelsdata',async(req,res)=>{
     const details=await db.collection('User_Data').find().toArray()
+    res.json(details);
+})
+app.post('/approve/:gmail',async(req,res)=>
+{
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=1}})
     res.json(details);
 })
 

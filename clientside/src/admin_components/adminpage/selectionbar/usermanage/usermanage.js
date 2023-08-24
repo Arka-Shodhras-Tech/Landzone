@@ -189,7 +189,7 @@ export const Usermanage=()=>
 
 // Edit user update profile
     useEffect(() => {
-        axios.get("https://landzone-server.onrender.com/level0data")
+        axios.get("https://landzone-server.onrender.com/levelsdata")
             .then((result) => {
                 sdat(result.data)
             })
