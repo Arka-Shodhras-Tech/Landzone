@@ -16,8 +16,8 @@ export const Userlogin=()=>
             const responce=await axios.get("https://landzone-server.onrender.com/login/"+gmail+"/"+password)
             {
                 if (responce.data) {
-                    localStorage.name = responce.data.name;
-                    localStorage.gmail = responce.data.gmail;
+                    localStorage.name = responce.data.Lastname;
+                    localStorage.gmail = responce.data.Gmail;
                     nav("/gamep")
                 }
                 else {

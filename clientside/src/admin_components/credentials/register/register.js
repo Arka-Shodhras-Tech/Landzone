@@ -8,7 +8,8 @@ import { Footer, Navbar } from "../../home/nav&foot&contact&about/navbar";
 export const Adminregister=()=>
 {
     const nav=useNavigate();
-   
+    const [fname,sfname]=useState("");
+    const [lname,slname]=useState("");
     const [gmail,sgmail]=useState("");
     const [password,spassword]=useState("");
     const [cpassword,scpassword]=useState("");
@@ -34,7 +35,7 @@ export const Adminregister=()=>
                     {
                         try
                         {
-                         await axios.post("https://landzone-server.onrender.com/adminregister/"+name+"/"+gmail+"/"+password+"/"+cpassword+"/"+phonenumber)?
+                         await axios.post("https://landzone-server.onrender.com/adminregister/"+fname+"/"+lname+"/"+gmail+"/"+password+"/"+phonenumber)?
                          nav("/adminlogin"):serr("Error")
                         }
                         catch(error)
@@ -74,10 +75,18 @@ export const Adminregister=()=>
         <table className='tabledata' style={{marginTop:'9%'}}>
             <tr>
                 <td className="input">
-                    <label for="name"><b>Name </b></label>
+                    <label for="name"><b>First Name </b></label>
                 </td>
                 <td className="input">
-                <input type='text' name='name' id="name" autoComplete="none" placeholder='Enter your full name' onChange={(e)=>sname(e.target.value.charAt(0).toLocaleUpperCase()+e.target.value.slice(1))}></input>
+                <input type='text' name='fname' id="fname" placeholder='Enter your full name' onChange={(e)=>sfname(e.target.value.charAt(0).toLocaleUpperCase()+e.target.value.slice(1))}></input>
+                </td>
+            </tr>
+            <tr>
+                <td className="input">
+                    <label for="name"><b>Last Name </b></label>
+                </td>
+                <td className="input">
+                <input type='text' name='lname' id="lname" placeholder='Enter your full name' onChange={(e)=>slname(e.target.value.charAt(0).toLocaleUpperCase()+e.target.value.slice(1))}></input>
                 </td>
             </tr>
             <tr>

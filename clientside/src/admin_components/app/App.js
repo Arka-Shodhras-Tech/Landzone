@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Userlogin } from '../../user_components/credentials/login/userlogin';
 import { UserRegister } from '../../user_components/credentials/register/userregister';
+import { Adminregister } from '../credentials/register/register';
 import { Userupdate } from '../../user_components/credentials/update/userforget';
 import { Adminusermanage } from '../adminpage/selectionbar/adminusermanage/adminusermanage';
 import { Dashboard } from '../adminpage/selectionbar/dashboard/dashboard';
@@ -22,6 +23,7 @@ function App() {
       <Route path='/home' element={<Home/>}/>
       <Route path='/about' element={<About/>}/>
       <Route path='/contact' element={(localStorage.adminmail===''?<Adminlogin/>:<Contact/>)}/>
+      <Route path='/adminregister' element={<Adminregister/>}/>
       <Route exact path='/adminlogin' element={<Adminlogin/>}/>
       <Route exact path='/userlogin' element={<Userlogin/>}/>
       <Route exact path='/userregister' element={<UserRegister/>}/>

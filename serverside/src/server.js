@@ -46,7 +46,7 @@ app.get('/admincheck/:gmail',async(req,res)=>//mail check
 })
 app.post('/adminregister/:fname/:lname/:gmail/:password/:phonenumber',async(req,res)=>//register
 {
-    const details=await db.collection('User_Data').insertOne({
+    const details=await db.collection('Admin_Data').insertOne({
         Firstname:req.params.fname,
         Lastname:req.params.lname,
         Gmail:req.params.gmail,
