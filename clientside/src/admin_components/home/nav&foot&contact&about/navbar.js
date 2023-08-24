@@ -29,7 +29,7 @@ export const Navbar=()=>
                 <Link to='/home' className="navitem">Home</Link>
                 <Link to={"/adminpage"} className="navitem">Menu</Link>
                 {
-                     localStorage.adminmail===''?<Link to='/adminlogin' className="navitem">Login</Link>:<Link onClick={Profile} className="navitem" style={{color:'blue'}}><img src="user.svg" width={"30px"}/>{localStorage.name}</Link>
+                     localStorage.adminmail===''?<Link to='/' className="navitem">Login</Link>:<Link onClick={Profile} className="navitem" style={{color:'blue'}}><img src="user.svg" width={"30px"}/>{localStorage.name}</Link>
                 }
                 <Link to='/about' className="navitem">About</Link>
                 <Link to='/contact' className="navitem">Contact Us</Link>

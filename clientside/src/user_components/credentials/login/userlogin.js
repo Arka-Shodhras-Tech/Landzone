@@ -13,16 +13,17 @@ export const Userlogin=()=>
     const Show=async()=>{
         if(emailtest.test(gmail))
         {
-            const responce=await axios.get("https://landzone-server.onrender.com/login/"+gmail+"/"+password);
-            if(responce.data)
-        {
-            localStorage.name=responce.data.name;
-            localStorage.gmail=responce.data.gmail;
-            (nav("/gamep"))
-        }
-        else{
-            serror("password or mail incorrect")
-        }
+            const responce=await axios.get("https://landzone-server.onrender.com/login/"+gmail+"/"+password)
+            {
+                if (responce.data) {
+                    localStorage.name = responce.data.name;
+                    localStorage.gmail = responce.data.gmail;
+                    nav("/gamep")
+                }
+                else {
+                    serror("password or mail incorrect")
+                }
+            }
         }
         else
         {

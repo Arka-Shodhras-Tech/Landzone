@@ -33,15 +33,6 @@ app.post('/update/:gmail/:password/:cpassword',async(req,res)=>//forget
 })
 
 
-
-//headbar//..
-app.get('/headcheck/:name',async(req,res)=>
-{
-    const details=await db.collection('userlogin').findOne({Name:req.params.name});
-    res.json(details);
-})
-
-
 // Admin data server//
 app.get('/adminlogin/:mail/:password',async(req,res)=>//login
 {
@@ -53,22 +44,22 @@ app.get('/admincheck/:gmail',async(req,res)=>//mail check
     const details=await db.collection('adminlogin').findOne({Gmail:req.params.gmail});
     res.json(details);
 })
-app.get('/saveadmincheck/:gmail',async(req,res)=>//mail check
+app.post('/adminregister/:fname/:lname/:gmail/:password/:phonenumber',async(req,res)=>//register
 {
-    const details=await db.collection('saved_adminlogin').findOne({Gmail:req.params.gmail});
+    const details=await db.collection('User_Data').insertOne({
+        Firstname:req.params.fname,
+        Lastname:req.params.lname,
+        Gmail:req.params.gmail,
+        Password:req.params.password,
+        Phonenumber:req.params.phonenumber,
+        PasswordResetToken:req.params='',
+        PasswordResetExpires:{date:new Date()},
+        isAdmin:req.params=false,
+        isApproved:req.params='',
+        __v:req.params=0,
+        accountNumber:req.params='',
+        isVerified:req.params=true})
     res.json(details);
-})
-app.post('/adminregister/:name/:gmail/:password/:cpassword/:phonenumber',async(req,res)=>//register
-{
-    try
-    {
-        const details=await db.collection('adminlogin').insertOne({Name:req.params.name,Gmail:req.params.gmail,Password:req.params.password,Cpassword:req.params.cpassword,Phone_Number:req.params.phonenumber})
-        res.json(details);
-    }
-    catch(e)
-    {
-        console.log(e);
-    }
 })
 
 //Approve user from list

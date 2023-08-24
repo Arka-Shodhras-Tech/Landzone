@@ -68,3 +68,12 @@ const [pt,spt]=useState(0);
                     <img src={'house.svg'} width={'33px'}  alt="home"></img>
                     </NavLink>
                         </div> */}
+
+
+
+
+                        app.get('/saveadmincheck/:gmail',async(req,res)=>//mail check
+                        {
+                            const details=await db.collection('saved_adminlogin').findOne({Gmail:req.params.gmail});
+                            res.json(details);
+                        })
