@@ -28,17 +28,16 @@ export const Adminregister=()=>
                         try
                         {
                             const responce=await axios.post("https://landzone-server.onrender.com/adminregister/"+fname+"/"+lname+"/"+gmail+"/"+password+"/"+phonenumber)
-                            {
-                                if(responce.data.msg)
+                                if(responce.data)
                                 {
-                                    nav("/adminlogin")
+                                    console.log(responce.data)
+                                    responce.data.msg==="Mail already exist"?alert("Mail already exist"):nav('/adminlogin');
                                 }
                                 else
                                 {
-                                    ;
+                                    alert("Try again");
                                 }
                             }
-                        }
                         catch(error)
                         {
                          alert("Required all fields or Server bussy");
@@ -93,7 +92,7 @@ export const Adminregister=()=>
                 <label for="gmail"><b>Gmail </b></label>
                 </td>
                 <td className="input">
-                <input type='mail' name='gmail' id="gmail"  autoComplete="none" placeholder='Enter your mail' onChange={(e)=>sgmail(e.target.value)}></input>
+                <input type='mail' name='gmail' id="gmail" placeholder='Enter your mail' onChange={(e)=>sgmail(e.target.value)}></input>
                 </td>
             </tr>
             <tr>

@@ -50,6 +50,7 @@ app.post('/adminregister/:fname/:lname/:gmail/:password/:phonenumber',async(req,
     {
         if(responce.data)
         {
+            console.log(responce.data);
             res.json({msg:"Mail already exist"})
         }
         else
