@@ -94,3 +94,56 @@ axios.get("https://landzone-server.onrender.com/approvedlist")
 {
     sapvd(result.data);
 })
+
+// Approved list from approve
+app.post('/approvelist/:name/:gmail/:phonenum/:password/:cpassword',async(req,res)=>
+{
+    const details=await db.collection('Approve_List').insertOne({Name:req.params.name,Gmail:req.params.gmail,Phone_Number:req.params.phonenum,Password:req.params.password,Cpassword:req.params.cpassword})
+    res.json(details);
+})
+app.get('/approvedlist',async(req,res)=>{
+    const details=await db.collection('Approve_List').find().toArray()
+    res.json(details);
+})
+app.post('/delapprovelist/:gmail',async(req,res)=>
+{
+    const details=await db.collection('userlogin').deleteOne({Gmail:req.params.gmail})
+    res.json(details);
+})
+app.post('/disapprove/:gmail',async(req,res)=>
+{
+    const details=await db.collection('Approve_List').deleteOne({Gmail:req.params.gmail})
+    res.json(details);
+})
+
+// Approve list check email id
+
+app.post('/updatenames/:name/:gmail/:phonenum',async(req,res)=>
+{
+    const details=await db.collection('Approve_List').findOneAndUpdate({Gmail:req.params.gmail,Phone_Number:req.params.phonenum},{$set:{Name:req.params.name}})
+    res.json(details);
+})
+
+// Update and Disable and Enable user
+app.get('/disableshow',async(req,res)=>
+{
+    const details=await db.collection('Approve_List').find().toArray();
+    res.json(details);
+})
+// Edit user data
+app.post('/deledit/:id',async(req,res)=>
+{
+    const details=await db.collection('Approve_List').deleteOne({Name:req.params.id})
+    res.json(details);
+})
+
+axios.get("https://landzone-server.onrender.com/disableshow")
+.then((result2) => {
+    scrt(result2.data)
+    localStorage.usercount=(result2.data).length;
+})
+axios.get("https://landzone-server.onrender.com/pymtretrive")
+.then((result1)=>
+{
+    // spymt(result1.data);
+})

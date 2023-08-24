@@ -63,137 +63,36 @@ app.post('/adminregister/:fname/:lname/:gmail/:password/:phonenumber',async(req,
     res.json(details);
 })
 
-//displays users data
-app.get('/levelsdata',async(req,res)=>{
-    const details=await db.collection('User_Data').find().toArray()
-    res.json(details);
-})
-//data retrive from user data
-app.get('/approvecheck/:gmail',async(req,res)=>
-{
-    const details=await db.collection('User_Data').findOne({Gmail:req.params.gmail});
-    res.json(details);
-})
-app.post('/user/:gmail',async(req,res)=>
-{
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=0}})
-    res.json(details);
-})
-//approve to level 1 && approve users
-app.post('/approveuser/:gmail',async(req,res)=>
-{
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=1}})
-    res.json(details);
-})
-//approve to level 2 && approve as admins
-app.post('/approveadmin/:gmail',async(req,res)=>
-{
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=2}})
-    res.json(details);
-})
-//approve to level 3 && approve as superadmin
-app.post('/approvesuperadmin/:gmail',async(req,res)=>
-{
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=3}})
-    res.json(details);
-})
-app.post('/updatenames/:gmail/:name',async(req,res)=>
-{
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Lastname:req.params.name}})
-    res.json(details);
-})
 
 
-
-// Approved list from approve
-app.post('/approvelist/:name/:gmail/:phonenum/:password/:cpassword',async(req,res)=>
-{
-    const details=await db.collection('Approve_List').insertOne({Name:req.params.name,Gmail:req.params.gmail,Phone_Number:req.params.phonenum,Password:req.params.password,Cpassword:req.params.cpassword})
-    res.json(details);
-})
-app.get('/approvedlist',async(req,res)=>{
-    const details=await db.collection('Approve_List').find().toArray()
-    res.json(details);
-})
-app.post('/delapprovelist/:gmail',async(req,res)=>
-{
-    const details=await db.collection('userlogin').deleteOne({Gmail:req.params.gmail})
-    res.json(details);
-})
-app.post('/disapprove/:gmail',async(req,res)=>
-{
-    const details=await db.collection('Approve_List').deleteOne({Gmail:req.params.gmail})
-    res.json(details);
-})
-
-// Approve list check email id
-
-app.post('/updatenames/:name/:gmail/:phonenum',async(req,res)=>
-{
-    const details=await db.collection('Approve_List').findOneAndUpdate({Gmail:req.params.gmail,Phone_Number:req.params.phonenum},{$set:{Name:req.params.name}})
-    res.json(details);
-})
-
-
-// Update and Disable and Enable user
-app.get('/disableshow',async(req,res)=>
-{
-    const details=await db.collection('Approve_List').find().toArray();
-    res.json(details);
-})
-// Edit user data
-app.post('/deledit/:id',async(req,res)=>
-{
-    const details=await db.collection('Approve_List').deleteOne({Name:req.params.id})
-    res.json(details);
-})
-
-
-// Enter project data
-
-app.post('/enterdata/:proname/:prodesc/:provalue/:procn/:prost/:proloc/:propost/:proreg/:procou/:protime',async(req,res)=>
-{
-    const details=await db.collection('entereddata').insertOne({project_name:req.params.proname,project_desc:req.params.prodesc,project_value:req.params.provalue,project_cadaster:req.params.procn,project_address:{Street:req.params.prost,City:req.params.proloc,Postal:req.params.propost,State:req.params.proreg,Country:req.params.procou},project_takentime:req.params.protime})
-    res.json(details);
-})
-app.get("/entercheckdata/:proname",async(req,res)=>
-{
-    const details=await db.collection('entereddata').findOne({project_name:req.params.proname})
-    res.json(details);
-})
-
-// change project data
-
-app.post('/updatedata/:proname/:prodesc/:provalue/:procn/:prost/:proloc/:propost/:proreg/:procou/:protime',async(req,res)=>
-{
-    const details=await db.collection('entereddata').findOneAndUpdate({project_name:req.params.proname},{$set:{project_desc:req.params.prodesc,project_value:req.params.provalue,project_cadaster:req.params.procn,project_address:{Street:req.params.prost,City:req.params.proloc,Postal:req.params.propost,State:req.params.proreg,Country:req.params.procou},project_changetime:req.params.protime}})
-    res.json(details);
-})
-
-
-// Show entered data
-
-app.get('/showdata',async(req,res)=>
-{
-    const details=await db.collection('entereddata').find().toArray()
-    res.json(details);
-})
-
-
+// ************************************************* Dashboard************************************************//
 // Enter value in usd in dashboard
 app.post('/eviusd/:gmail/:num',async(req,res)=>
 {
-    const details=await db.collection('Usd_values').insertOne({Gmail:req.params.gmail,USD_Values:req.params.num})
-    res.json(details);
-})
-app.post('/uviusd/:gmail/:num',async(req,res)=>
-{
-    const details=await db.collection('Usd_values').findOneAndUpdate({Gmail:req.params.gmail},{$set:{USD_Values:req.params.num}})
+    const details=await db.collection('Statistics').insertOne({
+        Gmail:req.params.gmail,
+        ValueOfUSD:req.params.num,
+        CreateCurrency:req.params='',
+        TotalValueInLand:req.params='',
+        TotalValueIneUSD:req.params='',
+        CreatedInLand:req.params='',
+        CreatedIneUSD:req.params='',
+        PendingInLand:req.params='',
+        PendingIneUSD:req.params='',
+        AvailableInLand:req.params='',
+        AvailableIneUSD:req.params='',
+        CurrencyInToken:req.params=''
+    })
     res.json(details);
 })
 app.get('/eviusdget/:gamil',async(req,res)=>
 {
-    const details=await db.collection('Usd_values').findOne({Gmail:req.params.gamil})
+    const details=await db.collection('Statistics').findOne({Gmail:req.params.gamil})
+    res.json(details);
+})
+app.post('/uviusd/:gmail/:num',async(req,res)=>
+{
+    const details=await db.collection('Statistics').findOneAndUpdate({Gmail:req.params.gmail},{$set:{ValueOfUSD:req.params.num}})
     res.json(details);
 })
 
@@ -288,6 +187,84 @@ app.get('/gettransfer',async(req,res)=>
     const details=await db.collection("Transfer_currency").find().toArray();
     res.json(details);
 })
+
+
+
+// ***********************************user mangement***********************************************//
+//displays users data
+app.get('/levelsdata',async(req,res)=>{
+    const details=await db.collection('User_Data').find().toArray()
+    res.json(details);
+})
+//data retrive from user data
+app.get('/approvecheck/:gmail',async(req,res)=>
+{
+    const details=await db.collection('User_Data').findOne({Gmail:req.params.gmail});
+    res.json(details);
+})
+//disapprove from 1 level to 0 level
+app.post('/user/:gmail',async(req,res)=>
+{
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=0}})
+    res.json(details);
+})
+//approve to level 1 && approve users
+app.post('/approveuser/:gmail',async(req,res)=>
+{
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=1}})
+    res.json(details);
+})
+//approve to level 2 && approve as admins
+app.post('/approveadmin/:gmail',async(req,res)=>
+{
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=2}})
+    res.json(details);
+})
+//approve to level 3 && approve as superadmin
+app.post('/approvesuperadmin/:gmail',async(req,res)=>
+{
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=3}})
+    res.json(details);
+})
+//update users names
+app.post('/updatenames/:gmail/:name',async(req,res)=>
+{
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Lastname:req.params.name}})
+    res.json(details);
+})
+
+
+
+// ************************************************ Land Management********************************************//
+// Enter project data
+app.post('/enterdata/:proname/:prodesc/:provalue/:procn/:prost/:proloc/:propost/:proreg/:procou/:protime',async(req,res)=>
+{
+    const details=await db.collection('entereddata').insertOne({project_name:req.params.proname,project_desc:req.params.prodesc,project_value:req.params.provalue,project_cadaster:req.params.procn,project_address:{Street:req.params.prost,City:req.params.proloc,Postal:req.params.propost,State:req.params.proreg,Country:req.params.procou},project_takentime:req.params.protime})
+    res.json(details);
+})
+app.get("/entercheckdata/:proname",async(req,res)=>
+{
+    const details=await db.collection('entereddata').findOne({project_name:req.params.proname})
+    res.json(details);
+})
+
+// change project data
+
+app.post('/updatedata/:proname/:prodesc/:provalue/:procn/:prost/:proloc/:propost/:proreg/:procou/:protime',async(req,res)=>
+{
+    const details=await db.collection('entereddata').findOneAndUpdate({project_name:req.params.proname},{$set:{project_desc:req.params.prodesc,project_value:req.params.provalue,project_cadaster:req.params.procn,project_address:{Street:req.params.prost,City:req.params.proloc,Postal:req.params.propost,State:req.params.proreg,Country:req.params.procou},project_changetime:req.params.protime}})
+    res.json(details);
+})
+
+
+// Show entered data
+
+app.get('/showdata',async(req,res)=>
+{
+    const details=await db.collection('entereddata').find().toArray()
+    res.json(details);
+})
+
 
 
 

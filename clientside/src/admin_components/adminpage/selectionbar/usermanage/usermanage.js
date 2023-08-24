@@ -7,7 +7,6 @@ import { Comp } from "../../asidebar/asidebar";
 export const Usermanage=()=>
 {
     const [dat,sdat]=useState([]);
-    const [crt,scrt]=useState([]);
     const [edit,sedit]=useState([]);
     const [err1,serr1]=useState([]);
     const [trans,strans]=useState([]);
@@ -15,12 +14,13 @@ export const Usermanage=()=>
     const [update,supdate]=useState([]);
     const [modname,smodname]=useState([]);
     const [land,sland]=useState([]);
-    const [apvd,sapvd]=useState([]);
     const [disap,sdisap]=useState([]);
     const form=useRef();
     const [sm,ssm]=useState([]);
     const [at,sat]=useState([]);
-    // Transfer currency to user function
+
+
+    // *********************************Transfer currency to user function**************************************//
     const Transfer=async()=>
     {
         document.getElementById('transfer').style.display="block";
@@ -33,7 +33,8 @@ export const Usermanage=()=>
         document.getElementById("approvelist").style.display="none";
     }
 
-     // Approve user from list
+
+     //******************************************* */ Approve user from list************************************//
      const Aprove=async()=>
      {
          document.getElementById('transfer').style.display="none";
@@ -46,7 +47,8 @@ export const Usermanage=()=>
          document.getElementById("approvelist").style.display="none";
      }
 
-    // Update user details
+     
+    // *******************************************Update user details**************************************//
     const Edit=async()=>
     {
         document.getElementById('transfer').style.display="none";
@@ -58,7 +60,8 @@ export const Usermanage=()=>
         document.getElementById('reasondisplay').style.display='none'
     }
 
-// Disable and Enable user
+
+// ********************************************Disable and Enable user*****************************************//
     const Disena=async()=>
     {
         document.getElementById('transfer').style.display="none";
@@ -70,7 +73,8 @@ export const Usermanage=()=>
         document.getElementById('reasondisplay').style.display="none";
     }
 
-// View transaction history
+
+//************************************************View transaction history***********************************//
      const Transaction=async()=>
      {
          document.getElementById('transfer').style.display='none';
@@ -82,19 +86,16 @@ export const Usermanage=()=>
          document.getElementById('reasondisplay').style.display='none';
      }
 
-// Block users
+
+// *************************************************Block users*************************************//
     const View=async()=>
     {
         document.getElementById('disenadisplay').style.display="none";
         document.getElementById('personinfo').style.display='block';
     }
-    const Enable=async()=>
-    {
-        document.getElementById('enable').style.display='none';
-        document.getElementById('confirm').style.display='block';
-        document.getElementById('reasondisplay').style.display='none';
-    }
 
+
+//************************************************Approve function*****************************************//
     const Approvee=async()=>
     {
         try
@@ -125,7 +126,9 @@ export const Usermanage=()=>
         await axios.post("https://landzone-server.onrender.com/user/"+disap.Gmail)?
         document.getElementById(disap._id).innerHTML="Dispproved":alert("Again clicked");
     }
-// Update user details
+
+
+// ********************************************Update user details function*****************************************//
     const Edituser=async()=>
     {
         document.getElementById('reasondisplay').style.display='block';
@@ -141,6 +144,9 @@ export const Usermanage=()=>
             }
         }
     }
+
+
+    //************************************************Update user name function********************************//
     const Update=async()=>
     {
               try
@@ -159,7 +165,9 @@ export const Usermanage=()=>
     {
         document.getElementById("approvelist").style.display="block";
     }
-// Confirm message
+
+
+// ************************************************Confirm message*******************************************//
     const Confirm=(e)=>
     {
         e.preventDefault();
@@ -172,12 +180,8 @@ export const Usermanage=()=>
         })
     }
 
-    const Modify=()=>
-    {
-        document.getElementById('updatedis').style.display="block";
-    }
 
-// Transfer Currency
+// *************************************************Transfer Currency************************************//
     const Transcurr=async()=>
     {
         try
@@ -197,11 +201,10 @@ export const Usermanage=()=>
         axios.get("https://landzone-server.onrender.com/levelsdata")
             .then((result) => {
                 sdat(result.data)
-            })
-        axios.get("https://landzone-server.onrender.com/disableshow")
-            .then((result2) => {
-                scrt(result2.data)
-                localStorage.usercount=(result2.data).length;
+                // if(dat.__v===1)
+                // {
+                //     localStorage.usercount=(result.data).length;
+                // }
             })
         axios.get("https://landzone-server.onrender.com/gettransfer")
             .then((result)=>
@@ -209,11 +212,6 @@ export const Usermanage=()=>
                 strans(result.data);
                 localStorage.transcount=(result.data).length;
             })
-        axios.get("https://landzone-server.onrender.com/pymtretrive")
-        .then((result1)=>
-        {
-            // spymt(result1.data);
-        })
        
     }, [])
     return(
@@ -224,7 +222,8 @@ export const Usermanage=()=>
                 <Comp/>
                 <section>
 
-{/* user management list */}
+
+{/* ******************************* user management list********************************* */}
                    <div className="dash">
                            <Link className="usrmngitem" onClick={Transfer}>Transfer Currency</Link>
                            <Link className="usrmngitem" onClick={Aprove}>Approve Users From List</Link> 
@@ -233,7 +232,8 @@ export const Usermanage=()=>
                            <Link className="usrmngitem" onClick={Transaction}>view transaction history</Link>
                     </div>
 
-{/* Transfer Currency */}
+
+{/* ********************************Transfer Currency************************************* */}
                     <div>
                         <div className="editdis" style={{display:'none'}} id="transfer">
                             <table className="landtable" style={{paddingTop:'25%'}}>
@@ -277,7 +277,8 @@ export const Usermanage=()=>
                         </div>
                     </div>
 
-{/* Approve users from list */}
+
+{/* ***************************************Approve users from list***************************************** */}
                                 <div className="editdis" style={{ display: 'none' }} id="approvedisplay">
                                     <div>
                                         <table className="aufltable">
@@ -348,7 +349,7 @@ export const Usermanage=()=>
                     </div>
 
 
-{/* Update user */}
+{/* *******************************************Update user************************************************* */}
                     <div className="editdis" style={{display:'none'}} id="editdisplay">
                         <div>
                         <div>
@@ -389,7 +390,7 @@ export const Usermanage=()=>
                     </div>
 
 
-{/* Enable and Disable user */}
+{/* *********************************************Enable and Disable user****************************************** */}
                     <div className="editdis" style={{display:'none'}} id="disenadisplay">
                         <div>
                         <div>
@@ -422,8 +423,7 @@ export const Usermanage=()=>
                     </div>
 
 
-
-{/* after view on enable disable user form... displays selected person data */}
+{/* *********************after view on enable disable user form... displays selected person data******************** */}
                     <div className="editdis" style={{display:'none'}} id="personinfo">
                         <table style={{margin:'15% 0% 0% 35%',border:'1px soild black'}}>
                         {
@@ -450,14 +450,12 @@ export const Usermanage=()=>
                         <div style={{marginTop:'10vh'}}></div>
                             <tr>
                                 <td style={{width:'2%'}}><Link onClick={Edituser} style={{textDecoration:'none',padding:'0.5%',backgroundColor:'red',color:'white'}}><b>Disable User</b></Link></td>
-                               {/*  <td ><Link  onClick={Enable} style={{textDecoration:'none',padding:'0.5%',backgroundColor:'green',color:'white'}}>Enable User</Link></td> */}
                             </tr>
                         </table>
                     </div>
 
 
-
-{/* Reason and confirm detilas of disable enable users */}
+{/* ***************************Reason and confirm detilas of disable enable users******************************* */}
                     <div>
                                 <div className="disenareason" style={{ display: 'none' }} id="reasondisplay">
                                     <form ref={form} onSubmit={Confirm}>
@@ -486,7 +484,8 @@ export const Usermanage=()=>
                        </div>
                     </div>
 
-{/* View transaction history */}
+
+{/* ****************************************View transaction history**************************************** */}
                         <div className="editdis" style={{display:'none'}} id="transction">
                         <table className="pymttable" style={{textAlign:'center',overflowY:'scroll'}}>
                             {
