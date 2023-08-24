@@ -50,7 +50,7 @@ app.post('/adminregister/:fname/:lname/:gmail/:password/:phonenumber',async(req,
     {
         if(responce.data)
         {
-            res.json({msg:"already exist"})
+            res.json({msg:"Mail already exist"})
         }
         else
         {
@@ -67,7 +67,8 @@ app.post('/adminregister/:fname/:lname/:gmail/:password/:phonenumber',async(req,
                 __v:req.params=0,
                 accountNumber:req.params='',
                 isVerified:req.params=true})
-            res.json(details);
+                res.json({msg:"Registered sucessfully"});
+                res.json(details);
         }
     }
 })

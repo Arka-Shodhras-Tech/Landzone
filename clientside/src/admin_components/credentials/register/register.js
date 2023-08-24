@@ -31,11 +31,11 @@ export const Adminregister=()=>
                             {
                                 if(responce.data.msg)
                                 {
-                                    serr(responce.data.msg);
+                                    nav("/adminlogin")
                                 }
                                 else
                                 {
-                                    nav("/adminlogin");
+                                    ;
                                 }
                             }
                         }
