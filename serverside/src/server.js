@@ -46,6 +46,7 @@ app.get('/admincheck/:gmail',async(req,res)=>//mail check
 })
 app.post('/adminregister/:fname/:lname/:gmail/:password/:phonenumber',async(req,res)=>//register
 {
+    console.log(req.params.gmail)
     const responce=await db.collection('Admin_data').findOne({Gmail:req.params.gmail})
     {
         if(responce.data)
