@@ -103,14 +103,12 @@ export const Usermanage=()=>
             {
                 if(responce.data.__v===1)
                 {
-                    alert("Already approve data\nPlease refresh page");
+                    alert(approve.Gmail+" Already approve\nPlease refresh page");
                 }
                 else
                 {
                    axios.post("https://landzone-server.onrender.com/approveuser/"+approve.Gmail)?
-                   alert(approve.Gmail+" Approved")&&
-                   window.location.reload(1)
-                   :alert("Try again");
+                   document.getElementById(approve.Gmail).innerHTML="Approved":alert("Try again");
                 }
                 smodname(approve.Name);
             }
@@ -131,21 +129,23 @@ export const Usermanage=()=>
     const Edituser=async()=>
     {
         document.getElementById('reasondisplay').style.display='block';
-            if(await axios.get("https://landzone-server.onrender.com/approvecheck/"+edit.Gmail))
+        const responce=await axios.get("https://landzone-server.onrender.com/approvecheck/"+edit.Gmail)
+        {
+            if(responce.data.__v===1)
             {
-                const responce1=await axios.get("https://landzone-server.onrender.com/approvecheck/"+edit.Gmail);
-               await axios.post("https://landzone-server.onrender.com/deledit/"+responce1.data.Name)?alert("Disabled user"): alert("Try again") 
+               await axios.post("https://landzone-server.onrender.com/user/"+edit.Gmail)?alert("Disabled user"): alert("Try again")
             }
             else
             {
                 serr1("User not found")
             }
+        }
     }
     const Update=async()=>
     {
               try
                 {
-                    await axios.post("https://landzone-server.onrender.com/updatenames/"+modname+"/"+update.Gmail+"/"+update.Phone_Number)?
+                    await axios.post("https://landzone-server.onrender.com/updatenames/"+update.Gmail+"/"+modname)?
                     document.getElementById(update.Gmail).innerHTML="Updated":
                     alert("Try again");
                 }
@@ -304,7 +304,7 @@ export const Usermanage=()=>
                                                      </td>
                                                      <td width={'280px'}>
                                                      <p>
-                                                     <button id={val1._id} onClick={Approvee} onClickCapture={(e)=>sapprove(val1)}  style={{ margin: "2% 0% 0% 43%", width: '30%', height: '4vh', backgroundColor: 'blue', color: 'white',border:'none', borderRadius:'20px'}}>Approve</button>
+                                                     <button id={val1.Gmail} onClick={Approvee} onClickCapture={(e)=>sapprove(val1)}  style={{ margin: "2% 0% 0% 43%", width: '30%', height: '4vh', backgroundColor: 'blue', color: 'white',border:'none', borderRadius:'20px'}}>Approve</button>
                                                      </p>
                                                      </td>
                                                       </td>
@@ -354,28 +354,29 @@ export const Usermanage=()=>
                         <div>
                                         <table className="aufltable">
                                             {
-                                                dat.map((val2, index) => (
+                                                dat.map((val2) => (
+                                                    val2.__v===1?
                                                     <>
                                                     <tr>
                                                         <td height='160px' width={'280px'}>
                                                             <p>
-                                                                <input type="text" defaultValue={val2.Name} onChange={(e)=>smodname(e.target.value)}></input>
+                                                                <input type="text" defaultValue={val2.Lastname} onChange={(e)=>smodname(e.target.value)}></input>
                                                             </p>
                                                         </td>
                                                         <td>
                                                        <td>
                                                        <p>Gmail <b>{val2.Gmail}</b></p>
-                                                        <p>Phone Number <b>{val2.Phone_Number}</b></p>
+                                                        <p>Phone Number <b>{val2.Phonenumber}</b></p>
                                                        </td>
                                                         </td>
                                                         <td>
-                                                        <button onClick={Update} id={val2.Gmail} onClickCapture={(e)=>supdate(val2)}  style={{width:'80px',backgroundColor:'blue',color:'whitesmoke',borderRadius:'5px',fontSize:'15px'}}>Update</button> 
+                                                        <button onClick={Update} id={val2.Gmail} onClickCapture={(e)=>supdate(val2)} style={{width:'80px',backgroundColor:'blue',color:'whitesmoke',borderRadius:'5px',fontSize:'15px'}}>Update</button> 
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td colSpan={3}><hr style={{height:'10px',backgroundColor:'lightblue'}}/></td>
                                                     </tr>
-                                                   </>
+                                                   </>:<b></b>
                                                 ))
                                             }
                                         </table>
@@ -402,15 +403,16 @@ export const Usermanage=()=>
                                 </tr>
                                 {
                                     dat.map((val3, index) => (
+                                        val3.__v===1?
                                         <tr>
                                             <td><b>{index + 1}</b></td>
-                                            <td><b>{val3.Name}</b></td>
+                                            <td><b>{val3.Lastname}</b></td>
                                             <td><b>{val3.Gmail}</b></td>
-                                            <td><b>{val3.Phone_Number}</b></td>
+                                            <td><b>{val3.Phonenumber}</b></td>
                                             <td style={{height:'60px'}}>
                                                 <input id={index} style={{width:'50px'}} name="same" type="radio"  onChange={(e)=>sedit(val3)}></input>
                                             </td>
-                                        </tr>
+                                        </tr>:<b></b>
                                     ))
                                 }
                                         </table>
@@ -425,16 +427,19 @@ export const Usermanage=()=>
                     <div className="editdis" style={{display:'none'}} id="personinfo">
                         <table style={{margin:'15% 0% 0% 35%',border:'1px soild black'}}>
                         {
-                             crt.map((val4) => (
+                             dat.map((val4) => (
                                 <div>
                                      {
                                     val4.Gmail===edit.Gmail?
                                        <>
                                        <tr >
-                                       <td><b>{val4.Name}</b></td>
+                                       <td><b>{val4.Firstname+' '+val4.Lastname}</b></td>
                                        </tr>
                                        <tr>
                                        <td><b>{val4.Gmail}</b></td>
+                                       </tr>
+                                       <tr>
+                                        <td><b>{val4.Phonenumber}</b></td>
                                        </tr>
                                        </>
                                         :<b></b>
@@ -445,7 +450,7 @@ export const Usermanage=()=>
                         <div style={{marginTop:'10vh'}}></div>
                             <tr>
                                 <td style={{width:'2%'}}><Link onClick={Edituser} style={{textDecoration:'none',padding:'0.5%',backgroundColor:'red',color:'white'}}><b>Disable User</b></Link></td>
-                                <td ><Link  onClick={Enable} style={{textDecoration:'none',padding:'0.5%',backgroundColor:'green',color:'white'}}>Enable User</Link></td>
+                               {/*  <td ><Link  onClick={Enable} style={{textDecoration:'none',padding:'0.5%',backgroundColor:'green',color:'white'}}>Enable User</Link></td> */}
                             </tr>
                         </table>
                     </div>

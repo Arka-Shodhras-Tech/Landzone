@@ -97,6 +97,11 @@ app.post('/approvesuperadmin/:gmail',async(req,res)=>
     const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=3}})
     res.json(details);
 })
+app.post('/updatenames/:gmail/:name',async(req,res)=>
+{
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Lastname:req.params.name}})
+    res.json(details);
+})
 
 
 
