@@ -36,12 +36,7 @@ app.post('/update/:gmail/:password/:cpassword',async(req,res)=>//forget
 // Admin data server//
 app.get('/adminlogin/:mail/:password',async(req,res)=>//login
 {
-    const details=await db.collection('adminlogin').findOne({Gmail:req.params.mail,Password:req.params.password});
-    res.json(details);
-})
-app.get('/admincheck/:gmail',async(req,res)=>//mail check
-{
-    const details=await db.collection('adminlogin').findOne({Gmail:req.params.gmail});
+    const details=await db.collection('Admin_Data').findOne({Gmail:req.params.mail,Password:req.params.password});
     res.json(details);
 })
 app.post('/adminregister/:fname/:lname/:gmail/:password/:phonenumber',async(req,res)=>//register
