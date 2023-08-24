@@ -99,18 +99,23 @@ export const Usermanage=()=>
     {
         try
         {
-            if(await axios.get("https://landzone-server.onrender.com/approvecheck/"+approve.Gmail))
+            const responce=await axios.get("https://landzone-server.onrender.com/approvecheck/"+approve.Gmail)
             {
-                alert("Already approve data\nPlease refresh page");
+                if(responce.data.__v===1)
+                {
+                    alert("Already approve data\nPlease refresh page");
+                }
+                else
+                {
+                   axios.post("https://landzone-server.onrender.com/approve/"+approve.Gmail)?
+                   alert(approve.Gmail+" Approved")&&
+                   window.location.reload(1)
+                   :alert("Try again");
+                }
+                smodname(approve.Name);
             }
-            else
-            {
-               axios.post("https://landzone-server.onrender.com/approve/"+approve.Gmail)?
-               alert(approve.Gmail+" Approved"):alert("Try again");
             }
-            smodname(approve.Name);
-        }
-        catch(err)
+            catch(err)
         {
             alert("Serrver Bussy");
         }
@@ -209,11 +214,7 @@ export const Usermanage=()=>
         {
             // spymt(result1.data);
         })
-        axios.get("https://landzone-server.onrender.com/approvedlist")
-        .then((result)=>
-        {
-            sapvd(result.data);
-        })
+       
     }, [])
     return(
         <>
@@ -328,7 +329,8 @@ export const Usermanage=()=>
                                     <th>Disapprove</th>
                                 </tr>
                                 {
-                                    apvd.map((apv, index) => (
+                                    dat.map((apv, index) => (
+                                        apv.__v===1?
                                         <tr>
                                             <td><b>{index + 1}</b></td>
                                             <td><b>{apv.Name}</b></td>
@@ -337,7 +339,7 @@ export const Usermanage=()=>
                                             <td style={{height:'60px'}}>
                                                 <button onClick={Disapprove} id={apv._id} onClickCapture={(e)=>sdisap(apv)} style={{width:'80px',backgroundColor:'orangered',color:'whitesmoke'}}>Disapprove</button>
                                             </td>
-                                        </tr>
+                                        </tr>:<b></b>
                                     ))
                                 }
                                         </table>
@@ -352,7 +354,7 @@ export const Usermanage=()=>
                         <div>
                                         <table className="aufltable">
                                             {
-                                                crt.map((val2, index) => (
+                                                dat.map((val2, index) => (
                                                     <>
                                                     <tr>
                                                         <td height='160px' width={'280px'}>
@@ -399,7 +401,7 @@ export const Usermanage=()=>
                                     <th>Select for en/dis</th>
                                 </tr>
                                 {
-                                    crt.map((val3, index) => (
+                                    dat.map((val3, index) => (
                                         <tr>
                                             <td><b>{index + 1}</b></td>
                                             <td><b>{val3.Name}</b></td>

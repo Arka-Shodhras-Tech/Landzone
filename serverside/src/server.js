@@ -73,6 +73,11 @@ app.post('/approve/:gmail',async(req,res)=>
     const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=1}})
     res.json(details);
 })
+app.get('/approvecheck/:gmail',async(req,res)=>
+{
+    const details=await db.collection('User_Data').findOne({Gmail:req.params.gmail});
+    res.json(details);
+})
 
 
 // Approved list from approve
@@ -97,11 +102,7 @@ app.post('/disapprove/:gmail',async(req,res)=>
 })
 
 // Approve list check email id
-app.get('/approvecheck/:gmail',async(req,res)=>
-{
-    const details=await db.collection('Approve_List').findOne({Gmail:req.params.gmail});
-    res.json(details);
-})
+
 app.post('/updatenames/:name/:gmail/:phonenum',async(req,res)=>
 {
     const details=await db.collection('Approve_List').findOneAndUpdate({Gmail:req.params.gmail,Phone_Number:req.params.phonenum},{$set:{Name:req.params.name}})

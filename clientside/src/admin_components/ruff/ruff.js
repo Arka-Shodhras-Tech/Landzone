@@ -87,3 +87,10 @@ app.post('/update/:gmail/:password/:cpassword',async(req,res)=>//forget
     const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Password:req.params.password}})
     res.json(details);
 })
+
+
+axios.get("https://landzone-server.onrender.com/approvedlist")
+.then((result)=>
+{
+    sapvd(result.data);
+})
