@@ -20,14 +20,13 @@ export const Dashboard=()=>
     const landlimit=localStorage.landlimit;
     const currentland=localStorage.currentland;
     const token=localStorage.token;
-    const [uc,suc]=useState(localStorage.usercount);
-    const [pc,spc]=useState(localStorage.procount);
-    const [uib,suib]=useState(usd);
-    const [eib,seib]=useState(unit);
-    const [ru,sru]=useState(landunit);
-    const [tv,stv]=useState(totalland);
-    const [ts,sts]=useState(localStorage.transcount);
-    const [pt,spt]=useState(0);
+    const uc=localStorage.usercount;
+    const pc=localStorage.procount;
+    const uib=usd;
+    const eib=unit;
+    const ru=landunit;
+    const tv=totalland;
+    const ts=localStorage.transcount;
     const [num,snum]=useState([]);
     const [curr,scurr]=useState([]);
     const [land,sland]=useState([]);
@@ -42,7 +41,8 @@ export const Dashboard=()=>
     let value;
     const name="Quntam";
 
-// Create currency
+
+//****************************************Create currency Button******************************************//
     const CC=async()=>
     {
     try
@@ -68,6 +68,9 @@ export const Dashboard=()=>
         document.getElementById('conv').style.display='none';
         document.getElementById('prevlist').style.display="none";
     }
+
+
+    // ****************************************View Pending Purchases Button****************************************//
     const Vpp=()=>
     {
         document.getElementById('cc').style.display='none';
@@ -78,6 +81,9 @@ export const Dashboard=()=>
         document.getElementById('conv').style.display='none';
         document.getElementById('prevlist').style.display="none";
     }
+
+
+    // *****************************************Approve Pending Purchase******************************************//
     const App=async()=>
     {
         document.getElementById('cc').style.display='none';
@@ -88,6 +94,9 @@ export const Dashboard=()=>
         document.getElementById('conv').style.display='none';
         document.getElementById('prevlist').style.display="none";
     }
+
+
+    // ***************************************Enter Value in Bank Button******************************************//
     const Evb=async()=>
     {
         localStorage.p=0;
@@ -107,6 +116,9 @@ export const Dashboard=()=>
         document.getElementById('svb').style.display='none';
         sj(1);
     }
+
+
+    //***************************************Show value in Bank Butoon************************************** */
     const Svb=async()=>
     {
         localStorage.avil=(usd-unit)
@@ -129,12 +141,14 @@ export const Dashboard=()=>
         document.getElementById('conv').style.display='none';
         document.getElementById('prevlist').style.display="none";
     }
+
+
+    // ******************************************Enter USD in Bank***************************************//
     const Eusd=async()=>
     {
         try
         {
             localStorage.usd=num;
-            // localStorage.limit=0;
             {
                 if(await axios.get("https://landzone-server.onrender.com/eviusdget/"+gmal))
                 {
@@ -147,7 +161,7 @@ export const Dashboard=()=>
                 }
                 else
                 {
-                    const details=await axios.post("https://landzone-server.onrender.com/eviusd/"+gmal+"/"+limit)?
+                    await axios.post("https://landzone-server.onrender.com/eviusd/"+gmal+"/"+limit)?
                     alert(num+" USD units are there in your Bank account"):alert("Try again")
                     window.location.reload(5);
                 }
@@ -159,7 +173,8 @@ export const Dashboard=()=>
         }
     }
 
-    // convert
+
+    // ***************************************************convert**************************************************//
     const Conv=()=>
     {
         document.getElementById('cc').style.display='none';
@@ -190,7 +205,8 @@ export const Dashboard=()=>
         }
     }
 
-// create currency
+
+// ******************************************************create currency***************************************************//
     const Land=async(e)=>
     {
         localStorage.p=0;
@@ -221,6 +237,9 @@ export const Dashboard=()=>
             }
         }
     }
+
+
+    // *************************************************Clear All Values*********************************************//
     const Clear=async()=>
     {
         localStorage.unit=0;
@@ -242,6 +261,9 @@ export const Dashboard=()=>
         console.log(e);
        }
     }
+
+
+    // ***********************************************Previous Values***************************************//
     const Prev=async()=>
     {
         try
@@ -272,6 +294,9 @@ export const Dashboard=()=>
     {
         document.getElementById('prevlist').style.display="block";
     }
+
+
+    // *************************************************Save Values*********************************************//
     const Save=async()=>
     {
         try
@@ -295,7 +320,7 @@ export const Dashboard=()=>
         }
     }
 
-// view pending approval
+// ***********************************************view pending approval*****************************************//
     const Viewpp=async()=>
     {
         localStorage.p=0;
@@ -406,7 +431,8 @@ export const Dashboard=()=>
                                 </table>
                             </div>
 
-{/* Enter value in eUSD */}
+
+{/* **********************************************Enter value in eUSD********************************************* */}
                             <div className="editdis" style={{display:'none'}} id="evb">
                                 <div style={{textAlign:'center',marginTop:'32%'}}>
                                     <label for='eusd'><b>Please enter value of USD in bank </b>
@@ -416,7 +442,8 @@ export const Dashboard=()=>
                                 </div>
                             </div>
 
-{/* Create currency */}
+
+{/* ***********************************************Create currency********************************************** */}
                             <div className="editdis" style={{display:'none'}} id="cc">
                                <div className="ccdisplay">
                                <b>Current Land Value::{currentland}</b>
@@ -434,7 +461,7 @@ export const Dashboard=()=>
                             </div>
 
 
-{/* View pending purchases */}
+{/* **********************************************View pending purchases**************************************** */}
                             <div className="editdis" style={{display:'none'}} id="vpp">
                                 <table className="pendtable">
                                     <tr>
@@ -477,7 +504,8 @@ export const Dashboard=()=>
                                 </table>
                             </div>
 
-{/* Approved purchases */}
+
+{/* ***************************************************Approved purchases********************************************* */}
                             <div className="editdis" style={{display:'none'}} id="app">
                             <button onClick={PreList} style={{ margin: "2% 0% 5% 83%", width: '15%', height: '4vh',border:'none',borderRadius:'8px', backgroundColor:"royalblue", color: 'white' }}>Previous List</button>
                             <table className="pendtable">
@@ -512,7 +540,7 @@ export const Dashboard=()=>
                             </div>
 
 
-{/* Show value in eUSD */}
+{/* *************************************************Show value in eUSD****************************************************** */}
                             <div className="editdis" style={{display:'none'}} id="svb">
                             <div style={{display:'flex'}}>
                             <button onClick={Prev} style={{ margin: "5% 0% 0% 12%", width: '15%', height: '4vh', backgroundColor: 'orange', color: 'black' }}><b>Previous Values</b></button>
@@ -554,7 +582,9 @@ export const Dashboard=()=>
                                     </tr>
                             </div>
                             </div>
-{/* Previous List */}
+
+
+{/* ***************************************************Previous List******************************************************* */}
                             <div className="editdis" style={{display:'none'}} id="prevlist">
                                 <table className="pendtable" style={{marginTop:'5%'}}>
                                 {
@@ -579,6 +609,7 @@ export const Dashboard=()=>
                             </div>
 
 
+{/* *****************************************Convert Tockens************************************************* */}
                             <div className="editdis" style={{display:'none'}} id="conv">
                                 <tr>
                                     <td><b>Enter the number of Tokens Create::</b></td>

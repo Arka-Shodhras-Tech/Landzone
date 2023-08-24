@@ -97,8 +97,17 @@ app.post('/uviusd/:gmail/:num',async(req,res)=>
 })
 
 
-
 // Create currency(Land/USD Units)
+app.get('/currentland/:name',async(req,res)=>
+{
+    const details=await db.collection("Current_Land").findOne({Name:req.params.name})
+    res.json(details);
+})
+app.post('/insertcurland/:name/:date/:value',async(req,res)=>
+{
+    const details=await db.collection("Current_Land").findOneAndUpdate({Name:req.params.name},{$set:{Dates:req.params.date,Value:req.params.value}})
+    res.json(details)
+})
 app.post('/crecur/:gmail/:val/:land',async(req,res)=>
 {
     const details=await db.collection('create_currency').insertOne({Gmail:req.params.gmail,Units:req.params.val,In:req.params.land})
@@ -164,16 +173,7 @@ app.post('/token/:gmail/:unit/:landunit',async(req,res)=>
     const details=await db.collection("Show_values").findOneAndUpdate({Gmail:req.params.gmail},{$set:{USD_Values:{USD_Created:req.params.unit},Land_values:{Land_Created:req.params.landunit}}})
     res.json(details);
 })
-app.get('/currentland/:name',async(req,res)=>
-{
-    const details=await db.collection("Current_Land").findOne({Name:req.params.name})
-    res.json(details);
-})
-app.post('/insertcurland/:name/:date/:value',async(req,res)=>
-{
-    const details=await db.collection("Current_Land").findOneAndUpdate({Name:req.params.name},{$set:{Dates:req.params.date,Value:req.params.value}})
-    res.json(details)
-})
+
 
 
 //Transfer currency
