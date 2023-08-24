@@ -72,8 +72,18 @@ const [pt,spt]=useState(0);
 
 
 
-                        app.get('/saveadmincheck/:gmail',async(req,res)=>//mail check
-                        {
-                            const details=await db.collection('saved_adminlogin').findOne({Gmail:req.params.gmail});
-                            res.json(details);
-                        })
+app.get('/saveadmincheck/:gmail',async(req,res)=>//mail check
+{
+    const details=await db.collection('saved_adminlogin').findOne({Gmail:req.params.gmail});
+    res.json(details);
+})
+app.get('/login/:gmail/:password',async(req,res)=>//login
+{
+    const details=await db.collection('User_Data').findOne({Gmail:req.params.gmail,Password:req.params.password});
+    res.json(details);
+})
+app.post('/update/:gmail/:password/:cpassword',async(req,res)=>//forget
+{
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Password:req.params.password}})
+    res.json(details);
+})

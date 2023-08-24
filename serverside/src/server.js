@@ -21,17 +21,6 @@ app.get('/check/:gmail',async(req,res)=>//mail check in register
     const details=await db.collection('User_Data').findOne({Gmail:req.params.gmail});
     res.json(details);
 })
-app.get('/login/:gmail/:password',async(req,res)=>//login
-{
-    const details=await db.collection('User_Data').findOne({Gmail:req.params.gmail,Password:req.params.password});
-    res.json(details);
-})
-app.post('/update/:gmail/:password/:cpassword',async(req,res)=>//forget
-{
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Password:req.params.password}})
-    res.json(details);
-})
-
 
 // Admin data server//
 app.get('/adminlogin/:mail/:password',async(req,res)=>//login
@@ -63,13 +52,13 @@ app.post('/adminregister/:fname/:lname/:gmail/:password/:phonenumber',async(req,
 })
 
 //Approve user from list
-app.get('/aufl',async(req,res)=>{
+app.get('/level0data',async(req,res)=>{
     const details=await db.collection('User_Data').find().toArray()
     res.json(details);
 })
 
 
-// Approve list from approve
+// Approved list from approve
 app.post('/approvelist/:name/:gmail/:phonenum/:password/:cpassword',async(req,res)=>
 {
     const details=await db.collection('Approve_List').insertOne({Name:req.params.name,Gmail:req.params.gmail,Phone_Number:req.params.phonenum,Password:req.params.password,Cpassword:req.params.cpassword})

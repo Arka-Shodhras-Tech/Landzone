@@ -105,18 +105,8 @@ export const Usermanage=()=>
             }
             else
             {
-                try
-                {
-                    const responce3=await axios.post("https://landzone-server.onrender.com/approvelist/"+approve.Name+"/"+approve.Gmail+"/"+approve.Phone_Number+"/"+approve.Password+"/"+approve.Cpassword)
-                {
-                    responce3 && axios.post("https://landzone-server.onrender.com/delapprovelist/"+approve.Gmail)?alert("Sucessfully Approved"):alert("Try again");
-                    document.getElementById(approve._id).innerHTML="Approved";
-                }
-                }
-                catch(e)
-                {
-                    console.log(e);
-                }
+               axios.post("https://landzone-server.onrender.com/approve/"+approve.Gmail)?
+               alert(approve.Gmail+" Approved"):alert("Try again");
             }
             smodname(approve.Name);
         }
@@ -199,7 +189,7 @@ export const Usermanage=()=>
 
 // Edit user update profile
     useEffect(() => {
-        axios.get("https://landzone-server.onrender.com/aufl")
+        axios.get("https://landzone-server.onrender.com/level0data")
             .then((result) => {
                 sdat(result.data)
             })
@@ -296,28 +286,29 @@ export const Usermanage=()=>
                                                 </td>
                                             </tr>
                                             {
-                                                dat.map((val1, index) => (
-                                                   <>
-                                                    <tr>
-                                                        <td colSpan={2}><hr style={{height:'10px',backgroundColor:'lightblue'}}/></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td height='160px' width={'280px'}>
-                                                            <p>{val1.Name}</p>
-                                                        </td>
-                                                        <td>
-                                                       <td>
-                                                       <p>Gmail <b>{val1.Gmail}</b></p>
-                                                        <p>Phone Number <b>{val1.Phone_Number}</b></p>
-                                                       </td>
-                                                       <td width={'280px'}>
-                                                       <p>
-                                                       <button id={val1._id} onClick={Approvee} onClickCapture={(e)=>sapprove(val1)}  style={{ margin: "2% 0% 0% 43%", width: '30%', height: '4vh', backgroundColor: 'blue', color: 'white',border:'none', borderRadius:'20px'}}>Approve</button>
-                                                       </p>
-                                                       </td>
-                                                        </td>
-                                                    </tr>
-                                                   </>
+                                                dat.map((val1) => (
+                                                  val1.__v===0?
+                                                  <>
+                                                  <tr>
+                                                      <td colSpan={2}><hr style={{height:'10px',backgroundColor:'lightblue'}}/></td>
+                                                  </tr>
+                                                  <tr>
+                                                      <td height='160px' width={'280px'}>
+                                                          <p>{val1.Firstname+" "+val1.Lastname}</p>
+                                                      </td>
+                                                      <td>
+                                                     <td>
+                                                     <p>Gmail <b>{val1.Gmail}</b></p>
+                                                      <p>Phone Number <b>{val1.Phonenumber}</b></p>
+                                                     </td>
+                                                     <td width={'280px'}>
+                                                     <p>
+                                                     <button id={val1._id} onClick={Approvee} onClickCapture={(e)=>sapprove(val1)}  style={{ margin: "2% 0% 0% 43%", width: '30%', height: '4vh', backgroundColor: 'blue', color: 'white',border:'none', borderRadius:'20px'}}>Approve</button>
+                                                     </p>
+                                                     </td>
+                                                      </td>
+                                                  </tr>
+                                                 </>:<b></b>
                                                 ))
                                             }
                                         </table>
