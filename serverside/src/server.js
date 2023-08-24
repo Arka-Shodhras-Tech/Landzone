@@ -1,5 +1,5 @@
 import cors from 'cors';
-import express, { response } from 'express';
+import express from 'express';
 import { connectToDB, db } from './database.js';
 const app=express();
 app.use(express.json());
@@ -46,33 +46,20 @@ app.get('/admincheck/:gmail',async(req,res)=>//mail check
 })
 app.post('/adminregister/:fname/:lname/:gmail/:password/:phonenumber',async(req,res)=>//register
 {
-    console.log(req.params.gmail)
-    const responce=await db.collection('Admin_data').findOne({Gmail:req.params.gmail})
-    {
-        if(responce.data)
-        {
-            console.log(responce.data);
-            res.json({msg:"Mail already exist"})
-        }
-        else
-        {
-            const details=await db.collection('Admin_Data').insertOne({
-                Firstname:req.params.fname,
-                Lastname:req.params.lname,
-                Gmail:req.params.gmail,
-                Password:req.params.password,
-                Phonenumber:req.params.phonenumber,
-                PasswordResetToken:req.params='',
-                PasswordResetExpires:{date:new Date()},
-                isAdmin:req.params=false,
-                isApproved:req.params='',
-                __v:req.params=0,
-                accountNumber:req.params='',
-                isVerified:req.params=true})
-                res.json({msg:"Registered sucessfully"});
-                res.json(details);
-        }
-    }
+    const details=await db.collection('Admin_Data').insertOne({
+        Firstname:req.params.fname,
+        Lastname:req.params.lname,
+        Gmail:req.params.gmail,
+        Password:req.params.password,
+        Phonenumber:req.params.phonenumber,
+        PasswordResetToken:req.params='',
+        PasswordResetExpires:{date:new Date()},
+        isAdmin:req.params=false,
+        isApproved:req.params='',
+        __v:req.params=0,
+        accountNumber:req.params='',
+        isVerified:req.params=true})
+    res.json(details);
 })
 
 //Approve user from list

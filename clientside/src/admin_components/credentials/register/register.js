@@ -21,23 +21,23 @@ export const Adminregister=()=>
     const Show=async()=>{
         if(emailtest.test(gmail))
         {
+            const responce=await axios.get("https://landzone-server.onrender.com/admincheck/"+gmail)
+            {
+                if(responce.data)
+                {
+                    serr("Mail already Exist")
+                }
+                else
+                {
                    if(password.length>7)
                    {
                     if(password === cpassword)
                     {
                         try
                         {
-                            const responce=await axios.post("https://landzone-server.onrender.com/adminregister/"+fname+"/"+lname+"/"+gmail+"/"+password+"/"+phonenumber)
-                                if(responce.data)
-                                {
-                                    console.log(responce.data)
-                                    responce.data.msg==="Mail already exist"?alert("Mail already exist"):nav('/adminlogin');
-                                }
-                                else
-                                {
-                                    alert("Try again");
-                                }
-                            }
+                         await axios.post("https://landzone-server.onrender.com/adminregister/"+fname+"/"+lname+"/"+gmail+"/"+password+"/"+phonenumber)?
+                         nav("/adminlogin"):serr("Error")
+                        }
                         catch(error)
                         {
                          alert("Required all fields or Server bussy");
@@ -52,6 +52,8 @@ export const Adminregister=()=>
                    {
                     serr("password length must be >=8")
                    }
+                }
+            }
         }
         else
         {
@@ -92,7 +94,7 @@ export const Adminregister=()=>
                 <label for="gmail"><b>Gmail </b></label>
                 </td>
                 <td className="input">
-                <input type='mail' name='gmail' id="gmail" placeholder='Enter your mail' onChange={(e)=>sgmail(e.target.value)}></input>
+                <input type='mail' name='gmail' id="gmail"  autoComplete="none" placeholder='Enter your mail' onChange={(e)=>sgmail(e.target.value)}></input>
                 </td>
             </tr>
             <tr>
