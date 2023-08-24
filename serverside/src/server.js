@@ -63,21 +63,41 @@ app.post('/adminregister/:fname/:lname/:gmail/:password/:phonenumber',async(req,
     res.json(details);
 })
 
-//Approve user from list
+//displays users data
 app.get('/levelsdata',async(req,res)=>{
     const details=await db.collection('User_Data').find().toArray()
     res.json(details);
 })
-app.post('/approve/:gmail',async(req,res)=>
-{
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=1}})
-    res.json(details);
-})
+//data retrive from user data
 app.get('/approvecheck/:gmail',async(req,res)=>
 {
     const details=await db.collection('User_Data').findOne({Gmail:req.params.gmail});
     res.json(details);
 })
+app.post('/user/:gmail',async(req,res)=>
+{
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=0}})
+    res.json(details);
+})
+//approve to level 1 && approve users
+app.post('/approveuser/:gmail',async(req,res)=>
+{
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=1}})
+    res.json(details);
+})
+//approve to level 2 && approve as admins
+app.post('/approveadmin/:gmail',async(req,res)=>
+{
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=2}})
+    res.json(details);
+})
+//approve to level 3 && approve as superadmin
+app.post('/approvesuperadmin/:gmail',async(req,res)=>
+{
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=3}})
+    res.json(details);
+})
+
 
 
 // Approved list from approve

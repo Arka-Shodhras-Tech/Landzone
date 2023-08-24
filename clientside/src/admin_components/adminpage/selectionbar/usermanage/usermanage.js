@@ -107,7 +107,7 @@ export const Usermanage=()=>
                 }
                 else
                 {
-                   axios.post("https://landzone-server.onrender.com/approve/"+approve.Gmail)?
+                   axios.post("https://landzone-server.onrender.com/approveuser/"+approve.Gmail)?
                    alert(approve.Gmail+" Approved")&&
                    window.location.reload(1)
                    :alert("Try again");
@@ -124,7 +124,7 @@ export const Usermanage=()=>
 
     const Disapprove=async()=>
     {
-        await axios.post("https://landzone-server.onrender.com/disapprove/"+disap.Gmail)?
+        await axios.post("https://landzone-server.onrender.com/user/"+disap.Gmail)?
         document.getElementById(disap._id).innerHTML="Dispproved":alert("Again clicked");
     }
 // Update user details
@@ -333,9 +333,9 @@ export const Usermanage=()=>
                                         apv.__v===1?
                                         <tr>
                                             <td><b>{index + 1}</b></td>
-                                            <td><b>{apv.Name}</b></td>
+                                            <td><b>{apv.Firstname+" "+apv.Lastname}</b></td>
                                             <td><b>{apv.Gmail}</b></td>
-                                            <td><b>{apv.Phone_Number}</b></td>
+                                            <td><b>{apv.Phonenumber}</b></td>
                                             <td style={{height:'60px'}}>
                                                 <button onClick={Disapprove} id={apv._id} onClickCapture={(e)=>sdisap(apv)} style={{width:'80px',backgroundColor:'orangered',color:'whitesmoke'}}>Disapprove</button>
                                             </td>
