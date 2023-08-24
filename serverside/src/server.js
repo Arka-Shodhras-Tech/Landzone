@@ -72,7 +72,10 @@ app.post('/eviusd/:gmail/:num',async(req,res)=>
     const details=await db.collection('Statistics').insertOne({
         Gmail:req.params.gmail,
         ValueOfUSD:req.params.num,
-        CreateCurrency:req.params='',
+        CreateCurrency:{
+            Value:req.params='',
+            In:req.params=''
+        },
         TotalValueInLand:req.params='',
         TotalValueIneUSD:req.params='',
         CreatedInLand:req.params='',
@@ -81,7 +84,10 @@ app.post('/eviusd/:gmail/:num',async(req,res)=>
         PendingIneUSD:req.params='',
         AvailableInLand:req.params='',
         AvailableIneUSD:req.params='',
-        CurrencyInToken:req.params=''
+        TokenIn:{
+            Value:req.params='',
+            In:req.params=''
+        }
     })
     res.json(details);
 })
@@ -93,6 +99,16 @@ app.get('/eviusdget/:gamil',async(req,res)=>
 app.post('/uviusd/:gmail/:num',async(req,res)=>
 {
     const details=await db.collection('Statistics').findOneAndUpdate({Gmail:req.params.gmail},{$set:{ValueOfUSD:req.params.num}})
+    res.json(details);
+})
+app.post('/token/:gmail/:value/:in',async(req,res)=>
+{
+    const details=await db.collection("Statistics").findOneAndUpdate({Gmail:req.params.gmail},{TokenIn:{$set:{Value:req.params.value,In:req.params.in}}})
+    res.json(details);
+})
+app.post('/crecur/:gmail/:val/:land',async(req,res)=>
+{
+    const details=await db.collection('Statistics').findOneAndUpdate({Gmail:req.params.gmail},{CreateCurrency:{$set:{Value:req.params.val,In:req.params.land}}})
     res.json(details);
 })
 
@@ -108,11 +124,7 @@ app.post('/insertcurland/:name/:date/:value',async(req,res)=>
     const details=await db.collection("Current_Land").findOneAndUpdate({Name:req.params.name},{$set:{Dates:req.params.date,Value:req.params.value}})
     res.json(details)
 })
-app.post('/crecur/:gmail/:val/:land',async(req,res)=>
-{
-    const details=await db.collection('create_currency').insertOne({Gmail:req.params.gmail,Units:req.params.val,In:req.params.land})
-    res.json(details);
-})
+
 app.get('/crecurdis',async(req,res)=>
 {
     const details=await db.collection('create_currency').find().toArray()
@@ -166,11 +178,6 @@ app.get('/getshowvalue/:gmail',async(req,res)=>
 app.post('/updateshow/:gmail/:usd/:pend/:unit/:avl/:lim/:land/:landpend/:landunit/:landavil',async(req,res)=>
 {
     const details=await db.collection("Show_values").findOneAndUpdate({Gmail:req.params.gmail},{$set:{USD_Values:{Total_USD:req.params.usd,USD_Pending:req.params.pend,USD_Created:req.params.unit,USD_Available:req.params.avl,USD_Limit:req.params.lim},Land_values:{Total_Land:req.params.land,Land_Pending:req.params.landpend,Land_Created:req.params.landunit,Land_Available:req.params.landavil}}})
-    res.json(details);
-})
-app.post('/token/:gmail/:unit/:landunit',async(req,res)=>
-{
-    const details=await db.collection("Show_values").findOneAndUpdate({Gmail:req.params.gmail},{$set:{USD_Values:{USD_Created:req.params.unit},Land_values:{Land_Created:req.params.landunit}}})
     res.json(details);
 })
 

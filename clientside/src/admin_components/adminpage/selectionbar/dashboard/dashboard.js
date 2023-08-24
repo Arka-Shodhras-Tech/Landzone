@@ -191,7 +191,7 @@ export const Dashboard=()=>
         {
             localStorage.token=num;
             localStorage.landunit=landunit-num*currentland;
-            axios.post("https://landzone-server.onrender.com/token/"+localStorage.adminmail+"/"+unit+"/"+landunit)?
+            axios.post("https://landzone-server.onrender.com/token/"+localStorage.adminmail+"/"+landunit+"/"+land)?
             alert(token+"sucessfully Convert in LAND"):<b></b>
             window.reload.location(4);
         }
@@ -199,7 +199,7 @@ export const Dashboard=()=>
         {
             localStorage.token=num;
             localStorage.unit=unit-num;
-            axios.post("https://landzone-server.onrender.com/token/"+localStorage.adminmail+"/"+unit+"/"+landunit)?
+            axios.post("https://landzone-server.onrender.com/token/"+localStorage.adminmail+"/"+unit+"/"+land)?
             alert(token+"sucessfully Convert in USD"):<b></b>
             window.reload.location(4);
         }
