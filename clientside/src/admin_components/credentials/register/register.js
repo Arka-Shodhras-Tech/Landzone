@@ -21,22 +21,23 @@ export const Adminregister=()=>
     const Show=async()=>{
         if(emailtest.test(gmail))
         {
-            const responce=await axios.get("https://landzone-server.onrender.com/admincheck/"+gmail)
-            {
-                if(responce.data)
-                {
-                    serr("Mail already Exist")
-                }
-                else
-                {
                    if(password.length>7)
                    {
                     if(password === cpassword)
                     {
                         try
                         {
-                         await axios.post("https://landzone-server.onrender.com/adminregister/"+fname+"/"+lname+"/"+gmail+"/"+password+"/"+phonenumber)?
-                         nav("/adminlogin"):serr("Error")
+                            const responce=await axios.post("https://landzone-server.onrender.com/adminregister/"+fname+"/"+lname+"/"+gmail+"/"+password+"/"+phonenumber)
+                            {
+                                if(responce.data.msg)
+                                {
+                                    serr(responce.data.msg);
+                                }
+                                else
+                                {
+                                    nav("/adminlogin");
+                                }
+                            }
                         }
                         catch(error)
                         {
@@ -52,8 +53,6 @@ export const Adminregister=()=>
                    {
                     serr("password length must be >=8")
                    }
-                }
-            }
         }
         else
         {
