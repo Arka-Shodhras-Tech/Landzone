@@ -64,7 +64,7 @@ app.post('/adminregister/:fname/:lname/:gmail/:password/:phonenumber',async(req,
 
 //Approve user from list
 app.get('/aufl',async(req,res)=>{
-    const details=await db.collection('userlogin').find().toArray()
+    const details=await db.collection('User_Data').find().toArray()
     res.json(details);
 })
 
