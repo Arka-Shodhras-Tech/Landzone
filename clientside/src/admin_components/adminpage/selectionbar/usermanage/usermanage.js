@@ -100,7 +100,7 @@ export const Usermanage=()=>
     {
         try
         {
-            const responce=await axios.get("https://landzone-server.onrender.com/approvecheck/"+approve._id)
+            const responce=await axios.get("https://landzone-server.onrender.com/approvecheck/"+approve.Gmail)
             {
                 if(responce.data.__v===1)
                 {
@@ -108,7 +108,7 @@ export const Usermanage=()=>
                 }
                 else
                 {
-                   axios.post("https://landzone-server.onrender.com/approveuser/"+approve._id)?
+                   axios.post("https://landzone-server.onrender.com/approveuser/"+approve.Gmail)?
                    document.getElementById(approve.Gmail).innerHTML="Approved":alert("Try again");
                 }
                 smodname(approve.Name);
@@ -123,7 +123,7 @@ export const Usermanage=()=>
 
     const Disapprove=async()=>
     {
-        await axios.post("https://landzone-server.onrender.com/user/"+disap._id)?
+        await axios.post("https://landzone-server.onrender.com/user/"+disap.Gmail)?
         document.getElementById(disap._id).innerHTML="Dispproved":alert("Again clicked");
     }
 
@@ -132,11 +132,11 @@ export const Usermanage=()=>
     const Edituser=async()=>
     {
         document.getElementById('reasondisplay').style.display='block';
-        const responce=await axios.get("https://landzone-server.onrender.com/approvecheck/"+edit._id)
+        const responce=await axios.get("https://landzone-server.onrender.com/approvecheck/"+edit.Gmail)
         {
             if(responce.data.__v===1)
             {
-               await axios.post("https://landzone-server.onrender.com/user/"+edit._id)?alert("Disabled user"): alert("Try again")
+               await axios.post("https://landzone-server.onrender.com/user/"+edit.Gmail)?alert("Disabled user"): alert("Try again")
             }
             else
             {
@@ -151,7 +151,7 @@ export const Usermanage=()=>
     {
               try
                 {
-                    await axios.post("https://landzone-server.onrender.com/updatenames/"+update._id+"/"+modname)?
+                    await axios.post("https://landzone-server.onrender.com/updatenames/"+update.Gmail+"/"+modname)?
                     document.getElementById(update.Gmail).innerHTML="Updated":
                     alert("Try again");
                 }
