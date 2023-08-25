@@ -116,7 +116,7 @@ app.post('/crecur/:gmail/:val/:land',async(req,res)=>
 app.post('/viewpp/:gmail/:val/:land',async(req,res)=>
 {
     const details=await db.collection('Purchases').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__L:req.params=1}})&&
-    await db.collection('Trail_Purchases').insertOne({Gmail:req.params.gmail,Value:req.params.val,In:req.params.land,__L:req.params=0})
+    await db.collection('Trail_Purchases').insertOne({Gmail:req.params.gmail,Value:req.params.val,In:req.params.land})
     res.json(details);
 })
 app.get('/purchases',async(req,res)=>
@@ -145,7 +145,8 @@ app.post('/updateshowvalues/:gmail/:usd/:pend/:unit/:lim/:land/:landpend/:landun
 })
 app.post('/delecurr/:gmail',async(req,res)=>
 {
-    const details=await db.collection('Purchases').findManyAndUpdate({Gmail:req.params.gmail},{$set:{__L:req.params=0}})
+    const details=await db.collection('Trail_Purchases').deleteMany()&&
+    await db.collection('Purchases').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__L:req.params=-1}})
    res.json(details);
 })
 

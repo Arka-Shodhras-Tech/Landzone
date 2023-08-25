@@ -10,7 +10,7 @@ export const Dashboard=()=>
     const gmal=localStorage.adminmail;
     const unit=localStorage.unit;
     const pendg=localStorage.pendg;
-    const avil=localStorage.avil;
+    // const avil=localStorage.avil;
     const usd=localStorage.usd;
     const limit=localStorage.limit;
     const total=localStorage.total;
@@ -35,7 +35,7 @@ export const Dashboard=()=>
     const [pp,spp]=useState([]);
     const [prev,sprev]=useState([]);
     const usdval=localStorage.usdval;
-    const [val, sval] = useState(usdval);
+    const val=usdval;
     const [j,sj]=useState(0);
     const date=new Date();
     let value;
@@ -105,7 +105,7 @@ export const Dashboard=()=>
         document.getElementById('app').style.display='none';
         document.getElementById('prevlist').style.display="none";
         document.getElementById('conv').style.display='none';
-        if(j==1)
+        if(j===1)
         {
             document.getElementById('evb').style.display='none';
         }
