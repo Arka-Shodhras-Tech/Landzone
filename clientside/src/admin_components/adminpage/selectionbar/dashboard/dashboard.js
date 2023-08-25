@@ -32,7 +32,6 @@ export const Dashboard=()=>
     const [land,sland]=useState([]);
     const [cor,scor]=useState([]);
     const [vpp,svpp]=useState([]);
-    const [pp,spp]=useState([]);
     const [prev,sprev]=useState([]);
     const usdval=localStorage.usdval;
     const val=usdval;
@@ -350,11 +349,18 @@ export const Dashboard=()=>
                 localStorage.unit=parseInt(unit)+parseInt(vpp.Units);
             }
             localStorage.limit=0;
-            const viewpp=await axios.post("https://landzone-server.onrender.com/viewpp/"+vpp.Gmail+"/"+vpp.Units+"/"+vpp.In)
+            const viewpp=await axios.post("https://landzone-server.onrender.com/viewpp/"+vpp.Gmail+"/"+vpp.Value+"/"+vpp.In)
             {
                 localStorage.limit=usd;
-                viewpp?alert("Approved"):alert("Try again");
-                window.location.reload(3)
+                if(viewpp.data)
+                {
+                    alert("Approved")
+                    // window.location.reload(3)
+                }
+                else
+                {
+                    alert("Try again");
+                }
             }
         }
         catch(e)
@@ -365,17 +371,12 @@ export const Dashboard=()=>
     useEffect(() => {
        try
        {
-        axios.get("https://landzone-server.onrender.com/crecurdis")
+        axios.get("https://landzone-server.onrender.com/purchases")
         .then((result1)=>
         {
             scurr(result1.data);
         })
-        axios.get("https://landzone-server.onrender.com/viewappdis")
-        .then((result2)=>
-        {
-            spp(result2.data);
-        })
-        axios.get("https://landzone-server.onrender.com/sviewdis")
+        axios.get("https://landzone-server.onrender.com/trailpurchase")
         .then((result3)=>
         {
             sprev(result3.data);
@@ -483,11 +484,12 @@ export const Dashboard=()=>
                                    {
                                     curr.map((val,index)=>
                                     (
+                                        val.__L===0?
                                        <>
                                         <tr>
                                             <td>{index+1}</td>
                                             <td>
-                                                {val.Units}
+                                                {val.Value}
                                             </td>
                                             <td>
                                                 {val.In}
@@ -501,7 +503,7 @@ export const Dashboard=()=>
                                         </tr>
                                         <tr></tr>
                                         <br/>
-                                       </>
+                                       </>:<b></b>
                                     ))
                                    }
                                    <tr style={{backgroundColor:'aliceblue'}}>
@@ -525,13 +527,14 @@ export const Dashboard=()=>
                                     </tr>
                                     <br/>
                                    {
-                                    pp.map((val1,index)=>
+                                    prev.map((val1,index)=>
                                     (
+                                        val1.__L===1?
                                        <>
                                         <tr>
                                             <td>{index+1}</td>
                                             <td>
-                                            {val1.Units}
+                                            {val1.Value}
                                             </td>
                                             <td>
                                                 {val1.In}
@@ -541,7 +544,7 @@ export const Dashboard=()=>
                                             </td>
                                         </tr>
                                         <br/>
-                                       </>
+                                       </>:<b></b>
                                     ))
                                    }
                                 </table>
@@ -596,13 +599,14 @@ export const Dashboard=()=>
                             <div className="editdis" style={{display:'none'}} id="prevlist">
                                 <table className="pendtable" style={{marginTop:'5%'}}>
                                 {
-                                    prev.map((pre,index)=>
+                                    curr.map((pre,index)=>
                                     (
+                                        pre.__L===1?
                                        <>
                                         <tr>
                                             <td>{index+1}</td>
                                             <td>
-                                            {pre.Units}
+                                            {pre.Value}
                                             </td>
                                             <td>{pre.In}</td>
                                             <td>
@@ -610,7 +614,7 @@ export const Dashboard=()=>
                                             </td>
                                         </tr>
                                         <br/>
-                                       </>
+                                       </>:<b></b>
                                     ))
                                    }
                                 </table>

@@ -115,9 +115,10 @@ app.post('/crecur/:gmail/:val/:land',async(req,res)=>
 })
 app.post('/viewpp/:gmail/:val/:land',async(req,res)=>
 {
-    const details=await db.collection('Purchases').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__L:req.params=1}})&&
-    await db.collection('Trail_Purchases').insertOne({Gmail:req.params.gmail,Value:req.params.val,In:req.params.land})
+    const details=await db.collection('Purchases').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__L:req.params=1}})
     res.json(details);
+    const details1=await db.collection('Trail_Purchases').insertOne({Gmail:req.params.gmail,Value:req.params.val,In:req.params.land})
+    res.json(details1);
 })
 app.get('/purchases',async(req,res)=>
 {
