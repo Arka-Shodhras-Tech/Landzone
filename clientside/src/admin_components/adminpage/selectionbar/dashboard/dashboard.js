@@ -355,7 +355,7 @@ export const Dashboard=()=>
                 if(viewpp.data)
                 {
                     alert("Approved")
-                    // window.location.reload(3)
+                    window.location.reload(3)
                 }
                 else
                 {
