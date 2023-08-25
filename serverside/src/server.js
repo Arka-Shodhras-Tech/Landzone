@@ -259,9 +259,9 @@ app.post('/approvesuperadmin/:gmail',async(req,res)=>
     res.json(details);
 })
 //update users names
-app.post('/updatenames/:gmail/:name',async(req,res)=>
+app.post('/updatenames/:id/:name',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Lastname:req.params.name}})
+    const details=await db.collection('User_Data').findOneAndUpdate({_id:req.params.id},{$set:{Lastname:req.params.name}})
     res.json(details);
 })
 
