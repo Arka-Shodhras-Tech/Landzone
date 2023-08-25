@@ -151,7 +151,7 @@ export const Usermanage=()=>
     {
               try
                 {
-                    const res=await axios.post("https://landzone-server.onrender.com/updatenames/"+update._id+"/"+modname)
+                    const res=await axios.post("https://landzone-server.onrender.com/updatenames/"+update.Gmail+"/"+modname)
                     res.data?document.getElementById(update.Gmail).innerHTML="Updated":
                     alert("Try again");
                 }
