@@ -153,7 +153,7 @@ export const Dashboard=()=>
             {
                 if(responce.data)
                 {
-                    const details=await axios.post("https://landzone-server.onrender.com/uviusd/"+gmal+"/"+limit)
+                    const details=await axios.post("https://landzone-server.onrender.com/uviusd/"+gmal+"/"+num)
                     {
                         localStorage.limit=num;
                         details?alert(num+" USD units are there in your Bank account"):alert("Try again");
@@ -162,11 +162,11 @@ export const Dashboard=()=>
                 }
                 else
                 {
-                    const responce1=await axios.post("https://landzone-server.onrender.com/eviusd/"+gmal+"/"+limit)
+                    const responce1=await axios.post("https://landzone-server.onrender.com/eviusd/"+gmal+"/"+num)
                     {
                         if(responce1.data)
                         {
-                            alert(num+" USD units are there in your Bank account");
+                            alert(num+" USD units are Update in your Bank account");
                             window.location.reload(5);
                         }
                         else
@@ -201,17 +201,21 @@ export const Dashboard=()=>
         {
             localStorage.token=num;
             localStorage.landunit=landunit-num*currentland;
-            axios.post("https://landzone-server.onrender.com/token/"+localStorage.adminmail+"/"+landunit+"/"+land)?
-            alert(token+"sucessfully Convert in LAND"):<b></b>
-            window.reload.location(4);
+            const res=axios.post("https://landzone-server.onrender.com/token/"+localStorage.adminmail+"/"+landunit+"/"+land)
+            {
+                res.data? alert(token+"sucessfully Convert in LAND"):<b></b>
+                window.location.reload(4);
+            }
         }
         else
         {
             localStorage.token=num;
             localStorage.unit=unit-num;
-            axios.post("https://landzone-server.onrender.com/token/"+localStorage.adminmail+"/"+unit+"/"+land)?
-            alert(token+"sucessfully Convert in USD"):<b></b>
-            window.reload.location(4);
+            const res=axios.post("https://landzone-server.onrender.com/token/"+localStorage.adminmail+"/"+unit+"/"+land)
+            {
+                res.data?alert(token+"sucessfully Convert in USD"):<b></b>
+            }
+            window.location.reload(4);
         }
     }
 
@@ -261,9 +265,7 @@ export const Dashboard=()=>
         localStorage.landunit=0;
        try
        {
-        (
-        await axios.post("https://landzone-server.onrender.com/delecurr/"+gmal)&&
-        await axios.post("https://landzone-server.onrender.com/delepend"))?
+        await axios.post("https://landzone-server.onrender.com/delecurr/"+gmal)?
         window.location.reload(5):alert("Try again")
        }
        catch(e)
@@ -278,19 +280,19 @@ export const Dashboard=()=>
     {
         try
         {
-         const res=await axios.get("https://landzone-server.onrender.com/getshowvalue/"+gmal)
+         const res=await axios.get("https://landzone-server.onrender.com/eviusdget/"+gmal)
          {
              if(res.data)
              {
-                 localStorage.limit=res.data.USD_Values.USD_Limit;
-                 localStorage.pendg=res.data.USD_Values.USD_Pending;
-                 localStorage.avil=res.data.USD_Values.USD_Available;
-                 localStorage.unit=res.data.USD_Values.USD_Created;
-                 localStorage.usd=res.data.USD_Values.Total_USD;
-                 localStorage.totalland=res.data.Land_values.Total_Land;
-                 localStorage.landpend=res.data.Land_values.Land_Pending;
-                 localStorage.landunit=res.data.Land_values.Land_Created;
-                 localStorage.landlimit=res.data.Land_values.Land_Available;
+                 localStorage.limit=res.data.AvailableIneUSD;
+                 localStorage.pendg=res.data.PendingIneUSD;
+                 localStorage.avil=res.data.AvailableIneUSD;
+                 localStorage.unit=res.data.CreatedIneUSD;
+                 localStorage.usd=res.data.TotalValueIneUSD;
+                 localStorage.totalland=res.data.TotalValueInLand;
+                 localStorage.landpend=res.data.PendingInLand;
+                 localStorage.landunit=res.data.CreatedInLand;
+                 localStorage.landlimit=res.data.AvailableInLand;
                  window.location.reload(5);
              }
          }

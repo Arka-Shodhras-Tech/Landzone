@@ -229,39 +229,39 @@ app.get('/levelsdata',async(req,res)=>{
     res.json(details);
 })
 //data retrive from user data
-app.get('/approvecheck/:gmail',async(req,res)=>
+app.get('/approvecheck/:id',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOne({Gmail:req.params.gmail});
+    const details=await db.collection('User_Data').findOne({_id:req.params.id});
     res.json(details);
 })
 //disapprove from 1 level to 0 level
-app.post('/user/:gmail',async(req,res)=>
+app.post('/user/:id',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=0}})
+    const details=await db.collection('User_Data').findOneAndUpdate({_id:req.params.id},{$set:{__v:req.params=0}})
     res.json(details);
 })
 //approve to level 1 && approve users
-app.post('/approveuser/:gmail',async(req,res)=>
+app.post('/approveuser/:id',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=1}})
+    const details=await db.collection('User_Data').findOneAndUpdate({_id:req.params.id},{$set:{__v:req.params=1}})
     res.json(details);
 })
 //approve to level 2 && approve as admins
-app.post('/approveadmin/:gmail',async(req,res)=>
+app.post('/approveadmin/:id',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=2}})
+    const details=await db.collection('User_Data').findOneAndUpdate({_id:req.params.id},{$set:{__v:req.params=2}})
     res.json(details);
 })
 //approve to level 3 && approve as superadmin
-app.post('/approvesuperadmin/:gmail',async(req,res)=>
+app.post('/approvesuperadmin/:id',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=3}})
+    const details=await db.collection('User_Data').findOneAndUpdate({_id:req.params.id},{$set:{__v:req.params=3}})
     res.json(details);
 })
 //update users names
-app.post('/updatenames/:gmail/:name',async(req,res)=>
+app.post('/updatenames/:id/:name',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Lastname:req.params.name}})
+    const details=await db.collection('User_Data').findOneAndUpdate({_id:req.params.id},{$set:{Lastname:req.params.name}})
     res.json(details);
 })
 
