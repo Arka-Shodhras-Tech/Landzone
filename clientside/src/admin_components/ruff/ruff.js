@@ -147,3 +147,18 @@ axios.get("https://landzone-server.onrender.com/pymtretrive")
 {
     // spymt(result1.data);
 })
+
+await axios.post("https://landzone-server.onrender.com/sviewpp/"+vpp.Gmail+"/"+vpp.Units+"/"+vpp.In)
+const viewpp1=await axios.post("https://landzone-server.onrender.com/delviewpp/"+vpp.Units)
+{
+    viewpp1?nj:alert("Try again");
+}  
+
+axios.post("https://landzone-server.onrender.com/showvalue/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+avil+"/"+limit+"/"+totalland+"/"+landpend+"/"+landunit+"/"+landlimit)?
+alert("Sucessfully saved"):alert("Try again");
+
+app.post('/delecurr',async(req,res)=>
+{
+    const details=await db.collection('create_currency').deleteMany()
+   res.json(details);
+})

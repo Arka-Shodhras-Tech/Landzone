@@ -72,10 +72,6 @@ app.post('/eviusd/:gmail/:num',async(req,res)=>
     const details=await db.collection('Statistics').insertOne({
         Gmail:req.params.gmail,
         ValueOfUSD:req.params.num,
-        CreateCurrency:{
-            Value:req.params='',
-            In:req.params=''
-        },
         TotalValueInLand:req.params='',
         TotalValueIneUSD:req.params='',
         CreatedInLand:req.params='',
@@ -107,14 +103,54 @@ app.post('/token/:gmail/:value/:in',async(req,res)=>
     const details=await db.collection("Statistics").findOneAndUpdate({Gmail:req.params.gmail},{TokenIn:{$set:{Value:req.params.value,In:req.params.in}}})
     res.json(details);
 })
+app.get('/statistics',async(req,res)=>
+{
+    const details=await db.collection('Statistics').find().toArray()
+    res.json(details);
+})
 app.post('/crecur/:gmail/:val/:land',async(req,res)=>
 {
-    const details=await db.collection('Statistics').findOneAndUpdate({Gmail:req.params.gmail},{CreateCurrency:{$set:{Value:req.params.val,In:req.params.land}}})
+    const details=await db.collection('Purchases').insertOne({Gmail:req.params.gmail,Value:req.params.val,In:req.params.land,__L:req.params=0})
     res.json(details);
+})
+app.post('/viewpp/:gmail/:val/:land',async(req,res)=>
+{
+    const details=await db.collection('Purchases').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__L:req.params=1}})&&
+    await db.collection('Trail_Purchases').insertOne({Gmail:req.params.gmail,Value:req.params.val,In:req.params.land,__L:req.params=0})
+    res.json(details);
+})
+app.get('/purchases',async(req,res)=>
+{
+    const details=await db.collection('Purchases').find().toArray()
+    res.json(details);
+})
+app.get('/trailpurchase',async(req,res)=>
+{
+    const details=await db.collection('Trail_Purchases').find().toArray()
+    res.json(details);
+})
+app.post('/updateshowvalues/:gmail/:usd/:pend/:unit/:lim/:land/:landpend/:landunit/:landavil',async(req,res)=>
+{
+    const details=await db.collection("Show_values").findOneAndUpdate({Gmail:req.params.gmail},
+        {$set:{TotalValueIneUSD:req.params.usd,
+            PendingIneUSD:req.params.pend,
+            CreatedIneUSD:req.params.unit,
+            AvailableIneUSD:req.params.lim,
+            TotalValueInLand:req.params.land,
+            PendingInLand:req.params.landpend,
+            CreatedInLand:req.params.landunit,
+            AvailableInLand:req.params.landavil
+        }})
+    res.json(details);
+})
+app.post('/delecurr/:gmail',async(req,res)=>
+{
+    const details=await db.collection('Purchases').findManyAndUpdate({Gmail:req.params.gmail},{$set:{__L:req.params=0}})
+   res.json(details);
 })
 
 
-// Create currency(Land/USD Units)
+// ************************************************* Land Management ******************************************************//
 app.get('/currentland/:name',async(req,res)=>
 {
     const details=await db.collection("Current_Land").findOne({Name:req.params.name})
@@ -131,11 +167,7 @@ app.get('/crecurdis',async(req,res)=>
     const details=await db.collection('create_currency').find().toArray()
     res.json(details)   
 })
-app.post('/viewpp/:gmail/:val/:land',async(req,res)=>
-{
-    const details=await db.collection('pending_purchase').insertOne({Gmail:req.params.gmail,Units:req.params.val,In:req.params.land})
-    res.json(details);
-})
+
 app.post('/sviewpp/:gmail/:val/:land',async(req,res)=>
 {
     const details=await db.collection('saved_pending_purchase').insertOne({Gmail:req.params.gmail,Units:req.params.val,In:req.params.land})
@@ -146,11 +178,7 @@ app.get('/sviewdis',async(req,res)=>
     const details=await db.collection('saved_pending_purchase').find().toArray();
     res.json(details);
 })
-app.post('/delecurr',async(req,res)=>
-{
-    const details=await db.collection('create_currency').deleteMany()
-   res.json(details);
-})
+
 app.post('/delepend',async(req,res)=>
 {
     const details1=await db.collection('pending_purchase').deleteMany()
@@ -174,11 +202,6 @@ app.post('/showvalue/:gmail/:usd/:pend/:unit/:avl/:lim/:land/:landpend/:landunit
 app.get('/getshowvalue/:gmail',async(req,res)=>
 {
     const details=await db.collection("Show_values").findOne({Gmail:req.params.gmail})
-    res.json(details);
-})
-app.post('/updateshow/:gmail/:usd/:pend/:unit/:avl/:lim/:land/:landpend/:landunit/:landavil',async(req,res)=>
-{
-    const details=await db.collection("Show_values").findOneAndUpdate({Gmail:req.params.gmail},{$set:{USD_Values:{Total_USD:req.params.usd,USD_Pending:req.params.pend,USD_Created:req.params.unit,USD_Available:req.params.avl,USD_Limit:req.params.lim},Land_values:{Total_Land:req.params.land,Land_Pending:req.params.landpend,Land_Created:req.params.landunit,Land_Available:req.params.landavil}}})
     res.json(details);
 })
 

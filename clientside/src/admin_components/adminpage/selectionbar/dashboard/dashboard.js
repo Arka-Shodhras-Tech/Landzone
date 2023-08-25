@@ -47,11 +47,11 @@ export const Dashboard=()=>
     {
     try
    {
-    const responce=axios.get("https://landzone-server.onrender.com/currentland/"+name)
-    localStorage.currentland=(await responce).data.Value;
-    if ((await responce).data.Dates !== date.toDateString())
+    const responce=await axios.get("https://landzone-server.onrender.com/currentland/"+name)
+    localStorage.currentland=responce.data.Value;
+    if (responce.data.Dates !== date.toDateString())
     {
-        value = parseFloat((await responce).data.Value)+0.000205;
+        value = parseFloat(responce.data.Value)+0.000205;
         axios.post("https://landzone-server.onrender.com/insertcurland/"+name+"/"+date.toDateString()+"/"+value)
     }
    }
@@ -149,8 +149,9 @@ export const Dashboard=()=>
         try
         {
             localStorage.usd=num;
+            const responce=await axios.get("https://landzone-server.onrender.com/eviusdget/"+gmal)
             {
-                if(await axios.get("https://landzone-server.onrender.com/eviusdget/"+gmal))
+                if(responce.data)
                 {
                     const details=await axios.post("https://landzone-server.onrender.com/uviusd/"+gmal+"/"+limit)
                     {
@@ -161,9 +162,18 @@ export const Dashboard=()=>
                 }
                 else
                 {
-                    await axios.post("https://landzone-server.onrender.com/eviusd/"+gmal+"/"+limit)?
-                    alert(num+" USD units are there in your Bank account"):alert("Try again")
-                    window.location.reload(5);
+                    const responce1=await axios.post("https://landzone-server.onrender.com/eviusd/"+gmal+"/"+limit)
+                    {
+                        if(responce1.data)
+                        {
+                            alert(num+" USD units are there in your Bank account");
+                            window.location.reload(5);
+                        }
+                        else
+                        {
+                            alert("Try again");
+                        }
+                    }
                 }
             }
         }
@@ -252,7 +262,7 @@ export const Dashboard=()=>
        try
        {
         (
-        await axios.post("https://landzone-server.onrender.com/delecurr")&&
+        await axios.post("https://landzone-server.onrender.com/delecurr/"+gmal)&&
         await axios.post("https://landzone-server.onrender.com/delepend"))?
         window.location.reload(5):alert("Try again")
        }
@@ -301,16 +311,16 @@ export const Dashboard=()=>
     {
         try
         {
+            const res=await axios.get("https://landzone-server.onrender.com/getshowvalue/"+gmal)
             {
-                if(await axios.get("https://landzone-server.onrender.com/getshowvalue/"+gmal))
+                if(res)
                 {
-                    axios.post("https://landzone-server.onrender.com/updateshow/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+avil+"/"+limit+"/"+totalland+"/"+landpend+"/"+landunit+"/"+landlimit)?
+                    axios.post("https://landzone-server.onrender.com/updateshowvalues/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+limit+"/"+totalland+"/"+landpend+"/"+landunit+"/"+landlimit)?
                     alert("Sucessfully saved"):alert("Try again");
                 }
                 else
                 {
-                    axios.post("https://landzone-server.onrender.com/showvalue/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+avil+"/"+limit+"/"+totalland+"/"+landpend+"/"+landunit+"/"+landlimit)?
-                    alert("Sucessfully saved"):alert("Try again");
+                   alert("Data Not Found");
                 }
             }
         }
@@ -340,14 +350,10 @@ export const Dashboard=()=>
             localStorage.limit=0;
             const viewpp=await axios.post("https://landzone-server.onrender.com/viewpp/"+vpp.Gmail+"/"+vpp.Units+"/"+vpp.In)
             {
-                viewpp?alert("Approved"):alert("Try again");
                 localStorage.limit=usd;
+                viewpp?alert("Approved"):alert("Try again");
+                window.location.reload(3)
             }
-            await axios.post("https://landzone-server.onrender.com/sviewpp/"+vpp.Gmail+"/"+vpp.Units+"/"+vpp.In)
-            const viewpp1=await axios.post("https://landzone-server.onrender.com/delviewpp/"+vpp.Units)
-            {
-                viewpp1?window.location.reload(3):alert("Try again");
-            }  
         }
         catch(e)
         {
