@@ -314,8 +314,18 @@ export const Dashboard=()=>
             {
                 if(res)
                 {
-                    axios.post("https://landzone-server.onrender.com/updateshowvalues/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+limit+"/"+totalland+"/"+landpend+"/"+landunit+"/"+landlimit)?
-                    alert("Sucessfully saved"):alert("Try again");
+                    const res1=axios.post("https://landzone-server.onrender.com/updateshowvalues/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+limit+"/"+totalland+"/"+landpend+"/"+landunit+"/"+landlimit)
+                    {
+                        console.log(res1)
+                        if(res1.data)
+                        {
+                            alert("Sucessfully saved")
+                        }
+                        else
+                        {
+                            alert("Try again");
+                        }
+                    }
                 }
                 else
                 {

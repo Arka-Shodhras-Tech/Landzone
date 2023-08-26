@@ -132,7 +132,7 @@ app.get('/trailpurchase',async(req,res)=>
 })
 app.post('/updateshowvalues/:gmail/:usd/:pend/:unit/:lim/:land/:landpend/:landunit/:landavil',async(req,res)=>
 {
-    const details=await db.collection("Show_values").findOneAndUpdate({Gmail:req.params.gmail},
+    const details=await db.collection("Statistics").findOneAndUpdate({Gmail:req.params.gmail},
         {$set:{
             TotalValueIneUSD:req.params.usd,
             PendingIneUSD:req.params.pend,
