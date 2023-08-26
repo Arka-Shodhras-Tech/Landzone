@@ -176,3 +176,50 @@ app.post('/enableadmin/:name/:gmail/:password/:cpassword/:phonenumber',async(req
     console.log(e);
    }
 })
+
+{
+    check.map((x)=>
+    {
+        adminlist.map((y)=>
+        {
+            if(x.Gmail===y.Gmail)
+            {
+                try
+                {
+                    document.getElementById(x.Gmail).style.display="block";
+                    document.getElementById(x.Gmail+x.Name).style.display="none";
+                }
+                catch(e)
+                {
+                    console.log(e);
+                }
+            }
+        })
+    })
+} 
+
+const res=await axios.get("https://landzone-server.onrender.com/check/"+approve.Gmail)
+{
+    if(res.data.__v==2)
+    {
+        alert("Admin Already Exist")
+    }
+    else
+    {
+       
+    }
+}
+
+//main admin
+const responce=await axios.get("https://landzone-server.onrender.com/levelsdata")
+if(responce.data)
+{
+    try
+    {
+        document.getElementById(responce.data.Gmail+1).innerHTML="Selected";
+    }
+    catch
+    {
+        alert("Refresh Page");
+    }
+}

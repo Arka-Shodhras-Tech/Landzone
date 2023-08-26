@@ -177,12 +177,6 @@ app.post('/approveuser/:gmail',async(req,res)=>
     const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=1}})
     res.json(details);
 })
-//approve to level 3 && approve as superadmin
-app.post('/approvesuperadmin/:gmail',async(req,res)=>
-{
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=3}})
-    res.json(details);
-})
 //update users names
 app.post('/updatenames/:gmail/:name',async(req,res)=>
 {
@@ -196,6 +190,12 @@ app.post('/updatenames/:gmail/:name',async(req,res)=>
 app.post('/approveadmin/:gmail',async(req,res)=>
 {
     const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=2}})
+    res.json(details);
+})
+//approve to level 3 && approve as superadmin
+app.post('/approvesuperadmin/:gmail',async(req,res)=>
+{
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=3}})
     res.json(details);
 })
 
