@@ -10,30 +10,23 @@ export const Adminusermanage=()=>
     const [check,scheck]=useState([]);
     const [adminlist,sadminlist]=useState([]);
     const [select,sselect]=useState([]);
-    const Ea=()=>
-    {
-        document.getElementById('enableadmin').style.display="block";
-        document.getElementById('disableadmin').style.display="none";
-    }
-    const Da=()=>
-    {
-        document.getElementById('enableadmin').style.display="none";
-        document.getElementById('disableadmin').style.display="block";
-    }
 
-    // Enable user as admin
+    //************************************ Enable user as admin *************************************************//
     const Approve=async()=>
     {
         try
         {
-            if(await axios.get("https://landzone-server.onrender.com/admincheck/"+approve.Gmail))
+            const res=await axios.get("https://landzone-server.onrender.com/admincheck/"+approve.Gmail)
             {
-                alert("Admin Already Exist")
-            }
-            else
-            {
-                await axios.post("https://landzone-server.onrender.com/enableadmin/"+approve.Name+"/"+approve.Gmail+"/"+approve.Password+"/"+approve.Cpassword+"/"+approve.Phone_Number)?alert("Sucessfully "+approve.Gmail+" Approved"):alert("Try again");
-                window.location.reload(1);
+                if(res.data.__v==2)
+                {
+                    alert("Admin Already Exist")
+                }
+                else
+                {
+                    await axios.post("https://landzone-server.onrender.com/approveadmin/"+approve.Gmail)?alert("Sucessfully "+approve.Gmail+" Approved"):alert("Try again");
+                    window.location.reload(1);
+                }
             }
         }
         catch(e)
@@ -41,6 +34,9 @@ export const Adminusermanage=()=>
             console.log(e);
         }
     }
+
+
+    // ************************************* Disable admin ********************************************************//
     const Disapprove=async()=>
     {
         try
@@ -55,10 +51,11 @@ export const Adminusermanage=()=>
             console.log(e);
         }
     }
+    // ************************************** Main Admin *******************************************//
     const Addadmin=async()=>
     {
         document.getElementById("admin").style.display="block";
-        const responce=await axios.get("https://landzone-server.onrender.com/mainadmin")
+        const responce=await axios.get("https://landzone-server.onrender.com/levelsdata")
         if(responce.data)
         {
             try
@@ -95,14 +92,9 @@ export const Adminusermanage=()=>
     {
         try
         {
-        axios.get("https://landzone-server.onrender.com/disableshow")
+        axios.get("https://landzone-server.onrender.com/levelsdata")
         .then((result) => {
             sdisen(result.data)
-        })
-        axios.get("https://landzone-server.onrender.com/saveadminlist")
-        .then((result)=>
-        {
-            scheck(result.data)
         })
         axios.get("https://landzone-server.onrender.com/adminlist")
         .then((result)=>
@@ -135,6 +127,7 @@ export const Adminusermanage=()=>
                        {
                         disen.filter(user=>(user.Gmail).includes(select)||(user.Name).includes(select)).map((enable,index)=>
                         (
+                            enable.__v===1?
                             <tr>
                                 <td><b>{index+1}</b></td>
                                 <td style={{paddingLeft:'15%',width:"80%"}}>
@@ -148,7 +141,7 @@ export const Adminusermanage=()=>
                                     <button id={enable.Gmail} onClick={Disapprove} onClickCapture={(e)=>sapprove(enable)} style={{ margin: "2% 0% 0% 100%", width: '100%', height: '4vh', backgroundColor: 'orangered', color: 'white',border:'none', borderRadius:'20px',display:'none'}}>Disable As Admin</button>
                                    </td>
                                 </td>
-                            </tr>
+                            </tr>:<b></b>
                         ))
                        }
                        <tr>
@@ -162,15 +155,16 @@ export const Adminusermanage=()=>
                             <th>Select admin</th>
                         </tr>
                         {
-                            check.map((admin,index)=>
+                            disen.map((admin,index)=>
                             (
+                                admin.__v===2?
                                 <tr style={{color:'green'}}>
                                     <td>{index+1}</td>
                                     <td>{admin.Gmail}</td>
                                     <td>
                                     <button id={admin.Gmail+1} onClick={Mainadmin} onClickCapture={(e)=>sapprove(admin)} style={{width: '100%', height: '4vh', backgroundColor: 'yellow', color: 'green',border:'none', borderRadius:'20px'}}><b>Select</b></button>
                                     </td>
-                                </tr>
+                                </tr>:<b></b>
                             ))
                         }
                     </div>

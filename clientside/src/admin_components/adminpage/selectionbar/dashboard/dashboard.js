@@ -240,6 +240,7 @@ export const Dashboard=()=>
             {
              const result=await axios.post("https://landzone-server.onrender.com/crecur/"+gmal+"/"+cor+"/"+land)
              {
+                console.log(result)
                  result?alert(cor+" "+land +" instance has been created and sent for approval"):alert("Try again");
                  window.location.reload(5);
              }
@@ -316,8 +317,7 @@ export const Dashboard=()=>
                 {
                     const res1=axios.post("https://landzone-server.onrender.com/updateshowvalues/"+gmal+"/"+usd+"/"+pendg+"/"+unit+"/"+limit+"/"+totalland+"/"+landpend+"/"+landunit+"/"+landlimit)
                     {
-                        console.log(res1)
-                        if(res1.data)
+                        if(res1)
                         {
                             alert("Sucessfully saved")
                         }

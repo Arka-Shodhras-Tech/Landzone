@@ -162,3 +162,17 @@ app.post('/delecurr',async(req,res)=>
     const details=await db.collection('create_currency').deleteMany()
    res.json(details);
 })
+
+app.post('/enableadmin/:name/:gmail/:password/:cpassword/:phonenumber',async(req,res)=>
+{
+   try
+   {
+    const details=await db.collection("adminlogin").insertOne({Name:req.params.name,Gmail:req.params.gmail,Password:req.params.password,Cpassword:req.params.cpassword,Phone_Number:req.params.phonenumber})&&
+    db.collection("saved_adminlogin").insertOne({Name:req.params.name,Gmail:req.params.gmail,Password:req.params.password,Cpassword:req.params.cpassword,Phone_Number:req.params.phonenumber})
+    res.json(details);
+   }
+   catch(e)
+   {
+    console.log(e);
+   }
+})
