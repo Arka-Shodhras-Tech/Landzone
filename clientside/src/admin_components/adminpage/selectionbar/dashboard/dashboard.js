@@ -288,7 +288,7 @@ export const Dashboard=()=>
                  localStorage.avil=res.data.AvailableIneUSD;
                  localStorage.unit=res.data.CreatedIneUSD;
                  localStorage.usd=res.data.TotalValueIneUSD;
-                 localStorage.totalland=res.data.TotalValueInLand;
+                //  localStorage.totalland=res.data.TotalValueInLand;
                  localStorage.landpend=res.data.PendingInLand;
                  localStorage.landunit=res.data.CreatedInLand;
                  localStorage.landlimit=res.data.AvailableInLand;
@@ -305,8 +305,6 @@ export const Dashboard=()=>
     {
         document.getElementById('prevlist').style.display="block";
     }
-
-
     // *************************************************Save Values*********************************************//
     const Save=async()=>
     {
@@ -340,13 +338,13 @@ export const Dashboard=()=>
         {
             if(vpp.In==="Land")
             {
-                localStorage.landpend=parseInt(landpend)-parseInt(vpp.Units);
-                localStorage.landunit=parseInt(landunit*currentland)+parseInt(vpp.Units);
+                localStorage.landpend=parseInt(landpend)-parseInt(vpp.Value);
+                localStorage.landunit=parseInt(landunit*currentland)+parseInt(vpp.Value);
             }
             else
             {
-                localStorage.pendg=parseInt(pendg)-parseInt(vpp.Units);
-                localStorage.unit=parseInt(unit)+parseInt(vpp.Units);
+                localStorage.pendg=parseInt(pendg)-parseInt(vpp.Value);
+                localStorage.unit=parseInt(unit)+parseInt(vpp.Value);
             }
             localStorage.limit=0;
             const viewpp=await axios.post("https://landzone-server.onrender.com/viewpp/"+vpp.Gmail+"/"+vpp.Value+"/"+vpp.In)
