@@ -2,8 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Footer, Navbar } from "../../../home/nav&foot&contact&about/navbar";
 import { Comp } from "../../asidebar/asidebar";
+import { useNavigate } from "react-router-dom";
 export const Adminusermanage=()=>
 {
+    const nav=useNavigate();
     const [disen,sdisen]=useState([]);
     const [approve,sapprove]=useState([]);
     const [adminlist,sadminlist]=useState([]);
@@ -54,9 +56,10 @@ export const Adminusermanage=()=>
        {
         const responce=await axios.post("https://landzone-server.onrender.com/approvesuperadmin/"+approve.Gmail)&&
         await axios.post("https://landzone-server.onrender.com/approveadmin/"+localStorage.mainadmin)
-        if(responce.data)
+        if(responce)
         {
             alert("Sucessfully Admited");
+            nav('/');
         }
        }
        catch(e)

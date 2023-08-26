@@ -223,3 +223,9 @@ if(responce.data)
         alert("Refresh Page");
     }
 }
+
+const responce1=await axios.get("https://landzone-server.onrender.com/mainadmin1/"+gmail)
+if(responce1.data)
+{
+    localStorage.mainadmin=responce1.data.Gmail;
+}

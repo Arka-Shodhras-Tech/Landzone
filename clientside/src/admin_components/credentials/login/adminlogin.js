@@ -14,18 +14,24 @@ export const Adminlogin=()=>
         {
             if(emailtest.test(gmail))
         {
-            const responce=await axios.get("https://landzone-server.onrender.com/adminlogin/"+gmail+"/"+password);
-            if(responce.data)
+            const responce=await axios.get("https://landzone-server.onrender.com/check/"+gmail);
+            if(responce.data.Password===password)
             {
+                if(responce.data.__v===3)
+                {
+                    localStorage.mainadmin=responce.data.Gmail;
+                    localStorage.adminmail=responce.data.Gmail;
+                    localStorage.name = responce.data.Lastname;
+                    nav('/adminpage')
+                    window.location.reload(3);
+                }
+                else
+                {
                 localStorage.name = responce.data.Lastname;
                 localStorage.adminmail=responce.data.Gmail;
-                const responce1=await axios.get("https://landzone-server.onrender.com/mainadmin1/"+gmail)
-                if(responce1.data)
-                {
-                    localStorage.mainadmin=responce1.data.Gmail;
-                }
                 nav('/adminpage')
                 window.location.reload(3);
+                }
         }
         else{
             serror("password or mail incorrect")
