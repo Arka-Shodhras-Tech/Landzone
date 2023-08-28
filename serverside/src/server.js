@@ -38,7 +38,7 @@ app.get('/check/:gmail',async(req,res)=>//mail check in register
 app.get('/checklogin/:gmail/:password',async(req,res)=>//mail check in register
 {
     const details=await db.collection('User_Data').findOne({Gmail:req.params.gmail});
-    const passwordMatch = await bcrypt.compare(req.params.password,details.data.Password)
+    const passwordMatch = await bcrypt.compare(req.params.password,details.Password)
     {
         if(passwordMatch)
         {
