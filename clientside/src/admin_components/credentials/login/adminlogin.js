@@ -25,12 +25,17 @@ export const Adminlogin=()=>
                     nav('/adminpage')
                     window.location.reload(3);
                 }
-                else
+                else if(responce.data.__v===2)
                 {
+                localStorage.mainadmin='';
                 localStorage.name = responce.data.Lastname;
                 localStorage.adminmail=responce.data.Gmail;
                 nav('/adminpage')
                 window.location.reload(3);
+                }
+                else
+                {
+                    nav('/userlogin');
                 }
         }
         else{

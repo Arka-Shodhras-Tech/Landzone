@@ -407,7 +407,7 @@ export const Usermanage=()=>
                                         val3.__v===1?
                                         <tr>
                                             <td><b>{index + 1}</b></td>
-                                            <td><b>{val3.Lastname}</b></td>
+                                            <td><b>{val3.Firstname+val3.Lastname}</b></td>
                                             <td><b>{val3.Gmail}</b></td>
                                             <td><b>{val3.Phonenumber}</b></td>
                                             <td style={{height:'60px'}}>

@@ -54,12 +54,20 @@ export const Adminusermanage=()=>
     {
        try
        {
-        const responce=await axios.post("https://landzone-server.onrender.com/approvesuperadmin/"+approve.Gmail)&&
+        let confirm=prompt("Enter your email id");
+        if(confirm===localStorage.mainadmin)
+        {
+            const responce=await axios.post("https://landzone-server.onrender.com/approvesuperadmin/"+approve.Gmail)&&
         await axios.post("https://landzone-server.onrender.com/approveadmin/"+localStorage.mainadmin)
         if(responce)
         {
             alert("Sucessfully Admited");
             nav('/');
+        }
+        else
+        {
+            alert("Enter correct super admin mail");
+        }
         }
        }
        catch(e)

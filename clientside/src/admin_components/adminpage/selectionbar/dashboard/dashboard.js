@@ -250,6 +250,10 @@ export const Dashboard=()=>
              console.log(e);
             }
         }
+        else
+        {
+            alert("Only "+total+" Available");
+        }
     }
 
 
