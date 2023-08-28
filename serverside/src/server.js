@@ -42,7 +42,7 @@ app.get('/checklogin/:gmail/:password',async(req,res)=>
     {
         if(passwordMatch)
         {
-            return res.json({Password:passwordMatch});
+            return res.json(details);
         }
     }
 })
