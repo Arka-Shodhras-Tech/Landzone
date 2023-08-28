@@ -1,6 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 import { connectToDB, db } from './database.js';
+import bcrypt from 'bcrypt';
 const app=express();
 app.use(express.json());
 app.use(cors());
@@ -13,11 +14,12 @@ try
 //************************************************** user data server ***********************************************//
 app.post('/register/:fname/:lname/:gmail/:password/:phonenumber',async(req,res)=>//register
 {
+    const hashedPassword = await bcrypt.hash(req.params.password, 10);
     const details=await db.collection('User_Data').insertOne({
         Firstname:req.params.fname,
         Lastname:req.params.lname,
         Gmail:req.params.gmail,
-        Password:req.params.password,
+        Password:hashedPassword,
         Phonenumber:req.params.phonenumber,
         PasswordResetToken:req.params=' ',
         PasswordResetExpires:{date:new Date()},
@@ -189,13 +191,13 @@ app.post('/updatenames/:gmail/:name',async(req,res)=>
 //approve to level 2 && approve as admins
 app.post('/approveadmin/:gmail',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=2}})
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=2,isAdmin:req.params=true}})
     res.json(details);
 })
 //approve to level 3 && approve as superadmin
 app.post('/approvesuperadmin/:gmail',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=3}})
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=3,isAdmin:req.params=true}})
     res.json(details);
 })
 

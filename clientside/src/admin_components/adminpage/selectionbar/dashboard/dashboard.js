@@ -10,7 +10,7 @@ export const Dashboard=()=>
     const gmal=localStorage.adminmail;
     const unit=localStorage.unit;
     const pendg=localStorage.pendg;
-    // const avil=localStorage.avil;
+    const avil=localStorage.avil;
     const usd=localStorage.usd;
     const limit=localStorage.limit;
     const total=localStorage.total;
@@ -224,17 +224,19 @@ export const Dashboard=()=>
     {
         localStorage.p=0;
         localStorage.q=0;
-        if(cor<=parseInt(total))
-        {
-            if(land==="Land")
+            if(land==="Land" && cor<=parseInt(landlimit))
             {
                 localStorage.landpend=parseInt(landpend)+parseInt(cor);
                 scor(cor);
             }
-            else
+            else if(cor<=parseInt(limit))
             {
                 localStorage.pendg=parseInt(pendg)+parseInt(cor);
                 scor(cor);
+            }
+            else
+            {
+                alert("Only "+total+" Available");
             }
             try
             {
@@ -248,12 +250,7 @@ export const Dashboard=()=>
             catch(e)
             {
              console.log(e);
-            }
-        }
-        else
-        {
-            alert("Only "+total+" Available");
-        }
+            }       
     }
 
 
@@ -262,9 +259,7 @@ export const Dashboard=()=>
     {
         localStorage.unit=0;
         localStorage.pendg=0;
-        localStorage.avil=0;
         localStorage.usd=0;
-        localStorage.limit=0;
         localStorage.landpend=0;
         localStorage.landunit=0;
        try
@@ -293,7 +288,6 @@ export const Dashboard=()=>
                  localStorage.avil=res.data.AvailableIneUSD;
                  localStorage.unit=res.data.CreatedIneUSD;
                  localStorage.usd=res.data.TotalValueIneUSD;
-                //  localStorage.totalland=res.data.TotalValueInLand;
                  localStorage.landpend=res.data.PendingInLand;
                  localStorage.landunit=res.data.CreatedInLand;
                  localStorage.landlimit=res.data.AvailableInLand;

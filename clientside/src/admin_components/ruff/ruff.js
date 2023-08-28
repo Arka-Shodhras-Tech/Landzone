@@ -69,7 +69,9 @@ const [pt,spt]=useState(0);
                     </NavLink>
                         </div> */}
 
-
+                        app.listen(3001, () => {
+                            console.log('Server is running on port 3001');
+                          });
 
 
 app.get('/saveadmincheck/:gmail',async(req,res)=>//mail check
