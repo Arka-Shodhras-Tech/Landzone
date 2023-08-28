@@ -44,6 +44,10 @@ app.get('/checklogin/:gmail/:password',async(req,res)=>
         {
             return res.json(details);
         }
+        else
+        {
+            return res.json({err:"email or password incorrect"});
+        }
     }
 })
 app.post('/update/:gmail/:password',async(req,res)=>

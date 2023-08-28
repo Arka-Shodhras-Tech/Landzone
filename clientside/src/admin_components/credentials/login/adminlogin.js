@@ -15,7 +15,6 @@ export const Adminlogin=()=>
             if(emailtest.test(gmail))
         {
             const responce=await axios.get("https://landzone-server.onrender.com/checklogin/"+gmail+"/"+password);
-            console.log(responce.data)
             if(responce.data)
             {
                 if(responce.data.__v===3)
@@ -39,8 +38,9 @@ export const Adminlogin=()=>
                     nav('/userlogin');
                 }
         }
-        else{
-            serror("password or mail incorrect")
+        if(responce.data.err)
+        {
+            alert("password or mail incorrect")
         }
         }
         else
