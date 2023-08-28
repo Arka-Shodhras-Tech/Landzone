@@ -42,10 +42,9 @@ app.get('/checklogin/:gmail/:password',async(req,res)=>//mail check in register
     {
         if(passwordMatch)
         {
-            res.json(details);
+            return res.json({Password:passwordMatch});
         }
     }
-    res.json(details);
 })
 
 // Admin data server//
