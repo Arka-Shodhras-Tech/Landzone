@@ -35,7 +35,7 @@ app.get('/check/:gmail',async(req,res)=>//mail check in register
     const details=await db.collection('User_Data').findOne({Gmail:req.params.gmail});
     res.json(details);
 })
-app.get('/checklogin/:gmail/:password',async(req,res)=>//mail check in register
+app.get('/checklogin/:gmail/:password',async(req,res)=>
 {
     const details=await db.collection('User_Data').findOne({Gmail:req.params.gmail});
     const passwordMatch = await bcrypt.compare(req.params.password,details.Password)
@@ -46,7 +46,11 @@ app.get('/checklogin/:gmail/:password',async(req,res)=>//mail check in register
         }
     }
 })
-
+app.post('/update/:gmail/:password',async(req,res)=>
+{
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Password:req.params.password}})
+    res.json(details);
+})
 // Admin data server//
 app.get('/adminlogin/:mail/:password',async(req,res)=>//login
 {

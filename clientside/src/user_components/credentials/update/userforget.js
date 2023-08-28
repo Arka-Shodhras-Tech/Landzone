@@ -19,7 +19,7 @@ export const Userupdate=()=>{
                {
                 if(password===cpassword)
                 {
-                    const responce=await axios.post("https://landzone-server.onrender.com/update/"+gmail+"/"+password+"/"+cpassword)
+                    const responce=await axios.post("https://landzone-server.onrender.com/update/"+gmail+"/"+password)
                     if(responce.data)
                         {
                              nav('/userlogin');  

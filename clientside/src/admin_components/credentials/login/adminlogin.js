@@ -15,7 +15,8 @@ export const Adminlogin=()=>
             if(emailtest.test(gmail))
         {
             const responce=await axios.get("https://landzone-server.onrender.com/checklogin/"+gmail+"/"+password);
-            if(responce)
+            console.log(responce.data)
+            if(responce.data)
             {
                 if(responce.data.__v===3)
                 {
