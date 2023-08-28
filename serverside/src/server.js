@@ -48,7 +48,8 @@ app.get('/checklogin/:gmail/:password',async(req,res)=>
 })
 app.post('/update/:gmail/:password',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Password:req.params.password}})
+    const hashedPassword = await bcrypt.hash(req.params.password, 10);
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{Password:hashedPassword}})
     res.json(details);
 })
 // Admin data server//
