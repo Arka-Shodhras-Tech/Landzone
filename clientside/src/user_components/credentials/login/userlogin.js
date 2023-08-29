@@ -18,7 +18,7 @@ export const Userlogin=()=>
                 if (responce.data) {
                     localStorage.name = responce.data.Lastname;
                     localStorage.gmail = responce.data.Gmail;
-                    nav("/gamep")
+                    nav("/orders")
                 }
                 else {
                     serror("password or mail incorrect")

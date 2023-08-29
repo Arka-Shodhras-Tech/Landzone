@@ -24,10 +24,11 @@ app.post('/register/:fname/:lname/:gmail/:password/:phonenumber',async(req,res)=
         PasswordResetToken:req.params=' ',
         PasswordResetExpires:{date:new Date()},
         isAdmin:req.params=false,
-        isApproved:req.params='',
+        isApproved:req.params=false,
          __v:req.params=0,
          accountNumber:req.params='',
-         isVerified:req.params=true})
+         isVerified:req.params=true
+        })
     res.json(details);
 })
 app.get('/check/:gmail',async(req,res)=>//mail check in register
@@ -190,13 +191,13 @@ app.get('/approvecheck/:gmail',async(req,res)=>
 //disapprove from 1 level to 0 level
 app.post('/user/:gmail',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=0}})
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=0,isApproved:false}})
     res.json(details);
 })
 //approve to level 1 && approve users
 app.post('/approveuser/:gmail',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=1}})
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=1,isApproved:true}})
     res.json(details);
 })
 //update users names
@@ -211,13 +212,13 @@ app.post('/updatenames/:gmail/:name',async(req,res)=>
 //approve to level 2 && approve as admins
 app.post('/approveadmin/:gmail',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=2,isAdmin:req.params=true}})
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=2,isAdmin:true}})
     res.json(details);
 })
 //approve to level 3 && approve as superadmin
 app.post('/approvesuperadmin/:gmail',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=3,isAdmin:req.params=true}})
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=3,isAdmin:true}})
     res.json(details);
 })
 
@@ -302,12 +303,12 @@ app.get('/gettransfer',async(req,res)=>
 // Enter project data
 app.post('/enterdata/:proname/:prodesc/:provalue/:procn/:prost/:proloc/:propost/:proreg/:procou/:protime',async(req,res)=>
 {
-    const details=await db.collection('entereddata').insertOne({project_name:req.params.proname,project_desc:req.params.prodesc,project_value:req.params.provalue,project_cadaster:req.params.procn,project_address:{Street:req.params.prost,City:req.params.proloc,Postal:req.params.propost,State:req.params.proreg,Country:req.params.procou},project_takentime:req.params.protime})
+    const details=await db.collection('Projectdetails').insertOne({project_name:req.params.proname,project_desc:req.params.prodesc,project_value:req.params.provalue,project_cadaster:req.params.procn,project_address:{Street:req.params.prost,City:req.params.proloc,Postal:req.params.propost,State:req.params.proreg,Country:req.params.procou},project_takentime:req.params.protime})
     res.json(details);
 })
 app.get("/entercheckdata/:proname",async(req,res)=>
 {
-    const details=await db.collection('entereddata').findOne({project_name:req.params.proname})
+    const details=await db.collection('Projectdetails').findOne({project_name:req.params.proname})
     res.json(details);
 })
 
@@ -315,7 +316,7 @@ app.get("/entercheckdata/:proname",async(req,res)=>
 
 app.post('/updatedata/:proname/:prodesc/:provalue/:procn/:prost/:proloc/:propost/:proreg/:procou/:protime',async(req,res)=>
 {
-    const details=await db.collection('entereddata').findOneAndUpdate({project_name:req.params.proname},{$set:{project_desc:req.params.prodesc,project_value:req.params.provalue,project_cadaster:req.params.procn,project_address:{Street:req.params.prost,City:req.params.proloc,Postal:req.params.propost,State:req.params.proreg,Country:req.params.procou},project_changetime:req.params.protime}})
+    const details=await db.collection('Projectdetails').findOneAndUpdate({project_name:req.params.proname},{$set:{project_desc:req.params.prodesc,project_value:req.params.provalue,project_cadaster:req.params.procn,project_address:{Street:req.params.prost,City:req.params.proloc,Postal:req.params.propost,State:req.params.proreg,Country:req.params.procou},project_changetime:req.params.protime}})
     res.json(details);
 })
 
@@ -324,7 +325,7 @@ app.post('/updatedata/:proname/:prodesc/:provalue/:procn/:prost/:proloc/:propost
 
 app.get('/showdata',async(req,res)=>
 {
-    const details=await db.collection('entereddata').find().toArray()
+    const details=await db.collection('Projectdetails').find().toArray()
     res.json(details);
 })
 
@@ -392,6 +393,48 @@ app.get('/pymtretrive',async(req,res)=>
     const details=await db.collection('payment').find().toArray()
     res.json(details);
 })
+
+
+
+// ************************************** User orders *********************************************//
+app.post('/order',async(req,res)=>
+{
+    const details=await db.collection('Orders').insertOne(
+        {
+              currencyUnit:
+              {
+                selectedCurrency: "LAND",
+                pricePerUnit: 2
+              },
+              orderId: "3fc9bbda-5966-4d5b-a1a9-cf49e5fca2f9",
+              numberOfUnits: 1,
+              subTotal: 200,
+              transactionFee: 100,
+              totalAmount: 300,
+              paymentMethod: "card",
+              currency: "USD",
+              orderStatus: "Completed",
+              orderCreatedDate:
+              {
+                $date:new Date()
+              },
+              clientSecret: "pi_1NgPKPIg4pmrRoyPf9kqSySZ_secret_EgmbB7on3lBK0PJI1LUtnKhcQ",
+              paymentIntentId: "pi_1NgPKPIg4pmrRoyPf9kqSySZ",
+              paymentCode: "89",
+              isApproved:false,
+              __v: 0
+        }
+    )
+    res.json(details);
+})
+
+
+
+
+
+
+
+
 
 
 //delete data//..

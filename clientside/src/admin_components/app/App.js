@@ -14,6 +14,7 @@ import Login from '../home/login';
 import { About, Contact } from '../home/nav&foot&contact&about/con_abt';
 import './App.css';
 import './responsive.css';
+import { Order } from '../../user_components/Orders/order';
 function App() {
   return (
     <>
@@ -34,6 +35,7 @@ function App() {
       <Route exact path='/landmanage' element={(localStorage.adminmail===''?<Adminlogin/>:<Landmanage/>)}/>
       <Route exact path='/adminusermanage' element={(localStorage.adminmail===''?<Adminlogin/>:<Adminusermanage/>)}/>
       <Route exact path='/unitmanage' element={(localStorage.adminmail===''?<Adminlogin/>:<Unitmanage/>)}/>
+      <Route path='/orders' element={<Order/>}/>
     </Routes>
     </BrowserRouter>
     </>
