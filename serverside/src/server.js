@@ -399,28 +399,25 @@ app.get('/pymtretrive',async(req,res)=>
 // ************************************** User orders *********************************************//
 app.post('/order',async(req,res)=>
 {
-    const details=await db.collection('Orders').insertOne(
-        {
-              currencyUnit:
-              {
-                selectedCurrency: "",
+    const details=await db.collection('Orders').insertOne({
+              currencyUnit:{
+                selectedCurrency:" ",
                 pricePerUnit: 2
               },
-              orderId: "",
+              orderId:" ",
               numberOfUnits: 1,
               subTotal: 200,
               transactionFee: 100,
               totalAmount: 300,
-              paymentMethod: "",
-              currency: "",
-              orderStatus: "",
-              orderCreatedDate:
-              {
+              paymentMethod:" ",
+              currency:" ",
+              orderStatus:" ",
+              orderCreatedDate:{
                 $date:new Date()
               },
-              clientSecret: "",
-              paymentIntentId: "",
-              paymentCode: "89",
+              clientSecret:" ",
+              paymentIntentId:" ",
+              paymentCode:"89",
               isApproved:false,
               __v: 0
         }

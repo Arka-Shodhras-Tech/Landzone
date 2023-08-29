@@ -497,7 +497,7 @@ section
 .profile
 {
     width: 300px;
-    height: 40vh;
+    height: 20vh;
     background-color: azure;
     margin-left: 20%;
     position:absolute;
@@ -514,5 +514,5 @@ section
     border-radius: 5px;
     background-color:rgb(255, 82, 82);
     text-decoration: none;
-    margin-left: 25vh;
+    margin-left: 15vh;
 }
