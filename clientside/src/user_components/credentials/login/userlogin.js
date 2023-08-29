@@ -13,7 +13,7 @@ export const Userlogin=()=>
     const Show=async()=>{
         if(emailtest.test(gmail))
         {
-            const responce=await axios.get("https://landzone-server.onrender.com/login/"+gmail+"/"+password)
+            const responce=await axios.get("https://landzone-server.onrender.com/checklogin/"+gmail+"/"+password)
             {
                 if (responce.data) {
                     localStorage.name = responce.data.Lastname;

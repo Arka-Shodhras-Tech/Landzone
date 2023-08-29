@@ -67,8 +67,9 @@ export const Landmanage=()=>
         localStorage.q=0;
        try
        {
+        const responce=await axios.get("https://landzone-server.onrender.com/entercheckdata/"+epn)
         {
-            if(await axios.get("https://landzone-server.onrender.com/entercheckdata/"+epn))
+            if(responce.data)
             {
                 serr1("Project name Existed please enter different project name")
             }

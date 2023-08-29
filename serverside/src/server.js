@@ -403,23 +403,23 @@ app.post('/order',async(req,res)=>
         {
               currencyUnit:
               {
-                selectedCurrency: "LAND",
+                selectedCurrency: "",
                 pricePerUnit: 2
               },
-              orderId: "3fc9bbda-5966-4d5b-a1a9-cf49e5fca2f9",
+              orderId: "",
               numberOfUnits: 1,
               subTotal: 200,
               transactionFee: 100,
               totalAmount: 300,
-              paymentMethod: "card",
-              currency: "USD",
-              orderStatus: "Completed",
+              paymentMethod: "",
+              currency: "",
+              orderStatus: "",
               orderCreatedDate:
               {
                 $date:new Date()
               },
-              clientSecret: "pi_1NgPKPIg4pmrRoyPf9kqSySZ_secret_EgmbB7on3lBK0PJI1LUtnKhcQ",
-              paymentIntentId: "pi_1NgPKPIg4pmrRoyPf9kqSySZ",
+              clientSecret: "",
+              paymentIntentId: "",
               paymentCode: "89",
               isApproved:false,
               __v: 0
