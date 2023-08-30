@@ -13,7 +13,6 @@ export const Unitmanage=()=>
     const Orderlist=async()=>
     {
         document.getElementById('tansdetail').style.display="block";
-        document.getElementById('userdetail').style.display="none";
     }
     const Approve=async()=>
     {
