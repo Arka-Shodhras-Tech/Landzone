@@ -16,7 +16,9 @@ export const Unitmanage=()=>
     }
     const Approve=async()=>
     {
-        const responce=await axios.get("https://landzone-server.onrender.com/ordercheck/"+apdata.id.$sid)
+        try
+        {
+            const responce=await axios.get("https://landzone-server.onrender.com/ordercheck/"+apdata.id.$sid)
         {
             if(responce.data)
             {
@@ -29,6 +31,11 @@ export const Unitmanage=()=>
                     alert("Approve");
                 }
             }
+        }
+        }
+        catch(e)
+        {
+            console.log(e);
         }
     }
     useEffect(() => {
