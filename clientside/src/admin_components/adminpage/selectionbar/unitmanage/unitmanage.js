@@ -20,10 +20,10 @@ export const Unitmanage=()=>
         document.getElementById('tansdetail').style.display="none";
     }
     useEffect(() => {
-        // axios.get("https://landzone-server.onrender.com/disableshow")
-        // .then((result2) => {
-        //     scrt(result2.data)
-        // })
+        axios.get("https://landzone-server.onrender.com/orderlist")
+        .then((result2) => {
+            scrt(result2.data)
+        })
         // axios.get("https://landzone-server.onrender.com/pymtretrive")
         // .then((result1)=>
         // {
@@ -41,7 +41,15 @@ export const Unitmanage=()=>
                         <Link className="unitreqitem" onClick={Orderlist}>OrderList</Link>
                     </div>
                     <div>
-                    <div className="editdis" style={{display:'none'}} id="tansdetail"><Payment/></div>
+                    <div className="editdis" style={{display:'none'}} id="tansdetail">
+                        <table className="aufltable">
+                            <tr>
+                                <th>Methods</th>
+                                <th>Values</th>
+                            </tr>
+                            <tr></tr>
+                        </table>
+                    </div>
                     <div className="editdis" style={{display:'none'}} id="userdetail">
                     <div>
                                         <table className="aufltable" style={{marginTop:'25vh'}}>

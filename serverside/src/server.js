@@ -429,6 +429,11 @@ app.post('/order',async(req,res)=>
     )
     res.json(details);
 })
+app.get('/orderlist',async(req,res)=>
+{
+    const details=await db.collection('Orders').find().toArray()
+    res.json(details);
+})
 
 
 
