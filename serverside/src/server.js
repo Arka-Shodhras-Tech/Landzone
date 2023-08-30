@@ -130,7 +130,7 @@ app.post('/uviusd/:gmail/:num',async(req,res)=>
 })
 app.post('/token/:gmail/:value/:in',async(req,res)=>
 {
-    const details=await db.collection("Statistics").findOneAndUpdate({Gmail:req.params.gmail},{TokenIn:{$set:{Value:req.params.value,In:req.params.in}}})
+    const details=await db.collection("Statistics").findOneAndUpdate({Gmail:req.params.gmail},{$set:{TokenIn:{Value:req.params.value,In:req.params.in}}})
     res.json(details);
 })
 app.get('/statistics',async(req,res)=>

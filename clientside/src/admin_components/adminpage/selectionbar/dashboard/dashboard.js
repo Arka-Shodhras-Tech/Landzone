@@ -213,7 +213,7 @@ export const Dashboard=()=>
         {
             localStorage.token=num;
             localStorage.unit=unit-num;
-            localStorage.tokeninusd=unit;
+            localStorage.tokeninusd=num;
             const res=axios.post("https://landzone-server.onrender.com/token/"+localStorage.adminmail+"/"+unit+"/"+land)
             {
                 res.data?alert(token+"sucessfully Convert in USD"):<b></b>
