@@ -24,11 +24,6 @@ export const Unitmanage=()=>
         .then((result2) => {
             scrt(result2.data)
         })
-        // axios.get("https://landzone-server.onrender.com/pymtretrive")
-        // .then((result1)=>
-        // {
-        //     spymt(result1.data)
-        // })
     }, [])
     return(
         <>
@@ -44,10 +39,59 @@ export const Unitmanage=()=>
                     <div className="editdis" style={{display:'none'}} id="tansdetail">
                         <table className="aufltable">
                             <tr>
+                                <th>SNO</th>
                                 <th>Methods</th>
                                 <th>Values</th>
                             </tr>
-                            <tr></tr>
+                           {
+                            crt.map((val,index)=>
+                            (
+                                <>
+                                <tr>
+                                <td style={{color:'red'}}><b>{index}</b></td>
+                                </tr>
+                                 <tr>
+                                <td><b>orderId</b></td>
+                                <td>{val.orderId}</td>
+                            </tr>
+                            <tr>
+                                <td><b>NumberOfUnits</b></td>
+                                <td>{val.numberOfUnits}</td>
+                            </tr>
+                            <tr>
+                                <td><b>SubTotal</b></td>
+                                <td>{val.subTotal}</td>
+                            </tr>
+                            <tr>
+                                <td><b>TransactionFee</b></td>
+                                <td>{val.transactionFee}</td>
+                            </tr>
+                            <tr>
+                                <td><b>TotalAmount</b></td>
+                                <td>{val.totalAmount}</td>
+                            </tr>
+                            <tr>
+                                <td><b>PaymentMethod</b></td>
+                                <td>{val.paymentMethod}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Currency</b></td>
+                                <td>{val.currency}</td>
+                            </tr>
+                            <tr>
+                                <td><b>OrderStatus</b></td>
+                                <td>{val.orderStatus}</td>
+                            </tr>
+                            <tr>
+                                <td><b>OrderCreatedDate</b></td>
+                                <td>{val.orderCreatedDate.$date}</td>
+                            </tr>
+                            <td colSpan={4}>
+                                <hr></hr>
+                            </td>
+                                </>
+                            ))
+                           }
                         </table>
                     </div>
                     <div className="editdis" style={{display:'none'}} id="userdetail">
