@@ -434,7 +434,16 @@ app.get('/orderlist',async(req,res)=>
     const details=await db.collection('Orders').find().toArray()
     res.json(details);
 })
-
+app.get('/ordercheck/id',async(req,res)=>
+{
+    const details=await db.collection('Orders').findOne({id:{$sid:req.params.id}})
+    res.json(details);
+})
+app.post('/orderApprove/:id',async(req,res)=>
+{
+    const details=await db.collection('Orders').findOneAndUpdate({id:{$sid:req.params.id}},{orderStatus:"Completed"})
+    res.json(details);
+})
 
 
 

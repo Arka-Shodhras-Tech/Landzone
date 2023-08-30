@@ -16,12 +16,20 @@ export const Unitmanage=()=>
     }
     const Approve=async()=>
     {
-        console.log(apdata._id.$sid);
-       const res=await axios.post("https://landzone-server.onrender.com/orderApprove/"+apdata._id.$sid)
-       if(res)
-       {
-        alert("Approve");
-       }
+        const responce=await axios.get("https://landzone-server.onrender.com/ordercheck/"+apdata.id.$sid)
+        {
+            if(responce.data)
+            {
+                alert("Already Approved with this id");
+            }
+            else
+            {
+                const res = await axios.post("https://landzone-server.onrender.com/orderApprove/" + apdata.id.$sid)
+                if (res) {
+                    alert("Approve");
+                }
+            }
+        }
     }
     useEffect(() => {
         axios.get("https://landzone-server.onrender.com/orderlist")
