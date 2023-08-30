@@ -22,14 +22,15 @@ export const Unitmanage=()=>
         {
             if(responce.data)
             {
-                alert("Already Approved with this id");
+                const res = await axios.post("https://landzone-server.onrender.com/orderApprove/"+apdata.id.$sid)
+                if(res)
+                {
+                    alert("Approve");
+                }
             }
             else
             {
-                const res = await axios.post("https://landzone-server.onrender.com/orderApprove/" + apdata.id.$sid)
-                if (res) {
-                    alert("Approve");
-                }
+                alert("No data found");
             }
         }
         }

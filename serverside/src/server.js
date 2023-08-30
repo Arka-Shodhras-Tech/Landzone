@@ -441,7 +441,7 @@ app.get('/ordercheck/:id',async(req,res)=>
 })
 app.post('/orderApprove/:id',async(req,res)=>
 {
-    const details=await db.collection('Orders').findOneAndUpdate({id:{$sid:req.params.id}},{orderStatus:"Completed"})
+    const details=await db.collection('Orders').findOneAndUpdate({id:{$sid:req.params.id}},{$set:{orderStatus:"Completed"}})
     res.json(details);
 })
 
