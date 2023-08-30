@@ -9,7 +9,7 @@ export const Unitmanage=()=>
     const [pymt,spymt]=useState([]);
     const [crt,scrt]=useState([]);
     const gmal=localStorage.gmail;
-    const Approval_pend=async()=>
+    const Orderlist=async()=>
     {
         document.getElementById('tansdetail').style.display="block";
         document.getElementById('userdetail').style.display="none";
@@ -20,15 +20,15 @@ export const Unitmanage=()=>
         document.getElementById('tansdetail').style.display="none";
     }
     useEffect(() => {
-        axios.get("https://landzone-server.onrender.com/disableshow")
-        .then((result2) => {
-            scrt(result2.data)
-        })
-        axios.get("https://landzone-server.onrender.com/pymtretrive")
-        .then((result1)=>
-        {
-            spymt(result1.data)
-        })
+        // axios.get("https://landzone-server.onrender.com/disableshow")
+        // .then((result2) => {
+        //     scrt(result2.data)
+        // })
+        // axios.get("https://landzone-server.onrender.com/pymtretrive")
+        // .then((result1)=>
+        // {
+        //     spymt(result1.data)
+        // })
     }, [])
     return(
         <>
@@ -38,8 +38,7 @@ export const Unitmanage=()=>
                 <Comp/>
                 <section>
                     <div className="unitreq">
-                        <Link className="unitreqitem" onClick={Approval_pend}>Approval Pending</Link>
-                        <Link className="unitreqitem" onClick={Approved}>Approved</Link>
+                        <Link className="unitreqitem" onClick={Orderlist}>OrderList</Link>
                     </div>
                     <div>
                     <div className="editdis" style={{display:'none'}} id="tansdetail"><Payment/></div>

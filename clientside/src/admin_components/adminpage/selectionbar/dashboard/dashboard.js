@@ -19,6 +19,8 @@ export const Dashboard=()=>
     const landunit=localStorage.landunit;
     const landlimit=localStorage.landlimit;
     const currentland=localStorage.currentland;
+    const tokeninland=localStorage.tokeninland;
+    const tokeninusd=localStorage.tokeninusd;
     const token=localStorage.token;
     const uc=localStorage.usercount;
     const pc=localStorage.procount;
@@ -129,7 +131,7 @@ export const Dashboard=()=>
         }
         if(parseInt(q)===0)
         {
-            localStorage.landlimit=parseFloat(totalland/currentland)-(parseInt(landpend)+parseFloat(landunit)*val)
+            localStorage.landlimit=parseFloat(totalland)-(parseInt(landpend)+parseFloat(landunit))
             localStorage.q=q+1;   
         }
         document.getElementById('cc').style.display='none';
@@ -200,7 +202,8 @@ export const Dashboard=()=>
         {
             localStorage.token=num;
             localStorage.landunit=landunit-num*currentland;
-            const res=axios.post("https://landzone-server.onrender.com/token/"+localStorage.adminmail+"/"+landunit+"/"+land)
+            localStorage.tokeninland=num;
+            const res=axios.post("https://landzone-server.onrender.com/token/"+localStorage.adminmail+"/"+num+"/"+land)
             {
                 res.data? alert(token+"sucessfully Convert in LAND"):<b></b>
                 window.location.reload(4);
@@ -210,6 +213,7 @@ export const Dashboard=()=>
         {
             localStorage.token=num;
             localStorage.unit=unit-num;
+            localStorage.tokeninusd=unit;
             const res=axios.post("https://landzone-server.onrender.com/token/"+localStorage.adminmail+"/"+unit+"/"+land)
             {
                 res.data?alert(token+"sucessfully Convert in USD"):<b></b>
@@ -283,14 +287,12 @@ export const Dashboard=()=>
          {
              if(res.data)
              {
-                 localStorage.limit=res.data.AvailableIneUSD;
                  localStorage.pendg=res.data.PendingIneUSD;
                  localStorage.avil=res.data.AvailableIneUSD;
                  localStorage.unit=res.data.CreatedIneUSD;
                  localStorage.usd=res.data.TotalValueIneUSD;
                  localStorage.landpend=res.data.PendingInLand;
                  localStorage.landunit=res.data.CreatedInLand;
-                 localStorage.landlimit=res.data.AvailableInLand;
                  window.location.reload(5);
              }
          }
@@ -577,7 +579,6 @@ export const Dashboard=()=>
                                             <td>{totalland}</td>
                                             <td>{landunit}</td>
                                             <td>{landpend}</td>
-                                            <td>{landlimit}</td>
                                         </tr>
                                         <tr style={{color:'green'}}>
                                             <td style={{color:'blue'}}><b>eUSD</b></td>
@@ -633,7 +634,7 @@ export const Dashboard=()=>
                                     <td><b>Enter the number of Tokens Create::</b></td>
                                     <td>
                                     <label>
-                                        <input type="number" onChange={(e) => { snum(e.target.value) }} />
+                                        <input type="number" onChange={(e) => {snum(e.target.value) }} />
                                         <select id="land" name="currency" value={land} onChange={(e) => sland(e.target.value)}>
                                             <option> Choose Currency</option>
                                             <option value="Land">Land</option>
@@ -648,9 +649,37 @@ export const Dashboard=()=>
                                 <br/>
                                 <br/>
                                 <tr>
-                                    <td><b>Currency In Tokens::</b>{token} 1 token value = 1 land and usd value</td>
+                                    <td><b>Currency In Tokens::</b>{token} //1 token value = 1 land and usd value</td>
                                     <td></td>
                                 </tr>
+
+                                <div style={{textAlign:'center',margin:'8% 0% 0% 12%'}}>
+                                    <table>
+                                        <tr>
+                                        <th>Currency</th>
+                                        <th>Number of Created Units Available</th>
+                                        <th>Units Pending approval</th>
+                                        </tr>
+                                        <tr style={{color:'navy'}}>
+                                            <td style={{height:'12vh',color:'blue',borderLeft:'1px solid red'}}><b>Land</b></td>
+                                            <td style={{borderLeft:'1px solid '}}>{landunit}</td>
+                                            <td  style={{borderLeft:'1px solid blue',borderRight:'1px solid red'}}>{tokeninland}</td>
+                                        </tr>
+                                        <tr style={{color:'green'}}>
+                                            <td style={{color:'blue',borderLeft:'1px solid red'}}><b>eUSD</b></td>
+                                            <td style={{borderLeft:'1px solid blue'}}>{unit}</td>
+                                            <td style={{borderLeft:'1px solid blue',borderRight:'1px solid red'}}>{tokeninusd}</td>
+                                        </tr>
+                                    </table>
+                                    {/* <tr>
+                                        <td>
+                                        Please save your statical values and try trail methods
+                                        </td>
+                                        <td style={{width:'30%'}}>
+                                        <button onClick={Save} style={{ margin: "5% 0% 0% 55%", width: '50%', height: '4vh', backgroundColor: 'green', color: 'white' }}><b>Save</b></button>
+                                        </td>
+                                    </tr> */}
+                            </div>
                             </div>
                 </section>
             </div>
