@@ -416,7 +416,7 @@ app.post('/order',async(req,res)=>
               totalAmount: 300,
               paymentMethod:" ",
               currency:" ",
-              orderStatus:" ",
+              orderStatus:"Pending",
               orderCreatedDate:{
                 $date:new Date()
               },

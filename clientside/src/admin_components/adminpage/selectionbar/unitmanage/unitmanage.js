@@ -6,7 +6,8 @@ import { Comp } from "../../asidebar/asidebar";
 import { Payment } from "./payment/payment";
 export const Unitmanage=()=>
 {
-    const [pymt,spymt]=useState([]);
+    // const [pymt,spymt]=useState([]);
+    const [apdata,sapdata]=useState([]);
     const [crt,scrt]=useState([]);
     const gmal=localStorage.gmail;
     const Orderlist=async()=>
@@ -14,10 +15,14 @@ export const Unitmanage=()=>
         document.getElementById('tansdetail').style.display="block";
         document.getElementById('userdetail').style.display="none";
     }
-    const Approved=async()=>
+    const Approve=async()=>
     {
-        document.getElementById('userdetail').style.display="block";
-        document.getElementById('tansdetail').style.display="none";
+        console.log(apdata._id.$sid);
+       const res=await axios.post("https://landzone-server.onrender.com/orderApprove/"+apdata._id.$sid)
+       if(res)
+       {
+        alert("Approve");
+       }
     }
     useEffect(() => {
         axios.get("https://landzone-server.onrender.com/orderlist")
@@ -86,6 +91,11 @@ export const Unitmanage=()=>
                                 <td><b>OrderCreatedDate</b></td>
                                 <td>{val.orderCreatedDate.$date}</td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <button onClick={Approve} onClickCapture={(e)=>{sapdata(val)}}>Approve</button>
+                                </td>
+                            </tr>
                             <td colSpan={4}>
                                 <hr></hr>
                             </td>
@@ -94,7 +104,7 @@ export const Unitmanage=()=>
                            }
                         </table>
                     </div>
-                    <div className="editdis" style={{display:'none'}} id="userdetail">
+                    {/* <div className="editdis" style={{display:'none'}} id="userdetail">
                     <div>
                                         <table className="aufltable" style={{marginTop:'25vh'}}>
                                             <tr>
@@ -154,7 +164,7 @@ export const Unitmanage=()=>
                                         }
                                     </table>
                                     </div>
-                    </div>
+                    </div> */}
                     </div>
                 </section>
             </div>
