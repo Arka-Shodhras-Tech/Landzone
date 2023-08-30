@@ -202,8 +202,8 @@ export const Dashboard=()=>
         {
             localStorage.token=num;
             localStorage.landunit=landunit-num*currentland;
-            localStorage.tokeninland=num;
-            const res=axios.post("https://landzone-server.onrender.com/token/"+localStorage.adminmail+"/"+num+"/"+land)
+            localStorage.tokeninland=parseInt(tokeninland)+parseInt(num);
+            const res=axios.post("https://landzone-server.onrender.com/token/"+localStorage.adminmail+"/"+localStorage.tokeninland+"/"+land)
             {
                 res.data? alert(token+"sucessfully Convert in LAND"):<b></b>
                 window.location.reload(4);
@@ -213,8 +213,8 @@ export const Dashboard=()=>
         {
             localStorage.token=num;
             localStorage.unit=unit-num;
-            localStorage.tokeninusd=num;
-            const res=axios.post("https://landzone-server.onrender.com/token/"+localStorage.adminmail+"/"+unit+"/"+land)
+            localStorage.tokeninusd=parseInt(tokeninusd)+parseInt(num);
+            const res=axios.post("https://landzone-server.onrender.com/token/"+localStorage.adminmail+"/"+tokeninusd+"/"+land)
             {
                 res.data?alert(token+"sucessfully Convert in USD"):<b></b>
             }
@@ -579,6 +579,7 @@ export const Dashboard=()=>
                                             <td>{totalland}</td>
                                             <td>{landunit}</td>
                                             <td>{landpend}</td>
+                                            <td>{landlimit}</td>
                                         </tr>
                                         <tr style={{color:'green'}}>
                                             <td style={{color:'blue'}}><b>eUSD</b></td>
@@ -658,7 +659,7 @@ export const Dashboard=()=>
                                         <tr>
                                         <th>Currency</th>
                                         <th>Number of Created Units Available</th>
-                                        <th>Units Pending approval</th>
+                                        <th>Number of Tokens Created</th>
                                         </tr>
                                         <tr style={{color:'navy'}}>
                                             <td style={{height:'12vh',color:'blue',borderLeft:'1px solid red'}}><b>Land</b></td>

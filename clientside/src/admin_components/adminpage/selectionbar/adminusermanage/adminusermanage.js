@@ -114,7 +114,7 @@ export const Adminusermanage=()=>
                        {
                         disen.filter(user=>(user.Gmail).includes(select)||(user.Name).includes(select)).map((enable,index)=>
                         (
-                            enable.isApproved===true || enable.isAdmin===true?
+                            enable.isApproved===true&&enable.isSuperAdmin===false || enable.isAdmin===true?
                             <tr>
                                 <td><b>{index+1}</b></td>
                                 <td style={{paddingLeft:'15%',width:"80%"}}>

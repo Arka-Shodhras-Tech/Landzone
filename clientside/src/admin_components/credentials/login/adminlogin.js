@@ -17,7 +17,7 @@ export const Adminlogin=()=>
             const responce=await axios.get("https://landzone-server.onrender.com/checklogin/"+gmail+"/"+password);
             if(responce.data.err!=="email or password incorrect")
             {
-                if(responce.data.__v===3)
+                if(responce.data.isSuperAdmin===true)
                 {
                     localStorage.mainadmin=responce.data.Gmail;
                     localStorage.adminmail=responce.data.Gmail;
@@ -25,7 +25,7 @@ export const Adminlogin=()=>
                     nav('/adminpage')
                     window.location.reload(3);
                 }
-                else if(responce.data.__v===2)
+                else if(responce.isAdmin===true)
                 {
                 localStorage.mainadmin='';
                 localStorage.name = responce.data.Lastname;
