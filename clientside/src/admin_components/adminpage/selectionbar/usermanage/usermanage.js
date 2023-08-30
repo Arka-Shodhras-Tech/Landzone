@@ -289,7 +289,7 @@ export const Usermanage=()=>
                                             </tr>
                                             {
                                                 dat.map((val1) => (
-                                                  val1.__v===0?
+                                                  val1.isApproved===''?
                                                   <>
                                                   <tr>
                                                       <td colSpan={2}><hr style={{height:'10px',backgroundColor:'lightblue'}}/></td>

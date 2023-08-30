@@ -80,10 +80,11 @@ app.post('/adminregister/:fname/:lname/:gmail/:password/:phonenumber',async(req,
         PasswordResetToken:' ',
         PasswordResetExpires:{date:new Date()},
         isAdmin:false,
-        isApproved:' ',
+        isApproved:false,
         __v:0,
         accountNumber:' ',
-        isVerified:true})
+        isVerified:true
+    })
     res.json(details);
 })
 //displays users data
@@ -192,13 +193,13 @@ app.get('/approvecheck/:gmail',async(req,res)=>
 //disapprove from 1 level to 0 level
 app.post('/user/:gmail',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:0,isApproved:true}})
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:0,isApproved:false}})
     res.json(details);
 })
 //approve to level 1 && approve users
 app.post('/approveuser/:gmail',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:1,isApproved:true,isAdmin:false,isSuperAdmin:false}})
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:1,isApproved:false,isAdmin:false,isSuperAdmin:false}})
     res.json(details);
 })
 //update users names
