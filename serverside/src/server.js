@@ -21,13 +21,14 @@ app.post('/register/:fname/:lname/:gmail/:password/:phonenumber',async(req,res)=
         Gmail:req.params.gmail,
         Password:hashedPassword,
         Phonenumber:req.params.phonenumber,
-        PasswordResetToken:req.params=' ',
+        PasswordResetToken:' ',
         PasswordResetExpires:{date:new Date()},
-        isAdmin:req.params=false,
-        isApproved:req.params=false,
-         __v:req.params=0,
-         accountNumber:req.params='',
-         isVerified:req.params=true
+        isSuperAdmin:false,
+        isAdmin:false,
+        isApproved:false,
+         __v:0,
+         accountNumber:' ',
+         isVerified:true
         })
     res.json(details);
 })
@@ -76,13 +77,13 @@ app.post('/adminregister/:fname/:lname/:gmail/:password/:phonenumber',async(req,
         Gmail:req.params.gmail,
         Password:req.params.password,
         Phonenumber:req.params.phonenumber,
-        PasswordResetToken:req.params='',
+        PasswordResetToken:' ',
         PasswordResetExpires:{date:new Date()},
-        isAdmin:req.params=false,
-        isApproved:req.params='',
-        __v:req.params=0,
-        accountNumber:req.params='',
-        isVerified:req.params=true})
+        isAdmin:false,
+        isApproved:' ',
+        __v:0,
+        accountNumber:' ',
+        isVerified:true})
     res.json(details);
 })
 //displays users data
@@ -100,17 +101,17 @@ app.post('/eviusd/:gmail/:num',async(req,res)=>
     const details=await db.collection('Statistics').insertOne({
         Gmail:req.params.gmail,
         ValueOfUSD:req.params.num,
-        TotalValueInLand:req.params='',
-        TotalValueIneUSD:req.params='',
-        CreatedInLand:req.params='',
-        CreatedIneUSD:req.params='',
-        PendingInLand:req.params='',
-        PendingIneUSD:req.params='',
-        AvailableInLand:req.params='',
-        AvailableIneUSD:req.params='',
+        TotalValueInLand:0,
+        TotalValueIneUSD:0,
+        CreatedInLand:0,
+        CreatedIneUSD:0,
+        PendingInLand:0,
+        PendingIneUSD:0,
+        AvailableInLand:0,
+        AvailableIneUSD:0,
         TokenIn:{
-            Value:req.params='',
-            In:req.params=''
+            Value:0,
+            In:0
         },
         __L:req.params=0
     })
@@ -191,13 +192,13 @@ app.get('/approvecheck/:gmail',async(req,res)=>
 //disapprove from 1 level to 0 level
 app.post('/user/:gmail',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=0,isApproved:false}})
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:0,isApproved:true}})
     res.json(details);
 })
 //approve to level 1 && approve users
 app.post('/approveuser/:gmail',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=1,isApproved:true}})
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:1,isApproved:true,isAdmin:false,isSuperAdmin:false}})
     res.json(details);
 })
 //update users names
@@ -212,13 +213,13 @@ app.post('/updatenames/:gmail/:name',async(req,res)=>
 //approve to level 2 && approve as admins
 app.post('/approveadmin/:gmail',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=2,isAdmin:true}})
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=2,isAdmin:true,isSuperAdmin:false}})
     res.json(details);
 })
 //approve to level 3 && approve as superadmin
 app.post('/approvesuperadmin/:gmail',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=3,isAdmin:true}})
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:req.params=3,isAdmin:false,isSuperAdmin:true}})
     res.json(details);
 })
 
