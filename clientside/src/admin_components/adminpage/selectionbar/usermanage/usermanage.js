@@ -102,7 +102,7 @@ export const Usermanage=()=>
         {
             const responce=await axios.get("https://landzone-server.onrender.com/approvecheck/"+approve.Gmail)
             {
-                if(responce.data.__v===1)
+                if(responce.data.isApproved===true)
                 {
                     alert(approve.Gmail+" Already approve\nPlease refresh page");
                 }
@@ -134,7 +134,7 @@ export const Usermanage=()=>
         document.getElementById('reasondisplay').style.display='block';
         const responce=await axios.get("https://landzone-server.onrender.com/approvecheck/"+edit.Gmail)
         {
-            if(responce.data.__v===1)
+            if(responce.data.isApproved===true)
             {
                await axios.post("https://landzone-server.onrender.com/user/"+edit.Gmail)?alert("Disabled user"): alert("Try again")
             }
@@ -289,7 +289,7 @@ export const Usermanage=()=>
                                             </tr>
                                             {
                                                 dat.map((val1) => (
-                                                  val1.isApproved===''?
+                                                  val1.isApproved===false?
                                                   <>
                                                   <tr>
                                                       <td colSpan={2}><hr style={{height:'10px',backgroundColor:'lightblue'}}/></td>
@@ -331,7 +331,7 @@ export const Usermanage=()=>
                                 </tr>
                                 {
                                     dat.map((apv, index) => (
-                                        apv.__v===1?
+                                        apv.isApproved===true?
                                         <tr>
                                             <td><b>{index + 1}</b></td>
                                             <td><b>{apv.Firstname+" "+apv.Lastname}</b></td>
@@ -356,7 +356,7 @@ export const Usermanage=()=>
                                         <table className="aufltable">
                                             {
                                                 dat.map((val2) => (
-                                                    val2.__v===1?
+                                                    val2.isApproved===true?
                                                     <>
                                                     <tr>
                                                         <td height='160px' width={'280px'}>
@@ -404,7 +404,7 @@ export const Usermanage=()=>
                                 </tr>
                                 {
                                     dat.map((val3, index) => (
-                                        val3.__v===1?
+                                        val3.isApproved===true?
                                         <tr>
                                             <td><b>{index + 1}</b></td>
                                             <td><b>{val3.Firstname+val3.Lastname}</b></td>

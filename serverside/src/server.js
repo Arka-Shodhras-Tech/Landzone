@@ -199,7 +199,7 @@ app.post('/user/:gmail',async(req,res)=>
 //approve to level 1 && approve users
 app.post('/approveuser/:gmail',async(req,res)=>
 {
-    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:1,isApproved:false,isAdmin:false,isSuperAdmin:false}})
+    const details=await db.collection('User_Data').findOneAndUpdate({Gmail:req.params.gmail},{$set:{__v:1,isApproved:true,isAdmin:false,isSuperAdmin:false}})
     res.json(details);
 })
 //update users names
