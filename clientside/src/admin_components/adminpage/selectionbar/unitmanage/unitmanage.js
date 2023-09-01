@@ -18,21 +18,29 @@ export const Unitmanage=()=>
     {
         try
         {
-            const responce=await axios.get("https://landzone-server.onrender.com/ordercheck/"+apdata.id.$sid)
-        {
-            if(responce.data)
+            if(apdata.Bank_ref===null || apdata.Cyrpto_ref===null || apdata.creditcard_ref===null)
             {
-                const res = await axios.post("https://landzone-server.onrender.com/orderApprove/"+apdata.id.$sid)
-                if(res)
-                {
-                    alert("Approve");
-                }
+                alert('Error, No payment')
             }
             else
             {
-                alert("No data found");
+                const responce=await axios.get("https://landzone-server.onrender.com/ordercheck/"+apdata.id.$sid)
+                {
+                    if(responce.data)
+                    {
+                        console.log(apdata.id.$sid)
+                        const res=await axios.post("https://landzone-server.onrender.com/orderApprove/"+apdata.id.$sid)
+                        if(res)
+                        {
+                            alert("Approve");
+                        }
+                    }
+                    else
+                    {
+                        alert("No data found");
+                    }
+                }
             }
-        }
         }
         catch(e)
         {
@@ -66,8 +74,6 @@ export const Unitmanage=()=>
                            {
                             crt.map((val,index)=>
                             (
-                                val.Bank_ref===null || val.Cyrpto_ref===null || val.creditcard_ref===null?
-                                alert('Error, No payment'):
                                 <>
                                 <tr>
                                 <td style={{color:'red'}}><b>{index}</b></td>
