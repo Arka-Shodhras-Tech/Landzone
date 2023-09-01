@@ -421,12 +421,23 @@ app.post('/order',async(req,res)=>
                 $date:new Date()
               },
               clientSecret:" ",
-              paymentIntentId:" ",
+              paymentIntentId:0,
+              Bank_ref:null,
+              Cyrpto_ref:null,
+              creditcard_ref:null,
               paymentCode:"89",
               isApproved:false,
               __v: 0
         }
-    )
+    )&&
+    await db.collection('OrderPersonds').insertOne({
+        id:{
+            $sid:1234
+          },
+        name:"user",
+        email:'usermail',
+        refrenceNumber:1234
+    })
     res.json(details);
 })
 app.get('/orderlist',async(req,res)=>

@@ -66,6 +66,8 @@ export const Unitmanage=()=>
                            {
                             crt.map((val,index)=>
                             (
+                                val.Bank_ref===null || val.Cyrpto_ref===null || val.creditcard_ref===null?
+                                alert('Error, No payment'):
                                 <>
                                 <tr>
                                 <td style={{color:'red'}}><b>{index}</b></td>
